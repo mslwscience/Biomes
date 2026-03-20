@@ -1,0 +1,903 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>How to Read a Climatograph · 7th Grade Science</title>
+<link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@700;800&family=Nunito:wght@500;600;700;800&display=swap" rel="stylesheet">
+<style>
+:root{
+  --dark:#18243a; --border:#dce5f0;
+  --blue:#1a7abf; --blue-lt:#e3f1fc;
+  --green:#2d8a4e; --green-lt:#e7f5ec;
+  --sun:#e8a020; --sun-lt:#fef8e6;
+  --rain:#3a9bd5; --rain-lt:#e5f4fd;
+  --fire:#d94f2b; --fire-lt:#fde9e4;
+  --ice:#4fa8cc; --ice-lt:#e4f3fa;
+  --purple:#6b3fa0; --purple-lt:#f0eafc;
+  --radius:14px; --text:#1a2235;
+}
+*{box-sizing:border-box;margin:0;padding:0;}
+body{
+  font-family:'Nunito',sans-serif;
+  background:#eef2f8;
+  color:var(--text);
+  font-size:16px;
+  line-height:1.7;
+}
+
+/* HEADER */
+header{
+  background:var(--dark);
+  color:#fff;
+  padding:26px 20px 20px;
+  text-align:center;
+  position:relative;
+  overflow:hidden;
+}
+header::after{
+  content:'';position:absolute;bottom:0;left:0;right:0;height:4px;
+  background:linear-gradient(90deg,var(--green),var(--blue),var(--sun),var(--fire));
+}
+header h1{font-family:'Baloo 2',cursive;font-size:2rem;font-weight:800;}
+header p{font-size:.88rem;opacity:.7;margin-top:4px;}
+
+/* PROGRESS */
+.topbar{
+  background:#fff;border-bottom:2px solid var(--border);
+  padding:8px 18px;display:flex;align-items:center;gap:12px;
+  position:sticky;top:0;z-index:200;
+  box-shadow:0 2px 10px rgba(0,0,0,.06);font-size:.87rem;font-weight:700;
+}
+.part-chip{background:var(--dark);color:#fff;border-radius:99px;padding:3px 14px;font-size:.73rem;white-space:nowrap;}
+.prog-wrap{flex:1;background:#e5eaf5;border-radius:99px;height:9px;overflow:hidden;}
+.prog-fill{height:100%;border-radius:99px;background:linear-gradient(90deg,var(--green),var(--blue));transition:width .4s;width:0%;}
+
+/* NAV */
+.nav-dots{display:flex;justify-content:center;gap:8px;margin:0 0 20px;flex-wrap:wrap;}
+.dot{width:13px;height:13px;border-radius:50%;background:#ccc;cursor:pointer;transition:all .2s;}
+.dot.active{background:var(--blue);transform:scale(1.35);}
+.dot.done{background:var(--green);}
+
+/* LAYOUT */
+main{max-width:900px;margin:0 auto;padding:24px 16px 70px;}
+.sec{display:none;animation:fadeUp .35s ease;}
+.sec.show{display:block;}
+@keyframes fadeUp{from{opacity:0;transform:translateY(14px)}to{opacity:1;transform:none}}
+
+/* CARDS */
+.card{background:#fff;border-radius:var(--radius);border:2px solid var(--border);margin-bottom:22px;overflow:hidden;box-shadow:0 4px 18px rgba(0,0,0,.06);}
+.ch{padding:14px 22px;color:#fff;font-family:'Baloo 2',cursive;font-size:1.2rem;font-weight:800;display:flex;align-items:center;gap:10px;}
+.ch .badge{margin-left:auto;background:rgba(255,255,255,.22);border-radius:99px;padding:2px 12px;font-family:'Nunito',sans-serif;font-size:.72rem;font-weight:700;}
+.hb{background:linear-gradient(135deg,#1362a0,#1a7abf);}
+.hg{background:linear-gradient(135deg,#207040,#2d8a4e);}
+.ho{background:linear-gradient(135deg,#c07818,#e8a020);}
+.hr{background:linear-gradient(135deg,#2276a8,#3a9bd5);}
+.hd{background:linear-gradient(135deg,#18243a,#2d3f5c);}
+.cb{padding:18px 22px;}
+
+/* INFO BOXES */
+.ib{border-radius:10px;padding:12px 16px;margin:10px 0;display:flex;gap:10px;align-items:flex-start;font-size:.92rem;}
+.ib .ic{font-size:1.35rem;flex-shrink:0;margin-top:2px;}
+.sky{background:var(--blue-lt);border-left:4px solid var(--blue);}
+.grn{background:var(--green-lt);border-left:4px solid var(--green);}
+.snn{background:var(--sun-lt);border-left:4px solid var(--sun);}
+.rnn{background:var(--rain-lt);border-left:4px solid var(--rain);}
+.fir{background:var(--fire-lt);border-left:4px solid var(--fire);}
+.ice{background:var(--ice-lt);border-left:4px solid var(--ice);}
+.pur{background:var(--purple-lt);border-left:4px solid var(--purple);}
+
+/* GRAPH WRAPPER */
+.graph-wrap{
+  background:#fafbff;border-radius:12px;
+  border:2px solid var(--border);
+  padding:14px 12px 10px;margin:14px 0;
+}
+.graph-title{
+  text-align:center;font-family:'Baloo 2',cursive;
+  font-size:1.05rem;font-weight:800;margin-bottom:2px;
+}
+.graph-sub{text-align:center;font-size:.78rem;color:#888;margin-bottom:10px;}
+.graph-wrap svg{display:block;max-width:100%;width:100%;height:auto;}
+.g-legend{display:flex;gap:16px;justify-content:center;margin-top:8px;flex-wrap:wrap;}
+.g-leg{display:flex;align-items:center;gap:6px;font-size:.8rem;font-weight:700;}
+.lb{width:16px;height:10px;border-radius:3px;}
+.ll{width:22px;height:3px;border-radius:2px;position:relative;}
+
+/* CALLOUT ANNOTATIONS */
+.callout-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin:12px 0;}
+@media(max-width:560px){.callout-grid{grid-template-columns:1fr;} .cmp-grid{grid-template-columns:1fr!important;}}
+.callout{
+  border-radius:10px;padding:11px 14px;
+  display:flex;gap:9px;align-items:flex-start;font-size:.87rem;
+}
+.callout .cnum{
+  width:26px;height:26px;border-radius:50%;
+  display:flex;align-items:center;justify-content:center;
+  font-weight:800;font-size:.82rem;flex-shrink:0;margin-top:1px;
+  color:#fff;
+}
+
+/* EXAMPLE BIOME CARDS */
+.biome-nav{display:flex;gap:7px;flex-wrap:wrap;margin-bottom:14px;}
+.bnav-btn{
+  border-radius:99px;padding:7px 15px;border:2px solid var(--border);
+  background:#fff;cursor:pointer;font-family:'Nunito',sans-serif;
+  font-weight:700;font-size:.83rem;transition:all .18s;
+}
+.bnav-btn:hover{border-color:var(--blue);background:var(--blue-lt);}
+.bnav-btn.active{color:#fff;border-color:transparent;}
+
+.biome-panel{display:none;}
+.biome-panel.show{display:block;animation:fadeUp .3s ease;}
+
+.biome-header{
+  border-radius:12px;padding:14px 18px;
+  margin-bottom:12px;display:flex;gap:14px;align-items:center;flex-wrap:wrap;
+}
+.biome-emoji{font-size:2.4rem;flex-shrink:0;}
+.biome-header h3{font-family:'Baloo 2',cursive;font-size:1.15rem;font-weight:800;margin-bottom:3px;}
+.biome-header p{font-size:.87rem;line-height:1.55;opacity:.88;}
+
+/* WHAT TO LOOK FOR BOX */
+.look-box{
+  background:#f7f9ff;border:2px solid var(--border);
+  border-radius:10px;padding:12px 16px;margin:10px 0;
+}
+.look-box h4{
+  font-family:'Baloo 2',cursive;font-size:.95rem;
+  margin-bottom:8px;color:var(--dark);
+}
+.look-row{
+  display:flex;gap:9px;align-items:flex-start;
+  padding:5px 0;border-bottom:1px solid #edf0f8;font-size:.88rem;
+}
+.look-row:last-child{border:none;}
+.look-dot{
+  width:10px;height:10px;border-radius:50%;flex-shrink:0;margin-top:6px;
+}
+
+/* BUTTONS */
+.btn{display:inline-flex;align-items:center;gap:7px;padding:10px 20px;border-radius:9px;border:none;cursor:pointer;font-family:'Nunito',sans-serif;font-weight:800;font-size:.94rem;transition:all .18s;}
+.bb{background:var(--blue);color:#fff;}.bb:hover{background:#1362a0;transform:translateY(-1px);}
+.bg{background:var(--green);color:#fff;}.bg:hover{background:#207040;}
+.bgy{background:#e0e5f0;color:#444;}.bgy:hover{background:#c8d0e0;}
+.btn-row{display:flex;gap:9px;flex-wrap:wrap;margin-top:14px;}
+hr.rule{border:none;border-top:2px dashed var(--border);margin:14px 0;}
+
+/* FF */
+.ff{background:var(--sun-lt);border:2px solid var(--sun);border-radius:10px;padding:11px 16px;margin:11px 0;font-size:.9rem;}
+.ff .ffl{font-weight:800;color:#7a5200;margin-bottom:3px;}
+
+@media print{
+  .topbar,.nav-dots,.btn-row,.biome-nav{display:none!important;}
+  .sec{display:block!important;}
+  .biome-panel{display:block!important;}
+  .card{break-inside:avoid;box-shadow:none;}
+  .ch{-webkit-print-color-adjust:exact;print-color-adjust:exact;}
+}
+</style>
+</head>
+<body>
+
+<header>
+  <h1>&#128202; How to Read a Climatograph</h1>
+  <p>7th Grade Science &nbsp;&#183;&nbsp; Ohio Standard 7LS2 &nbsp;&#183;&nbsp; Biomes Unit</p>
+</header>
+
+<div class="topbar">
+  <span class="part-chip" id="partLabel">Part 1 of 3</span>
+  <div class="prog-wrap"><div class="prog-fill" id="progFill"></div></div>
+</div>
+
+<main>
+<div class="nav-dots">
+  <div class="dot active" onclick="goTo(0)" title="What is a climatograph?"></div>
+  <div class="dot" onclick="goTo(1)" title="How to read it"></div>
+  <div class="dot" onclick="goTo(2)" title="7 biome examples"></div>
+</div>
+
+<!-- ═══════════════════════════════════════════
+     SECTION 0 · WHAT IS A CLIMATOGRAPH?
+═══════════════════════════════════════════ -->
+<div class="sec show" id="s0">
+<div class="card">
+  <div class="ch hb"><span>&#128202;</span> Part 1 — What Is a Climatograph? <span class="badge">~5 min</span></div>
+  <div class="cb">
+
+    <div class="ib sky">
+      <span class="ic">&#128214;</span>
+      <div>A <strong>climatograph</strong> (also called a climate graph) is a special chart scientists use to show the climate of a place. It packs TWO types of information into one graph — how much <strong>precipitation</strong> (rain/snow) falls each month AND how warm or cold the <strong>temperature</strong> is each month.</div>
+    </div>
+
+    <div class="ib grn">
+      <span class="ic">&#128161;</span>
+      <div>By looking at a climatograph, you can figure out what <strong>biome</strong> a place belongs to — without ever visiting it! A scientist in Ohio can look at a graph from Brazil and know it is a tropical rainforest just from the pattern of bars and the line.</div>
+    </div>
+
+    <hr class="rule">
+    <p style="font-weight:800;margin-bottom:10px;">&#128073; Here is what a climatograph looks like:</p>
+
+    <div class="graph-wrap">
+      <div class="graph-title">Columbus, Ohio — An Example Climatograph</div>
+      <div class="graph-sub">12 months of real climate data — your home state!</div>
+      <svg id="introSVG" viewBox="0 0 580 270" xmlns="http://www.w3.org/2000/svg"></svg>
+      <div class="g-legend">
+        <div class="g-leg"><div class="lb" style="background:#3a9bd5;opacity:.8;"></div><span style="color:#1a6fb5;font-weight:800;">Blue bars = Precipitation (mm) &larr; read LEFT numbers</span></div>
+        <div class="g-leg"><div class="ll" style="background:#d94f2b;"></div><span style="color:#d94f2b;font-weight:800;">Red line = Temperature (&deg;C) &rarr; read RIGHT numbers</span></div>
+      </div>
+    </div>
+
+    <div class="ib rnn">
+      <span class="ic">&#128269;</span>
+      <div><strong>Notice two things:</strong> There are <strong>numbers on BOTH sides</strong> of the graph. The <span style="color:#1a6fb5;font-weight:800;">LEFT side</span> is for the blue bars (precipitation in mm). The <span style="color:#d94f2b;font-weight:800;">RIGHT side</span> is for the red line (temperature in &deg;C). They are completely different scales — do not mix them up!</div>
+    </div>
+
+    <div class="btn-row">
+      <button class="btn bb" onclick="goTo(1)">Next: How to Read It &#x27A1;</button>
+    </div>
+  </div>
+</div>
+</div>
+
+<!-- ═══════════════════════════════════════════
+     SECTION 1 · HOW TO READ IT
+═══════════════════════════════════════════ -->
+<div class="sec" id="s1">
+<div class="card">
+  <div class="ch hg"><span>&#128270;</span> Part 2 — How to Read a Climatograph <span class="badge">~7 min</span></div>
+  <div class="cb">
+
+    <div class="ib grn">
+      <span class="ic">&#127775;</span>
+      <div>There are <strong>4 key things</strong> to read from any climatograph. Once you master these, you can identify any biome just by looking at its graph!</div>
+    </div>
+
+    <div class="graph-wrap">
+      <div class="graph-title">Columbus, Ohio — Labeled &amp; Annotated</div>
+      <div class="graph-sub">Each number below matches a callout explanation</div>
+      <svg id="annotSVG" viewBox="0 0 580 300" xmlns="http://www.w3.org/2000/svg"></svg>
+    </div>
+
+    <!-- 4 callouts -->
+    <div class="callout-grid">
+      <div class="callout" style="background:#e3f1fc;border:2px solid var(--blue);">
+        <div class="cnum" style="background:var(--blue);">1</div>
+        <div><strong style="color:var(--blue);">Blue Bars = Precipitation</strong><br>Each bar shows how much rain or snow fell that month. Read the number on the LEFT side. Taller bar = more rain.</div>
+      </div>
+      <div class="callout" style="background:#fde9e4;border:2px solid var(--fire);">
+        <div class="cnum" style="background:var(--fire);">2</div>
+        <div><strong style="color:var(--fire);">Red Line = Temperature</strong><br>The dot for each month shows the average temperature. Read the number on the RIGHT side. Higher dot = warmer month.</div>
+      </div>
+      <div class="callout" style="background:#e7f5ec;border:2px solid var(--green);">
+        <div class="cnum" style="background:var(--green);">3</div>
+        <div><strong style="color:var(--green);">Tallest Bar = Rainiest Month</strong><br>Find the tallest blue bar &#8594; that is the month with the most precipitation. In Columbus, June is the rainiest (~101mm).</div>
+      </div>
+      <div class="callout" style="background:#fef8e6;border:2px solid var(--sun);">
+        <div class="cnum" style="background:var(--sun);color:#fff;">4</div>
+        <div><strong style="color:#c07818;">Peak of Line = Hottest Month</strong><br>Find where the red line is highest &#8594; that is the warmest month. In Columbus, July is hottest (~24&deg;C / 75&deg;F).</div>
+      </div>
+    </div>
+
+    <hr class="rule">
+
+    <div class="look-box">
+      <h4>&#128203; Quick Reference — 4 Questions to Ask Every Time</h4>
+      <div class="look-row"><div class="look-dot" style="background:var(--rain);"></div><div><strong>Which month has the tallest bar?</strong> &#8594; That is the rainiest month.</div></div>
+      <div class="look-row"><div class="look-dot" style="background:var(--rain);"></div><div><strong>Which month has the shortest bar?</strong> &#8594; That is the driest month.</div></div>
+      <div class="look-row"><div class="look-dot" style="background:var(--fire);"></div><div><strong>Where is the red line highest?</strong> &#8594; That is the hottest month.</div></div>
+      <div class="look-row"><div class="look-dot" style="background:var(--ice);"></div><div><strong>Where is the red line lowest?</strong> &#8594; That is the coldest month.</div></div>
+    </div>
+
+    <hr class="rule">
+
+    <!-- THREE COMPARISON GRAPHS -->
+    <p style="font-weight:800;font-size:1.05rem;margin-bottom:6px;">&#128202; Compare Three Patterns Side by Side</p>
+    <div class="ib sky">
+      <span class="ic">&#128073;</span>
+      <div>Look at the <strong>shape of the red line</strong> and the <strong>pattern of the blue bars</strong> in each graph. These shapes tell you everything about a climate!</div>
+    </div>
+
+    <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:12px;margin:14px 0;">
+
+      <!-- Seasons graph: Columbus -->
+      <div style="background:#fafbff;border-radius:10px;border:2px solid var(--border);padding:10px 8px;">
+        <div style="text-align:center;font-family:'Baloo 2',cursive;font-size:.88rem;font-weight:800;color:#6b3fa0;margin-bottom:2px;">&#127810; Has Seasons</div>
+        <div style="text-align:center;font-size:.72rem;color:#888;margin-bottom:6px;">Columbus, Ohio</div>
+        <svg id="cmpSVG0" viewBox="0 0 200 130" xmlns="http://www.w3.org/2000/svg"></svg>
+        <div style="font-size:.75rem;color:#444;margin-top:8px;line-height:1.5;padding:0 2px;">
+          <span style="color:#d94f2b;font-weight:800;">Red line arches</span> — low in winter, high in summer. That big up-and-down swing means <strong>4 clear seasons</strong>.<br>
+          <span style="color:#3a9bd5;font-weight:800;">Blue bars</span> are moderate and steady all year — rain falls in every month.
+        </div>
+      </div>
+
+      <!-- No seasons: Singapore -->
+      <div style="background:#fafbff;border-radius:10px;border:2px solid var(--border);padding:10px 8px;">
+        <div style="text-align:center;font-family:'Baloo 2',cursive;font-size:.88rem;font-weight:800;color:#2d8a4e;margin-bottom:2px;">&#127796; No Seasons</div>
+        <div style="text-align:center;font-size:.72rem;color:#888;margin-bottom:6px;">Singapore</div>
+        <svg id="cmpSVG1" viewBox="0 0 200 130" xmlns="http://www.w3.org/2000/svg"></svg>
+        <div style="font-size:.75rem;color:#444;margin-top:8px;line-height:1.5;padding:0 2px;">
+          <span style="color:#d94f2b;font-weight:800;">Red line is flat</span> — barely moves. Temperature is almost the same every month — always warm near the equator.<br>
+          <span style="color:#3a9bd5;font-weight:800;">Blue bars</span> are tall all year — it rains heavily in every month with no real dry season.
+        </div>
+      </div>
+
+      <!-- Monsoon: Mumbai -->
+      <div style="background:#fafbff;border-radius:10px;border:2px solid var(--border);padding:10px 8px;">
+        <div style="text-align:center;font-family:'Baloo 2',cursive;font-size:.88rem;font-weight:800;color:#1a7abf;margin-bottom:2px;">&#127783; Monsoon</div>
+        <div style="text-align:center;font-size:.72rem;color:#888;margin-bottom:6px;">Mumbai, India</div>
+        <svg id="cmpSVG2" viewBox="0 0 200 130" xmlns="http://www.w3.org/2000/svg"></svg>
+        <div style="font-size:.75rem;color:#444;margin-top:8px;line-height:1.5;padding:0 2px;">
+          <span style="color:#3a9bd5;font-weight:800;">Blue bars spike dramatically</span> — nearly zero rain most months, then a massive explosion of rain June-September. That spike IS the monsoon.<br>
+          <span style="color:#d94f2b;font-weight:800;">Red line</span> stays warm all year — no cold season.
+        </div>
+      </div>
+
+    </div>
+
+    <div class="ff">
+      <div class="ffl">&#128161; Remember!</div>
+      Blue bars &#8594; LEFT scale (mm / inches of precipitation). Red line &#8594; RIGHT scale (&deg;C / &deg;F temperature). They are on opposite sides on purpose — so you always know which number to read!
+    </div>
+
+    <div class="btn-row">
+      <button class="btn bgy" onclick="goTo(0)">&#x2B05; Back</button>
+      <button class="btn bb" onclick="goTo(2)">Next: See 7 Biome Examples &#x27A1;</button>
+    </div>
+  </div>
+</div>
+</div>
+
+<!-- ═══════════════════════════════════════════
+     SECTION 2 · 7 BIOME EXAMPLES
+═══════════════════════════════════════════ -->
+<div class="sec" id="s2">
+<div class="card">
+  <div class="ch ho"><span>&#127758;</span> Part 3 — 7 Climatograph Examples <span class="badge">~15 min</span></div>
+  <div class="cb">
+
+    <div class="ib snn">
+      <span class="ic">&#128073;</span>
+      <div>Click each biome button below to see its climatograph and learn what makes it unique. Study the <strong>shape of the bars</strong> and the <strong>shape of the red line</strong> — these are your clues!</div>
+    </div>
+
+    <div class="biome-nav" id="biomeNav">
+      <button class="bnav-btn active" style="background:#2d8a4e;border-color:#2d8a4e;color:#fff;" onclick="showBiome(0,this)">&#127796; Tropical Wet</button>
+      <button class="bnav-btn" onclick="showBiome(1,this)">&#127795; Desert</button>
+      <button class="bnav-btn" onclick="showBiome(2,this)">&#128293; Very Hot</button>
+      <button class="bnav-btn" onclick="showBiome(3,this)">&#10052; Very Cold</button>
+      <button class="bnav-btn" onclick="showBiome(4,this)">&#127810; Has Seasons</button>
+      <button class="bnav-btn" onclick="showBiome(5,this)">&#127796; No Seasons</button>
+      <button class="bnav-btn" onclick="showBiome(6,this)">&#127783; Monsoon</button>
+    </div>
+
+    <!-- BIOME PANELS -->
+    <div id="bp0" class="biome-panel show">
+      <div class="biome-header" style="background:#e7f5ec;border:2px solid #2d8a4e;">
+        <span class="biome-emoji">&#127796;</span>
+        <div>
+          <h3 style="color:#207040;">Tropical Rainforest — Lots of Rain All Year</h3>
+          <p style="color:#1a5c2a;">Example location: Manaus, Brazil (Amazon Rainforest)</p>
+        </div>
+      </div>
+      <div class="graph-wrap">
+        <div class="graph-title">Manaus, Brazil &mdash; Tropical Rainforest</div>
+        <div class="graph-sub">Near the equator &mdash; one of the wettest places on Earth</div>
+        <svg id="svg0" viewBox="0 0 580 260" xmlns="http://www.w3.org/2000/svg"></svg>
+        <div class="g-legend">
+          <div class="g-leg"><div class="lb" style="background:#3a9bd5;opacity:.8;"></div><span style="color:#1a6fb5;font-weight:700;">Precipitation (mm) &larr; LEFT</span></div>
+          <div class="g-leg"><div class="ll" style="background:#d94f2b;"></div><span style="color:#d94f2b;font-weight:700;">Temperature (&deg;C) &rarr; RIGHT</span></div>
+        </div>
+      </div>
+      <div class="look-box">
+        <h4>&#128270; What to Notice on This Graph</h4>
+        <div class="look-row"><div class="look-dot" style="background:#3a9bd5;"></div><div><strong>ALL bars are tall</strong> — every single month gets a lot of rain. Even the "driest" month (July, ~60mm) is still wetter than many Ohio months!</div></div>
+        <div class="look-row"><div class="look-dot" style="background:#3a9bd5;"></div><div><strong>Rainiest months are Jan&ndash;Mar</strong> (~250&ndash;260 mm each) — that is a LOT. Ohio's rainiest month is only about 112mm.</div></div>
+        <div class="look-row"><div class="look-dot" style="background:#d94f2b;"></div><div><strong>The red line is flat and high</strong> — temperature barely changes. It stays around 26&ndash;27&deg;C all year. No cold season, no hot season — just always warm!</div></div>
+        <div class="look-row"><div class="look-dot" style="background:#2d8a4e;"></div><div><strong>Result:</strong> Hot + wet all year = perfect conditions for dense forest. This is why the Amazon has more species than anywhere else on Earth.</div></div>
+      </div>
+      <div class="ib grn"><span class="ic">&#127775;</span><div><strong>Key Pattern:</strong> Tall bars every month + flat warm red line = Tropical Rainforest.</div></div>
+    </div>
+
+    <div id="bp1" class="biome-panel">
+      <div class="biome-header" style="background:#fef8e6;border:2px solid #c07818;">
+        <span class="biome-emoji">&#127795;</span>
+        <div>
+          <h3 style="color:#c07818;">Desert &mdash; Very Little Precipitation</h3>
+          <p style="color:#a06010;">Example location: Tucson, Arizona (Sonoran Desert)</p>
+        </div>
+      </div>
+      <div class="graph-wrap">
+        <div class="graph-title">Tucson, Arizona &mdash; Hot Desert</div>
+        <div class="graph-sub">Home of the saguaro cactus &mdash; very dry all year</div>
+        <svg id="svg1" viewBox="0 0 580 260" xmlns="http://www.w3.org/2000/svg"></svg>
+        <div class="g-legend">
+          <div class="g-leg"><div class="lb" style="background:#3a9bd5;opacity:.8;"></div><span style="color:#1a6fb5;font-weight:700;">Precipitation (mm) &larr; LEFT</span></div>
+          <div class="g-leg"><div class="ll" style="background:#d94f2b;"></div><span style="color:#d94f2b;font-weight:700;">Temperature (&deg;C) &rarr; RIGHT</span></div>
+        </div>
+      </div>
+      <div class="look-box">
+        <h4>&#128270; What to Notice on This Graph</h4>
+        <div class="look-row"><div class="look-dot" style="background:#3a9bd5;"></div><div><strong>ALL bars are very short</strong> — most months get only 3&ndash;25mm of rain. Compare these tiny bars to the Amazon's 60&ndash;260mm bars!</div></div>
+        <div class="look-row"><div class="look-dot" style="background:#3a9bd5;"></div><div><strong>Two small rain spikes</strong> — a little winter rain (Jan&ndash;Mar) and a small "monsoon" pulse in July&ndash;August. But both are still very small!</div></div>
+        <div class="look-row"><div class="look-dot" style="background:#d94f2b;"></div><div><strong>The red line goes up and down a lot</strong> — January is cool (~11&deg;C) but July hits ~34&deg;C. Big temperature swing between seasons.</div></div>
+        <div class="look-row"><div class="look-dot" style="background:#c07818;"></div><div><strong>Result:</strong> Very little water + hot summers = only cacti, succulents, and specially adapted animals can survive here.</div></div>
+      </div>
+      <div class="ib snn"><span class="ic">&#127775;</span><div><strong>Key Pattern:</strong> Short bars all year + red line that changes a lot = Desert. Look for the left scale being very small (max ~100mm).</div></div>
+    </div>
+
+    <div id="bp2" class="biome-panel">
+      <div class="biome-header" style="background:#fde9e4;border:2px solid var(--fire);">
+        <span class="biome-emoji">&#128293;</span>
+        <div>
+          <h3 style="color:#b03a1e;">Very Hot Climate &mdash; High Temperatures All Year</h3>
+          <p style="color:#8a2a14;">Example location: Riyadh, Saudi Arabia (Hot Desert)</p>
+        </div>
+      </div>
+      <div class="graph-wrap">
+        <div class="graph-title">Riyadh, Saudi Arabia &mdash; Extreme Heat</div>
+        <div class="graph-sub">One of the hottest cities on Earth &mdash; summer temperatures reach 42&deg;C</div>
+        <svg id="svg2" viewBox="0 0 580 260" xmlns="http://www.w3.org/2000/svg"></svg>
+        <div class="g-legend">
+          <div class="g-leg"><div class="lb" style="background:#3a9bd5;opacity:.8;"></div><span style="color:#1a6fb5;font-weight:700;">Precipitation (mm) &larr; LEFT</span></div>
+          <div class="g-leg"><div class="ll" style="background:#d94f2b;"></div><span style="color:#d94f2b;font-weight:700;">Temperature (&deg;C) &rarr; RIGHT</span></div>
+        </div>
+      </div>
+      <div class="look-box">
+        <h4>&#128270; What to Notice on This Graph</h4>
+        <div class="look-row"><div class="look-dot" style="background:#d94f2b;"></div><div><strong>The red line stays very HIGH</strong> — even the coolest month (January) is about 14&deg;C. Summer months reach 42&deg;C — that is 107&deg;F!</div></div>
+        <div class="look-row"><div class="look-dot" style="background:#d94f2b;"></div><div><strong>Red line peaks sharply in summer</strong> — the line shoots up to the top of the right scale from June through August.</div></div>
+        <div class="look-row"><div class="look-dot" style="background:#3a9bd5;"></div><div><strong>Bars are tiny or absent</strong> — most months get almost zero rain. The total for the whole year is less than 100mm.</div></div>
+        <div class="look-row"><div class="look-dot" style="background:#c07818;"></div><div><strong>Result:</strong> Extreme heat + almost no rain = very harsh. Only the most specialized desert organisms survive here.</div></div>
+      </div>
+      <div class="ib fir"><span class="ic">&#127775;</span><div><strong>Key Pattern:</strong> Red line pushed to the very top of the scale = extremely hot climate. When the RIGHT scale goes up to 45&deg;C, you know it is serious heat.</div></div>
+    </div>
+
+    <div id="bp3" class="biome-panel">
+      <div class="biome-header" style="background:var(--ice-lt);border:2px solid var(--ice);">
+        <span class="biome-emoji">&#10052;</span>
+        <div>
+          <h3 style="color:#2a6a8a;">Very Cold Climate &mdash; Low Temperatures All Year</h3>
+          <p style="color:#1a5070;">Example location: Barrow, Alaska (Arctic Tundra)</p>
+        </div>
+      </div>
+      <div class="graph-wrap">
+        <div class="graph-title">Barrow, Alaska &mdash; Arctic Tundra</div>
+        <div class="graph-sub">One of the coldest inhabited places on Earth</div>
+        <svg id="svg3" viewBox="0 0 580 260" xmlns="http://www.w3.org/2000/svg"></svg>
+        <div class="g-legend">
+          <div class="g-leg"><div class="lb" style="background:#3a9bd5;opacity:.8;"></div><span style="color:#1a6fb5;font-weight:700;">Precipitation (mm) &larr; LEFT</span></div>
+          <div class="g-leg"><div class="ll" style="background:#d94f2b;"></div><span style="color:#d94f2b;font-weight:700;">Temperature (&deg;C) &rarr; RIGHT</span></div>
+        </div>
+      </div>
+      <div class="look-box">
+        <h4>&#128270; What to Notice on This Graph</h4>
+        <div class="look-row"><div class="look-dot" style="background:#4fa8cc;"></div><div><strong>The red line stays BELOW zero most of the year</strong> — from October through May, temperatures are below 0&deg;C (freezing). The ground stays frozen!</div></div>
+        <div class="look-row"><div class="look-dot" style="background:#4fa8cc;"></div><div><strong>Only a brief warm period</strong> — July and August barely reach above 4&ndash;5&deg;C. That is the entire "summer" — only about 8 weeks!</div></div>
+        <div class="look-row"><div class="look-dot" style="background:#3a9bd5;"></div><div><strong>Bars are tiny</strong> — very little precipitation falls, and most of it is snow. Total precipitation is less than 120mm per year.</div></div>
+        <div class="look-row"><div class="look-dot" style="background:#1a7abf;"></div><div><strong>Result:</strong> Most of the year is frozen. Only mosses, lichens, and tiny flowering plants can survive. Animals must be specially adapted to extreme cold.</div></div>
+      </div>
+      <div class="ib ice"><span class="ic">&#127775;</span><div><strong>Key Pattern:</strong> Red line below zero for many months + tiny bars = Arctic Tundra. Notice the RIGHT scale goes far negative (like &minus;30&deg;C).</div></div>
+    </div>
+
+    <div id="bp4" class="biome-panel">
+      <div class="biome-header" style="background:var(--purple-lt);border:2px solid var(--purple);">
+        <span class="biome-emoji">&#127810;</span>
+        <div>
+          <h3 style="color:#4a2878;">Has Clear Seasons &mdash; Temperature Changes a Lot</h3>
+          <p style="color:#3a1a68;">Example location: Columbus, Ohio (Temperate Deciduous Forest)</p>
+        </div>
+      </div>
+      <div class="graph-wrap">
+        <div class="graph-title">Columbus, Ohio &mdash; Temperate Deciduous Forest</div>
+        <div class="graph-sub">4 clear seasons &mdash; your home biome!</div>
+        <svg id="svg4" viewBox="0 0 580 260" xmlns="http://www.w3.org/2000/svg"></svg>
+        <div class="g-legend">
+          <div class="g-leg"><div class="lb" style="background:#3a9bd5;opacity:.8;"></div><span style="color:#1a6fb5;font-weight:700;">Precipitation (mm) &larr; LEFT</span></div>
+          <div class="g-leg"><div class="ll" style="background:#d94f2b;"></div><span style="color:#d94f2b;font-weight:700;">Temperature (&deg;C) &rarr; RIGHT</span></div>
+        </div>
+      </div>
+      <div class="look-box">
+        <h4>&#128270; What to Notice on This Graph</h4>
+        <div class="look-row"><div class="look-dot" style="background:#d94f2b;"></div><div><strong>The red line makes a big arch</strong> — it starts low in winter (&minus;1&deg;C in January), climbs to a peak in summer (24&deg;C in July), then falls back down. That arch shape = 4 seasons!</div></div>
+        <div class="look-row"><div class="look-dot" style="background:#d94f2b;"></div><div><strong>Temperature difference is huge</strong> — from &minus;1&deg;C to 24&deg;C is a 25-degree swing. That is why Ohio trees lose their leaves in fall to survive the cold winter.</div></div>
+        <div class="look-row"><div class="look-dot" style="background:#3a9bd5;"></div><div><strong>Bars are moderate and steady</strong> — it rains every month (57&ndash;112mm). No extreme dry season, no extreme wet season. Spread evenly through the year.</div></div>
+        <div class="look-row"><div class="look-dot" style="background:#6b3fa0;"></div><div><strong>Result:</strong> Moderate rain + clear 4 seasons = deciduous trees (that drop leaves), seasonal animals (that hibernate or migrate), and a diverse but not tropical community.</div></div>
+      </div>
+      <div class="ib pur"><span class="ic">&#127775;</span><div><strong>Key Pattern:</strong> A big arch in the red line = clear seasons. The bigger the arch, the more dramatic the seasons.</div></div>
+    </div>
+
+    <div id="bp5" class="biome-panel">
+      <div class="biome-header" style="background:#e7f5ec;border:2px solid #2d8a4e;">
+        <span class="biome-emoji">&#127796;</span>
+        <div>
+          <h3 style="color:#207040;">No Seasons &mdash; Temperature Stays Flat All Year</h3>
+          <p style="color:#1a5c2a;">Example location: Singapore (Tropical Equatorial)</p>
+        </div>
+      </div>
+      <div class="graph-wrap">
+        <div class="graph-title">Singapore &mdash; No Seasons</div>
+        <div class="graph-sub">On the equator &mdash; nearly the same temperature every single month</div>
+        <svg id="svg5" viewBox="0 0 580 260" xmlns="http://www.w3.org/2000/svg"></svg>
+        <div class="g-legend">
+          <div class="g-leg"><div class="lb" style="background:#3a9bd5;opacity:.8;"></div><span style="color:#1a6fb5;font-weight:700;">Precipitation (mm) &larr; LEFT</span></div>
+          <div class="g-leg"><div class="ll" style="background:#d94f2b;"></div><span style="color:#d94f2b;font-weight:700;">Temperature (&deg;C) &rarr; RIGHT</span></div>
+        </div>
+      </div>
+      <div class="look-box">
+        <h4>&#128270; What to Notice on This Graph</h4>
+        <div class="look-row"><div class="look-dot" style="background:#d94f2b;"></div><div><strong>The red line is nearly FLAT</strong> — temperature stays between 26&ndash;28&deg;C every single month. There is almost no change from January to December. No winter, no summer!</div></div>
+        <div class="look-row"><div class="look-dot" style="background:#d94f2b;"></div><div><strong>Compare to Ohio's arch</strong> — Ohio's line swings 25 degrees. Singapore's line barely moves 2 degrees. That flat line is your signal: no seasons here.</div></div>
+        <div class="look-row"><div class="look-dot" style="background:#3a9bd5;"></div><div><strong>Bars are tall all year</strong> — lots of rain every month (150&ndash;300mm). High rain + constant warmth = lush tropical vegetation year-round.</div></div>
+        <div class="look-row"><div class="look-dot" style="background:#2d8a4e;"></div><div><strong>Result:</strong> Flat temperature line + tall bars = tropical with no dry season. Plants grow 365 days a year without ever stopping.</div></div>
+      </div>
+      <div class="ib grn"><span class="ic">&#127775;</span><div><strong>Key Pattern:</strong> Flat red line = no seasons. If the line barely moves across the year, the place is near the equator and stays warm all the time.</div></div>
+    </div>
+
+    <div id="bp6" class="biome-panel">
+      <div class="biome-header" style="background:var(--rain-lt);border:2px solid var(--rain);">
+        <span class="biome-emoji">&#127783;</span>
+        <div>
+          <h3 style="color:#1a5a88;">Monsoon Climate &mdash; One Extreme Wet Season</h3>
+          <p style="color:#0e3a5c;">Example location: Mumbai, India (Tropical Monsoon)</p>
+        </div>
+      </div>
+      <div class="graph-wrap">
+        <div class="graph-title">Mumbai, India &mdash; Monsoon Climate</div>
+        <div class="graph-sub">Famous for its dramatic wet season &mdash; it either pours or it is dry!</div>
+        <svg id="svg6" viewBox="0 0 580 260" xmlns="http://www.w3.org/2000/svg"></svg>
+        <div class="g-legend">
+          <div class="g-leg"><div class="lb" style="background:#3a9bd5;opacity:.8;"></div><span style="color:#1a6fb5;font-weight:700;">Precipitation (mm) &larr; LEFT</span></div>
+          <div class="g-leg"><div class="ll" style="background:#d94f2b;"></div><span style="color:#d94f2b;font-weight:700;">Temperature (&deg;C) &rarr; RIGHT</span></div>
+        </div>
+      </div>
+      <div class="look-box">
+        <h4>&#128270; What to Notice on This Graph</h4>
+        <div class="look-row"><div class="look-dot" style="background:#3a9bd5;"></div><div><strong>Bars are EXTREMELY uneven</strong> — some months are very dry (Jan&ndash;May, less than 20mm) but then suddenly June&ndash;September get enormous amounts (400&ndash;600mm per month!). This is the monsoon season.</div></div>
+        <div class="look-row"><div class="look-dot" style="background:#3a9bd5;"></div><div><strong>The spike is dramatic</strong> — July is the peak at around 617mm. That is more rain in ONE month than Columbus gets in an entire year!</div></div>
+        <div class="look-row"><div class="look-dot" style="background:#d94f2b;"></div><div><strong>Temperature stays warm but dips during monsoon</strong> — the heavy rain actually cools things slightly in July. Temperature is warm all year (24&ndash;30&deg;C) with no cold season.</div></div>
+        <div class="look-row"><div class="look-dot" style="background:#1a7abf;"></div><div><strong>Result:</strong> The most recognizable climatograph pattern! Flat or low bars for months, then a sudden enormous spike. The plants and animals are adapted to survive the long dry season AND the flood season.</div></div>
+      </div>
+      <div class="ib rnn"><span class="ic">&#127775;</span><div><strong>Key Pattern:</strong> Most months dry, then a sudden HUGE spike in bars for a few months = Monsoon. The spike is so dramatic it is impossible to miss.</div></div>
+    </div>
+
+    <hr class="rule">
+    <div class="ff">
+      <div class="ffl">&#128161; Summary — What Each Pattern Means</div>
+      <strong>Tall flat bars all year</strong> = tropical wet &nbsp;|&nbsp;
+      <strong>All bars very short</strong> = desert &nbsp;|&nbsp;
+      <strong>Red line near top of scale</strong> = very hot &nbsp;|&nbsp;
+      <strong>Red line below zero many months</strong> = very cold &nbsp;|&nbsp;
+      <strong>Red line makes a big arch</strong> = 4 seasons &nbsp;|&nbsp;
+      <strong>Red line nearly flat</strong> = no seasons &nbsp;|&nbsp;
+      <strong>Sudden giant bar spike</strong> = monsoon
+    </div>
+
+    <div class="btn-row">
+      <button class="btn bgy" onclick="goTo(1)">&#x2B05; Back</button>
+      <button class="btn bg" onclick="window.print()">&#128424;&#65039; Print</button>
+    </div>
+  </div>
+</div>
+</div>
+</main>
+
+<script>
+// ── NAV ───────────────────────────────────────────────────────────
+var cur = 0;
+var LABELS = ['Part 1 of 3 — What Is a Climatograph?','Part 2 of 3 — How to Read It','Part 3 of 3 — 7 Biome Examples'];
+function goTo(n) {
+  document.getElementById('s' + cur).classList.remove('show');
+  var dots = document.querySelectorAll('.dot');
+  if (dots[cur]) { dots[cur].classList.remove('active'); dots[cur].classList.add('done'); }
+  cur = n;
+  document.getElementById('s' + cur).classList.add('show');
+  if (dots[cur]) { dots[cur].classList.add('active'); dots[cur].classList.remove('done'); }
+  document.getElementById('partLabel').textContent = LABELS[cur] || '';
+  var pct = (cur / 2) * 100;
+  document.getElementById('progFill').style.width = pct + '%';
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+
+// ── BIOME SWITCHER ────────────────────────────────────────────────
+var biomeColors = ['#2d8a4e','#c07818','#d94f2b','#4fa8cc','#6b3fa0','#2d8a4e','#1a7abf'];
+function showBiome(idx, btn) {
+  for (var i = 0; i < 7; i++) {
+    var p = document.getElementById('bp' + i);
+    if (p) p.classList.remove('show');
+  }
+  var panel = document.getElementById('bp' + idx);
+  if (panel) panel.classList.add('show');
+  document.querySelectorAll('.bnav-btn').forEach(function(b) {
+    b.style.background = '';
+    b.style.borderColor = '';
+    b.style.color = '';
+  });
+  if (btn) {
+    btn.style.background = biomeColors[idx];
+    btn.style.borderColor = biomeColors[idx];
+    btn.style.color = '#fff';
+  }
+}
+
+// ── GRAPH BUILDER ─────────────────────────────────────────────────
+var MONTHS = ['J','F','M','A','M','J','J','A','S','O','N','D'];
+
+function buildGraph(svgId, precip, temp, maxP, minT, maxT, annotate) {
+  var svg = document.getElementById(svgId);
+  if (!svg) return;
+  var vb = svg.getAttribute('viewBox').split(' ');
+  var W = parseFloat(vb[2]), H = parseFloat(vb[3]);
+  var PL = 66, PR = 62, PT = 24, PB = 38;
+  var iW = W - PL - PR, iH = H - PT - PB;
+  var bS = iW / 12, bW = Math.floor(bS * 0.52);
+  var pSc = function(v) { return PT + iH - (v / maxP) * iH; };
+  var tSc = function(v) { return PT + iH - ((v - minT) / (maxT - minT)) * iH; };
+  var html = '';
+
+  // grid + left axis: mm (large) and inches (small, faded)
+  var pStep = Math.round(maxP / 4);
+  for (var p = 0; p <= maxP; p += pStep) {
+    var y = pSc(p);
+    html += '<line x1="' + PL + '" y1="' + y + '" x2="' + (W-PR) + '" y2="' + y + '" stroke="#e8edf8" stroke-width="1"/>';
+    html += '<text x="' + (PL-4) + '" y="' + (y+3) + '" text-anchor="end" font-size="9.5" fill="#1a6fb5" font-family="Nunito" font-weight="700">' + p + '</text>';
+    html += '<text x="' + (PL-4) + '" y="' + (y+13) + '" text-anchor="end" font-size="8" fill="#7ab0d8" font-family="Nunito" font-weight="600">' + mmToIn(p) + '"</text>';
+  }
+
+  // bars
+  precip.forEach(function(p, i) {
+    var x = PL + i * bS + (bS - bW) / 2;
+    var y = pSc(p), bh = pSc(0) - y;
+    html += '<rect x="' + x + '" y="' + y + '" width="' + bW + '" height="' + bh + '" fill="#3a9bd5" opacity="0.78" rx="2"/>';
+  });
+
+  // temp line + dots
+  var pts = temp.map(function(t, i) { return (PL + i * bS + bS / 2) + ',' + tSc(t); }).join(' ');
+  html += '<polyline points="' + pts + '" fill="none" stroke="#d94f2b" stroke-width="2.5" stroke-linejoin="round"/>';
+  temp.forEach(function(t, i) {
+    var cx = PL + i * bS + bS / 2, cy = tSc(t);
+    html += '<circle cx="' + cx + '" cy="' + cy + '" r="4" fill="#d94f2b" stroke="#fff" stroke-width="1.5"/>';
+  });
+
+  // right axis: C (large) and F (small, faded)
+  var tStep = (maxT - minT) / 4;
+  for (var ti = 0; ti <= 4; ti++) {
+    var tv = Math.round(minT + ti * tStep);
+    var ty = tSc(tv);
+    html += '<text x="' + (W-PR+4) + '" y="' + (ty+3) + '" text-anchor="start" font-size="9.5" fill="#d94f2b" font-family="Nunito" font-weight="700">' + tv + '&#xB0;C</text>';
+    html += '<text x="' + (W-PR+4) + '" y="' + (ty+14) + '" text-anchor="start" font-size="8" fill="#c07878" font-family="Nunito" font-weight="600">' + cToF(tv) + '&#xB0;F</text>';
+  }
+
+  // month labels
+  MONTHS.forEach(function(m, i) {
+    var cx = PL + i * bS + bS / 2;
+    html += '<text x="' + cx + '" y="' + (PT + iH + 16) + '" text-anchor="middle" font-size="9.5" fill="#555" font-family="Nunito" font-weight="700">' + m + '</text>';
+  });
+
+  // axis title labels
+  html += '<text x="' + PL + '" y="' + (PT-9) + '" text-anchor="start" font-size="9" fill="#1a6fb5" font-family="Nunito" font-weight="800">&#9664; mm / inches</text>';
+  html += '<text x="' + (W-PR) + '" y="' + (PT-9) + '" text-anchor="end" font-size="9" fill="#d94f2b" font-family="Nunito" font-weight="800">&#xB0;C / &#xB0;F &#9654;</text>';
+
+  // axes
+  html += '<line x1="' + PL + '" y1="' + PT + '" x2="' + PL + '" y2="' + (PT+iH) + '" stroke="#555" stroke-width="2"/>';
+  html += '<line x1="' + PL + '" y1="' + (PT+iH) + '" x2="' + (W-PR) + '" y2="' + (PT+iH) + '" stroke="#555" stroke-width="2"/>';
+  html += '<line x1="' + (W-PR) + '" y1="' + PT + '" x2="' + (W-PR) + '" y2="' + (PT+iH) + '" stroke="#d94f2b" stroke-width="1.5" opacity=".4"/>';
+
+  svg.innerHTML = html;
+}
+
+// annotated version with callout numbers
+function buildAnnotatedGraph(svgId, precip, temp, maxP, minT, maxT) {
+  var svg = document.getElementById(svgId);
+  if (!svg) return;
+  var vb = svg.getAttribute('viewBox').split(' ');
+  var W = parseFloat(vb[2]), H = parseFloat(vb[3]);
+  var PL = 66, PR = 62, PT = 28, PB = 50;
+  var iW = W - PL - PR, iH = H - PT - PB;
+  var bS = iW / 12, bW = Math.floor(bS * 0.52);
+  var pSc = function(v) { return PT + iH - (v / maxP) * iH; };
+  var tSc = function(v) { return PT + iH - ((v - minT) / (maxT - minT)) * iH; };
+  var html = '';
+
+  // grid + left axis with dual units
+  var pStep = Math.round(maxP / 4);
+  for (var p = 0; p <= maxP; p += pStep) {
+    var y = pSc(p);
+    html += '<line x1="' + PL + '" y1="' + y + '" x2="' + (W-PR) + '" y2="' + y + '" stroke="#e8edf8" stroke-width="1"/>';
+    html += '<text x="' + (PL-4) + '" y="' + (y+3) + '" text-anchor="end" font-size="9.5" fill="#1a6fb5" font-family="Nunito" font-weight="700">' + p + '</text>';
+    html += '<text x="' + (PL-4) + '" y="' + (y+13) + '" text-anchor="end" font-size="8" fill="#7ab0d8" font-family="Nunito" font-weight="600">' + mmToIn(p) + '"</text>';
+  }
+
+  // NO freeze line on annotated graph — kept clean
+
+  // bars
+  precip.forEach(function(p, i) {
+    var x = PL + i * bS + (bS - bW) / 2;
+    var y = pSc(p), bh = pSc(0) - y;
+    html += '<rect x="' + x + '" y="' + y + '" width="' + bW + '" height="' + bh + '" fill="#3a9bd5" opacity="0.78" rx="2"/>';
+  });
+
+  // temp line — drawn before callout circles so circles sit on top
+  var pts = temp.map(function(t, i) { return (PL + i * bS + bS / 2) + ',' + tSc(t); }).join(' ');
+  html += '<polyline points="' + pts + '" fill="none" stroke="#d94f2b" stroke-width="2.5" stroke-linejoin="round"/>';
+  temp.forEach(function(t, i) {
+    var cx = PL + i * bS + bS / 2, cy = tSc(t);
+    html += '<circle cx="' + cx + '" cy="' + cy + '" r="4" fill="#d94f2b" stroke="#fff" stroke-width="1.5"/>';
+  });
+
+  // callout 3 — circle sits ON the tallest bar, centered horizontally, in the middle of the bar
+  var tallIdx = 0;
+  precip.forEach(function(v,i){ if(v > precip[tallIdx]) tallIdx = i; });
+  var tallBarX = PL + tallIdx * bS + bS / 2;
+  var tallBarTopY = pSc(precip[tallIdx]);
+  var tallBarBotY = pSc(0);
+  var c3cy = (tallBarTopY + tallBarBotY) / 2;
+  html += '<circle cx="' + tallBarX + '" cy="' + c3cy + '" r="10" fill="#2d8a4e"/>';
+  html += '<text x="' + tallBarX + '" y="' + (c3cy+4) + '" text-anchor="middle" font-size="10" fill="#fff" font-family="Nunito" font-weight="800">3</text>';
+
+  // callout 4 — peak of red line — to the upper-right of peak dot
+  var peakIdx = 0;
+  temp.forEach(function(v,i){ if(v > temp[peakIdx]) peakIdx = i; });
+  var peakX = PL + peakIdx * bS + bS / 2;
+  var peakY = tSc(temp[peakIdx]);
+  var c4cx = peakX + 28, c4cy = peakY - 24;
+  html += '<line x1="' + (c4cx-8) + '" y1="' + (c4cy+8) + '" x2="' + (peakX+5) + '" y2="' + (peakY-5) + '" stroke="#c07818" stroke-width="1.5" stroke-dasharray="3,2"/>';
+  html += '<circle cx="' + c4cx + '" cy="' + c4cy + '" r="10" fill="#c07818"/>';
+  html += '<text x="' + c4cx + '" y="' + (c4cy+4) + '" text-anchor="middle" font-size="10" fill="#fff" font-family="Nunito" font-weight="800">4</text>';
+
+  // right axis with dual units
+  var tStep = (maxT - minT) / 4;
+  for (var ti = 0; ti <= 4; ti++) {
+    var tv = Math.round(minT + ti * tStep);
+    var ty = tSc(tv);
+    html += '<text x="' + (W-PR+4) + '" y="' + (ty+3) + '" text-anchor="start" font-size="9.5" fill="#d94f2b" font-family="Nunito" font-weight="700">' + tv + '&#xB0;C</text>';
+    html += '<text x="' + (W-PR+4) + '" y="' + (ty+14) + '" text-anchor="start" font-size="8" fill="#c07878" font-family="Nunito" font-weight="600">' + cToF(tv) + '&#xB0;F</text>';
+  }
+
+  // month labels
+  MONTHS.forEach(function(m, i) {
+    var cx = PL + i * bS + bS / 2;
+    html += '<text x="' + cx + '" y="' + (PT+iH+16) + '" text-anchor="middle" font-size="9.5" fill="#555" font-family="Nunito" font-weight="700">' + m + '</text>';
+  });
+
+  // axis title labels
+  html += '<text x="' + PL + '" y="' + (PT-10) + '" text-anchor="start" font-size="9" fill="#1a6fb5" font-family="Nunito" font-weight="800">&#9664; mm / inches (precipitation)</text>';
+  html += '<text x="' + (W-PR) + '" y="' + (PT-10) + '" text-anchor="end" font-size="9" fill="#d94f2b" font-family="Nunito" font-weight="800">&#xB0;C / &#xB0;F (temperature) &#9654;</text>';
+
+  // callout 1 badge on left axis
+  html += '<rect x="30" y="' + (PT+iH/2-10) + '" width="18" height="18" rx="9" fill="#1a6fb5"/>';
+  html += '<text x="39" y="' + (PT+iH/2+4) + '" text-anchor="middle" font-size="10" fill="#fff" font-family="Nunito" font-weight="800">1</text>';
+
+  // callout 2 badge on right axis
+  html += '<rect x="' + (W-PR-8) + '" y="' + (PT+iH/2-10) + '" width="18" height="18" rx="9" fill="#d94f2b"/>';
+  html += '<text x="' + (W-PR+1) + '" y="' + (PT+iH/2+4) + '" text-anchor="middle" font-size="10" fill="#fff" font-family="Nunito" font-weight="800">2</text>';
+
+  // axes
+  html += '<line x1="' + PL + '" y1="' + PT + '" x2="' + PL + '" y2="' + (PT+iH) + '" stroke="#555" stroke-width="2"/>';
+  html += '<line x1="' + PL + '" y1="' + (PT+iH) + '" x2="' + (W-PR) + '" y2="' + (PT+iH) + '" stroke="#555" stroke-width="2"/>';
+  html += '<line x1="' + (W-PR) + '" y1="' + PT + '" x2="' + (W-PR) + '" y2="' + (PT+iH) + '" stroke="#d94f2b" stroke-width="1.5" opacity=".4"/>';
+
+  svg.innerHTML = html;
+}
+
+// ── SMALL COMPARISON GRAPH BUILDER ───────────────────────────────
+function buildSmall(svgId, precip, temp, maxP, minT, maxT) {
+  var svg = document.getElementById(svgId);
+  if (!svg) return;
+  var W = 200, H = 130;
+  var PL = 28, PR = 28, PT = 10, PB = 22;
+  var iW = W - PL - PR, iH = H - PT - PB;
+  var bS = iW / 12, bW = Math.floor(bS * 0.5);
+  var pSc = function(v) { return PT + iH - (v / maxP) * iH; };
+  var tSc = function(v) { return PT + iH - ((v - minT) / (maxT - minT)) * iH; };
+  var html = '';
+
+  // light grid
+  for (var gi = 0; gi <= 4; gi++) {
+    var gy = PT + (iH / 4) * gi;
+    html += '<line x1="' + PL + '" y1="' + gy + '" x2="' + (W-PR) + '" y2="' + gy + '" stroke="#edf0f8" stroke-width="0.8"/>';
+  }
+
+  // bars
+  precip.forEach(function(p, i) {
+    var x = PL + i * bS + (bS - bW) / 2;
+    var y = pSc(p), bh = pSc(0) - y;
+    if (bh > 0) html += '<rect x="' + x + '" y="' + y + '" width="' + bW + '" height="' + bh + '" fill="#3a9bd5" opacity="0.75" rx="1"/>';
+  });
+
+  // temp line
+  var pts = temp.map(function(t, i) { return (PL + i * bS + bS / 2) + ',' + tSc(t); }).join(' ');
+  html += '<polyline points="' + pts + '" fill="none" stroke="#d94f2b" stroke-width="2" stroke-linejoin="round"/>';
+  temp.forEach(function(t, i) {
+    html += '<circle cx="' + (PL + i * bS + bS / 2) + '" cy="' + tSc(t) + '" r="2.5" fill="#d94f2b"/>';
+  });
+
+  // month labels
+  var shortM = ['J','F','M','A','M','J','J','A','S','O','N','D'];
+  shortM.forEach(function(m, i) {
+    html += '<text x="' + (PL + i * bS + bS / 2) + '" y="' + (PT+iH+13) + '" text-anchor="middle" font-size="7" fill="#777" font-family="Nunito">' + m + '</text>';
+  });
+
+  // axes
+  html += '<line x1="' + PL + '" y1="' + PT + '" x2="' + PL + '" y2="' + (PT+iH) + '" stroke="#aaa" stroke-width="1.2"/>';
+  html += '<line x1="' + PL + '" y1="' + (PT+iH) + '" x2="' + (W-PR) + '" y2="' + (PT+iH) + '" stroke="#aaa" stroke-width="1.2"/>';
+
+  svg.innerHTML = html;
+}
+
+// ── UNIT CONVERSION HELPERS ───────────────────────────────────────
+function mmToIn(mm)  { return (mm / 25.4).toFixed(1); }
+function cToF(c)     { return Math.round(c * 9/5 + 32); }
+
+// ── ALL CLIMATE DATA (precip in mm, temp in C) ────────────────────
+// Columbus: precip converted from usclimatedata.com inches × 25.4
+// Temps: avg of high/low from usclimatedata.com, converted from F
+// Jan hi=36 lo=20, Feb hi=40 lo=24, Mar hi=52 lo=32, Apr hi=63 lo=41
+// May hi=73 lo=52, Jun hi=82 lo=61, Jul hi=85 lo=65, Aug hi=84 lo=63
+// Sep hi=77 lo=56, Oct hi=65 lo=44, Nov hi=52 lo=35, Dec hi=41 lo=26
+// Precip(in): 2.45,1.91,2.22,3.23,3.50,3.98,4.06,3.11,2.64,1.65,3.82,2.40
+var DATA = {
+  columbus:  {
+    p:   [62, 49, 56, 82, 89, 101, 103, 79, 67, 42, 97, 61],
+    t:   [-2.2, 0, 5.6, 11.1, 16.9, 21.9, 23.9, 22.8, 19.2, 12.5, 6.4, 0.8],
+    maxP: 160, minT: -10, maxT: 32,
+    label: 'Columbus, Ohio'
+  },
+  manaus:    {
+    p:   [260,265,260,220,170,95,60,75,115,165,200,245],
+    t:   [26,26,26,26,26,26,26,27,27,27,27,26],
+    maxP: 350, minT: 20, maxT: 32,
+    label: 'Manaus, Brazil'
+  },
+  tucson:    {
+    p:   [25,22,28,8,5,5,32,35,25,20,18,22],
+    t:   [11,13,16,21,26,32,34,33,29,22,14,11],
+    maxP: 100, minT: 0, maxT: 42,
+    label: 'Tucson, AZ'
+  },
+  riyadh:    {
+    p:   [9,11,15,8,3,0,0,0,0,3,7,8],
+    t:   [14,16,20,26,32,37,42,41,36,29,21,15],
+    maxP: 60, minT: 0, maxT: 48,
+    label: 'Riyadh, Saudi Arabia'
+  },
+  barrow:    {
+    p:   [5,3,3,4,7,11,25,28,20,13,8,5],
+    t:   [-27,-29,-26,-18,-5,2,4,3,-2,-10,-20,-24],
+    maxP: 50, minT: -35, maxT: 10,
+    label: 'Barrow, Alaska'
+  },
+  singapore: {
+    p:   [175,112,150,162,168,152,155,158,165,175,262,303],
+    t:   [26,27,27,28,28,28,28,27,27,27,26,26],
+    maxP: 350, minT: 20, maxT: 33,
+    label: 'Singapore'
+  },
+  mumbai:    {
+    p:   [3,3,5,18,20,485,617,340,264,72,17,4],
+    t:   [24,25,27,29,31,29,27,27,27,29,27,25],
+    maxP: 700, minT: 18, maxT: 36,
+    label: 'Mumbai, India'
+  }
+};
+
+window.addEventListener('DOMContentLoaded', function() {
+  var d = DATA;
+  buildGraph('introSVG', d.columbus.p, d.columbus.t, d.columbus.maxP, d.columbus.minT, d.columbus.maxT, false);
+  buildAnnotatedGraph('annotSVG', d.columbus.p, d.columbus.t, d.columbus.maxP, d.columbus.minT, d.columbus.maxT);
+  // comparison graphs on page 2
+  buildSmall('cmpSVG0', d.columbus.p,  d.columbus.t,  d.columbus.maxP,  d.columbus.minT,  d.columbus.maxT);
+  buildSmall('cmpSVG1', d.singapore.p, d.singapore.t, d.singapore.maxP, d.singapore.minT, d.singapore.maxT);
+  buildSmall('cmpSVG2', d.mumbai.p,    d.mumbai.t,    d.mumbai.maxP,    d.mumbai.minT,    d.mumbai.maxT);
+  // biome example graphs
+  buildGraph('svg0', d.manaus.p,    d.manaus.t,    d.manaus.maxP,    d.manaus.minT,    d.manaus.maxT,    false);
+  buildGraph('svg1', d.tucson.p,    d.tucson.t,    d.tucson.maxP,    d.tucson.minT,    d.tucson.maxT,    false);
+  buildGraph('svg2', d.riyadh.p,    d.riyadh.t,    d.riyadh.maxP,    d.riyadh.minT,    d.riyadh.maxT,    false);
+  buildGraph('svg3', d.barrow.p,    d.barrow.t,    d.barrow.maxP,    d.barrow.minT,    d.barrow.maxT,    false);
+  buildGraph('svg4', d.columbus.p,  d.columbus.t,  d.columbus.maxP,  d.columbus.minT,  d.columbus.maxT,  false);
+  buildGraph('svg5', d.singapore.p, d.singapore.t, d.singapore.maxP, d.singapore.minT, d.singapore.maxT, false);
+  buildGraph('svg6', d.mumbai.p,    d.mumbai.t,    d.mumbai.maxP,    d.mumbai.minT,    d.mumbai.maxT,    false);
+});
+</script>
+</body>
+</html>
