@@ -1,0 +1,1189 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Abiotic Factors · 7th Grade Science</title>
+<link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@400;600;700;800&family=Quicksand:wght@500;600;700&display=swap" rel="stylesheet">
+<style>
+:root {
+  --blue:#1a7abf; --blue-lt:#e3f1fc;
+  --green:#2d8a4e; --green-lt:#e7f5ec;
+  --sun:#e8a020;   --sun-lt:#fef8e6;
+  --rain:#3a9bd5;  --rain-lt:#e5f4fd;
+  --soil:#8B5E3C;  --soil-lt:#f5ece3;
+  --fire:#d94f2b;  --fire-lt:#fde9e4;
+  --ice:#5b9abf;   --ice-lt:#e4f3fa;
+  --purple:#6b3fa0;--purple-lt:#f0eafc;
+  --dark:#18243a;  --border:#dce5f0;
+  --radius:14px;   --text:#222a38;
+}
+*{box-sizing:border-box;margin:0;padding:0;}
+body{font-family:'Quicksand',sans-serif;background:#eef2f8;color:var(--text);font-size:16.5px;line-height:1.72;}
+
+/* HEADER */
+header{background:var(--dark);color:#fff;padding:24px 20px 18px;text-align:center;position:relative;overflow:hidden;}
+header::after{content:'';position:absolute;bottom:0;left:0;right:0;height:4px;background:linear-gradient(90deg,var(--green),var(--blue),var(--sun),var(--fire));}
+header h1{font-family:'Baloo 2',cursive;font-size:2rem;font-weight:800;}
+header .sub{font-size:.88rem;opacity:.72;margin-top:4px;}
+
+/* TOP BAR */
+.topbar{background:#fff;border-bottom:2px solid var(--border);padding:9px 18px;display:flex;align-items:center;gap:12px;position:sticky;top:0;z-index:200;box-shadow:0 2px 10px rgba(0,0,0,.06);font-size:.87rem;font-weight:700;}
+.part-chip{background:var(--dark);color:#fff;border-radius:99px;padding:3px 14px;font-size:.73rem;white-space:nowrap;}
+.prog-wrap{flex:1;background:#e5eaf5;border-radius:99px;height:9px;overflow:hidden;}
+.prog-fill{height:100%;border-radius:99px;background:linear-gradient(90deg,var(--green),var(--blue));transition:width .4s;width:0%;}
+.timer{color:var(--blue);white-space:nowrap;}
+
+/* NAV DOTS */
+.nav-dots{display:flex;justify-content:center;gap:9px;margin:0 0 22px;flex-wrap:wrap;}
+.dot{width:13px;height:13px;border-radius:50%;background:#ccc;cursor:pointer;transition:all .2s;}
+.dot.active{background:var(--blue);transform:scale(1.35);}
+.dot.done{background:var(--green);}
+
+/* LAYOUT */
+main{max-width:880px;margin:0 auto;padding:24px 16px 70px;}
+
+/* SECTIONS */
+.sec{display:none;animation:fadeUp .35s ease;}
+.sec.show{display:block;}
+@keyframes fadeUp{from{opacity:0;transform:translateY(14px)}to{opacity:1;transform:none}}
+
+/* CARDS */
+.card{background:#fff;border-radius:var(--radius);border:2px solid var(--border);margin-bottom:22px;overflow:hidden;box-shadow:0 4px 18px rgba(0,0,0,.06);}
+.ch{padding:14px 22px;color:#fff;font-family:'Baloo 2',cursive;font-size:1.22rem;font-weight:800;display:flex;align-items:center;gap:11px;}
+.ch .badge{margin-left:auto;background:rgba(255,255,255,.22);border-radius:99px;padding:2px 12px;font-family:'Quicksand',sans-serif;font-size:.72rem;font-weight:700;}
+.hb{background:linear-gradient(135deg,#1362a0,#1a7abf);}
+.hg{background:linear-gradient(135deg,#207040,#2d8a4e);}
+.hs{background:linear-gradient(135deg,#c07818,#e8a020);}
+.hr{background:linear-gradient(135deg,#2276a8,#3a9bd5);}
+.hd{background:linear-gradient(135deg,#18243a,#2d3f5c);}
+.hk{background:linear-gradient(135deg,#18243a,#2d3f5c);}
+.cb{padding:18px 22px;}
+
+/* INFO BOXES */
+.ib{border-radius:10px;padding:12px 16px;margin:11px 0;display:flex;gap:11px;align-items:flex-start;font-size:.92rem;}
+.ib .ic{font-size:1.4rem;flex-shrink:0;margin-top:1px;}
+.sky{background:var(--blue-lt);border-left:4px solid var(--blue);}
+.grn{background:var(--green-lt);border-left:4px solid var(--green);}
+.snn{background:var(--sun-lt);border-left:4px solid var(--sun);}
+.rnn{background:var(--rain-lt);border-left:4px solid var(--rain);}
+.sol{background:var(--soil-lt);border-left:4px solid var(--soil);}
+.fir{background:var(--fire-lt);border-left:4px solid var(--fire);}
+.ice{background:var(--ice-lt);border-left:4px solid var(--ice);}
+.pur{background:var(--purple-lt);border-left:4px solid var(--purple);}
+
+/* VOCAB */
+.vocab-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin:12px 0;}
+@media(max-width:520px){.vocab-grid{grid-template-columns:1fr;}}
+.vc{border:2px solid var(--border);border-radius:10px;padding:11px 14px;cursor:pointer;transition:all .18s;background:#f7f9ff;}
+.vc:hover{border-color:var(--blue);background:var(--blue-lt);}
+.vc .term{font-weight:800;color:var(--blue);font-size:.96rem;}
+.vc .def{font-size:.85rem;color:#555;margin-top:4px;display:none;}
+.vc.open .def{display:block;}
+.vc .hint{font-size:.72rem;color:#bbb;margin-top:5px;}
+
+/* FACTOR TILES */
+.factor-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(155px,1fr));gap:10px;margin:14px 0;}
+.ftile{border-radius:12px;padding:14px 12px;text-align:center;cursor:pointer;transition:transform .2s,box-shadow .2s;border:2px solid transparent;}
+.ftile:hover{transform:translateY(-3px);box-shadow:0 8px 20px rgba(0,0,0,.13);}
+.ftile.sel{border-color:var(--dark)!important;box-shadow:0 0 0 3px rgba(26,122,191,.25);}
+.ftile .fe{font-size:1.9rem;}
+.ftile .fn{font-weight:800;font-size:.87rem;margin-top:7px;}
+.ftile .fc{font-size:.74rem;margin-top:3px;opacity:.76;}
+.ft-temp{background:#fde9e4;color:#8a2a14;}
+.ft-rain{background:var(--blue-lt);color:#0e4a73;}
+.ft-sun{background:var(--sun-lt);color:#7a5200;}
+.ft-soil{background:var(--soil-lt);color:#5c3218;}
+.ft-sal{background:var(--ice-lt);color:#0c4a5c;}
+.ft-ph{background:var(--purple-lt);color:#3d1870;}
+.ft-topo{background:var(--green-lt);color:#1a4a2a;}
+.ft-dist{background:var(--fire-lt);color:#6b2010;}
+
+#factorDetail{display:none;margin-top:12px;animation:fadeUp .25s ease;}
+
+/* BIOME COMPARE TABLE */
+.biome-table{width:100%;border-collapse:collapse;margin:14px 0;font-size:.88rem;}
+.biome-table th{background:var(--dark);color:#fff;padding:10px 12px;text-align:left;font-family:'Baloo 2',cursive;font-size:.92rem;}
+.biome-table td{padding:9px 12px;border-bottom:1px solid var(--border);vertical-align:top;}
+.biome-table tr:nth-child(even) td{background:#f7f9ff;}
+.biome-table tr:hover td{background:var(--blue-lt);}
+.tag{display:inline-block;border-radius:99px;padding:2px 10px;font-size:.75rem;font-weight:800;margin:1px 2px;}
+.tag-hot{background:#fde9e4;color:#8a2a14;}
+.tag-cold{background:var(--ice-lt);color:#0c4a5c;}
+.tag-wet{background:var(--rain-lt);color:#0e4a73;}
+.tag-dry{background:var(--sun-lt);color:#7a5200;}
+.tag-mod{background:var(--green-lt);color:#1a4a2a;}
+
+/* QUESTIONS */
+.qblock{margin:14px 0;padding:14px 17px;border-radius:10px;border:2px solid var(--border);background:#fafbff;}
+.ql{font-weight:800;color:var(--blue);font-size:.8rem;text-transform:uppercase;letter-spacing:.4px;margin-bottom:5px;}
+.qt{font-size:.97rem;font-weight:700;margin-bottom:7px;}
+.qh{font-size:.8rem;color:#888;font-style:italic;margin-bottom:8px;}
+.mc{display:flex;flex-direction:column;gap:7px;}
+.mo{border:2px solid var(--border);border-radius:8px;padding:9px 13px;cursor:pointer;font-size:.92rem;background:#fff;transition:all .15s;display:flex;align-items:center;gap:9px;}
+.mo:hover{background:var(--blue-lt);border-color:var(--blue);}
+.mo.ok{background:var(--green-lt);border-color:var(--green);color:var(--green);font-weight:700;}
+.mo.no{background:var(--fire-lt);border-color:var(--fire);color:var(--fire);}
+.mo .lt{width:26px;height:26px;border-radius:50%;background:var(--border);display:flex;align-items:center;justify-content:center;font-weight:800;font-size:.82rem;flex-shrink:0;}
+.mo.ok .lt{background:var(--green);color:#fff;}
+.mo.no .lt{background:var(--fire);color:#fff;}
+.fb{display:inline-block;border-radius:99px;padding:3px 14px;font-size:.8rem;font-weight:800;margin-top:7px;opacity:0;transition:opacity .3s;}
+.fb.show{opacity:1;}
+.fb.ok{background:var(--green-lt);color:var(--green);}
+.fb.no{background:var(--fire-lt);color:var(--fire);}
+.fb.sv{background:var(--blue-lt);color:var(--blue);}
+textarea.ans{width:100%;min-height:82px;border:2px solid var(--border);border-radius:8px;padding:9px 13px;font-family:'Quicksand',sans-serif;font-size:.93rem;resize:vertical;transition:border-color .2s;}
+textarea.ans:focus{outline:none;border-color:var(--blue);}
+textarea.ans.saved{border-color:var(--green);background:var(--green-lt);}
+
+/* BUTTONS */
+.btn{display:inline-flex;align-items:center;gap:7px;padding:10px 20px;border-radius:9px;border:none;cursor:pointer;font-family:'Quicksand',sans-serif;font-weight:800;font-size:.94rem;transition:all .18s;}
+.bb{background:var(--blue);color:#fff;} .bb:hover{background:#1362a0;transform:translateY(-1px);}
+.bg{background:var(--green);color:#fff;} .bg:hover{background:#207040;}
+.bgy{background:#e0e5f0;color:#444;} .bgy:hover{background:#c8d0e0;}
+.btn-row{display:flex;gap:9px;flex-wrap:wrap;margin-top:14px;}
+hr.rule{border:none;border-top:2px dashed var(--border);margin:14px 0;}
+
+/* FUN FACT */
+.ff{background:var(--sun-lt);border:2px solid var(--sun);border-radius:10px;padding:11px 16px;margin:11px 0;font-size:.9rem;}
+.ff .ffl{font-weight:800;color:#7a5200;margin-bottom:3px;}
+
+/* OBS BOX */
+.obs{background:#f7f9ff;border:2px solid var(--border);border-radius:10px;padding:14px 18px;margin:12px 0;}
+.obs h4{font-family:'Baloo 2',cursive;font-size:1rem;margin-bottom:8px;color:var(--dark);}
+.obs-row{display:flex;gap:10px;align-items:flex-start;padding:5px 0;border-bottom:1px solid #edf0f8;font-size:.9rem;}
+.obs-row:last-child{border:none;}
+.obs-num{background:var(--blue);color:#fff;border-radius:50%;width:22px;height:22px;display:flex;align-items:center;justify-content:center;font-size:.78rem;font-weight:800;flex-shrink:0;margin-top:2px;}
+
+/* GRAPH */
+.graph-wrap{background:#fafbff;border-radius:12px;border:2px solid var(--border);padding:14px 12px 10px;margin:14px 0;}
+.graph-title{text-align:center;font-family:'Baloo 2',cursive;font-size:1.02rem;font-weight:800;margin-bottom:2px;}
+.graph-sub{text-align:center;font-size:.78rem;color:#888;margin-bottom:10px;}
+.graph-wrap svg{display:block;max-width:100%;width:100%;height:auto;}
+.g-legend{display:flex;gap:16px;justify-content:center;margin-top:8px;flex-wrap:wrap;}
+.g-leg{display:flex;align-items:center;gap:6px;font-size:.8rem;font-weight:700;}
+.lb{width:16px;height:10px;border-radius:3px;}
+.ll{width:20px;height:3px;border-radius:2px;}
+
+/* SCORE */
+.score-box{background:var(--dark);color:#fff;border-radius:var(--radius);padding:26px 22px;text-align:center;margin-bottom:20px;}
+.score-box .big{font-family:'Baloo 2',cursive;font-size:3.5rem;line-height:1;}
+.score-box .lbl{font-size:.9rem;opacity:.82;margin-top:5px;}
+
+/* CHECKLIST */
+.cl{list-style:none;}
+.cl li{display:flex;gap:9px;padding:7px 0;border-bottom:1px solid #eee;font-size:.92rem;align-items:flex-start;}
+.cl li:last-child{border:none;}
+.cl li input{width:17px;height:17px;margin-top:3px;accent-color:var(--green);flex-shrink:0;cursor:pointer;}
+
+/* TWO-COL for temp vs rain */
+.two-col{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin:14px 0;}
+@media(max-width:560px){.two-col{grid-template-columns:1fr;}}
+.col-card{border-radius:12px;padding:14px 16px;border:2px solid var(--border);}
+.col-card h4{font-family:'Baloo 2',cursive;font-size:1rem;margin-bottom:8px;}
+.col-card ul{list-style:none;font-size:.88rem;}
+.col-card ul li{padding:4px 0;border-bottom:1px solid rgba(0,0,0,.06);display:flex;gap:8px;}
+.col-card ul li:last-child{border:none;}
+
+/* ── COMPLETION CARD ── */
+#completionCard{
+  background:#fff;border-radius:var(--radius);
+  border:3px solid var(--dark);
+  box-shadow:0 6px 28px rgba(0,0,0,.14);
+  overflow:hidden;
+  max-width:680px;
+  margin:0 auto 20px;
+}
+.cc-header{
+  background:linear-gradient(135deg,#18243a,#2d3f5c);
+  color:#fff;padding:14px 20px 12px;
+  display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:8px;
+}
+.cc-header-left h2{font-family:'Baloo 2',cursive;font-size:1.2rem;font-weight:800;}
+.cc-header-left p{font-size:.73rem;opacity:.72;margin-top:1px;}
+.cc-score-badge{
+  font-family:'Baloo 2',cursive;font-size:1.8rem;font-weight:800;
+  background:rgba(255,255,255,.15);border-radius:10px;
+  padding:4px 16px;text-align:center;line-height:1.1;
+}
+.cc-score-badge span{display:block;font-family:'Quicksand',sans-serif;font-size:.65rem;font-weight:700;opacity:.8;letter-spacing:.3px;}
+.cc-name-row{
+  background:#f0f4fb;border-bottom:2px solid var(--border);
+  padding:7px 20px;display:flex;gap:14px;flex-wrap:wrap;align-items:center;
+  font-size:.8rem;font-weight:700;color:#555;
+}
+.cc-name-row input{
+  border:none;border-bottom:2px solid var(--blue);
+  background:transparent;font-family:'Quicksand',sans-serif;
+  font-size:.82rem;font-weight:700;color:var(--dark);
+  padding:1px 4px;outline:none;
+}
+.cc-name-row input.wide{width:170px;}
+.cc-name-row input.short{width:60px;}
+.cc-section{border-bottom:1px solid var(--border);}
+.cc-section:last-child{border-bottom:none;}
+.cc-sec-label{
+  background:var(--dark);color:#fff;
+  font-family:'Baloo 2',cursive;font-size:.82rem;font-weight:800;
+  padding:4px 16px 3px;letter-spacing:.3px;
+}
+.cc-sec-label.blue{background:var(--blue);}
+.cc-sec-label.green{background:var(--green);}
+.cc-sec-label.orange{background:#c07818;}
+.cc-body{padding:10px 16px 12px;}
+/* MC summary row */
+.mc-summary{display:flex;flex-wrap:wrap;gap:6px;margin:4px 0;}
+.mc-chip{
+  border-radius:7px;padding:4px 11px;font-size:.78rem;font-weight:800;
+  display:flex;align-items:center;gap:5px;
+}
+.mc-chip.ok{background:var(--green-lt);color:var(--green);border:1.5px solid var(--green);}
+.mc-chip.no{background:var(--fire-lt);color:var(--fire);border:1.5px solid var(--fire);}
+.mc-chip.skip{background:#f0f4fb;color:#888;border:1.5px solid #ccc;}
+/* Short answer display */
+.sa-item{margin-bottom:8px;}
+.sa-label{font-size:.72rem;font-weight:800;color:var(--blue);text-transform:uppercase;letter-spacing:.4px;margin-bottom:2px;}
+.sa-value{
+  background:#f7f9ff;border-left:3px solid var(--blue);
+  border-radius:0 6px 6px 0;padding:6px 10px;
+  font-size:.83rem;line-height:1.5;min-height:28px;color:var(--dark);
+  word-break:break-word;
+}
+.sa-value.empty{color:#bbb;font-style:italic;}
+/* Next-up banner */
+.cc-next{
+  background:linear-gradient(135deg,#5b3a8a,#7b52b8);
+  color:#fff;padding:12px 18px;
+  display:flex;align-items:center;justify-content:space-between;gap:10px;flex-wrap:wrap;
+}
+.cc-next p{font-size:.83rem;opacity:.9;flex:1;}
+.cc-next strong{font-family:'Baloo 2',cursive;font-size:.95rem;}
+.btn-next-lab{
+  background:#fff;color:#5b3a8a;border:none;border-radius:8px;
+  padding:8px 16px;font-family:'Quicksand',sans-serif;
+  font-weight:800;font-size:.85rem;cursor:pointer;
+  white-space:nowrap;transition:all .18s;flex-shrink:0;
+}
+.btn-next-lab:hover{background:#f0eafc;transform:translateY(-1px);}
+/* Screenshot hint */
+.snip-hint{
+  background:var(--sun-lt);border-top:2px solid var(--sun);
+  padding:8px 18px;font-size:.78rem;font-weight:700;color:#7a5200;
+  display:flex;align-items:center;gap:8px;
+}
+
+@media print{
+  .topbar,.nav-dots,.btn-row,.factor-grid,#completionCard .cc-next,#completionCard .snip-hint{display:none!important;}
+  .sec{display:block!important;}
+  .vc .def{display:block!important;}
+  .card{break-inside:avoid;box-shadow:none;}
+  .ch{-webkit-print-color-adjust:exact;print-color-adjust:exact;}
+  #completionCard{border:2px solid #333;box-shadow:none;max-width:100%;}
+}
+</style>
+</head>
+<body>
+
+<header>
+  <h1>🌍 Abiotic Factors</h1>
+  <div class="sub">Section 6.02 · Ohio Standard 7LS2 · 7th Grade Science · ~45 Minutes</div>
+</header>
+
+<div class="topbar">
+  <span class="part-chip" id="partLabel">Part 1 of 5</span>
+  <div class="prog-wrap"><div class="prog-fill" id="progFill"></div></div>
+  <span class="timer" id="timerTxt">&#9201; 45:00</span>
+</div>
+
+<main>
+<div class="nav-dots" id="navDots">
+  <div class="dot active"  onclick="goTo(0)" title="What are Abiotic Factors?"></div>
+  <div class="dot"         onclick="goTo(1)" title="The 8 Abiotic Factors"></div>
+  <div class="dot"         onclick="goTo(2)" title="Temperature and Precipitation"></div>
+  <div class="dot"         onclick="goTo(3)" title="Real-World Biomes"></div>
+  <div class="dot"         onclick="goTo(4)" title="Wrap-Up"></div>
+  <div class="dot"         onclick="goTo(5)" title="Completion Card"></div>
+</div>
+
+<!-- ═══════════════════════════════════════════
+     SECTION 0 · WHAT ARE ABIOTIC FACTORS?
+═══════════════════════════════════════════ -->
+<div class="sec show" id="s0">
+<div class="card">
+  <div class="ch hg"><span>🌱</span> Part 1 — What Are Abiotic Factors? <span class="badge">~8 min</span></div>
+  <div class="cb">
+
+    <div class="ib grn">
+      <span class="ic">📖</span>
+      <div>Every ecosystem has two types of factors that shape it. <strong>Biotic factors</strong> are the <em>living</em> things — plants, animals, fungi, bacteria. <strong>Abiotic factors</strong> are the <em>non-living</em> things — but they control WHERE living things can survive. Think of abiotic factors as <strong>the rules of the game</strong> that every organism must follow.</div>
+    </div>
+
+    <div class="ib sky">
+      <span class="ic">💡</span>
+      <div>The word <em>abiotic</em> comes from Greek: <em>a</em> = without, <em>bios</em> = life. So abiotic = without life. Together, abiotic factors determine which <strong>biome</strong> forms in a region — and which organisms can live there.</div>
+    </div>
+
+    <hr class="rule">
+    <p style="font-weight:800;margin-bottom:8px;">&#127909; Watch First — What Are Abiotic Factors?</p>
+    <div style="position:relative;padding-bottom:56.25%;height:0;overflow:hidden;border-radius:10px;border:2px solid var(--border);margin-bottom:14px;">
+      <iframe
+        style="position:absolute;top:0;left:0;width:100%;height:100%;border:0;border-radius:8px;"
+        width="560" height="315"
+        src="https://www.youtube.com/embed/6d_EwCICPoQ"
+        frameborder="0"
+        allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"
+        allowfullscreen>
+      </iframe>
+    </div>
+
+    <hr class="rule">
+    <p style="font-weight:800;margin-bottom:10px;">🔑 Key Vocabulary — Tap each word to see its definition:</p>
+
+    <div class="vocab-grid">
+      <div class="vc" id="vc0"><div class="term">Abiotic Factor</div><div class="def">A non-living part of an ecosystem that affects organisms — such as temperature, water, sunlight, or soil. These set the conditions for life.</div><div class="hint">&#128070; Tap to reveal</div></div>
+      <div class="vc" id="vc1"><div class="term">Biome</div><div class="def">A large region of Earth with similar climate, plants, and animals. Examples: desert, tundra, tropical rainforest, temperate forest.</div><div class="hint">&#128070; Tap to reveal</div></div>
+      <div class="vc" id="vc2"><div class="term">Climate</div><div class="def">The long-term average of weather in an area — including temperature and precipitation patterns over many years.</div><div class="hint">&#128070; Tap to reveal</div></div>
+      <div class="vc" id="vc3"><div class="term">Precipitation</div><div class="def">Water that falls from the atmosphere — rain, snow, sleet, or hail. One of the two most important abiotic factors for determining biomes.</div><div class="hint">&#128070; Tap to reveal</div></div>
+      <div class="vc" id="vc4"><div class="term">Salinity</div><div class="def">The amount of dissolved salt in water. Freshwater has very low salinity; ocean water has high salinity. Controls what aquatic organisms can survive.</div><div class="hint">&#128070; Tap to reveal</div></div>
+      <div class="vc" id="vc5"><div class="term">pH</div><div class="def">A measure of how acidic or basic soil or water is. Scale 0-14; 7 is neutral. Most plants need soil between pH 6-7. Very acidic or very basic conditions limit which organisms survive.</div><div class="hint">&#128070; Tap to reveal</div></div>
+      <div class="vc" id="vc6"><div class="term">Topography</div><div class="def">The shape and features of the land — mountains, valleys, slopes, elevation. Topography changes local temperature, precipitation, and sunlight exposure.</div><div class="hint">&#128070; Tap to reveal</div></div>
+      <div class="vc" id="vc7"><div class="term">Carrying Capacity</div><div class="def">The largest population an environment can support. Abiotic factors set the limit — less water or food = lower carrying capacity = fewer organisms can survive.</div><div class="hint">&#128070; Tap to reveal</div></div>
+    </div>
+
+    <hr class="rule">
+
+    <div class="qblock">
+      <div class="ql">&#128208; Question 1</div>
+      <div class="qt">Which of the following is an ABIOTIC factor?</div>
+      <div class="qh">Remember: abiotic = non-living. Ask yourself — is it alive?</div>
+      <div class="mc" id="q1grp">
+        <div class="mo" data-q="q1" data-r="no"><div class="lt">A</div>A deer eating grass in a meadow</div>
+        <div class="mo" data-q="q1" data-r="no"><div class="lt">B</div>Bacteria living in the soil</div>
+        <div class="mo" data-q="q1" data-r="ok"><div class="lt">C</div>The amount of rainfall each month</div>
+        <div class="mo" data-q="q1" data-r="no"><div class="lt">D</div>Oak trees shading the forest floor</div>
+      </div>
+      <div class="fb" id="q1fb"></div>
+    </div>
+
+    <div class="qblock">
+      <div class="ql">&#128208; Question 2</div>
+      <div class="qt">Why are abiotic factors important for ecosystems?</div>
+      <div class="mc" id="q2grp">
+        <div class="mo" data-q="q2" data-r="no"><div class="lt">A</div>They eat other organisms to get energy</div>
+        <div class="mo" data-q="q2" data-r="ok"><div class="lt">B</div>They determine which plants and animals can survive in a region</div>
+        <div class="mo" data-q="q2" data-r="no"><div class="lt">C</div>They only affect animals, not plants</div>
+        <div class="mo" data-q="q2" data-r="no"><div class="lt">D</div>They are only found in aquatic ecosystems</div>
+      </div>
+      <div class="fb" id="q2fb"></div>
+    </div>
+
+    <div class="qblock">
+      <div class="ql">&#9999;&#65039; Question 3</div>
+      <div class="qt">In your own words: what is the difference between a <strong>biotic</strong> and an <strong>abiotic</strong> factor? Give one example of each from your own life or your school.</div>
+      <div class="qh">Hint: Think about what is living vs. non-living in your school yard right now.</div>
+      <textarea class="ans" id="q3t" placeholder="A biotic factor is... An example is...&#10;An abiotic factor is... An example is..."></textarea>
+      <div class="btn-row"><button class="btn bgy" onclick="saveAns('q3t','q3fb')">&#128190; Save Answer</button></div>
+      <div class="fb" id="q3fb"></div>
+    </div>
+
+    <div class="btn-row">
+      <button class="btn bb" onclick="goTo(1)">Next: The 8 Abiotic Factors &#x27A1;</button>
+    </div>
+  </div>
+</div>
+</div>
+
+<!-- ═══════════════════════════════════════════
+     SECTION 1 · THE 8 ABIOTIC FACTORS
+═══════════════════════════════════════════ -->
+<div class="sec" id="s1">
+<div class="card">
+  <div class="ch hb"><span>&#128300;</span> Part 2 — The 8 Abiotic Factors <span class="badge">~10 min</span></div>
+  <div class="cb">
+
+    <div class="ib sky">
+      <span class="ic">&#128071;</span>
+      <div><strong>Click any tile below</strong> to learn how that abiotic factor affects ecosystems and biomes. Try clicking all 8!</div>
+    </div>
+
+    <div class="factor-grid" id="factorGrid">
+      <div class="ftile ft-temp" data-key="temp"><div class="fe">&#127777;&#65039;</div><div class="fn">Temperature</div><div class="fc">Hot or cold?</div></div>
+      <div class="ftile ft-rain" data-key="rain"><div class="fe">&#127783;&#65039;</div><div class="fn">Precipitation</div><div class="fc">How much rain/snow?</div></div>
+      <div class="ftile ft-sun"  data-key="sun"><div class="fe">&#9728;&#65039;</div><div class="fn">Sunlight</div><div class="fc">Energy for plants</div></div>
+      <div class="ftile ft-soil" data-key="soil"><div class="fe">&#129392;</div><div class="fn">Soil &amp; Nutrients</div><div class="fc">What is in the ground?</div></div>
+      <div class="ftile ft-sal"  data-key="sal"><div class="fe">&#127754;</div><div class="fn">Salinity</div><div class="fc">Salt in the water?</div></div>
+      <div class="ftile ft-ph"   data-key="ph"><div class="fe">&#129514;</div><div class="fn">pH</div><div class="fc">Acid or basic?</div></div>
+      <div class="ftile ft-topo" data-key="topo"><div class="fe">&#9968;&#65039;</div><div class="fn">Topography</div><div class="fc">Shape of the land</div></div>
+      <div class="ftile ft-dist" data-key="dist"><div class="fe">&#128293;</div><div class="fn">Disturbance</div><div class="fc">Fire, floods, storms</div></div>
+    </div>
+
+    <div id="factorDetail"></div>
+
+    <hr class="rule">
+
+    <div class="qblock">
+      <div class="ql">&#128208; Question 4</div>
+      <div class="qt">Why do deserts have very few large plants compared to rainforests?</div>
+      <div class="mc" id="q4grp">
+        <div class="mo" data-q="q4" data-r="no"><div class="lt">A</div>Deserts have too much sunlight, which burns all plants</div>
+        <div class="mo" data-q="q4" data-r="ok"><div class="lt">B</div>Deserts receive very little precipitation, so water is scarce for plant growth</div>
+        <div class="mo" data-q="q4" data-r="no"><div class="lt">C</div>Desert soil contains too many nutrients</div>
+        <div class="mo" data-q="q4" data-r="no"><div class="lt">D</div>Deserts are too cold for plants to survive</div>
+      </div>
+      <div class="fb" id="q4fb"></div>
+    </div>
+
+    <div class="qblock">
+      <div class="ql">&#128208; Question 5</div>
+      <div class="qt">A mountain has two slopes. The north-facing slope is cooler and shadier than the south-facing slope. Which TWO abiotic factors best explain this difference?</div>
+      <div class="mc" id="q5grp">
+        <div class="mo" data-q="q5" data-r="no"><div class="lt">A</div>Salinity and pH</div>
+        <div class="mo" data-q="q5" data-r="ok"><div class="lt">B</div>Topography and sunlight angle</div>
+        <div class="mo" data-q="q5" data-r="no"><div class="lt">C</div>Precipitation and soil nutrients</div>
+        <div class="mo" data-q="q5" data-r="no"><div class="lt">D</div>Disturbance and salinity</div>
+      </div>
+      <div class="fb" id="q5fb"></div>
+    </div>
+
+    <div class="qblock">
+      <div class="ql">&#9999;&#65039; Question 6</div>
+      <div class="qt">A pond has its pH change from normal (pH 7) to very acidic (pH 4 — like vinegar). Predict what might happen to the fish and plants living in it. Explain your thinking.</div>
+      <div class="qh">Hint: Use the pH tile — think about nutrients, survival, and what organisms need.</div>
+      <textarea class="ans" id="q6t" placeholder="If the pond became very acidic, I predict..."></textarea>
+      <div class="btn-row"><button class="btn bgy" onclick="saveAns('q6t','q6fb')">&#128190; Save Answer</button></div>
+      <div class="fb" id="q6fb"></div>
+    </div>
+
+    <div class="ff">
+      <div class="ffl">&#129327; Fun Fact!</div>
+      Amazon rainforest soils are actually <em>nutrient-poor</em> — most nutrients are locked up inside living plants and animals! When a tree dies, other plants absorb those nutrients incredibly fast before they wash away. The rainforest is rich in life, not in soil!
+    </div>
+
+    <div class="btn-row">
+      <button class="btn bgy" onclick="goTo(0)">&#x2B05; Back</button>
+      <button class="btn bb" onclick="goTo(2)">Next: Temperature &amp; Precipitation &#x27A1;</button>
+    </div>
+  </div>
+</div>
+</div>
+
+<!-- ═══════════════════════════════════════════
+     SECTION 2 · TEMP & PRECIP AS KEY DRIVERS
+═══════════════════════════════════════════ -->
+<div class="sec" id="s2">
+<div class="card">
+  <div class="ch hs"><span>&#127777;&#65039;&#127783;&#65039;</span> Part 3 — The Big Two: Temperature &amp; Precipitation <span class="badge">~10 min</span></div>
+  <div class="cb">
+
+    <div class="ib snn">
+      <span class="ic">&#11088;</span>
+      <div>While all 8 abiotic factors matter, <strong>temperature</strong> and <strong>precipitation</strong> are the two most powerful forces in determining which biome forms in a region. Scientists use these two factors to classify and predict biomes all over Earth. If you know a place's average temperature AND how much rain it gets, you can predict what biome it is!</div>
+    </div>
+
+    <!-- Temperature deep dive -->
+    <hr class="rule">
+    <p style="font-weight:800;font-size:1.05rem;margin-bottom:8px;">&#127777;&#65039; Temperature — The First Big Factor</p>
+
+    <div class="ib fir">
+      <span class="ic">&#127777;&#65039;</span>
+      <div>
+        <strong>Temperature controls:</strong><br>
+        &#8226; How fast organisms grow and reproduce (enzyme activity)<br>
+        &#8226; Whether plants can photosynthesize year-round or must go dormant<br>
+        &#8226; Animal behaviors: hibernation, migration, daily activity patterns<br>
+        &#8226; Whether water falls as rain or snow<br>
+        &#8226; How long the growing season is
+      </div>
+    </div>
+
+    <div class="two-col">
+      <div class="col-card" style="background:var(--fire-lt);border-color:var(--fire);">
+        <h4 style="color:var(--fire);">&#9729;&#65039; Cold Temperatures</h4>
+        <ul>
+          <li><span>&#10060;</span>Slow enzyme activity &#8594; slow growth</li>
+          <li><span>&#10060;</span>Short or no growing season</li>
+          <li><span>&#10060;</span>Water freezes &#8594; unavailable to plants</li>
+          <li><span>&#10004;</span>Animals adapt: thick fur, hibernation, migration</li>
+          <li><span>&#128205;</span><em>Example: Tundra &#8212; only mosses and tiny shrubs</em></li>
+        </ul>
+      </div>
+      <div class="col-card" style="background:#fef8e6;border-color:var(--sun);">
+        <h4 style="color:#c07818;">&#9728;&#65039; Warm Temperatures</h4>
+        <ul>
+          <li><span>&#10004;</span>Fast enzyme activity &#8594; rapid growth</li>
+          <li><span>&#10004;</span>Long or year-round growing season</li>
+          <li><span>&#10004;</span>Liquid water available longer</li>
+          <li><span>&#10004;</span>High plant diversity and density</li>
+          <li><span>&#128205;</span><em>Example: Tropical rainforest &#8212; trees grow year-round</em></li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- Precipitation deep dive -->
+    <hr class="rule">
+    <p style="font-weight:800;font-size:1.05rem;margin-bottom:8px;">&#127783;&#65039; Precipitation — The Second Big Factor</p>
+
+    <div class="ib rnn">
+      <span class="ic">&#127783;&#65039;</span>
+      <div>
+        <strong>Precipitation controls:</strong><br>
+        &#8226; Water availability for plants to photosynthesize and grow<br>
+        &#8226; Whether trees, grasses, or only succulents can survive<br>
+        &#8226; How frequent wildfires are (dry = more fires)<br>
+        &#8226; Soil moisture and which nutrients plants can absorb<br>
+        &#8226; The carrying capacity of the ecosystem
+      </div>
+    </div>
+
+    <div class="two-col">
+      <div class="col-card" style="background:var(--sun-lt);border-color:var(--sun);">
+        <h4 style="color:#c07818;">&#9729;&#65039; Low Precipitation (Dry)</h4>
+        <ul>
+          <li><span>&#10060;</span>Very few plants can survive</li>
+          <li><span>&#10060;</span>Low biodiversity</li>
+          <li><span>&#10004;</span>Drought-adapted plants: cacti, succulents</li>
+          <li><span>&#128293;</span>More frequent wildfires</li>
+          <li><span>&#128205;</span><em>Example: Desert &#8212; less than 250mm/year</em></li>
+        </ul>
+      </div>
+      <div class="col-card" style="background:var(--rain-lt);border-color:var(--rain);">
+        <h4 style="color:#0e4a73;">&#127783;&#65039; High Precipitation (Wet)</h4>
+        <ul>
+          <li><span>&#10004;</span>Dense, multi-layered forests possible</li>
+          <li><span>&#10004;</span>Very high biodiversity</li>
+          <li><span>&#10004;</span>Year-round plant growth</li>
+          <li><span>&#10004;</span>Rich food webs</li>
+          <li><span>&#128205;</span><em>Example: Tropical rainforest &#8212; 200cm+/year</em></li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- The 2x2 matrix -->
+    <hr class="rule">
+    <p style="font-weight:800;margin-bottom:10px;">&#128200; Temperature + Precipitation Together = Biome</p>
+
+    <div class="ib sky">
+      <span class="ic">&#129300;</span>
+      <div>Scientists discovered that if you know BOTH temperature AND precipitation for a place, you can predict its biome. Look at this chart — it shows how the two factors combine to produce different biomes!</div>
+    </div>
+
+    <div style="overflow-x:auto;margin:12px 0;">
+    <table class="biome-table">
+      <tr>
+        <th>Temperature</th>
+        <th>Precipitation</th>
+        <th>Biome Produced</th>
+        <th>Example</th>
+      </tr>
+      <tr>
+        <td><span class="tag tag-hot">&#128293; Hot year-round</span></td>
+        <td><span class="tag tag-wet">&#127783; Very High (200cm+)</span></td>
+        <td><strong>&#127796; Tropical Rainforest</strong></td>
+        <td>Amazon, Brazil</td>
+      </tr>
+      <tr>
+        <td><span class="tag tag-hot">&#128293; Warm</span></td>
+        <td><span class="tag tag-dry">&#9728; Very Low (&lt;25cm)</span></td>
+        <td><strong>&#127795; Hot Desert</strong></td>
+        <td>Sonoran, Arizona</td>
+      </tr>
+      <tr>
+        <td><span class="tag tag-mod">&#127807; Warm with seasons</span></td>
+        <td><span class="tag tag-mod">&#9748; Moderate, seasonal</span></td>
+        <td><strong>&#127806; Savanna / Grassland</strong></td>
+        <td>East Africa, Montana</td>
+      </tr>
+      <tr>
+        <td><span class="tag tag-mod">&#127807; Moderate (4 seasons)</span></td>
+        <td><span class="tag tag-mod">&#9748; Moderate, year-round</span></td>
+        <td><strong>&#127810; Temperate Deciduous Forest</strong></td>
+        <td>Ohio, Eastern USA</td>
+      </tr>
+      <tr>
+        <td><span class="tag tag-cold">&#10052; Cold</span></td>
+        <td><span class="tag tag-mod">&#9748; Moderate</span></td>
+        <td><strong>&#127794; Boreal / Taiga Forest</strong></td>
+        <td>Canada, Russia</td>
+      </tr>
+      <tr>
+        <td><span class="tag tag-cold">&#10052;&#10052; Extremely Cold</span></td>
+        <td><span class="tag tag-dry">&#9728; Very Low</span></td>
+        <td><strong>&#129431; Tundra</strong></td>
+        <td>Alaska, Arctic</td>
+      </tr>
+    </table>
+    </div>
+
+    <div class="ff">
+      <div class="ffl">&#129327; Did you know?</div>
+      You can actually have a cold desert! Antarctica is the world's largest desert — not because it is hot, but because it receives less than 20 cm of precipitation per year. The key to desert is <em>dryness</em>, not heat!
+    </div>
+
+    <div class="qblock">
+      <div class="ql">&#128208; Question 7</div>
+      <div class="qt">A place has hot temperatures year-round AND receives 250 cm of rain per year. Which biome would most likely form there?</div>
+      <div class="mc" id="q7grp">
+        <div class="mo" data-q="q7" data-r="no"><div class="lt">A</div>Tundra</div>
+        <div class="mo" data-q="q7" data-r="ok"><div class="lt">B</div>Tropical Rainforest</div>
+        <div class="mo" data-q="q7" data-r="no"><div class="lt">C</div>Hot Desert</div>
+        <div class="mo" data-q="q7" data-r="no"><div class="lt">D</div>Boreal Forest</div>
+      </div>
+      <div class="fb" id="q7fb"></div>
+    </div>
+
+    <div class="qblock">
+      <div class="ql">&#128208; Question 8</div>
+      <div class="qt">A region is warm but receives very little precipitation all year. Which biome would most likely form?</div>
+      <div class="mc" id="q8grp">
+        <div class="mo" data-q="q8" data-r="no"><div class="lt">A</div>Tropical Rainforest</div>
+        <div class="mo" data-q="q8" data-r="no"><div class="lt">B</div>Temperate Deciduous Forest</div>
+        <div class="mo" data-q="q8" data-r="ok"><div class="lt">C</div>Hot Desert</div>
+        <div class="mo" data-q="q8" data-r="no"><div class="lt">D</div>Tundra</div>
+      </div>
+      <div class="fb" id="q8fb"></div>
+    </div>
+
+    <div class="qblock">
+      <div class="ql">&#9999;&#65039; Question 9</div>
+      <div class="qt">Ohio has moderate temperatures (cold winters, warm summers) and moderate rain spread throughout the year. Based on the table above, which biome does Ohio belong to? <strong>Explain</strong> how the two abiotic factors — temperature AND precipitation — support your answer.</div>
+      <textarea class="ans" id="q9t" placeholder="Ohio belongs to the _____ biome because the temperature is... and the precipitation is..."></textarea>
+      <div class="btn-row"><button class="btn bgy" onclick="saveAns('q9t','q9fb')">&#128190; Save Answer</button></div>
+      <div class="fb" id="q9fb"></div>
+    </div>
+
+    <div class="btn-row">
+      <button class="btn bgy" onclick="goTo(1)">&#x2B05; Back</button>
+      <button class="btn bb" onclick="goTo(3)">Next: Real-World Examples &#x27A1;</button>
+    </div>
+  </div>
+</div>
+</div>
+
+<!-- ═══════════════════════════════════════════
+     SECTION 3 · REAL-WORLD CASE STUDIES
+═══════════════════════════════════════════ -->
+<div class="sec" id="s3">
+<div class="card">
+  <div class="ch hr"><span>&#127758;</span> Part 4 — Real-World Examples <span class="badge">~10 min</span></div>
+  <div class="cb">
+
+    <div class="ib rnn">
+      <span class="ic">&#128064;</span>
+      <div>Now let's look at three real biomes and identify exactly which abiotic factors make each one unique. As you read, look for how <strong>temperature</strong> and <strong>precipitation</strong> are the main drivers — with other factors adding detail.</div>
+    </div>
+
+    <!-- Sonoran Desert -->
+    <div class="obs" style="border-color:var(--sun);">
+      <h4 style="color:#c07818;">&#127795; Case Study 1: Sonoran Desert, Arizona</h4>
+      <div class="obs-row"><div class="obs-num" style="background:var(--sun);color:#fff;">T</div><div><strong>Temperature:</strong> Very hot summers (often 40°C+), mild winters (~10-15°C). The wide range matters — plants must survive both extremes.</div></div>
+      <div class="obs-row"><div class="obs-num" style="background:var(--rain);color:#fff;">P</div><div><strong>Precipitation:</strong> Only about 30 cm (12 inches) per year — and it comes in two unreliable pulses. Months can go by with zero rain.</div></div>
+      <div class="obs-row"><div class="obs-num">&#129392;</div><div><strong>Soil:</strong> Sandy, low in organic matter, drains rapidly. Water disappears fast after rain — plants must absorb it instantly.</div></div>
+      <div class="obs-row"><div class="obs-num">&#127795;</div><div><strong>Result:</strong> Only specially adapted organisms survive — saguaro cacti (store water in stems), creosote bushes (deep roots), and animals that are mostly active at night to avoid heat.</div></div>
+    </div>
+
+    <!-- Amazon -->
+    <div class="obs" style="border-color:var(--green);">
+      <h4 style="color:var(--green);">&#127796; Case Study 2: Amazon Rainforest, Brazil</h4>
+      <div class="obs-row"><div class="obs-num" style="background:var(--fire);">T</div><div><strong>Temperature:</strong> Consistently warm year-round — about 26-27°C every month. No cold season. Plants can grow 365 days a year.</div></div>
+      <div class="obs-row"><div class="obs-num" style="background:var(--rain);">P</div><div><strong>Precipitation:</strong> Enormous — 200-400 cm per year. Even the "dry" months still receive 60-90 mm of rain. Water is almost never a limiting factor.</div></div>
+      <div class="obs-row"><div class="obs-num">&#129392;</div><div><strong>Soil (surprise!):</strong> Actually nutrient-POOR! Rain washes nutrients away quickly. Nearly all nutrients are locked inside living plants and animals — when something dies, it is recycled almost instantly.</div></div>
+      <div class="obs-row"><div class="obs-num">&#127796;</div><div><strong>Result:</strong> Dense, layered forest. Highest biodiversity on Earth — more than half of all species live here. Rapid nutrient cycling keeps everything alive.</div></div>
+    </div>
+
+    <!-- Rocky Mountains -->
+    <div class="obs" style="border-color:var(--green);">
+      <h4 style="color:var(--green);">&#9968;&#65039; Case Study 3: Rocky Mountains — Elevation Effects</h4>
+      <div class="obs-row"><div class="obs-num">&#9968;&#65039;</div><div><strong>Topography changes everything:</strong> As you climb a mountain, temperature drops about 6°C for every 1,000 meters of elevation gain. The same mountain hosts multiple biomes from base to peak!</div></div>
+      <div class="obs-row"><div class="obs-num" style="background:var(--green);">1</div><div><strong>Base (low elevation):</strong> Temperate deciduous forest — warm, moderate rain, deer and oaks.</div></div>
+      <div class="obs-row"><div class="obs-num" style="background:var(--blue);">2</div><div><strong>Middle (mid elevation):</strong> Boreal/conifer forest — colder, more snow, elk and pines.</div></div>
+      <div class="obs-row"><div class="obs-num" style="background:var(--ice);">3</div><div><strong>Near top:</strong> Alpine meadow — too cold for trees, only low grasses and wildflowers.</div></div>
+      <div class="obs-row"><div class="obs-num">&#10052;</div><div><strong>Peak:</strong> Tundra-like conditions — freezing, almost no plants, only lichens on rocks.</div></div>
+      <div class="obs-row"><div class="obs-num">&#128161;</div><div><strong>Key insight:</strong> One mountain = four biomes. The only thing that changed was <em>elevation</em> — which changed temperature and precipitation. This proves how powerful these two abiotic factors are!</div></div>
+    </div>
+
+    <div class="ff">
+      <div class="ffl">&#129327; Fun Fact!</div>
+      Some alpine plants in the Rocky Mountains grow so slowly in the cold, short growing season that they can be <strong>hundreds of years old</strong> and still only be a few centimeters tall! A tiny plant you step on might be older than your grandparents.
+    </div>
+
+    <div class="qblock">
+      <div class="ql">&#128208; Question 10</div>
+      <div class="qt">Which TWO abiotic factors are most responsible for the Amazon rainforest having the highest biodiversity on Earth?</div>
+      <div class="mc" id="q10grp">
+        <div class="mo" data-q="q10" data-r="no"><div class="lt">A</div>Low pH and high salinity</div>
+        <div class="mo" data-q="q10" data-r="ok"><div class="lt">B</div>High year-round temperature and very high precipitation</div>
+        <div class="mo" data-q="q10" data-r="no"><div class="lt">C</div>Nutrient-rich soil and cold temperatures</div>
+        <div class="mo" data-q="q10" data-r="no"><div class="lt">D</div>Low precipitation and frequent disturbances</div>
+      </div>
+      <div class="fb" id="q10fb"></div>
+    </div>
+
+    <div class="qblock">
+      <div class="ql">&#128208; Question 11</div>
+      <div class="qt">In the Rocky Mountains, why does the type of forest change as you go higher up the mountain?</div>
+      <div class="mc" id="q11grp">
+        <div class="mo" data-q="q11" data-r="no"><div class="lt">A</div>The soil becomes more fertile at higher elevations</div>
+        <div class="mo" data-q="q11" data-r="ok"><div class="lt">B</div>Temperature drops and precipitation patterns change with elevation, creating different climate conditions</div>
+        <div class="mo" data-q="q11" data-r="no"><div class="lt">C</div>Animals eat all the plants at lower elevations</div>
+        <div class="mo" data-q="q11" data-r="no"><div class="lt">D</div>The pH of the soil changes dramatically with altitude</div>
+      </div>
+      <div class="fb" id="q11fb"></div>
+    </div>
+
+    <div class="qblock">
+      <div class="ql">&#9999;&#65039; Question 12</div>
+      <div class="qt">The Sonoran Desert and the Amazon Rainforest are both located in warm regions. Why are they such different biomes? Use BOTH temperature AND precipitation in your answer.</div>
+      <textarea class="ans" id="q12t" placeholder="Both biomes are warm, but they are different because..."></textarea>
+      <div class="btn-row"><button class="btn bgy" onclick="saveAns('q12t','q12fb')">&#128190; Save Answer</button></div>
+      <div class="fb" id="q12fb"></div>
+    </div>
+
+    <div class="btn-row">
+      <button class="btn bgy" onclick="goTo(2)">&#x2B05; Back</button>
+      <button class="btn bb" onclick="goTo(4)">Final: Wrap-Up &#x27A1;</button>
+    </div>
+  </div>
+</div>
+</div>
+
+<!-- ═══════════════════════════════════════════
+     SECTION 4 · WRAP-UP
+═══════════════════════════════════════════ -->
+<div class="sec" id="s4">
+<div class="card">
+  <div class="ch hk"><span>&#127942;</span> Wrap-Up — Review &amp; Completion Card</div>
+  <div class="cb">
+
+    <div id="scoreBox" class="score-box">
+      <div class="big" id="scoreNum">&#8212;</div>
+      <div class="lbl" id="scoreLbl">Multiple Choice Score</div>
+    </div>
+
+    <hr class="rule">
+    <p style="font-weight:800;margin-bottom:8px;">&#10003; I Can Now...</p>
+    <ul class="cl">
+      <li><input type="checkbox"> Define abiotic factor and give 3 examples.</li>
+      <li><input type="checkbox"> Explain the difference between biotic and abiotic factors.</li>
+      <li><input type="checkbox"> Name all 8 major abiotic factors and describe what each one affects.</li>
+      <li><input type="checkbox"> Explain why temperature and precipitation are the most important abiotic factors for biomes.</li>
+      <li><input type="checkbox"> Use temperature + precipitation data to predict which biome would form.</li>
+      <li><input type="checkbox"> Compare two biomes (like desert vs. rainforest) using abiotic factors.</li>
+      <li><input type="checkbox"> Explain how topography/elevation can change the biome on a single mountain.</li>
+      <li><input type="checkbox"> Predict how a change in one abiotic factor could affect a biome.</li>
+    </ul>
+
+    <div class="ff" style="margin-top:18px;">
+      <div class="ffl">&#127757; The Big Idea</div>
+      Abiotic factors are the non-living rules that every living thing must follow. <strong>Temperature</strong> and <strong>precipitation</strong> set the stage — they determine which biome forms. Then soil, sunlight, pH, salinity, topography, and disturbance add the details. Change any of these factors significantly, and the whole community of life changes with it.
+    </div>
+
+    <div class="btn-row">
+      <button class="btn bgy" onclick="goTo(3)">&#x2B05; Back</button>
+      <button class="btn bg"  onclick="calcScore()">&#127942; See My Score</button>
+      <button class="btn bb"  onclick="goTo(5)">&#128247; Get Completion Card &#x27A1;</button>
+    </div>
+  </div>
+</div>
+</div>
+
+<!-- ═══════════════════════════════════════════
+     SECTION 5 · COMPLETION CARD
+═══════════════════════════════════════════ -->
+<div class="sec" id="s5">
+
+<div style="text-align:center;margin-bottom:14px;">
+  <p style="font-size:.88rem;color:#666;font-weight:700;">&#128071; Fill in your name &amp; period, then <strong>screenshot this card</strong> to turn in!</p>
+</div>
+
+<div id="completionCard">
+
+  <!-- Header with score badge -->
+  <div class="cc-header">
+    <div class="cc-header-left">
+      <h2>&#127758; Abiotic Factors — Completion Card</h2>
+      <p>Section 6.02 &nbsp;&#183;&nbsp; Ohio Standard 7LS2 &nbsp;&#183;&nbsp; 7th Grade Science</p>
+    </div>
+    <div class="cc-score-badge" id="ccScoreBadge">
+      &#8212;<span>MC Score</span>
+    </div>
+  </div>
+
+  <!-- Name row -->
+  <div class="cc-name-row">
+    <label>Name: <input type="text" class="wide" id="ccName" placeholder="Your full name"></label>
+    <label>Period: <input type="text" class="short" id="ccPeriod" placeholder="Per."></label>
+    <label>Date: <input type="text" class="short" id="ccDate" placeholder="Date" style="width:100px;"></label>
+  </div>
+
+  <!-- SECTION A: Multiple Choice Results -->
+  <div class="cc-section">
+    <div class="cc-sec-label green">&#128308; Multiple Choice Results</div>
+    <div class="cc-body">
+      <div class="mc-summary" id="ccMcSummary">
+        <div class="mc-chip skip">Q1: not yet answered</div>
+        <div class="mc-chip skip">Q2: not yet answered</div>
+        <div class="mc-chip skip">Q3: not yet answered</div>
+        <div class="mc-chip skip">Q4: not yet answered</div>
+        <div class="mc-chip skip">Q5: not yet answered</div>
+        <div class="mc-chip skip">Q6: not yet answered</div>
+        <div class="mc-chip skip">Q7: not yet answered</div>
+        <div class="mc-chip skip">Q8: not yet answered</div>
+        <div class="mc-chip skip">Q9: not yet answered</div>
+        <div class="mc-chip skip">Q10: not yet answered</div>
+        <div class="mc-chip skip">Q11: not yet answered</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- SECTION B: Short Answers -->
+  <div class="cc-section">
+    <div class="cc-sec-label blue">&#9999;&#65039; Short Answer Responses</div>
+    <div class="cc-body">
+      <div class="sa-item">
+        <div class="sa-label">Q3 — Biotic vs. Abiotic (your example)</div>
+        <div class="sa-value empty" id="cc-q3">not answered yet</div>
+      </div>
+      <div class="sa-item">
+        <div class="sa-label">Q6 — Predict: acidic pond effect</div>
+        <div class="sa-value empty" id="cc-q6">not answered yet</div>
+      </div>
+      <div class="sa-item">
+        <div class="sa-label">Q9 — Ohio biome: temp + precipitation explanation</div>
+        <div class="sa-value empty" id="cc-q9">not answered yet</div>
+      </div>
+      <div class="sa-item">
+        <div class="sa-label">Q12 — Desert vs. Rainforest: both warm but different</div>
+        <div class="sa-value empty" id="cc-q12">not answered yet</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Screenshot hint -->
+  <div class="snip-hint">
+    &#9989; Complete the lesson, then <strong>screenshot this card</strong> to submit. &nbsp;|&nbsp; &#128247; Windows: Win+Shift+S &nbsp;|&nbsp; Mac: Cmd+Shift+4 &nbsp;|&nbsp; Chromebook: Ctrl+Shift+Show Windows
+  </div>
+
+  <!-- Next up -->
+  <div class="cc-next">
+    <p><strong>&#128202; Next Up: Climatogram Lab!</strong><br>Now you will use temperature &amp; precipitation data — the two biggest abiotic factors — to read real climate graphs and identify biomes.</p>
+    <button class="btn-next-lab" onclick="window.open('climatogram-lesson.html','_blank')">Open Lab &#x27A1;</button>
+  </div>
+
+</div><!-- /#completionCard -->
+
+<div class="btn-row" style="justify-content:center;">
+  <button class="btn bgy" onclick="goTo(4)">&#x2B05; Back to Wrap-Up</button>
+  <button class="btn bg"  onclick="refreshCard()">&#128260; Refresh Card</button>
+</div>
+
+</div><!-- /s5 -->
+
+<script>
+// ── TIMER ─────────────────────────────────────────────────────────
+var tLeft = 45 * 60;
+var timerEl = document.getElementById('timerTxt');
+var fillEl  = document.getElementById('progFill');
+setInterval(function() {
+  if (tLeft <= 0) { timerEl.textContent = 'Time Up!'; return; }
+  tLeft--;
+  var m = Math.floor(tLeft / 60);
+  var s = tLeft % 60;
+  timerEl.textContent = '\u23F1 ' + m + ':' + (s < 10 ? '0' : '') + s;
+  fillEl.style.width = ((45 * 60 - tLeft) / (45 * 60) * 100) + '%';
+}, 1000);
+
+// ── NAVIGATION ────────────────────────────────────────────────────
+var cur = 0;
+var LABELS = [
+  'Part 1 of 5 \u2014 Abiotic Factors',
+  'Part 2 of 5 \u2014 The 8 Factors',
+  'Part 3 of 5 \u2014 Temperature & Precipitation',
+  'Part 4 of 5 \u2014 Real-World Examples',
+  'Part 5 of 5 \u2014 Wrap-Up',
+  '\u2705 Completion Card'
+];
+function goTo(n) {
+  document.getElementById('s' + cur).classList.remove('show');
+  var dots = document.querySelectorAll('.dot');
+  if (dots[cur]) { dots[cur].classList.remove('active'); dots[cur].classList.add('done'); }
+  cur = n;
+  document.getElementById('s' + cur).classList.add('show');
+  if (dots[cur]) { dots[cur].classList.add('active'); dots[cur].classList.remove('done'); }
+  document.getElementById('partLabel').textContent = LABELS[cur] || 'Completion Card';
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+  if (n === 4) calcScore();
+  if (n === 5) buildCompletionCard();
+}
+
+// ── VOCAB FLIP ────────────────────────────────────────────────────
+for (var vi = 0; vi < 8; vi++) {
+  (function(i) {
+    var el = document.getElementById('vc' + i);
+    if (el) {
+      el.addEventListener('click', function() {
+        el.classList.toggle('open');
+        el.querySelector('.hint').textContent = el.classList.contains('open') ? '\u{1F446} Tap to hide' : '\u{1F446} Tap to reveal';
+      });
+    }
+  })(vi);
+}
+
+// ── FACTOR TILES ──────────────────────────────────────────────────
+var factorData = {
+  temp: {
+    cls: 'fir',
+    html: '<strong>&#127777; Temperature</strong> — Controls enzyme activity, growth rates, and seasonal behavior.<br><br>' +
+          '&#10148; Cold temps slow everything down: short growing seasons, dormant plants, animals hibernate.<br>' +
+          '&#10148; Warm temps speed everything up: year-round growth, high biodiversity, fast nutrient cycling.<br><br>' +
+          '<em>&#127757; Tundra:</em> avg -10 to 0&#xB0;C &#8594; only mosses and tiny shrubs survive.<br>' +
+          '<em>&#127796; Rainforest:</em> avg 26&#xB0;C year-round &#8594; plants grow every day of the year.'
+  },
+  rain: {
+    cls: 'rnn',
+    html: '<strong>&#127783; Precipitation</strong> — Controls water availability, plant types, and fire frequency.<br><br>' +
+          '&#10148; Less than 250mm/year = desert conditions: only drought-adapted plants survive.<br>' +
+          '&#10148; Seasonal rain = savannas and grasslands: grasses thrive, trees are scattered.<br>' +
+          '&#10148; High, year-round rain = dense forests with multiple canopy layers.<br><br>' +
+          '<em>&#127795; Sonoran Desert:</em> ~30cm/year &#8594; cacti and succulents only.<br>' +
+          '<em>&#127796; Amazon:</em> 200-400cm/year &#8594; most biodiverse place on Earth.'
+  },
+  sun: {
+    cls: 'snn',
+    html: '<strong>&#9728; Sunlight</strong> — The energy source for photosynthesis; affects seasonal cues.<br><br>' +
+          '&#10148; More sunlight &#8594; more photosynthesis &#8594; more plant growth &#8594; more food for animals.<br>' +
+          '&#10148; Day length triggers migration, reproduction, and hibernation in many animals.<br><br>' +
+          '<em>&#127794; Closed forest canopy:</em> only 1-2% of sunlight reaches the floor &#8594; shade-tolerant ferns and mosses only.<br>' +
+          '<em>&#127806; Open grasslands:</em> full sunlight &#8594; grasses and wildflowers grow abundantly.'
+  },
+  soil: {
+    cls: 'sol',
+    html: '<strong>&#129392; Soil and Nutrients</strong> — Determines which plants can grow and access minerals.<br><br>' +
+          '&#10148; Deep, dark, nutrient-rich soils &#8594; productive farmland (like Ohio and the Great Plains).<br>' +
+          '&#10148; Thin, nutrient-poor soils &#8594; only specialized plants can survive.<br>' +
+          '&#10148; Waterlogged soils &#8594; low oxygen &#8594; only wetland plants like cattails.<br><br>' +
+          '<em>Surprise!</em> Amazon rainforest soils are actually NUTRIENT-POOR &#8212; nutrients are stored in living organisms, not the ground.'
+  },
+  sal: {
+    cls: 'ice',
+    html: '<strong>&#127754; Salinity</strong> — The salt content of water; controls aquatic ecosystems.<br><br>' +
+          '&#10148; Freshwater species cannot tolerate high salt &#8594; will die in ocean water.<br>' +
+          '&#10148; Marine species need salt &#8594; will die in freshwater rivers.<br>' +
+          '&#10148; Estuaries (where rivers meet ocean) = changing salinity &#8594; only specially adapted species survive &#8212; but they become incredibly productive nurseries.<br><br>' +
+          '<em>&#128004; Mangroves</em> are trees adapted to grow in salty, waterlogged coastal soils by filtering salt through their roots.'
+  },
+  ph: {
+    cls: 'pur',
+    html: '<strong>&#129514; pH</strong> — How acidic or basic the soil or water is; scale of 0-14.<br><br>' +
+          '&#10148; pH 7 = neutral (pure water). Below 7 = acidic. Above 7 = basic/alkaline.<br>' +
+          '&#10148; Most plants grow best between pH 6-7.<br>' +
+          '&#10148; Very acidic soil &#8594; fewer nutrients available &#8594; fewer plants can grow.<br><br>' +
+          '<em>&#127794; Pine/spruce forests:</em> falling needles acidify the soil &#8594; very few other plants can grow underneath.<br>' +
+          '<em>&#128004; Acid rain:</em> lowers lake pH &#8594; fish eggs do not hatch &#8594; fish populations crash.'
+  },
+  topo: {
+    cls: 'grn',
+    html: '<strong>&#9968; Topography and Elevation</strong> — The shape of the land changes climate locally.<br><br>' +
+          '&#10148; Every 1,000m elevation gain = ~6&#xB0;C temperature drop &#8594; one mountain can have 4+ biomes.<br>' +
+          '&#10148; Rain shadow: mountains block moist ocean air &#8594; wet lush forest on one side, dry desert on the other.<br>' +
+          '&#10148; South-facing slopes get more direct sun &#8594; warmer and drier than north-facing slopes.<br><br>' +
+          '<em>Rocky Mountains:</em> Base = temperate forest &#8594; Middle = boreal forest &#8594; Top = alpine tundra.'
+  },
+  dist: {
+    cls: 'fir',
+    html: '<strong>&#128293; Disturbance Patterns</strong> — Fires, floods, and storms reset ecosystems periodically.<br><br>' +
+          '&#10148; NOT random events &#8212; their frequency is an abiotic pattern that shapes community structure.<br>' +
+          '&#10148; Some species NEED fire to reproduce: lodgepole pine cones only open with heat from flames.<br>' +
+          '&#10148; Flooding deposits rich sediment &#8594; creates fertile floodplains.<br><br>' +
+          '<em>&#127806; African savannas:</em> periodic fires prevent bush encroachment &#8212; without fire, the grassland would slowly become a forest.'
+  }
+};
+
+document.getElementById('factorGrid').addEventListener('click', function(e) {
+  var tile = e.target.closest('.ftile');
+  if (!tile) return;
+  var key = tile.dataset.key;
+  if (!key || !factorData[key]) return;
+  document.querySelectorAll('.ftile').forEach(function(t) { t.classList.remove('sel'); });
+  tile.classList.add('sel');
+  var d = factorData[key];
+  var box = document.getElementById('factorDetail');
+  box.innerHTML = '<div class="ib ' + d.cls + '"><span class="ic">&#128269;</span><div>' + d.html + '</div></div>';
+  box.style.display = 'block';
+  box.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+});
+
+// ── MULTIPLE CHOICE ───────────────────────────────────────────────
+var mcRight = 0, mcDone = 0;
+var mcAnswered = {};
+
+document.addEventListener('click', function(e) {
+  var mo = e.target.closest('.mo');
+  if (!mo) return;
+  var q = mo.dataset.q;
+  var r = mo.dataset.r;
+  if (!q || !r || mcAnswered[q]) return;
+  mcAnswered[q] = true;
+  mcDone++;
+
+  var grp = document.getElementById(q + 'grp');
+  if (!grp) return;
+  var opts = grp.querySelectorAll('.mo');
+  opts.forEach(function(o) { o.style.pointerEvents = 'none'; });
+
+  var fb = document.getElementById(q + 'fb');
+  if (!fb) return;
+  fb.classList.add('show');
+
+  if (r === 'ok') {
+    mo.classList.add('ok');
+    mo.querySelector('.lt').textContent = '\u2713';
+    mcRight++;
+    fb.className = 'fb show ok';
+    fb.textContent = '\u2705 Correct! Great thinking!';
+  } else {
+    mo.classList.add('no');
+    mo.querySelector('.lt').textContent = '\u2717';
+    fb.className = 'fb show no';
+    fb.textContent = '\u274C Not quite \u2014 look for the correct answer highlighted below.';
+    opts.forEach(function(o) {
+      if (o.dataset.r === 'ok') {
+        o.classList.add('ok');
+        o.querySelector('.lt').textContent = '\u2713';
+      }
+    });
+  }
+});
+
+// ── SHORT ANSWER SAVE ─────────────────────────────────────────────
+function saveAns(tid, fid) {
+  var t = document.getElementById(tid);
+  var fb = document.getElementById(fid);
+  if (!t || !fb) return;
+  if (t.value.trim().length < 5) {
+    t.style.borderColor = 'var(--fire)';
+    setTimeout(function() { t.style.borderColor = ''; }, 700);
+    return;
+  }
+  t.classList.add('saved');
+  fb.className = 'fb show sv';
+  fb.textContent = '\u2705 Answer saved!';
+}
+
+// ── SCORE ─────────────────────────────────────────────────────────
+function calcScore() {
+  var pct = mcDone > 0 ? Math.round(mcRight / mcDone * 100) : 0;
+  var scoreEl = document.getElementById('scoreNum');
+  if (scoreEl) scoreEl.textContent = mcRight + '/' + mcDone;
+  var box = document.getElementById('scoreBox');
+  var msg = '';
+  if (pct >= 80) {
+    if (box) box.style.background = 'linear-gradient(135deg,#207040,#2d8a4e)';
+    msg = '\u{1F31F} Excellent work! You understand abiotic factors!';
+  } else if (pct >= 55) {
+    if (box) box.style.background = 'linear-gradient(135deg,#c07818,#e8a020)';
+    msg = '\uD83D\uDC4D Good effort! Review the sections you missed.';
+  } else {
+    if (box) box.style.background = 'linear-gradient(135deg,#b03a1e,#d94f2b)';
+    msg = '\uD83D\uDCAA Keep going! Try re-reading the lesson.';
+  }
+  var lbl = document.getElementById('scoreLbl');
+  if (lbl) lbl.textContent = msg;
+}
+
+// ── COMPLETION CARD ───────────────────────────────────────────────
+// Maps question IDs to friendly labels for the MC chips
+var mcLabels = {
+  q1: 'Q1', q2: 'Q2', q3: 'Q3', q4: 'Q4', q5: 'Q5',
+  q6: 'Q6', q7: 'Q7', q8: 'Q8', q9: 'Q9', q10: 'Q10', q11: 'Q11'
+};
+// Stores which answer each MC question got and whether it was right
+var mcResults = {};
+
+// Patch the MC handler to also record results for completion card
+var _origMcDone = mcDone;
+document.addEventListener('click', function(e) {
+  var mo = e.target.closest('.mo');
+  if (!mo) return;
+  var q = mo.dataset.q;
+  var r = mo.dataset.r;
+  if (q && r && mcResults[q] === undefined) {
+    // Record the label text and result
+    var labelEl = mo.querySelector('.lt');
+    var letter = labelEl ? labelEl.textContent : '?';
+    // get the text content minus the letter bubble
+    var full = mo.textContent.replace(letter, '').trim();
+    mcResults[q] = { letter: letter, text: full, ok: (r === 'ok') };
+  }
+}, true); // capture phase so we record before the main handler
+
+function getVal(id) {
+  var el = document.getElementById(id);
+  if (!el) return '';
+  return (el.value || '').trim();
+}
+
+function buildCompletionCard() {
+  // Score badge
+  var pct = mcDone > 0 ? Math.round(mcRight / mcDone * 100) : 0;
+  var badge = document.getElementById('ccScoreBadge');
+  if (badge) {
+    badge.innerHTML = mcRight + '/' + mcDone + '<span>MC Score</span>';
+    if (pct >= 80) badge.style.background = 'rgba(45,138,78,.5)';
+    else if (pct >= 55) badge.style.background = 'rgba(192,120,24,.5)';
+    else badge.style.background = 'rgba(217,79,43,.4)';
+  }
+
+  // MC chips
+  var chipWrap = document.getElementById('ccMcSummary');
+  if (chipWrap) {
+    var html = '';
+    var qList = ['q1','q2','q3','q4','q5','q6','q7','q8','q9','q10','q11'];
+    qList.forEach(function(qid, idx) {
+      var res = mcResults[qid];
+      var label = 'Q' + (idx + 1);
+      if (!res) {
+        html += '<div class="mc-chip skip">' + label + ': skipped</div>';
+      } else if (res.ok) {
+        html += '<div class="mc-chip ok">\u2713 ' + label + ' correct</div>';
+      } else {
+        html += '<div class="mc-chip no">\u2717 ' + label + ' incorrect</div>';
+      }
+    });
+    chipWrap.innerHTML = html;
+  }
+
+  // Short answers — map textarea IDs to completion card display IDs
+  var saMap = [
+    { src: 'q3t',  dst: 'cc-q3'  },
+    { src: 'q6t',  dst: 'cc-q6'  },
+    { src: 'q9t',  dst: 'cc-q9'  },
+    { src: 'q12t', dst: 'cc-q12' }
+  ];
+  saMap.forEach(function(m) {
+    var val = getVal(m.src);
+    var el = document.getElementById(m.dst);
+    if (!el) return;
+    if (val.length > 0) {
+      el.textContent = val;
+      el.classList.remove('empty');
+    } else {
+      el.textContent = 'not answered yet';
+      el.classList.add('empty');
+    }
+  });
+
+  // Auto-fill date if empty
+  var dateEl = document.getElementById('ccDate');
+  if (dateEl && !dateEl.value) {
+    var d = new Date();
+    var mo = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
+    dateEl.value = mo[d.getMonth()] + ' ' + d.getDate() + ', ' + d.getFullYear();
+  }
+}
+
+function refreshCard() {
+  buildCompletionCard();
+}
+</script>
+</body>
+</html>
