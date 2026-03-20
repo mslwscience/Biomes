@@ -169,6 +169,55 @@ hr.rule{border:none;border-top:2px dashed var(--border);margin:14px 0;}
 .ff{background:var(--sun-lt);border:2px solid var(--sun);border-radius:10px;padding:11px 16px;margin:11px 0;font-size:.9rem;}
 .ff .ffl{font-weight:800;color:#7a5200;margin-bottom:3px;}
 
+/* SCORE BOX */
+.score-box{background:var(--dark);color:#fff;border-radius:var(--radius);padding:24px 20px;text-align:center;margin-bottom:18px;}
+.score-box .big{font-family:'Baloo 2',cursive;font-size:3.2rem;line-height:1;}
+.score-box .lbl{font-size:.88rem;opacity:.82;margin-top:4px;}
+/* QUESTION BLOCKS */
+.qblock{margin:14px 0;padding:13px 17px;border-radius:10px;border:2px solid var(--border);background:#fafbff;}
+.ql{font-weight:800;color:var(--blue);font-size:.8rem;text-transform:uppercase;letter-spacing:.4px;margin-bottom:5px;}
+.qt{font-size:.97rem;font-weight:700;margin-bottom:7px;}
+.qh{font-size:.8rem;color:#888;font-style:italic;margin-bottom:8px;}
+.mc{display:flex;flex-direction:column;gap:7px;}
+.mo{border:2px solid var(--border);border-radius:8px;padding:9px 13px;cursor:pointer;font-size:.92rem;background:#fff;transition:all .15s;display:flex;align-items:center;gap:9px;}
+.mo:hover{background:var(--blue-lt);border-color:var(--blue);}
+.mo.ok{background:var(--green-lt);border-color:var(--green);color:var(--green);font-weight:700;}
+.mo.no{background:var(--fire-lt);border-color:var(--fire);color:var(--fire);}
+.mo .lt{width:26px;height:26px;border-radius:50%;background:var(--border);display:flex;align-items:center;justify-content:center;font-weight:800;font-size:.82rem;flex-shrink:0;}
+.mo.ok .lt{background:var(--green);color:#fff;}
+.mo.no .lt{background:var(--fire);color:#fff;}
+.fb{display:inline-block;border-radius:99px;padding:3px 14px;font-size:.8rem;font-weight:800;margin-top:7px;opacity:0;transition:opacity .3s;}
+.fb.show{opacity:1;}
+.fb.ok{background:var(--green-lt);color:var(--green);}
+.fb.no{background:var(--fire-lt);color:var(--fire);}
+.fb.sv{background:var(--blue-lt);color:var(--blue);}
+textarea.ans{width:100%;min-height:80px;border:2px solid var(--border);border-radius:8px;padding:9px 13px;font-family:'Nunito',sans-serif;font-size:.93rem;resize:vertical;transition:border-color .2s;}
+textarea.ans:focus{outline:none;border-color:var(--blue);}
+textarea.ans.saved{border-color:var(--green);background:var(--green-lt);}
+
+/* DRAG AND DROP */
+.drag-label{
+  border-radius:99px;padding:7px 14px;font-size:.82rem;font-weight:800;
+  cursor:grab;user-select:none;transition:all .18s;
+  display:inline-flex;align-items:center;gap:5px;
+}
+.drag-label:hover{transform:translateY(-2px);box-shadow:0 4px 12px rgba(0,0,0,.15);}
+.drag-label.dragging{opacity:.35;}
+.drag-label.placed{opacity:.35;cursor:default;}
+.drop-zone-wrap{display:flex;flex-direction:column;gap:5px;}
+.dz-arrow{font-size:.78rem;font-weight:700;padding-left:4px;}
+.drop-zone{
+  border:2px dashed var(--border);border-radius:9px;
+  padding:10px 14px;font-size:.82rem;color:#aaa;font-weight:700;
+  min-height:44px;background:#fafbff;transition:all .2s;
+  display:flex;align-items:center;
+}
+.drop-zone.drag-over{border-color:var(--blue);background:var(--blue-lt);color:var(--blue);}
+.drop-zone.correct{border-color:var(--green);background:var(--green-lt);color:var(--green);border-style:solid;}
+.drop-zone.wrong{border-color:var(--fire);background:var(--fire-lt);color:var(--fire);border-style:solid;}
+
+@media(max-width:520px){#dropGrid{grid-template-columns:1fr!important;}}
+
 @media print{
   .topbar,.nav-dots,.btn-row,.biome-nav{display:none!important;}
   .sec{display:block!important;}
@@ -194,7 +243,8 @@ hr.rule{border:none;border-top:2px dashed var(--border);margin:14px 0;}
 <div class="nav-dots">
   <div class="dot active" onclick="goTo(0)" title="What is a climatograph?"></div>
   <div class="dot" onclick="goTo(1)" title="How to read it"></div>
-  <div class="dot" onclick="goTo(2)" title="7 biome examples"></div>
+  <div class="dot" onclick="goTo(2)" title="Climatograph Examples"></div>
+  <div class="dot" onclick="goTo(3)" title="Exit Ticket"></div>
 </div>
 
 <!-- ═══════════════════════════════════════════
@@ -342,7 +392,7 @@ hr.rule{border:none;border-top:2px dashed var(--border);margin:14px 0;}
 
     <div class="btn-row">
       <button class="btn bgy" onclick="goTo(0)">&#x2B05; Back</button>
-      <button class="btn bb" onclick="goTo(2)">Next: See 7 Biome Examples &#x27A1;</button>
+      <button class="btn bb" onclick="goTo(2)">Next: Climatograph Examples &#x27A1;</button>
     </div>
   </div>
 </div>
@@ -353,7 +403,7 @@ hr.rule{border:none;border-top:2px dashed var(--border);margin:14px 0;}
 ═══════════════════════════════════════════ -->
 <div class="sec" id="s2">
 <div class="card">
-  <div class="ch ho"><span>&#127758;</span> Part 3 — 7 Climatograph Examples <span class="badge">~15 min</span></div>
+  <div class="ch ho"><span>&#127758;</span> Part 3 — Climatograph Examples <span class="badge">~15 min</span></div>
   <div class="cb">
 
     <div class="ib snn">
@@ -575,8 +625,117 @@ hr.rule{border:none;border-top:2px dashed var(--border);margin:14px 0;}
 
     <div class="btn-row">
       <button class="btn bgy" onclick="goTo(1)">&#x2B05; Back</button>
+      <button class="btn bb" onclick="goTo(3)">&#127915; Exit Ticket &#x27A1;</button>
       <button class="btn bg" onclick="window.print()">&#128424;&#65039; Print</button>
     </div>
+  </div>
+</div>
+</div>
+
+<!-- ═══════════════════════════════════════════
+     SECTION 3 · EXIT TICKET
+═══════════════════════════════════════════ -->
+<div class="sec" id="s3">
+<div class="card">
+  <div class="ch hd"><span>&#127942;</span> Exit Ticket — Label the Climatograph</div>
+  <div class="cb">
+
+    <div class="ib sky">
+      <span class="ic">&#128073;</span>
+      <div><strong>Drag each label</strong> from the bank below and drop it onto the correct arrow pointing to that part of the graph. All 6 labels must be placed. When you get one right it turns green!</div>
+    </div>
+
+    <!-- LABEL BANK -->
+    <div style="margin:14px 0 10px;">
+      <p style="font-weight:800;font-size:.9rem;margin-bottom:8px;">&#127381; Label Bank — drag these onto the graph:</p>
+      <div id="labelBank" style="display:flex;flex-wrap:wrap;gap:8px;padding:12px 14px;background:#f0f4fb;border-radius:10px;border:2px solid var(--border);min-height:52px;">
+        <div class="drag-label" draggable="true" data-val="templine"   style="background:#fde9e4;border:2px solid var(--fire);color:#8a2a14;">&#128293; Temperature Line</div>
+        <div class="drag-label" draggable="true" data-val="precip"    style="background:#e3f1fc;border:2px solid var(--blue);color:#0e4a73;">&#127783; Precipitation Bar Graph</div>
+        <div class="drag-label" draggable="true" data-val="months"    style="background:#e7f5ec;border:2px solid var(--green);color:#1a4a2a;">&#128197; Months of the Year</div>
+        <div class="drag-label" draggable="true" data-val="tempreads" style="background:#fef8e6;border:2px solid var(--sun);color:#7a5200;">&#127777;&#65039; Temperature Readings (&deg;C / &deg;F)</div>
+        <div class="drag-label" draggable="true" data-val="precipread" style="background:var(--rain-lt);border:2px solid var(--rain);color:#0c4870;">&#128045; Precipitation Scale (mm / inches)</div>
+        <div class="drag-label" draggable="true" data-val="dot"       style="background:var(--purple-lt);border:2px solid var(--purple);color:#3d1870;">&#9679; Monthly Temperature Dot</div>
+      </div>
+    </div>
+
+    <!-- ANNOTATED GRAPH + DROP ZONES -->
+    <div style="position:relative;margin:10px 0 20px;">
+      <svg id="etSVG" viewBox="0 0 620 340" xmlns="http://www.w3.org/2000/svg" style="display:block;width:100%;height:auto;"></svg>
+
+      <!-- Drop zones positioned over the SVG with absolute positioning -->
+      <!-- These sit on top of the SVG using a wrapper -->
+    </div>
+
+    <!-- Drop zone layout below graph - cleaner approach -->
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;margin:10px 0;" id="dropGrid">
+
+      <div class="drop-zone-wrap">
+        <div class="dz-arrow" style="color:var(--fire);">&#8592; Points to the red curved line</div>
+        <div class="drop-zone" data-answer="templine" id="dz-templine">Drop label here</div>
+      </div>
+
+      <div class="drop-zone-wrap">
+        <div class="dz-arrow" style="color:var(--blue);">&#8592; Points to the blue tall columns</div>
+        <div class="drop-zone" data-answer="precip" id="dz-precip">Drop label here</div>
+      </div>
+
+      <div class="drop-zone-wrap">
+        <div class="dz-arrow" style="color:#555;">&#8595; Points to the bottom row (J F M A...)</div>
+        <div class="drop-zone" data-answer="months" id="dz-months">Drop label here</div>
+      </div>
+
+      <div class="drop-zone-wrap">
+        <div class="dz-arrow" style="color:var(--purple);">&#8592; Points to a red dot on the line</div>
+        <div class="drop-zone" data-answer="dot" id="dz-dot">Drop label here</div>
+      </div>
+
+      <div class="drop-zone-wrap">
+        <div class="dz-arrow" style="color:var(--fire);">&#8592; Points to the numbers on the RIGHT side</div>
+        <div class="drop-zone" data-answer="tempreads" id="dz-tempreads">Drop label here</div>
+      </div>
+
+      <div class="drop-zone-wrap">
+        <div class="dz-arrow" style="color:var(--rain);">&#8592; Points to the numbers on the LEFT side</div>
+        <div class="drop-zone" data-answer="precipread" id="dz-precipread">Drop label here</div>
+      </div>
+
+    </div>
+
+    <div id="dndFeedback" style="font-size:.95rem;font-weight:800;padding:10px 14px;border-radius:9px;display:none;margin:8px 0;"></div>
+
+    <div class="btn-row">
+      <button class="btn bgy" onclick="goTo(2)">&#x2B05; Back</button>
+      <button class="btn bgy" onclick="resetDnD()">&#128260; Reset</button>
+    </div>
+
+    <hr class="rule">
+
+    <div style="background:#18243a;border-radius:12px;padding:16px 20px;margin-top:4px;">
+      <div style="font-family:'Baloo 2',cursive;font-size:1.05rem;font-weight:800;color:#fff;margin-bottom:10px;">&#128247; Turn In Your Work — Take a Screenshot!</div>
+      <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:10px;margin-bottom:12px;">
+        <div style="background:rgba(255,255,255,.1);border-radius:9px;padding:10px 12px;text-align:center;">
+          <div style="font-size:1.3rem;margin-bottom:4px;">&#128064;</div>
+          <div style="font-size:.78rem;font-weight:800;color:#a0d8ff;margin-bottom:3px;">Step 1</div>
+          <div style="font-size:.78rem;color:rgba(255,255,255,.8);line-height:1.45;">Make sure all 6 labels are placed correctly and showing green</div>
+        </div>
+        <div style="background:rgba(255,255,255,.1);border-radius:9px;padding:10px 12px;text-align:center;">
+          <div style="font-size:1.3rem;margin-bottom:4px;">&#128247;</div>
+          <div style="font-size:.78rem;font-weight:800;color:#a0d8ff;margin-bottom:3px;">Step 2 — Take a Screenshot</div>
+          <div style="font-size:.78rem;color:rgba(255,255,255,.8);line-height:1.45;">
+            <strong style="color:#fff;">Chromebook:</strong> Ctrl + Show Windows<br>
+            <strong style="color:#fff;">Windows:</strong> Win + Shift + S<br>
+            <strong style="color:#fff;">Mac:</strong> Cmd + Shift + 4
+          </div>
+        </div>
+        <div style="background:rgba(45,138,78,.35);border-radius:9px;padding:10px 12px;text-align:center;border:1.5px solid rgba(45,138,78,.6);">
+          <div style="font-size:1.3rem;margin-bottom:4px;">&#128196;</div>
+          <div style="font-size:.78rem;font-weight:800;color:#a0ffb8;margin-bottom:3px;">Step 3 — Paste in Classkick</div>
+          <div style="font-size:.78rem;color:rgba(255,255,255,.8);line-height:1.45;">Open your Classkick assignment and paste with <strong style="color:#fff;">Ctrl+V</strong> (or Cmd+V on Mac)</div>
+        </div>
+      </div>
+      <div style="font-size:.75rem;color:rgba(255,255,255,.5);text-align:center;font-style:italic;">Screenshot the whole page so your teacher can see the graph and all your labels &#127775;</div>
+    </div>
+
   </div>
 </div>
 </div>
@@ -585,7 +744,12 @@ hr.rule{border:none;border-top:2px dashed var(--border);margin:14px 0;}
 <script>
 // ── NAV ───────────────────────────────────────────────────────────
 var cur = 0;
-var LABELS = ['Part 1 of 3 — What Is a Climatograph?','Part 2 of 3 — How to Read It','Part 3 of 3 — 7 Biome Examples'];
+var LABELS = [
+  'Part 1 of 3 \u2014 What Is a Climatograph?',
+  'Part 2 of 3 \u2014 How to Read It',
+  'Part 3 of 3 \u2014 Climatograph Examples',
+  '\u2705 Exit Ticket'
+];
 function goTo(n) {
   document.getElementById('s' + cur).classList.remove('show');
   var dots = document.querySelectorAll('.dot');
@@ -594,9 +758,178 @@ function goTo(n) {
   document.getElementById('s' + cur).classList.add('show');
   if (dots[cur]) { dots[cur].classList.add('active'); dots[cur].classList.remove('done'); }
   document.getElementById('partLabel').textContent = LABELS[cur] || '';
-  var pct = (cur / 2) * 100;
+  var pct = (cur / 3) * 100;
   document.getElementById('progFill').style.width = pct + '%';
   window.scrollTo({ top: 0, behavior: 'smooth' });
+  if (n === 3) initExitTicket();
+}
+
+// ── DRAG AND DROP EXIT TICKET ────────────────────────────────────
+var draggedVal = null;
+var dndCorrect = 0;
+var dndTotal = 6;
+var dndDone = {};
+
+function initExitTicket() {
+  if (document.getElementById('etSVG').innerHTML) return; // already built
+  buildEtGraph();
+  setupDragListeners();
+}
+
+function buildEtGraph() {
+  var svg = document.getElementById('etSVG');
+  if (!svg) return;
+  var W = 620, H = 340;
+  var PL = 72, PR = 68, PT = 30, PB = 42;
+  var iW = W - PL - PR, iH = H - PT - PB;
+  var precip = [62,49,56,82,89,101,103,79,67,42,97,61];
+  var temp   = [-2.2,0,5.6,11.1,16.9,21.9,23.9,22.8,19.2,12.5,6.4,0.8];
+  var maxP = 160, minT = -10, maxT = 32;
+  var bS = iW/12, bW = Math.floor(bS*0.52);
+  var pSc = function(v){ return PT+iH-(v/maxP)*iH; };
+  var tSc = function(v){ return PT+iH-((v-minT)/(maxT-minT))*iH; };
+  var html = '';
+
+  // grid
+  var pStep = 40;
+  for (var p=0; p<=maxP; p+=pStep) {
+    var gy = pSc(p);
+    html += '<line x1="'+PL+'" y1="'+gy+'" x2="'+(W-PR)+'" y2="'+gy+'" stroke="#e8edf8" stroke-width="1"/>';
+    html += '<text x="'+(PL-5)+'" y="'+(gy+3)+'" text-anchor="end" font-size="10" fill="#1a6fb5" font-family="Nunito" font-weight="700">'+p+'</text>';
+    html += '<text x="'+(PL-5)+'" y="'+(gy+13)+'" text-anchor="end" font-size="8.5" fill="#7ab0d8" font-family="Nunito">'+((p/25.4).toFixed(1))+'"</text>';
+  }
+
+  // bars
+  precip.forEach(function(p,i){
+    var x=PL+i*bS+(bS-bW)/2, y=pSc(p), bh=pSc(0)-y;
+    html += '<rect x="'+x+'" y="'+y+'" width="'+bW+'" height="'+bh+'" fill="#3a9bd5" opacity="0.78" rx="2"/>';
+  });
+
+  // temp line
+  var pts = temp.map(function(t,i){ return (PL+i*bS+bS/2)+','+(tSc(t)); }).join(' ');
+  html += '<polyline points="'+pts+'" fill="none" stroke="#d94f2b" stroke-width="2.5" stroke-linejoin="round"/>';
+  temp.forEach(function(t,i){
+    var cx=PL+i*bS+bS/2, cy=tSc(t);
+    html += '<circle cx="'+cx+'" cy="'+cy+'" r="4.5" fill="#d94f2b" stroke="#fff" stroke-width="1.5"/>';
+  });
+
+  // right axis
+  var tStep=(maxT-minT)/4;
+  for (var ti=0;ti<=4;ti++){
+    var tv=Math.round(minT+ti*tStep), ty=tSc(tv);
+    html += '<text x="'+(W-PR+5)+'" y="'+(ty+3)+'" text-anchor="start" font-size="10" fill="#d94f2b" font-family="Nunito" font-weight="700">'+tv+'&#xB0;C</text>';
+    html += '<text x="'+(W-PR+5)+'" y="'+(ty+13)+'" text-anchor="start" font-size="8.5" fill="#c07878" font-family="Nunito">'+Math.round(tv*9/5+32)+'&#xB0;F</text>';
+  }
+
+  // month labels
+  var MO=['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
+  MO.forEach(function(m,i){
+    var cx=PL+i*bS+bS/2;
+    html += '<text x="'+cx+'" y="'+(PT+iH+16)+'" text-anchor="middle" font-size="9" fill="#555" font-family="Nunito" font-weight="700">'+m+'</text>';
+  });
+
+  // axes
+  html += '<line x1="'+PL+'" y1="'+PT+'" x2="'+PL+'" y2="'+(PT+iH)+'" stroke="#555" stroke-width="2"/>';
+  html += '<line x1="'+PL+'" y1="'+(PT+iH)+'" x2="'+(W-PR)+'" y2="'+(PT+iH)+'" stroke="#555" stroke-width="2"/>';
+  html += '<line x1="'+(W-PR)+'" y1="'+PT+'" x2="'+(W-PR)+'" y2="'+(PT+iH)+'" stroke="#d94f2b" stroke-width="1.5" opacity=".4"/>';
+
+  // title
+  html += '<text x="'+(W/2)+'" y="17" text-anchor="middle" font-size="12" fill="#18243a" font-family="Nunito" font-weight="800">Columbus, Ohio \u2014 What does each part of this graph show?</text>';
+
+  svg.innerHTML = html;
+}
+
+function setupDragListeners() {
+  // Drag labels
+  document.querySelectorAll('.drag-label').forEach(function(el) {
+    el.addEventListener('dragstart', function(e) {
+      draggedVal = el.dataset.val;
+      el.classList.add('dragging');
+      e.dataTransfer.effectAllowed = 'move';
+    });
+    el.addEventListener('dragend', function() {
+      el.classList.remove('dragging');
+    });
+  });
+
+  // Drop zones
+  document.querySelectorAll('.drop-zone').forEach(function(dz) {
+    dz.addEventListener('dragover', function(e) {
+      e.preventDefault();
+      if (!dndDone[dz.dataset.answer]) dz.classList.add('drag-over');
+    });
+    dz.addEventListener('dragleave', function() {
+      dz.classList.remove('drag-over');
+    });
+    dz.addEventListener('drop', function(e) {
+      e.preventDefault();
+      dz.classList.remove('drag-over');
+      if (dndDone[dz.dataset.answer]) return;
+      var answer = dz.dataset.answer;
+      if (draggedVal === answer) {
+        // correct
+        dz.classList.add('correct');
+        dz.innerHTML = getLabelHTML(draggedVal);
+        dndDone[answer] = true;
+        dndCorrect++;
+        // fade out the source label
+        var src = document.querySelector('.drag-label[data-val="'+draggedVal+'"]');
+        if (src) src.classList.add('placed');
+        checkDndComplete();
+      } else {
+        // wrong
+        dz.classList.add('wrong');
+        dz.textContent = 'Not quite \u2014 try a different label!';
+        setTimeout(function(){
+          dz.classList.remove('wrong');
+          dz.textContent = 'Drop label here';
+        }, 1200);
+      }
+      draggedVal = null;
+    });
+  });
+}
+
+function getLabelHTML(val) {
+  var labels = {
+    templine:   '\uD83D\uDD25 Temperature Line',
+    precip:     '\uD83C\uDF27\uFE0F Precipitation Bar Graph',
+    months:     '\uD83D\uDCC5 Months of the Year',
+    tempreads:  '\uD83C\uDF21\uFE0F Temperature Readings (\u00B0C / \u00B0F)',
+    precipread: '\uD83D\uDCA7 Precipitation Scale (mm / inches)',
+    dot:        '\u25CF Monthly Temperature Dot'
+  };
+  return labels[val] || val;
+}
+
+function checkDndComplete() {
+  var fb = document.getElementById('dndFeedback');
+  if (!fb) return;
+  fb.style.display = 'block';
+  if (dndCorrect === dndTotal) {
+    fb.style.background = '#e7f5ec';
+    fb.style.color = '#207040';
+    fb.style.border = '2px solid #2d8a4e';
+    fb.textContent = '\uD83C\uDF1F Perfect! You labeled all 6 parts correctly! You know how to read a climatograph!';
+  } else {
+    fb.style.background = '#e3f1fc';
+    fb.style.color = '#1362a0';
+    fb.style.border = '2px solid #1a7abf';
+    fb.textContent = '\u2705 ' + dndCorrect + ' of ' + dndTotal + ' correct \u2014 keep going!';
+  }
+}
+
+function resetDnD() {
+  draggedVal = null; dndCorrect = 0; dndDone = {};
+  document.querySelectorAll('.drop-zone').forEach(function(dz) {
+    dz.className = 'drop-zone';
+    dz.textContent = 'Drop label here';
+  });
+  document.querySelectorAll('.drag-label').forEach(function(el) {
+    el.classList.remove('placed','dragging');
+  });
+  var fb = document.getElementById('dndFeedback');
+  if (fb) fb.style.display = 'none';
 }
 
 // ── BIOME SWITCHER ────────────────────────────────────────────────
@@ -899,5 +1232,6 @@ window.addEventListener('DOMContentLoaded', function() {
   buildGraph('svg6', d.mumbai.p,    d.mumbai.t,    d.mumbai.maxP,    d.mumbai.minT,    d.mumbai.maxT,    false);
 });
 </script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
 </body>
 </html>
