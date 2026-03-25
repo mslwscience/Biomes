@@ -1,0 +1,646 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>🔍 Operation: Save the Ecosystem!</title>
+<link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;700;800;900&family=Fredoka+One&display=swap" rel="stylesheet">
+<style>
+:root{
+  --green:#2d6a4f;--lime:#52b788;--lgr:#b7e4c7;
+  --yellow:#f9c74f;--red:#e63946;--blue:#457b9d;
+  --cream:#f8f9e8;--dark:#1b4332;--shadow:0 4px 18px rgba(0,0,0,0.13);
+}
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:'Nunito',sans-serif;background:linear-gradient(160deg,#1b4332 0%,#2d6a4f 50%,#1b4332 100%);min-height:100vh;padding:16px;color:#fff}
+#app{max-width:780px;margin:0 auto}
+
+.hq{background:rgba(0,0,0,0.4);border:2px solid var(--lime);border-radius:20px;padding:18px;margin-bottom:14px;text-align:center}
+.hq-badge{background:var(--lime);color:var(--dark);font-family:'Fredoka One',cursive;font-size:.72rem;padding:3px 12px;border-radius:99px;display:inline-block;margin-bottom:7px;letter-spacing:1px}
+.hq h1{font-family:'Fredoka One',cursive;font-size:1.75rem;color:#fff;line-height:1.2}
+.hq p{font-size:.85rem;opacity:.78;margin-top:4px}
+
+.status-bar{display:flex;gap:9px;margin-bottom:12px;flex-wrap:wrap}
+.stat-chip{background:rgba(0,0,0,0.35);border:1.5px solid rgba(255,255,255,0.15);border-radius:12px;padding:8px 12px;flex:1;min-width:100px;text-align:center}
+.stat-chip .lbl{font-size:.68rem;opacity:.6;text-transform:uppercase;letter-spacing:.5px}
+.stat-chip .val{font-family:'Fredoka One',cursive;font-size:1.25rem;color:var(--yellow)}
+
+.clue-track{background:rgba(0,0,0,0.3);border-radius:12px;padding:11px 15px;margin-bottom:12px;display:flex;align-items:center;gap:10px;flex-wrap:wrap}
+.clue-dots{display:flex;gap:6px;flex-wrap:wrap}
+.dot{width:24px;height:24px;border-radius:50%;border:2px solid rgba(255,255,255,0.2);background:rgba(255,255,255,0.07);font-size:.65rem;display:flex;align-items:center;justify-content:center;font-weight:900;transition:all .35s}
+.dot.done{background:var(--lime);border-color:var(--lime);color:var(--dark)}
+.dot.cur{background:var(--yellow);border-color:var(--yellow);color:var(--dark)}
+.clue-lbl{font-size:.78rem;opacity:.65;white-space:nowrap}
+
+.mystery{background:rgba(0,0,0,0.35);border:1.5px solid rgba(255,255,255,0.12);border-radius:16px;padding:16px;margin-bottom:12px;min-height:82px;transition:border .3s}
+.mystery.flash{border-color:var(--yellow)}
+.m-tag{font-family:'Fredoka One',cursive;color:var(--yellow);font-size:.8rem;letter-spacing:.5px;margin-bottom:5px}
+.m-img{font-size:2.6rem;margin-bottom:3px}
+.m-txt{font-size:.92rem;line-height:1.5;opacity:.9}
+.m-txt b{color:var(--yellow)}
+.rv{background:var(--lime);color:var(--dark);font-weight:900;border-radius:5px;padding:1px 7px}
+
+.qcard{background:#fff;color:var(--dark);border-radius:18px;padding:20px;margin-bottom:13px;box-shadow:var(--shadow)}
+.sec-tag{font-size:.68rem;font-weight:900;text-transform:uppercase;letter-spacing:.8px;color:var(--green);margin-bottom:5px}
+.sec-title{font-family:'Fredoka One',cursive;font-size:1rem;color:var(--dark);margin-bottom:4px}
+.sec-sub{font-size:.8rem;color:#666;margin-bottom:11px}
+.joke{background:#fffbe6;border-left:4px solid var(--yellow);border-radius:0 9px 9px 0;padding:7px 11px;font-size:.82rem;font-style:italic;margin-bottom:11px;color:#7a6200}
+.qblock{margin-bottom:18px}
+.qtext{font-size:.96rem;font-weight:800;line-height:1.45;margin-bottom:10px;color:var(--dark)}
+.choices{display:flex;flex-direction:column;gap:7px}
+.cbtn{background:var(--cream);border:2.5px solid #d0e8d8;border-radius:12px;padding:9px 13px;font-family:'Nunito',sans-serif;font-size:.91rem;font-weight:700;cursor:pointer;text-align:left;transition:all .18s;color:var(--dark)}
+.cbtn:hover:not(:disabled){background:var(--lgr);border-color:var(--lime);transform:translateX(3px)}
+.cbtn.correct{background:#d4edda;border-color:var(--lime);color:var(--green)}
+.cbtn.wrong{background:#fde2e2;border-color:var(--red);color:var(--red)}
+.cbtn.show-correct{background:#d4edda;border-color:var(--lime)}
+.qfb{margin-top:8px;padding:8px 12px;border-radius:9px;font-size:.83rem;font-weight:700;display:none}
+.qfb.show{display:block}
+.qfb.correct{background:#d4edda;color:var(--green)}
+.qfb.wrong{background:#fde2e2;color:var(--red)}
+
+.sort-bank{background:#f4f7f4;border-radius:11px;padding:10px;margin-bottom:11px}
+.sort-bank-lbl{font-size:.72rem;font-weight:900;text-transform:uppercase;letter-spacing:.5px;color:#777;margin-bottom:7px}
+.sort-bank-items{display:flex;flex-wrap:wrap;gap:7px;min-height:36px}
+.sort-cols{display:grid;grid-template-columns:1fr 1fr;gap:11px;margin-bottom:9px}
+@media(max-width:460px){.sort-cols{grid-template-columns:1fr}}
+.scol{border-radius:11px;padding:10px;min-height:95px}
+.scol.bio{background:#e8f5e9;border:2px dashed var(--lime)}
+.scol.abio{background:#e3f2fd;border:2px dashed var(--blue)}
+.scol-title{font-family:'Fredoka One',cursive;font-size:.9rem;margin-bottom:7px;padding-bottom:4px;border-bottom:2px solid}
+.scol.bio .scol-title{color:var(--green);border-color:var(--lime)}
+.scol.abio .scol-title{color:var(--blue);border-color:var(--blue)}
+.scol-items{display:flex;flex-wrap:wrap;gap:6px;min-height:42px}
+.chip{background:#fff;border:2px solid #ccc;border-radius:20px;padding:5px 12px;font-size:.81rem;font-weight:800;cursor:grab;user-select:none;transition:all .18s;color:var(--dark)}
+.chip:hover{transform:scale(1.07);border-color:#999}
+.chip.dragging{opacity:.4}
+.chip.ok{background:#d4edda;border-color:var(--lime);color:var(--green);cursor:default}
+.chip.bad{background:#fde2e2;border-color:var(--red);color:var(--red)}
+
+.match-grid{display:flex;flex-direction:column;gap:8px}
+.mrow{display:grid;grid-template-columns:1fr 16px 1fr;align-items:center;gap:7px}
+.mterm{background:var(--lgr);border-radius:9px;padding:8px 10px;font-weight:800;font-size:.84rem;text-align:center;color:var(--dark)}
+.marrow{text-align:center;color:#aaa;font-size:.85rem}
+.msel{border:2px solid #d0e8d8;border-radius:9px;padding:7px 8px;font-family:'Nunito',sans-serif;font-size:.83rem;font-weight:700;background:var(--cream);color:var(--dark);width:100%}
+.msel:focus{outline:none;border-color:var(--lime)}
+.msel.correct{background:#d4edda;border-color:var(--lime);color:var(--green)}
+.msel.wrong{background:#fde2e2;border-color:var(--red);color:var(--red)}
+
+.check-btn{background:var(--green);color:#fff;border:none;border-radius:10px;padding:9px 20px;font-family:'Nunito',sans-serif;font-size:.9rem;font-weight:900;cursor:pointer;transition:all .18s;margin-top:9px}
+.check-btn:hover{background:var(--dark);transform:translateY(-1px)}
+.sfb{margin-top:8px;padding:8px 12px;border-radius:9px;font-size:.83rem;font-weight:700;display:none}
+.sfb.show{display:block}
+.sfb.correct{background:#d4edda;color:var(--green)}
+.sfb.wrong{background:#fde2e2;color:var(--red)}
+.drag-hint{font-size:.75rem;color:#888;margin-bottom:8px}
+
+.retry-bar{background:#fff3cd;border:2px solid var(--yellow);border-radius:12px;padding:12px 15px;margin-bottom:13px;font-weight:800;font-size:.88rem;color:#7a5c00;display:none;text-align:center}
+.retry-bar.show{display:block}
+
+.submit-area{text-align:center;padding:8px 0 22px}
+.submit-btn{background:linear-gradient(135deg,var(--green),var(--lime));color:#fff;border:none;border-radius:16px;padding:14px 40px;font-family:'Fredoka One',cursive;font-size:1.35rem;cursor:pointer;box-shadow:0 6px 20px rgba(0,0,0,0.25);transition:all .2s}
+.submit-btn:hover{transform:translateY(-2px);box-shadow:0 8px 24px rgba(0,0,0,0.3)}
+
+/* COMPLETION PAGE */
+#done-page{display:none;background:rgba(0,0,0,0.55);border:2.5px solid var(--lime);border-radius:22px;padding:30px 22px;text-align:center;margin-top:16px}
+.done-emoji{font-size:3rem;margin-bottom:6px}
+.done-title{font-family:'Fredoka One',cursive;font-size:1.8rem;margin-bottom:4px}
+.done-score{font-family:'Fredoka One',cursive;font-size:3.4rem;color:var(--yellow);margin:6px 0}
+.done-msg{font-size:.9rem;opacity:.85;margin:8px 0 16px;line-height:1.6;max-width:520px;margin-left:auto;margin-right:auto}
+.done-divider{border-top:1px solid rgba(255,255,255,.2);margin:16px 0}
+.done-card{background:rgba(255,255,255,0.08);border:2px solid rgba(255,255,255,0.25);border-radius:16px;padding:18px;display:inline-block;width:100%;max-width:420px}
+.done-card-title{font-family:'Fredoka One',cursive;font-size:.85rem;letter-spacing:.5px;opacity:.7;margin-bottom:10px}
+.name-inp{border:2px solid rgba(255,255,255,0.4);background:rgba(255,255,255,0.1);border-radius:10px;padding:9px 14px;font-family:'Nunito',sans-serif;font-size:1rem;font-weight:800;color:#fff;text-align:center;width:100%;max-width:280px;outline:none;display:block;margin:0 auto 12px}
+.name-inp::placeholder{color:rgba(255,255,255,.4)}
+.stamp{display:block;background:var(--yellow);color:var(--dark);border-radius:12px;padding:13px 20px;font-family:'Fredoka One',cursive;font-size:1.05rem;margin:0 auto;width:fit-content}
+.stamp-detail{font-size:.78rem;opacity:.65;margin-top:8px}
+.ss-hint{font-size:.78rem;opacity:.6;margin-top:14px;border-top:1px solid rgba(255,255,255,.15);padding-top:10px}
+</style>
+</head>
+<body>
+<div id="app">
+
+<!-- HEADER -->
+<div class="hq">
+  <div class="hq-badge">🔍 TOP SECRET SCIENCE MISSION</div>
+  <h1>Operation: Save the Ecosystem!</h1>
+  <p>A villain scrambled Ohio's ecology files. Answer correctly to unlock clues and reveal who did it! 🌿</p>
+</div>
+
+<!-- STATUS -->
+<div class="status-bar">
+  <div class="stat-chip"><div class="lbl">Score</div><div class="val" id="v-score">0 / 0</div></div>
+  <div class="stat-chip"><div class="lbl">Clues Found</div><div class="val" id="v-clues">0 / 5</div></div>
+  <div class="stat-chip"><div class="lbl">Status</div><div class="val" id="v-status" style="font-size:.85rem;color:#f9c74f">On the case…</div></div>
+</div>
+
+<!-- CLUE DOTS -->
+<div class="clue-track">
+  <div class="clue-lbl">Clues:</div>
+  <div class="clue-dots" id="clue-dots"></div>
+</div>
+
+<!-- MYSTERY DOSSIER -->
+<div class="mystery" id="mystery">
+  <div class="m-tag">🗂️ MYSTERY DOSSIER — Answer correctly to reveal clues!</div>
+  <div class="m-img" id="m-img">🔒</div>
+  <div class="m-txt" id="m-txt">The eco-villain's identity is locked. Start answering to unlock the truth…</div>
+</div>
+
+<!-- RETRY BANNER -->
+<div class="retry-bar" id="retry-bar"></div>
+
+<!-- QUESTIONS -->
+<div id="q-area"></div>
+
+<!-- SUBMIT -->
+<div class="submit-area">
+  <button class="submit-btn" onclick="submitAll()">🌍 Submit Mission Report!</button>
+</div>
+
+<!-- COMPLETION PAGE -->
+<div id="done-page">
+  <div class="done-emoji">🎉</div>
+  <div class="done-title">Mission Complete, Agent!</div>
+  <div class="done-score" id="done-pct">--</div>
+  <div class="done-msg" id="done-msg"></div>
+  <div class="done-divider"></div>
+  <div style="text-align:center">
+    <div class="done-card">
+      <div class="done-card-title">✏️ TYPE YOUR NAME FOR YOUR MISSION BADGE</div>
+      <input class="name-inp" id="agent-name" placeholder="Your Name Here" oninput="updateStamp()">
+      <div class="stamp" id="stamp-box">✅ Mission completed by: _______</div>
+      <div class="stamp-detail" id="stamp-detail"></div>
+    </div>
+  </div>
+  <div class="ss-hint">📱 Screenshot this completion card to show your teacher you cracked the case!</div>
+</div>
+
+</div>
+<script>
+// ══════════════════════════════════════════════════════
+// CLUES (5 total — one per section)
+// ══════════════════════════════════════════════════════
+const CLUES = [
+  { img:"🌿", txt:`<b>Clue 1 unlocked!</b> The villain was spotted near a <span class="rv">TROPICAL RAINFOREST</span> complaining about "too many living things." Suspicious.` },
+  { img:"🌡️", txt:`<b>Clue 2 unlocked!</b> Security cameras caught them messing with <span class="rv">ABIOTIC FACTORS</span> — cranking up water temperature near a coral reef. Classic villain move.` },
+  { img:"🦫", txt:`<b>Clue 3 unlocked!</b> They tried to remove a <span class="rv">KEYSTONE SPECIES</span> from a wetland. They knew removing it could collapse the food web!` },
+  { img:"🍄", txt:`<b>Clue 4 unlocked!</b> A stolen notebook read: <i>"Destroy the <span class="rv">PRODUCERS</span> and the consumers starve. Mwahaha."</i> This villain definitely paid attention in science class.` },
+  { img:"🕵️", txt:`<b>Clue 5 — VILLAIN REVEALED!</b> It was <span class="rv">DR. LOW-DIVERSITY</span> — so jealous of healthy ecosystems she tried to break them all! She's been captured. The ecosystem is safe — thanks to YOU, Agent! 🌍` },
+];
+
+// ══════════════════════════════════════════════════════
+// SECTIONS  (5 total, ~18 items)
+// ══════════════════════════════════════════════════════
+const SECTIONS = [
+
+  // ─── 1: VOCAB MATCH (5 terms) ────────────────────
+  {
+    id:"match", type:"match", clue:0,
+    tag:"📋 Part 1 of 5 — Vocab Decoder",
+    title:"Mission Briefing: Crack the Code",
+    sub:"Match each word to its correct definition, then hit Check!",
+    joke:"Why did the biotic factor break up with the abiotic factor? Because it was 'so cold' — literally. It was temperature. 🥶",
+    items:[
+      { term:"Biotic factor",    def:"Living parts of an ecosystem like plants, animals, and fungi" },
+      { term:"Abiotic factor",   def:"Nonliving parts like temperature, water, and sunlight" },
+      { term:"Biodiversity",     def:"The variety of all living things in an area" },
+      { term:"Keystone species", def:"A species whose removal greatly changes the ecosystem" },
+      { term:"Decomposer",       def:"Breaks down dead matter and recycles nutrients" },
+    ]
+  },
+
+  // ─── 2: SORT (8 items) ───────────────────────────
+  {
+    id:"sort", type:"sort", clue:1,
+    tag:"🌦️ Part 2 of 5 — Sort the Evidence",
+    title:"Biotic or Abiotic?",
+    sub:"Drag each chip into the correct category — living or nonliving.",
+    joke:"What did the sunlight say to the oak tree? 'I've got energy, but YOU'RE the biotic one here.' ☀️🌳",
+    items:[
+      { label:"Oak Tree 🌳", cat:"bio"  },
+      { label:"Wolf 🐺",     cat:"bio"  },
+      { label:"Mushroom 🍄", cat:"bio"  },
+      { label:"Bacteria 🦠", cat:"bio"  },
+      { label:"Sunlight ☀️", cat:"abio" },
+      { label:"Rainfall 🌧️", cat:"abio" },
+      { label:"Soil Type 🪨", cat:"abio" },
+      { label:"Water 💧",    cat:"abio" },
+    ]
+  },
+
+  // ─── 3: MC — Biotic/Abiotic concepts (2 Qs) ──────
+  {
+    id:"mc1", type:"mc", clue:2,
+    tag:"🔘 Part 3 of 5 — Field Questions",
+    title:"What Lives There, and Why?",
+    joke:"Why did the cactus do well in the desert? It really knew how to 'stick' to the abiotic conditions. 🌵",
+    qs:[
+      {
+        q:"Which of these is a BIOTIC factor in a forest?",
+        cs:["Temperature","A mushroom 🍄","Rainfall","Soil type"],
+        ok:1,
+        fb:"A mushroom is a living organism — biotic! Temperature, rainfall, and soil are all nonliving abiotic factors."
+      },
+      {
+        q:"A cactus thrives because of low rainfall and high sunlight. These conditions are called…",
+        cs:["Biotic factors","Niche factors","Abiotic factors","Keystone factors"],
+        ok:2,
+        fb:"Rainfall and sunlight are nonliving — ABIOTIC factors. They control which organisms can even survive in a place."
+      },
+    ]
+  },
+
+  // ─── 4: MC — Food webs & biodiversity (3 Qs) ─────
+  {
+    id:"mc2", type:"mc", clue:3,
+    tag:"🔘 Part 4 of 5 — Food Web Intel",
+    title:"Follow the Energy!",
+    joke:"What's a food web's favorite dance? The Energy Flow. 🕺 (It never stops moving.)",
+    qs:[
+      {
+        q:"In a grassland food chain: grass → bison → wolves. If disease wiped out most of the GRASS, what would happen?",
+        cs:[
+          "Wolf populations would increase",
+          "Bison would have less to eat, and wolf numbers would also drop",
+          "Decomposers would disappear",
+          "Nothing — the ecosystem stays the same"
+        ],
+        ok:1,
+        fb:"Grass is the producer at the base. Less grass → less food for bison → less food for wolves. Changes ripple ALL the way up!"
+      },
+      {
+        q:"Beavers build dams that create ponds, giving homes to fish, frogs, and birds. This makes beavers a…",
+        cs:["Decomposer","Producer","Keystone species 🦫","Abiotic factor"],
+        ok:2,
+        fb:"Remove the beavers and the ponds disappear — and so do the animals living in them. That's what makes them a keystone species!"
+      },
+      {
+        q:"High biodiversity makes an ecosystem more resilient. What does that mean?",
+        cs:[
+          "It never changes no matter what",
+          "It has more abiotic factors than other ecosystems",
+          "It can recover faster from storms, disease, or other disturbances",
+          "It has fewer species competing for food"
+        ],
+        ok:2,
+        fb:"Think of biodiversity like backup players on a team — if one species is hit hard, others can fill the gap and keep things stable."
+      },
+    ]
+  },
+
+  // ─── 5: MC — Biomes & real world (3 Qs) ─────────
+  {
+    id:"mc3", type:"mc", clue:4,
+    tag:"🔘 Part 5 of 5 — Final Boss 🏆",
+    title:"Biomes & Real-World Connections",
+    joke:"Why did the tropical rainforest win the biodiversity contest? It showed up with HALF THE WORLD'S SPECIES. Overachiever. 🌴",
+    qs:[
+      {
+        q:"Rainforests cover less than 10% of Earth's land but hold over half of all species. Why?",
+        cs:[
+          "They have extreme cold and very little sunlight",
+          "High rainfall and warm temperatures create perfect abiotic conditions for many species",
+          "They have only one type of producer",
+          "Decomposers work slower there, so nutrients build up"
+        ],
+        ok:1,
+        fb:"Warm temps + lots of rain = incredible abiotic conditions that support huge numbers of producers, consumers, and decomposers!"
+      },
+      {
+        q:"When ocean water warms too much, coral bleaches and the reef collapses. This shows…",
+        cs:[
+          "A biotic factor destroying an abiotic factor",
+          "An abiotic factor (temperature) harming biotic factors (coral and reef animals)",
+          "A decomposer removing a keystone species",
+          "Low biodiversity causing temperature to rise"
+        ],
+        ok:1,
+        fb:"Temperature is ABIOTIC. When it changes too much, it destroys living coral and all the animals that depend on the reef — a perfect example of how linked biotic and abiotic really are."
+      },
+      {
+        q:"In many biomes, bees pollinate flowering plants. If bees disappeared, what would happen?",
+        cs:[
+          "Only bee populations would be affected",
+          "Abiotic factors like sunlight would decrease",
+          "Many plants couldn't reproduce, harming animals that depend on those plants too",
+          "Decomposers would take over pollination"
+        ],
+        ok:2,
+        fb:"Bees → flowers → seeds → plants → animals that eat plants. Lose the bees and it ripples through the entire food web. Biotic factors are all connected!"
+      },
+    ]
+  },
+
+];
+
+// ══════════════════════════════════════════════════════
+// STATE
+// ══════════════════════════════════════════════════════
+let results = {};   // id → { correct, total, done }
+let cluesFound = 0;
+let dragSrc = null;
+const NUM_CLUES = 5;
+
+// total possible points
+const TOTAL_PTS = SECTIONS.reduce((s,sec)=>
+  s + (sec.type==='mc' ? sec.qs.length : sec.items.length), 0);
+
+// ══════════════════════════════════════════════════════
+// BUILD ALL
+// ══════════════════════════════════════════════════════
+function init() {
+  // Clue dots
+  const dotsEl = document.getElementById('clue-dots');
+  for(let i=0;i<NUM_CLUES;i++){
+    const d=document.createElement('div');
+    d.className='dot'+(i===0?' cur':'');
+    d.id=`dot-${i}`;
+    d.textContent=i+1;
+    dotsEl.appendChild(d);
+  }
+
+  const area = document.getElementById('q-area');
+  SECTIONS.forEach(sec=>{
+    const wrapper=document.createElement('div');
+    wrapper.id=`wrap-${sec.id}`;
+    if(sec.type==='match') buildMatch(sec,wrapper);
+    else if(sec.type==='sort') buildSort(sec,wrapper);
+    else buildMC(sec,wrapper);
+    area.appendChild(wrapper);
+  });
+  refreshScore();
+}
+
+// ── shared card shell ────────────────────────────────
+function makeCard(sec) {
+  const card=document.createElement('div');
+  card.className='qcard';
+  card.innerHTML=`
+    <div class="sec-tag">${sec.tag}</div>
+    <div class="sec-title">${sec.title||''}</div>
+    ${sec.sub?`<div class="sec-sub">${sec.sub}</div>`:''}
+    ${sec.joke?`<div class="joke">🤣 ${sec.joke}</div>`:''}
+  `;
+  return card;
+}
+
+// ══════════════════════════════════════════════════════
+// MATCHING
+// ══════════════════════════════════════════════════════
+function buildMatch(sec,wrapper){
+  results[sec.id]={correct:0,total:sec.items.length,done:false};
+  const card=makeCard(sec);
+  const defs=[...sec.items.map(i=>i.def)].sort(()=>Math.random()-.5);
+  const grid=document.createElement('div');
+  grid.className='match-grid';
+  sec.items.forEach((item,i)=>{
+    grid.innerHTML+=`
+      <div class="mrow">
+        <div class="mterm">${item.term}</div>
+        <div class="marrow">→</div>
+        <select class="msel" id="ms-${sec.id}-${i}">
+          <option value="">— pick a definition —</option>
+          ${defs.map(d=>`<option value="${d}">${d}</option>`).join('')}
+        </select>
+      </div>`;
+  });
+  card.appendChild(grid);
+
+  const btn=document.createElement('button');
+  btn.className='check-btn';
+  btn.textContent='Check ✔️';
+  btn.onclick=()=>checkMatch(sec,btn);
+  card.appendChild(btn);
+  wrapper.appendChild(card);
+}
+
+function checkMatch(sec,btn){
+  let correct=0;
+  sec.items.forEach((item,i)=>{
+    const sel=document.getElementById(`ms-${sec.id}-${i}`);
+    if(sel.className.includes('correct')) return; // already locked correct
+    if(sel.value===item.def){ sel.className='msel correct'; sel.disabled=true; correct++; }
+    else if(sel.value!=='') sel.className='msel wrong';
+  });
+  // count total correct including previously locked
+  let totalCorrect=0;
+  sec.items.forEach((_,i)=>{
+    const sel=document.getElementById(`ms-${sec.id}-${i}`);
+    if(sel.className.includes('correct')) totalCorrect++;
+  });
+  results[sec.id]={correct:totalCorrect,total:sec.items.length,done:totalCorrect===sec.items.length};
+  if(totalCorrect===sec.items.length){ btn.style.display='none'; tryUnlock(sec.clue); }
+  refreshScore();
+}
+
+// ══════════════════════════════════════════════════════
+// SORT
+// ══════════════════════════════════════════════════════
+function buildSort(sec,wrapper){
+  results[sec.id]={correct:0,total:sec.items.length,done:false};
+  const card=makeCard(sec);
+  const shuffled=[...sec.items].sort(()=>Math.random()-.5);
+  card.innerHTML+=`
+    <div class="drag-hint">💡 Click and drag each chip into the right box!</div>
+    <div class="sort-bank">
+      <div class="sort-bank-lbl">📦 Items to sort</div>
+      <div class="sort-bank-items" id="bank-${sec.id}">
+        ${shuffled.map(it=>`<div class="chip" draggable="true" data-sec="${sec.id}" data-cat="${it.cat}">${it.label}</div>`).join('')}
+      </div>
+    </div>
+    <div class="sort-cols">
+      <div class="scol bio"><div class="scol-title">🌿 Biotic (Living)</div><div class="scol-items" id="drop-bio-${sec.id}"></div></div>
+      <div class="scol abio"><div class="scol-title">☀️ Abiotic (Nonliving)</div><div class="scol-items" id="drop-abio-${sec.id}"></div></div>
+    </div>
+    <div class="sfb" id="sfb-${sec.id}"></div>`;
+
+  const btn=document.createElement('button');
+  btn.className='check-btn';
+  btn.textContent='Check ✔️';
+  btn.onclick=()=>checkSort(sec,btn);
+  card.appendChild(btn);
+  wrapper.appendChild(card);
+
+  setTimeout(()=>wireDrag(sec),30);
+}
+
+function wireDrag(sec){
+  [`bank-${sec.id}`,`drop-bio-${sec.id}`,`drop-abio-${sec.id}`].forEach(zid=>{
+    const el=document.getElementById(zid);
+    if(!el)return;
+    el.addEventListener('dragover',e=>e.preventDefault());
+    el.addEventListener('drop',e=>{e.preventDefault();if(dragSrc)el.appendChild(dragSrc);dragSrc=null;});
+  });
+  document.querySelectorAll(`.chip[data-sec="${sec.id}"]`).forEach(chip=>{
+    chip.addEventListener('dragstart',()=>{dragSrc=chip;chip.classList.add('dragging');});
+    chip.addEventListener('dragend',()=>chip.classList.remove('dragging'));
+    chip.addEventListener('touchend',e=>{
+      const t=e.changedTouches[0];
+      const el=document.elementFromPoint(t.clientX,t.clientY);
+      const zone=el&&el.closest('.scol-items,.sort-bank-items');
+      if(zone)zone.appendChild(chip);
+    },{passive:true});
+  });
+}
+
+function checkSort(sec,btn){
+  const placed=[...document.querySelectorAll(`#drop-bio-${sec.id} .chip, #drop-abio-${sec.id} .chip`)];
+  const fb=document.getElementById(`sfb-${sec.id}`);
+  if(placed.length<sec.items.length){
+    fb.className='sfb show wrong';
+    fb.textContent=`⚠️ ${sec.items.length-placed.length} item(s) still in the bank! Drag them all first.`;
+    return;
+  }
+  let correct=0;
+  placed.forEach(chip=>{
+    if(chip.classList.contains('ok')){correct++;return;}
+    const zone=chip.parentElement.id;
+    const exp=chip.dataset.cat==='bio'?`drop-bio-${sec.id}`:`drop-abio-${sec.id}`;
+    if(zone===exp){chip.classList.add('ok');chip.draggable=false;correct++;}
+    else chip.classList.add('bad');
+  });
+  fb.className='sfb show '+(correct===sec.items.length?'correct':'wrong');
+  fb.textContent=correct===sec.items.length
+    ?`🎉 All ${sec.items.length} sorted correctly!`
+    :`You got ${correct}/${sec.items.length}. Drag the red chips to the correct side and check again!`;
+  results[sec.id]={correct,total:sec.items.length,done:correct===sec.items.length};
+  if(correct===sec.items.length){btn.style.display='none';tryUnlock(sec.clue);}
+  refreshScore();
+}
+
+// ══════════════════════════════════════════════════════
+// MULTIPLE CHOICE
+// ══════════════════════════════════════════════════════
+function buildMC(sec,wrapper){
+  results[sec.id]={correct:0,total:sec.qs.length,done:false,
+    qDone:new Array(sec.qs.length).fill(false),
+    qOk:new Array(sec.qs.length).fill(false)};
+
+  const card=makeCard(sec);
+  sec.qs.forEach((q,qi)=>{
+    const qb=document.createElement('div');
+    qb.className='qblock';
+    qb.innerHTML=`
+      <div class="qtext">${qi+1}. ${q.q}</div>
+      <div class="choices">
+        ${q.cs.map((c,ci)=>`<button class="cbtn" id="cb-${sec.id}-${qi}-${ci}" onclick="pickMC('${sec.id}',${qi},${ci})">${c}</button>`).join('')}
+      </div>
+      <div class="qfb" id="qfb-${sec.id}-${qi}"></div>`;
+    card.appendChild(qb);
+  });
+  wrapper.appendChild(card);
+}
+
+function pickMC(secId,qi,ci){
+  const sec=SECTIONS.find(s=>s.id===secId);
+  const res=results[secId];
+  if(res.qDone[qi])return;
+
+  const q=sec.qs[qi];
+  q.cs.forEach((_,i)=>{
+    const b=document.getElementById(`cb-${secId}-${qi}-${i}`);
+    b.disabled=true;
+    if(i===q.ok)b.classList.add('show-correct');
+  });
+  const chosen=document.getElementById(`cb-${secId}-${qi}-${ci}`);
+  const ok=ci===q.ok;
+  chosen.classList.add(ok?'correct':'wrong');
+  const fb=document.getElementById(`qfb-${secId}-${qi}`);
+  fb.className='qfb show '+(ok?'correct':'wrong');
+  fb.textContent=(ok?'✅ Correct! ':'❌ Not quite. ')+q.fb;
+
+  res.qDone[qi]=true;
+  res.qOk[qi]=ok;
+  res.correct=res.qOk.filter(Boolean).length;
+  res.done=res.qDone.every(Boolean);
+  if(res.done && !res.clueGiven){ res.clueGiven=true; tryUnlock(sec.clue); }
+  refreshScore();
+}
+
+// ══════════════════════════════════════════════════════
+// CLUE SYSTEM
+// ══════════════════════════════════════════════════════
+function tryUnlock(idx){
+  if(idx>=CLUES.length||document.getElementById(`dot-${idx}`).classList.contains('done'))return;
+  cluesFound++;
+  const dot=document.getElementById(`dot-${idx}`);
+  dot.classList.remove('cur');dot.classList.add('done');dot.textContent='✓';
+  const next=document.getElementById(`dot-${idx+1}`);
+  if(next){next.classList.remove('cur');next.classList.add('cur');}
+
+  document.getElementById('m-img').textContent=CLUES[idx].img;
+  document.getElementById('m-txt').innerHTML=CLUES[idx].txt;
+  document.getElementById('v-clues').textContent=`${cluesFound} / ${NUM_CLUES}`;
+  const m=document.getElementById('mystery');
+  m.classList.add('flash');
+  setTimeout(()=>m.classList.remove('flash'),1400);
+}
+
+// ══════════════════════════════════════════════════════
+// SCORE
+// ══════════════════════════════════════════════════════
+function earned(){ return Object.values(results).reduce((s,r)=>s+(r.correct||0),0); }
+
+function refreshScore(){
+  const e=earned();
+  const pct=TOTAL_PTS?Math.round(e/TOTAL_PTS*100):0;
+  document.getElementById('v-score').textContent=`${e} / ${TOTAL_PTS}`;
+  document.getElementById('v-status').textContent=pct>=80?'🟢 Passing!':pct>=50?'🟡 Keep going…':'🔴 You got this!';
+}
+
+// ══════════════════════════════════════════════════════
+// SUBMIT
+// ══════════════════════════════════════════════════════
+function submitAll(){
+  // Auto-check any sort/match not yet submitted
+  SECTIONS.forEach(sec=>{
+    if((sec.type==='match'||sec.type==='sort')&&!results[sec.id].done){
+      const btn={style:{},onclick:null};
+      if(sec.type==='match') checkMatch(sec,btn);
+      if(sec.type==='sort')  checkSort(sec,btn);
+    }
+  });
+
+  const e=earned();
+  const pct=Math.round(e/TOTAL_PTS*100);
+
+  if(pct>=80){
+    showDone(pct,e);
+  } else {
+    const bar=document.getElementById('retry-bar');
+    bar.className='retry-bar show';
+    bar.innerHTML=`⚠️ You scored <b>${pct}%</b> (${e}/${TOTAL_PTS} pts). You need <b>80%</b> to pass! Fix the red answers above — everything you already got right stays locked in! 💪`;
+    window.scrollTo({top:0,behavior:'smooth'});
+  }
+}
+
+// ══════════════════════════════════════════════════════
+// COMPLETION PAGE
+// ══════════════════════════════════════════════════════
+function showDone(pct,e){
+  const pg=document.getElementById('done-page');
+  pg.style.display='block';
+  document.getElementById('done-pct').textContent=pct+'%';
+  const msg=pct===100
+    ?'🌟 PERFECT SCORE! You are the greatest eco-detective Ohio has ever seen. Dr. Low-Diversity never stood a chance!'
+    :pct>=90
+    ?'🎉 Outstanding, Agent! You cracked the case and saved the ecosystem with flying colors!'
+    :'👏 Great work! You passed the mission and showed solid science skills. The ecosystem is safe!';
+  document.getElementById('done-msg').textContent=`${msg} Final score: ${e} out of ${TOTAL_PTS} points.`;
+
+  const today=new Date().toLocaleDateString('en-US',{weekday:'long',year:'numeric',month:'long',day:'numeric'});
+  document.getElementById('stamp-detail').textContent=`📅 ${today} · Score: ${pct}% (${e}/${TOTAL_PTS})`;
+  updateStamp();
+  pg.scrollIntoView({behavior:'smooth'});
+}
+
+function updateStamp(){
+  const name=document.getElementById('agent-name').value.trim()||'_______';
+  document.getElementById('stamp-box').textContent=`✅ Mission completed by: ${name}`;
+}
+
+// ── GO ────────────────────────────────────────────────
+init();
+</script>
+</body>
+</html>
