@@ -1,0 +1,1017 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>🌿 Rainforest Review — Exit Ticket</title>
+<link href="https://fonts.googleapis.com/css2?family=Fredoka+One&family=Nunito:wght@400;600;700;800&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --forest-dark: #1a3a1a;
+    --forest-mid: #2d5a27;
+    --forest-bright: #4a8c3f;
+    --leaf-green: #6abf5e;
+    --lime: #a8d96c;
+    --soil: #c4874a;
+    --canopy: #e8f5e2;
+    --gold: #e6c84a;
+    --red: #c0392b;
+    --white: #fdfdf8;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    font-family: 'Nunito', sans-serif;
+    background-color: var(--forest-dark);
+    background-image: radial-gradient(ellipse at top left, #2d5a2788 0%, transparent 60%),
+                      radial-gradient(ellipse at bottom right, #1a3a1a 0%, #0a1f0a 100%);
+    min-height: 100vh;
+    color: var(--white);
+    padding: 0 0 60px 0;
+  }
+
+  /* HEADER */
+  header {
+    background: linear-gradient(135deg, var(--forest-mid), var(--forest-dark));
+    border-bottom: 4px solid var(--leaf-green);
+    padding: 28px 20px 22px;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+  }
+  header::before {
+    content: "🌿🌿🌿🌿🌿🌿🌿🌿🌿🌿🌿🌿🌿🌿🌿🌿🌿🌿🌿🌿";
+    position: absolute; top: 6px; left: 0; right: 0;
+    font-size: 18px; letter-spacing: 4px; opacity: 0.35;
+  }
+  header h1 { font-family:'Fredoka One',cursive; font-size:clamp(28px,5vw,44px); color:var(--lime); text-shadow:2px 3px 0 var(--forest-dark),0 0 30px #6abf5e55; letter-spacing:1px; }
+  header p  { color:var(--canopy); font-size:16px; margin-top:6px; font-weight:600; }
+  .reminder-box {
+    background: linear-gradient(135deg,#3d6b30,#2a4e22);
+    border:2px solid var(--leaf-green); border-radius:14px;
+    padding:14px 20px; margin:18px auto 0; max-width:680px;
+    font-size:15px; color:var(--canopy); text-align:left;
+  }
+  .reminder-box strong { color:var(--lime); }
+
+  /* PROGRESS */
+  .progress-bar-wrap { max-width:720px; margin:24px auto 0; padding:0 20px; }
+  .progress-label { display:flex; justify-content:space-between; font-size:14px; font-weight:700; color:var(--lime); margin-bottom:6px; }
+  .progress-track { height:18px; background:var(--forest-dark); border-radius:20px; border:2px solid var(--forest-bright); overflow:hidden; }
+  .progress-fill  { height:100%; background:linear-gradient(90deg,var(--leaf-green),var(--lime)); border-radius:20px; width:0%; transition:width .5s ease; }
+  .score-display  { text-align:center; font-size:15px; color:var(--canopy); margin-top:10px; font-weight:700; }
+  .score-display span { color:var(--gold); font-size:18px; }
+
+  /* MAIN */
+  main { max-width:760px; margin:30px auto 0; padding:0 16px; }
+
+  /* STATION */
+  .station { background:linear-gradient(160deg,#2a5223,#1e3d18); border:2px solid var(--forest-bright); border-radius:20px; margin-bottom:28px; overflow:hidden; box-shadow:0 6px 24px #00000055; }
+  .station-header { background:linear-gradient(90deg,var(--forest-bright),var(--forest-mid)); padding:14px 20px; display:flex; align-items:center; gap:12px; }
+  .station-icon  { font-size:28px; }
+  .station-title { font-family:'Fredoka One',cursive; font-size:22px; color:var(--lime); text-shadow:1px 2px 0 var(--forest-dark); }
+  .station-subtitle { font-size:13px; color:var(--canopy); font-weight:600; margin-top:2px; }
+  .station-body  { padding:20px; display:flex; flex-direction:column; gap:20px; }
+
+  /* QUESTION CARD */
+  .question-card { background:rgba(255,255,255,.05); border:1.5px solid rgba(106,191,94,.25); border-radius:14px; padding:18px; transition:border-color .3s; }
+  .question-card.correct { border-color:var(--leaf-green); background:rgba(106,191,94,.08); }
+  .question-card.wrong   { border-color:var(--red);        background:rgba(192,57,43,.08); }
+  .question-card.locked  { opacity:.85; }
+  .q-label { font-size:12px; font-weight:800; color:var(--soil); text-transform:uppercase; letter-spacing:1px; margin-bottom:8px; }
+  .q-text  { font-size:16px; font-weight:700; color:var(--white); margin-bottom:14px; line-height:1.5; }
+
+  /* MC */
+  .mc-options { display:flex; flex-direction:column; gap:9px; }
+  .mc-btn { background:rgba(255,255,255,.07); border:2px solid rgba(106,191,94,.3); border-radius:10px; padding:11px 16px; color:var(--white); font-family:'Nunito',sans-serif; font-size:15px; font-weight:600; cursor:pointer; text-align:left; transition:all .2s; }
+  .mc-btn:hover:not(:disabled) { background:rgba(106,191,94,.15); border-color:var(--leaf-green); transform:translateX(4px); }
+  .mc-btn.selected    { border-color:var(--gold);       background:rgba(230,200,74,.12); }
+  .mc-btn.correct-ans { border-color:var(--leaf-green); background:rgba(106,191,94,.22); color:var(--lime); }
+  .mc-btn.wrong-ans   { border-color:var(--red);        background:rgba(192,57,43,.18); }
+  .mc-btn:disabled { cursor:default; }
+
+  /* TF */
+  .tf-options { display:flex; gap:12px; }
+  .tf-btn { flex:1; padding:13px; border-radius:12px; border:2px solid rgba(106,191,94,.3); background:rgba(255,255,255,.07); color:var(--white); font-family:'Fredoka One',cursive; font-size:18px; cursor:pointer; transition:all .2s; text-align:center; }
+  .tf-btn:hover:not(:disabled) { background:rgba(106,191,94,.15); border-color:var(--leaf-green); transform:scale(1.03); }
+  .tf-btn.selected    { border-color:var(--gold);       background:rgba(230,200,74,.12); }
+  .tf-btn.correct-ans { border-color:var(--leaf-green); background:rgba(106,191,94,.22); color:var(--lime); }
+  .tf-btn.wrong-ans   { border-color:var(--red);        background:rgba(192,57,43,.18); }
+  .tf-btn:disabled { cursor:default; }
+
+  /* DRAG & DROP */
+  .drag-area { display:flex; flex-direction:column; gap:14px; }
+  .drag-banks-label { font-size:12px; font-weight:800; color:var(--soil); text-transform:uppercase; margin-bottom:4px; }
+  .drag-banks { display:flex; flex-wrap:wrap; gap:8px; min-height:44px; background:rgba(0,0,0,.2); border:2px dashed rgba(106,191,94,.3); border-radius:10px; padding:10px; }
+  .drag-item  { background:var(--forest-bright); color:var(--white); border-radius:8px; padding:7px 14px; font-size:14px; font-weight:700; cursor:grab; border:2px solid transparent; transition:all .15s; user-select:none; }
+  .drag-item:hover { transform:scale(1.05); border-color:var(--lime); }
+  .drag-item.dragging { opacity:.5; }
+  .match-pairs { display:flex; flex-direction:column; gap:8px; }
+  .match-row   { display:flex; align-items:center; gap:10px; }
+  .match-term  { background:rgba(255,255,255,.08); border-radius:8px; padding:9px 14px; font-size:13px; font-weight:700; color:var(--canopy); min-width:150px; max-width:210px; flex-shrink:0; line-height:1.4; }
+  .match-arrow { color:var(--leaf-green); font-size:18px; flex-shrink:0; }
+  .drop-zone {
+    flex:1; min-height:40px;
+    border:2px dashed rgba(106,191,94,.4); border-radius:8px;
+    display:flex; align-items:center; padding:4px 10px;
+    background:rgba(0,0,0,.15); transition:border-color .2s,background .2s;
+    font-size:13px; color:rgba(255,255,255,.3);
+  }
+  .drop-zone::before { content:attr(data-placeholder); }
+  .drop-zone.filled::before { content:''; }
+  .drop-zone.drag-over { border-color:var(--gold);       background:rgba(230,200,74,.1); }
+  .drop-zone.correct   { border-color:var(--leaf-green); background:rgba(106,191,94,.15); }
+  .drop-zone.wrong     { border-color:var(--red);        background:rgba(192,57,43,.1); }
+  .drop-zone .drag-item { cursor:default; }
+
+  /* CHECK BTN */
+  .check-btn { margin-top:14px; background:linear-gradient(135deg,var(--forest-bright),var(--leaf-green)); color:var(--forest-dark); border:none; border-radius:12px; padding:12px 28px; font-family:'Fredoka One',cursive; font-size:18px; cursor:pointer; transition:all .2s; box-shadow:0 4px 12px rgba(0,0,0,.3); }
+  .check-btn:hover { transform:translateY(-2px); box-shadow:0 6px 18px rgba(0,0,0,.4); }
+  .check-btn:disabled { opacity:.5; cursor:default; transform:none; }
+
+  /* FEEDBACK */
+  .feedback { margin-top:12px; border-radius:10px; padding:14px 16px; font-size:14px; font-weight:600; line-height:1.7; display:none; }
+  .feedback.show { display:block; }
+  .feedback.correct-fb { background:rgba(106,191,94,.2); border:1.5px solid var(--leaf-green); color:var(--lime); font-size:15px; }
+  .feedback.wrong-fb   { background:rgba(192,57,43,.18); border:1.5px solid var(--red);        color:#ff9999;    }
+  .feedback .why-wrong { color:#ffcc99; font-weight:700; margin-top:8px; padding-top:8px; border-top:1px solid rgba(255,150,50,.25); }
+  .feedback .clue      { color:var(--canopy); font-weight:600; font-size:13px; margin-top:8px; }
+  .feedback .go-back   { color:var(--gold); font-style:italic; margin-top:5px; font-size:13px; }
+  .attempts-left { font-size:13px; color:var(--soil); font-weight:700; margin-top:8px; }
+
+  /* EXIT TICKET */
+  #exit-ticket { display:none; max-width:600px; margin:30px auto; background:linear-gradient(135deg,#f5f0d8,#e8f5e2); border:4px dashed var(--forest-bright); border-radius:24px; padding:36px 32px; text-align:center; color:var(--forest-dark); box-shadow:0 10px 40px rgba(0,0,0,.5); animation:pop .5s ease; }
+  @keyframes pop { 0%{transform:scale(.7);opacity:0} 80%{transform:scale(1.05)} 100%{transform:scale(1);opacity:1} }
+  #exit-ticket h2 { font-family:'Fredoka One',cursive; font-size:32px; color:var(--forest-mid); margin-bottom:6px; }
+  #exit-ticket .trophy { font-size:56px; display:block; margin-bottom:10px; }
+  #exit-ticket .ticket-body { background:white; border-radius:14px; padding:22px; margin:18px 0; border:2px solid var(--forest-bright); }
+  #exit-ticket .ticket-body p { font-size:15px; margin:6px 0; color:#333; }
+  #exit-ticket .score-big { font-family:'Fredoka One',cursive; font-size:42px; color:var(--forest-bright); }
+  #exit-ticket .pass-code { font-family:'Fredoka One',cursive; font-size:28px; letter-spacing:6px; color:var(--forest-mid); background:var(--canopy); border:2px solid var(--leaf-green); border-radius:10px; padding:10px 20px; display:inline-block; margin:10px 0; }
+  /* ticket form */
+  .ticket-field { display:flex; flex-direction:column; gap:5px; margin-bottom:12px; text-align:left; }
+  .ticket-field label { font-size:12px; font-weight:800; color:#2d5a27; text-transform:uppercase; letter-spacing:.6px; }
+  .ticket-field input, .ticket-field select { font-family:'Nunito',sans-serif; font-size:16px; font-weight:700; padding:10px 14px; border-radius:10px; border:2px solid #b0d8a4; color:#1a3a1a; background:#f5fff5; outline:none; transition:border-color .2s; width:100%; }
+  .ticket-field input:focus, .ticket-field select:focus { border-color:var(--forest-bright); }
+  #submit-ticket-btn { margin-top:8px; width:100%; background:linear-gradient(135deg,var(--forest-bright),var(--leaf-green)); color:white; border:none; border-radius:12px; padding:13px 20px; font-family:'Fredoka One',cursive; font-size:20px; cursor:pointer; transition:all .2s; box-shadow:0 4px 12px rgba(0,0,0,.2); }
+  #submit-ticket-btn:hover { transform:translateY(-2px); box-shadow:0 6px 18px rgba(0,0,0,.3); }
+  #confirmed-name { font-family:'Fredoka One',cursive; font-size:26px; color:#2d5a27; margin:6px 0 2px; }
+  #confirmed-period { font-size:15px; color:#555; margin-bottom:10px; }
+
+  /* FAIL */
+  #fail-msg { display:none; max-width:600px; margin:20px auto; background:rgba(192,57,43,.15); border:2px solid var(--red); border-radius:18px; padding:28px; text-align:center; color:#ffaaaa; }
+  #fail-msg h2 { font-family:'Fredoka One',cursive; font-size:26px; color:#ff7777; }
+  #fail-msg p  { margin-top:10px; font-size:15px; color:var(--canopy); }
+
+  /* SUBMIT ALL */
+  #submit-all-wrap { text-align:center; margin:10px 0 30px; }
+  #submit-all { background:linear-gradient(135deg,var(--gold),#c9a020); color:var(--forest-dark); border:none; border-radius:16px; padding:16px 48px; font-family:'Fredoka One',cursive; font-size:24px; cursor:pointer; box-shadow:0 6px 24px rgba(0,0,0,.4); transition:all .2s; }
+  #submit-all:hover { transform:translateY(-3px); box-shadow:0 10px 30px rgba(0,0,0,.5); }
+
+  @media print {
+    body > *:not(#exit-ticket) { display:none !important; }
+    #exit-ticket { display:block !important; border:4px dashed #2d5a27; }
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <h1>🌿 Tropical Rainforest Review 🌿</h1>
+  <p>Show what you learned on the Scavenger Hunt!</p>
+  <div class="reminder-box">
+    📋 <strong>Heads up!</strong> These questions come from your <strong>Scavenger Hunt</strong>.
+    If you are stuck, go back to your Classkick and find the <strong>Scavenger Hunt link</strong> — it's earlier in today's work.
+    Missing many questions? You may need to go back and do the Scavenger Hunt first! 🌱
+  </div>
+</header>
+
+<div class="progress-bar-wrap">
+  <div class="progress-label"><span>Your Progress</span><span id="progress-pct">0%</span></div>
+  <div class="progress-track"><div class="progress-fill" id="progress-fill"></div></div>
+  <div class="score-display">Questions correct: <span id="correct-count">0</span> / <span id="total-count">18</span></div>
+</div>
+
+<main id="quiz-main">
+
+<!-- ===== STATION 1 ===== -->
+<div class="station">
+  <div class="station-header"><span class="station-icon">🌱</span>
+    <div><div class="station-title">Station 1: The Main Forest Floor</div>
+    <div class="station-subtitle">Leaf Drip Tips · Buttress Roots · Decomposition</div></div>
+  </div>
+  <div class="station-body">
+
+    <div class="question-card" id="card-q1">
+      <div class="q-label">Question 1 · Multiple Choice</div>
+      <div class="q-text">Rainforest leaves have pointed tips called "drip tips." What do drip tips help the leaf do?</div>
+      <div class="mc-options">
+        <button class="mc-btn" data-q="q1" data-val="A">A) Catch more sunlight from above</button>
+        <button class="mc-btn" data-q="q1" data-val="B">B) Move water off the leaf quickly so it doesn't get moldy</button>
+        <button class="mc-btn" data-q="q1" data-val="C">C) Store water inside the leaf for dry times</button>
+        <button class="mc-btn" data-q="q1" data-val="D">D) Make the leaf taste bad so animals won't eat it</button>
+      </div>
+      <button class="check-btn" data-q="q1">Check My Answer ✓</button>
+      <div class="attempts-left" id="att-q1">Attempts left: 2</div>
+      <div class="feedback" id="fb-q1"></div>
+    </div>
+
+    <div class="question-card" id="card-q2">
+      <div class="q-label">Question 2 · True or False</div>
+      <div class="q-text">True or False: Buttress roots are wide, flared-out roots that help tall rainforest trees stand up in soft, wet soil.</div>
+      <div class="tf-options">
+        <button class="tf-btn" data-q="q2" data-val="True">✅ True</button>
+        <button class="tf-btn" data-q="q2" data-val="False">❌ False</button>
+      </div>
+      <button class="check-btn" data-q="q2">Check My Answer ✓</button>
+      <div class="attempts-left" id="att-q2">Attempts left: 2</div>
+      <div class="feedback" id="fb-q2"></div>
+    </div>
+
+    <div class="question-card" id="card-q3">
+      <div class="q-label">Question 3 · Multiple Choice</div>
+      <div class="q-text">Dead leaves and twigs on the rainforest floor break down very fast. What does this process do for the ecosystem?</div>
+      <div class="mc-options">
+        <button class="mc-btn" data-q="q3" data-val="A">A) It pollutes the soil and kills plants</button>
+        <button class="mc-btn" data-q="q3" data-val="B">B) It puts nutrients back into the soil so plants can use them</button>
+        <button class="mc-btn" data-q="q3" data-val="C">C) It creates the canopy layer above the trees</button>
+        <button class="mc-btn" data-q="q3" data-val="D">D) It slows down plant growth on the forest floor</button>
+      </div>
+      <button class="check-btn" data-q="q3">Check My Answer ✓</button>
+      <div class="attempts-left" id="att-q3">Attempts left: 2</div>
+      <div class="feedback" id="fb-q3"></div>
+    </div>
+
+  </div>
+</div>
+
+<!-- ===== STATION 2 ===== -->
+<div class="station">
+  <div class="station-header"><span class="station-icon">🪲</span>
+    <div><div class="station-title">Station 2: Termite Nest</div>
+    <div class="station-subtitle">Decomposers · Shallow Roots · Understory Plants</div></div>
+  </div>
+  <div class="station-body">
+
+    <div class="question-card" id="card-q4">
+      <div class="q-label">Question 4 · Multiple Choice</div>
+      <div class="q-text">Termites break down dead wood in the rainforest. What is the name for organisms that break down dead things to return nutrients to the soil?</div>
+      <div class="mc-options">
+        <button class="mc-btn" data-q="q4" data-val="A">A) Producers</button>
+        <button class="mc-btn" data-q="q4" data-val="B">B) Predators</button>
+        <button class="mc-btn" data-q="q4" data-val="C">C) Decomposers</button>
+        <button class="mc-btn" data-q="q4" data-val="D">D) Pollinators</button>
+      </div>
+      <button class="check-btn" data-q="q4">Check My Answer ✓</button>
+      <div class="attempts-left" id="att-q4">Attempts left: 2</div>
+      <div class="feedback" id="fb-q4"></div>
+    </div>
+
+    <div class="question-card" id="card-q5">
+      <div class="q-label">Question 5 · True or False</div>
+      <div class="q-text">True or False: Tall rainforest trees have very deep roots that go far down into the ground to find water.</div>
+      <div class="tf-options">
+        <button class="tf-btn" data-q="q5" data-val="True">✅ True</button>
+        <button class="tf-btn" data-q="q5" data-val="False">❌ False</button>
+      </div>
+      <button class="check-btn" data-q="q5">Check My Answer ✓</button>
+      <div class="attempts-left" id="att-q5">Attempts left: 2</div>
+      <div class="feedback" id="fb-q5"></div>
+    </div>
+
+    <div class="question-card" id="card-q6">
+      <div class="q-label">Question 6 · Multiple Choice</div>
+      <div class="q-text">Near the termite nest, you can see small plants growing in low light. What layer of the rainforest do these shade-loving plants live in?</div>
+      <div class="mc-options">
+        <button class="mc-btn" data-q="q6" data-val="A">A) Emergent Layer</button>
+        <button class="mc-btn" data-q="q6" data-val="B">B) Canopy Layer</button>
+        <button class="mc-btn" data-q="q6" data-val="C">C) Understory Layer</button>
+        <button class="mc-btn" data-q="q6" data-val="D">D) Forest Sky Layer</button>
+      </div>
+      <button class="check-btn" data-q="q6">Check My Answer ✓</button>
+      <div class="attempts-left" id="att-q6">Attempts left: 2</div>
+      <div class="feedback" id="fb-q6"></div>
+    </div>
+
+  </div>
+</div>
+
+<!-- ===== STATION 3 ===== -->
+<div class="station">
+  <div class="station-header"><span class="station-icon">🔭</span>
+    <div><div class="station-title">Station 3: Biologists Observing</div>
+    <div class="station-subtitle">Conservation · Emergent Layer · Vocabulary Match</div></div>
+  </div>
+  <div class="station-body">
+
+    <div class="question-card" id="card-q7">
+      <div class="q-label">Question 7 · True or False</div>
+      <div class="q-text">True or False: Scientists studying the rainforest try to observe animals and plants WITHOUT destroying the habitat. This is a type of conservation.</div>
+      <div class="tf-options">
+        <button class="tf-btn" data-q="q7" data-val="True">✅ True</button>
+        <button class="tf-btn" data-q="q7" data-val="False">❌ False</button>
+      </div>
+      <button class="check-btn" data-q="q7">Check My Answer ✓</button>
+      <div class="attempts-left" id="att-q7">Attempts left: 2</div>
+      <div class="feedback" id="fb-q7"></div>
+    </div>
+
+    <div class="question-card" id="card-q8">
+      <div class="q-label">Question 8 · Multiple Choice</div>
+      <div class="q-text">From the biologist viewpoint you can see the very tallest trees that stick up above the rest of the forest. What layer are these super-tall trees part of?</div>
+      <div class="mc-options">
+        <button class="mc-btn" data-q="q8" data-val="A">A) The Understory</button>
+        <button class="mc-btn" data-q="q8" data-val="B">B) The Forest Floor</button>
+        <button class="mc-btn" data-q="q8" data-val="C">C) The Emergent Layer</button>
+        <button class="mc-btn" data-q="q8" data-val="D">D) The Root Layer</button>
+      </div>
+      <button class="check-btn" data-q="q8">Check My Answer ✓</button>
+      <div class="attempts-left" id="att-q8">Attempts left: 2</div>
+      <div class="feedback" id="fb-q8"></div>
+    </div>
+
+    <!-- Q9 DRAG — 4 items -->
+    <div class="question-card" id="card-q9">
+      <div class="q-label">Question 9 · Drag and Drop — 4 Matches</div>
+      <div class="q-text">Match each vocabulary word to its meaning. Drag the green labels into the correct boxes. 🟢</div>
+      <div class="drag-area">
+        <div class="drag-banks-label">Word Bank — drag these:</div>
+        <div class="drag-banks" id="bank-q9">
+          <div class="drag-item" draggable="true" data-word="Conservation">Conservation</div>
+          <div class="drag-item" draggable="true" data-word="Ecosystem">Ecosystem</div>
+          <div class="drag-item" draggable="true" data-word="Biodiversity">Biodiversity</div>
+          <div class="drag-item" draggable="true" data-word="Endemic">Endemic</div>
+        </div>
+        <div class="match-pairs">
+          <div class="match-row">
+            <div class="match-term">Actions taken to protect and preserve nature</div>
+            <div class="match-arrow">→</div>
+            <div class="drop-zone" data-q="q9" data-answer="Conservation" data-placeholder="drop here…"></div>
+          </div>
+          <div class="match-row">
+            <div class="match-term">All living + nonliving things working as a system</div>
+            <div class="match-arrow">→</div>
+            <div class="drop-zone" data-q="q9" data-answer="Ecosystem" data-placeholder="drop here…"></div>
+          </div>
+          <div class="match-row">
+            <div class="match-term">The variety of different living things in one place</div>
+            <div class="match-arrow">→</div>
+            <div class="drop-zone" data-q="q9" data-answer="Biodiversity" data-placeholder="drop here…"></div>
+          </div>
+          <div class="match-row">
+            <div class="match-term">A species found ONLY in one specific place on Earth</div>
+            <div class="match-arrow">→</div>
+            <div class="drop-zone" data-q="q9" data-answer="Endemic" data-placeholder="drop here…"></div>
+          </div>
+        </div>
+      </div>
+      <button class="check-btn" data-q="q9">Check My Answer ✓</button>
+      <div class="attempts-left" id="att-q9">Attempts left: 2</div>
+      <div class="feedback" id="fb-q9"></div>
+    </div>
+
+  </div>
+</div>
+
+<!-- ===== STATION 4 ===== -->
+<div class="station">
+  <div class="station-header"><span class="station-icon">🐒</span>
+    <div><div class="station-title">Station 4: Scientists in the Tree Canopy</div>
+    <div class="station-subtitle">Canopy Layer · Biodiversity · All Four Layers</div></div>
+  </div>
+  <div class="station-body">
+
+    <div class="question-card" id="card-q10">
+      <div class="q-label">Question 10 · Multiple Choice</div>
+      <div class="q-text">The canopy is like the "roof" of the rainforest. Which statement best describes the canopy layer?</div>
+      <div class="mc-options">
+        <button class="mc-btn" data-q="q10" data-val="A">A) It is on the ground where decomposers live</button>
+        <button class="mc-btn" data-q="q10" data-val="B">B) It is the dense layer of treetops where most of the rainforest's biodiversity lives</button>
+        <button class="mc-btn" data-q="q10" data-val="C">C) It is made of only the very tallest trees that stick above everything</button>
+        <button class="mc-btn" data-q="q10" data-val="D">D) It is a layer with no sunlight at all</button>
+      </div>
+      <button class="check-btn" data-q="q10">Check My Answer ✓</button>
+      <div class="attempts-left" id="att-q10">Attempts left: 2</div>
+      <div class="feedback" id="fb-q10"></div>
+    </div>
+
+    <div class="question-card" id="card-q11">
+      <div class="q-label">Question 11 · True or False</div>
+      <div class="q-text">True or False: "Biodiversity" means having many different kinds of living things in one place. High biodiversity makes an ecosystem stronger.</div>
+      <div class="tf-options">
+        <button class="tf-btn" data-q="q11" data-val="True">✅ True</button>
+        <button class="tf-btn" data-q="q11" data-val="False">❌ False</button>
+      </div>
+      <button class="check-btn" data-q="q11">Check My Answer ✓</button>
+      <div class="attempts-left" id="att-q11">Attempts left: 2</div>
+      <div class="feedback" id="fb-q11"></div>
+    </div>
+
+    <!-- Q12 DRAG — 4 items -->
+    <div class="question-card" id="card-q12">
+      <div class="q-label">Question 12 · Drag and Drop — 4 Matches</div>
+      <div class="q-text">Match each rainforest layer to its correct description. 🟢</div>
+      <div class="drag-area">
+        <div class="drag-banks-label">Word Bank — drag these:</div>
+        <div class="drag-banks" id="bank-q12">
+          <div class="drag-item" draggable="true" data-word="Canopy">Canopy</div>
+          <div class="drag-item" draggable="true" data-word="Emergent Layer">Emergent Layer</div>
+          <div class="drag-item" draggable="true" data-word="Understory">Understory</div>
+          <div class="drag-item" draggable="true" data-word="Forest Floor">Forest Floor</div>
+        </div>
+        <div class="match-pairs">
+          <div class="match-row">
+            <div class="match-term">The treetop "roof" — most biodiversity lives here</div>
+            <div class="match-arrow">→</div>
+            <div class="drop-zone" data-q="q12" data-answer="Canopy" data-placeholder="drop here…"></div>
+          </div>
+          <div class="match-row">
+            <div class="match-term">The TALLEST trees — poke above everything else</div>
+            <div class="match-arrow">→</div>
+            <div class="drop-zone" data-q="q12" data-answer="Emergent Layer" data-placeholder="drop here…"></div>
+          </div>
+          <div class="match-row">
+            <div class="match-term">Small shade-loving plants below the canopy</div>
+            <div class="match-arrow">→</div>
+            <div class="drop-zone" data-q="q12" data-answer="Understory" data-placeholder="drop here…"></div>
+          </div>
+          <div class="match-row">
+            <div class="match-term">Ground level — where decomposers recycle nutrients</div>
+            <div class="match-arrow">→</div>
+            <div class="drop-zone" data-q="q12" data-answer="Forest Floor" data-placeholder="drop here…"></div>
+          </div>
+        </div>
+      </div>
+      <button class="check-btn" data-q="q12">Check My Answer ✓</button>
+      <div class="attempts-left" id="att-q12">Attempts left: 2</div>
+      <div class="feedback" id="fb-q12"></div>
+    </div>
+
+  </div>
+</div>
+
+<!-- ===== STATION 5 ===== -->
+<div class="station">
+  <div class="station-header"><span class="station-icon">☀️</span>
+    <div><div class="station-title">Station 5: New Light Gap</div>
+    <div class="station-subtitle">Fallen Trees · Sunlight · Poor Soil</div></div>
+  </div>
+  <div class="station-body">
+
+    <div class="question-card" id="card-q13">
+      <div class="q-label">Question 13 · Multiple Choice</div>
+      <div class="q-text">At the New Light Gap, a big tree fell and let sunlight reach the ground. What happened to the plants on the ground after that?</div>
+      <div class="mc-options">
+        <button class="mc-btn" data-q="q13" data-val="A">A) All the plants died because of the light</button>
+        <button class="mc-btn" data-q="q13" data-val="B">B) The understory plants started growing much faster because of the new sunlight</button>
+        <button class="mc-btn" data-q="q13" data-val="C">C) The plants moved to a darker spot to hide from the sun</button>
+        <button class="mc-btn" data-q="q13" data-val="D">D) The canopy trees grew down to block the light again right away</button>
+      </div>
+      <button class="check-btn" data-q="q13">Check My Answer ✓</button>
+      <div class="attempts-left" id="att-q13">Attempts left: 2</div>
+      <div class="feedback" id="fb-q13"></div>
+    </div>
+
+    <div class="question-card" id="card-q14">
+      <div class="q-label">Question 14 · True or False</div>
+      <div class="q-text">True or False: Sunlight is an ABIOTIC (non-living) factor in the rainforest that controls which plants can survive in different spots.</div>
+      <div class="tf-options">
+        <button class="tf-btn" data-q="q14" data-val="True">✅ True</button>
+        <button class="tf-btn" data-q="q14" data-val="False">❌ False</button>
+      </div>
+      <button class="check-btn" data-q="q14">Check My Answer ✓</button>
+      <div class="attempts-left" id="att-q14">Attempts left: 2</div>
+      <div class="feedback" id="fb-q14"></div>
+    </div>
+
+    <div class="question-card" id="card-q15">
+      <div class="q-label">Question 15 · Multiple Choice</div>
+      <div class="q-text">At the New Light Gap you can see red dirt without many nutrients. Why does most rainforest soil lack nutrients even though the forest is so green?</div>
+      <div class="mc-options">
+        <button class="mc-btn" data-q="q15" data-val="A">A) Rain washes nutrients down, and plants absorb them so fast almost none stay in the soil</button>
+        <button class="mc-btn" data-q="q15" data-val="B">B) The sun bakes all the nutrients away from the ground</button>
+        <button class="mc-btn" data-q="q15" data-val="C">C) Animals eat all the nutrients before plants can use them</button>
+        <button class="mc-btn" data-q="q15" data-val="D">D) The canopy keeps rain from ever reaching the soil</button>
+      </div>
+      <button class="check-btn" data-q="q15">Check My Answer ✓</button>
+      <div class="attempts-left" id="att-q15">Attempts left: 2</div>
+      <div class="feedback" id="fb-q15"></div>
+    </div>
+
+  </div>
+</div>
+
+<!-- ===== STATION 6 ===== -->
+<div class="station">
+  <div class="station-header"><span class="station-icon">🌿</span>
+    <div><div class="station-title">Station 6: Old Light Gap</div>
+    <div class="station-subtitle">Secondary Growth · Competition · Human Impacts</div></div>
+  </div>
+  <div class="station-body">
+
+    <div class="question-card" id="card-q16">
+      <div class="q-label">Question 16 · True or False</div>
+      <div class="q-text">True or False: At the Old Light Gap, the forest has grown back much thicker with vines and bushes. This shows that rainforests can heal over time when a gap appears.</div>
+      <div class="tf-options">
+        <button class="tf-btn" data-q="q16" data-val="True">✅ True</button>
+        <button class="tf-btn" data-q="q16" data-val="False">❌ False</button>
+      </div>
+      <button class="check-btn" data-q="q16">Check My Answer ✓</button>
+      <div class="attempts-left" id="att-q16">Attempts left: 2</div>
+      <div class="feedback" id="fb-q16"></div>
+    </div>
+
+    <div class="question-card" id="card-q17">
+      <div class="q-label">Question 17 · Multiple Choice</div>
+      <div class="q-text">At the Old Light Gap, many different plants crowd together fighting for sunlight. This is an example of which idea from the lesson?</div>
+      <div class="mc-options">
+        <button class="mc-btn" data-q="q17" data-val="A">A) Deforestation — humans cutting down the forest</button>
+        <button class="mc-btn" data-q="q17" data-val="B">B) High biodiversity causing many species to compete for the same space and light</button>
+        <button class="mc-btn" data-q="q17" data-val="C">C) The canopy blocking all light so nothing can grow</button>
+        <button class="mc-btn" data-q="q17" data-val="D">D) Nutrient cycling — dead things turning into soil</button>
+      </div>
+      <button class="check-btn" data-q="q17">Check My Answer ✓</button>
+      <div class="attempts-left" id="att-q17">Attempts left: 2</div>
+      <div class="feedback" id="fb-q17"></div>
+    </div>
+
+    <!-- Q18 DRAG — 4 items -->
+    <div class="question-card" id="card-q18">
+      <div class="q-label">Question 18 · Drag and Drop — 4 Matches</div>
+      <div class="q-text">Match each word to its correct meaning. 🟢</div>
+      <div class="drag-area">
+        <div class="drag-banks-label">Word Bank — drag these:</div>
+        <div class="drag-banks" id="bank-q18">
+          <div class="drag-item" draggable="true" data-word="Deforestation">Deforestation</div>
+          <div class="drag-item" draggable="true" data-word="Habitat Fragmentation">Habitat Fragmentation</div>
+          <div class="drag-item" draggable="true" data-word="Endemic">Endemic</div>
+          <div class="drag-item" draggable="true" data-word="Conservation">Conservation</div>
+        </div>
+        <div class="match-pairs">
+          <div class="match-row">
+            <div class="match-term">Cutting or removing forests — often for farms or roads</div>
+            <div class="match-arrow">→</div>
+            <div class="drop-zone" data-q="q18" data-answer="Deforestation" data-placeholder="drop here…"></div>
+          </div>
+          <div class="match-row">
+            <div class="match-term">Breaking a large habitat into smaller, separated pieces</div>
+            <div class="match-arrow">→</div>
+            <div class="drop-zone" data-q="q18" data-answer="Habitat Fragmentation" data-placeholder="drop here…"></div>
+          </div>
+          <div class="match-row">
+            <div class="match-term">A species found ONLY in one specific place on Earth</div>
+            <div class="match-arrow">→</div>
+            <div class="drop-zone" data-q="q18" data-answer="Endemic" data-placeholder="drop here…"></div>
+          </div>
+          <div class="match-row">
+            <div class="match-term">Actions taken to protect and preserve natural ecosystems</div>
+            <div class="match-arrow">→</div>
+            <div class="drop-zone" data-q="q18" data-answer="Conservation" data-placeholder="drop here…"></div>
+          </div>
+        </div>
+      </div>
+      <button class="check-btn" data-q="q18">Check My Answer ✓</button>
+      <div class="attempts-left" id="att-q18">Attempts left: 2</div>
+      <div class="feedback" id="fb-q18"></div>
+    </div>
+
+  </div>
+</div>
+
+<div id="submit-all-wrap">
+  <button id="submit-all">🌿 See My Final Score 🌿</button>
+</div>
+
+</main>
+
+<!-- EXIT TICKET -->
+<div id="exit-ticket">
+  <span class="trophy">🏆</span>
+  <h2>You Did It! Exit Ticket</h2>
+  <div class="ticket-body">
+    <div id="ticket-form">
+      <p style="font-size:16px;font-weight:800;color:#2d5a27;margin-bottom:14px;">Fill this out to turn in your ticket! 📬</p>
+      <div class="ticket-field">
+        <label for="student-name">Your Full Name</label>
+        <input type="text" id="student-name" placeholder="First and Last Name" autocomplete="off" />
+      </div>
+      <div class="ticket-field">
+        <label for="class-period">Science Class Period</label>
+        <select id="class-period">
+          <option value="">— Pick your period —</option>
+          <option value="1st Period">1st Period</option>
+          <option value="2nd Period">2nd Period</option>
+          <option value="3rd Period">3rd Period</option>
+          <option value="4th Period">4th Period</option>
+          <option value="5th Period">5th Period</option>
+          <option value="6th Period">6th Period</option>
+          <option value="7th Period">7th Period</option>
+        </select>
+      </div>
+      <p id="form-error" style="color:#c0392b;font-size:13px;font-weight:700;margin-top:6px;display:none;">⚠️ Please enter your name and pick your class period!</p>
+      <button id="submit-ticket-btn">✅ Submit My Exit Ticket</button>
+    </div>
+    <div id="ticket-confirmed" style="display:none;">
+      <p style="font-size:15px;color:#333;margin-bottom:8px;">Submitted by:</p>
+      <p id="confirmed-name" style="font-family:'Fredoka One',cursive;font-size:26px;color:#2d5a27;"></p>
+      <p id="confirmed-period" style="font-size:15px;color:#555;margin-bottom:12px;"></p>
+      <p style="font-size:15px;color:#333;">Score:</p>
+      <div class="score-big" id="ticket-score">—</div>
+      <p style="color:#2d5a27;font-weight:700;margin-top:6px;">You passed the Tropical Rainforest Review! ✅</p>
+      <p style="margin-top:12px;font-size:15px;color:#333;">Your exit pass code:</p>
+      <div class="pass-code" id="ticket-code">—</div>
+      <p style="font-size:13px;color:#555;margin-top:6px;">📸 Take a screenshot or show your teacher this screen!</p>
+      <p id="ticket-timestamp" style="font-size:12px;color:#888;margin-top:4px;"></p>
+    </div>
+  </div>
+</div>
+
+<!-- FAIL -->
+<div id="fail-msg">
+  <h2>🌧️ Not Quite Yet!</h2>
+  <p>You scored <strong id="fail-score">—</strong>. You need <strong>80% or higher</strong> to earn your exit ticket.</p>
+  <p style="margin-top:12px;">👉 Go back to your <strong>Classkick</strong> and find the <strong>Scavenger Hunt link</strong> from earlier today. Review the stations where you had trouble, then try the questions you missed again!</p>
+  <p style="margin-top:10px;color:#ffddaa;">Look for questions that still have attempts left and give them another shot!</p>
+</div>
+
+<script>
+// ─── PER-ANSWER WRONG FEEDBACK ──────────────────────────────────────────────
+const wrongFeedback = {
+  // Q1 drip tips
+  q1_A: `🍃 A pointy tip doesn't change how much sunlight a leaf absorbs — that's about leaf SIZE and color. The drip tip's whole job is about WATER management, not light collection.`,
+  q1_C: `🌵 Storing water is what DESERT plants do! Rainforest plants have the opposite problem — it rains 79 inches a year. They need to shed water FAST, not hold onto it.`,
+  q1_D: `🦋 Chemical defenses (bad taste) are real — some plants use them! But that has nothing to do with the SHAPE of the tip. A pointy tip is a water drainage tool, not a flavor factory.`,
+  // Q2
+  q2_False: `🌳 Buttress roots really are those giant fin-shaped bases you can see at Station 1! They spread out wide like a tripod to keep massive trees upright in soggy soil. Science confirmed — they're real and they're spectacular.`,
+  // Q3
+  q3_A: `☠️ Dead leaves rotting actually does the OPPOSITE of polluting — it releases nutrients. Decomposition is nature's fertilizer factory, not a poison machine.`,
+  q3_C: `🌲 The canopy is made of LIVING trees growing upward over many years. Rotting leaves on the ground have nothing to do with building layers way up in the sky. Two totally separate things!`,
+  q3_D: `📉 Decomposition actually SPEEDS growth up! Fast nutrient recycling is exactly why the rainforest stays so lush even in poor soil. Without it, everything would grind to a halt.`,
+  // Q4
+  q4_A: `🌿 Producers are plants — they MAKE food using sunlight. Termites don't make food; they break down dead wood. Very different jobs on the food chain!`,
+  q4_B: `🦁 Predators hunt LIVING animals — like a jaguar chasing a monkey. Termites eat dead wood, not living prey. Wrong team entirely.`,
+  q4_D: `🌸 Pollinators carry pollen between flowers to help plants reproduce — like bees on flowers. Termites eating rotting wood have nothing to do with reproduction. Total different department.`,
+  // Q5
+  q5_True: `🕳️ Surprise! In the rainforest, almost all nutrients are RIGHT at the surface — the soil below is actually quite poor. Trees spread roots WIDE instead of deep to grab as many surface nutrients as possible. Buttress roots handle the balance problem instead.`,
+  // Q6
+  q6_A: `☁️ The emergent layer is the PENTHOUSE — the tallest trees in blazing full sun. Tiny shade-loving plants would cook up there! They need the dim filtered light of a lower layer.`,
+  q6_B: `🌤️ The canopy is still fairly bright — it's the main roof getting lots of light. Small shade-tolerant plants live BELOW that, where only a tiny fraction of sunlight filters through.`,
+  q6_D: `❓ "Forest Sky Layer" isn't an actual scientific term — nice creative naming though! The four real layers are: Forest Floor, Understory, Canopy, and Emergent Layer. Shade-lovers live in the Understory.`,
+  // Q7
+  q7_False: `🔬 That IS exactly what conservation-minded scientists do! They use notebooks, cameras, ropes, and patience — not chainsaws. Studying a habitat carefully without harming it is the whole definition of in-situ conservation.`,
+  // Q8
+  q8_A: `🌿 The understory is BELOW the canopy — a shady zone of shorter plants that barely gets light. The trees in the question are poking far above everything, which is the exact OPPOSITE of the understory.`,
+  q8_B: `🍄 The forest floor is the dark ground level where decomposers live. These sky-scraper trees are reaching UP, not hugging the earth.`,
+  q8_D: `❌ "Root Layer" isn't one of the four real layers! The actual layers are Forest Floor, Understory, Canopy, and Emergent Layer. The tallest trees belong at the very top.`,
+  // Q10
+  q10_A: `🍂 The ground is the forest floor — home to decomposers, fungi, and very little light. The canopy is the ROOF way up high, not the floor.`,
+  q10_C: `☝️ That describes the EMERGENT layer — the very tallest trees above the canopy. The canopy itself is the dense mass of treetops BELOW those giants.`,
+  q10_D: `☀️ The canopy actually gets the MOST sunlight! That's exactly why so many species live there. It's the forest floor that barely gets any light, not the canopy.`,
+  // Q11
+  q11_False: `🌈 That statement is actually 100% correct! Biodiversity really does equal variety of life, and more variety really does make ecosystems more resilient. If one species disappears, others can fill its role — that's the whole superpower of a diverse ecosystem.`,
+  // Q13
+  q13_A: `🌱 Plants dying from sunlight? Most rainforest plants were already surviving — they just wanted MORE light! When the gap opened, it was like a starting gun for a plant growth race. More light = more energy = more growth.`,
+  q13_C: `🚶 Plants can't walk! They're rooted in place. What they CAN do is grow faster or slower depending on how much light reaches them right where they're standing.`,
+  q13_D: `🌳 Trees grow UPWARD toward light, not downward. And filling a gap would take many years — the understory plants below take full advantage long before any canopy closes back in.`,
+  // Q14
+  q14_False: `🔬 Sunlight is definitely non-living! Abiotic just means not alive — and energy from the sun definitely qualifies. Abiotic factors (light, water, temp, soil) shape which organisms can live where just as much as biotic (living) ones do.`,
+  // Q15
+  q15_B: `🌞 Nutrients don't evaporate from heat — that's not how soil chemistry works. The real culprits are heavy rainfall washing minerals DOWN through the soil, combined with plant roots snagging them back up almost instantly.`,
+  q15_C: `🐘 Animals eat other organisms, not soil minerals. Nutrients do cycle through animals, but the reason the SOIL stays empty is that plant roots beat everyone to the punch — they absorb nutrients almost as fast as decomposition releases them.`,
+  q15_D: `🌧️ The canopy does catch some rain, but plenty still reaches the soil — you can see water dripping down leaves and trunks at every station. The soil is poor because plants absorb nutrients so fast they never get a chance to build up.`,
+  // Q16
+  q16_False: `🌿 The Old Light Gap really IS thicker and more grown-in than the New Light Gap — that's the whole point of comparing the two stations! Secondary growth (nature healing itself) is very real. Rainforests are remarkably good at recovering when given the chance.`,
+  // Q17
+  q17_A: `🪓 Deforestation is caused by HUMANS with chainsaws, bulldozers, and farms — not by plants naturally competing. The crowded Old Light Gap is all-natural biology, not a human impact story.`,
+  q17_C: `🌑 The gap let MORE light in, not less! That's why so many plants are crowding there. If the canopy was blocking everything, the gap wouldn't be special at all.`,
+  q17_D: `🍂 Nutrient cycling is about decomposers breaking down dead matter underground. The crowded, competing plants at the Old Light Gap are about what happens ABOVE ground when many species fight for the same sunlight and space.`,
+};
+
+// ─── ANSWER KEY + CORRECT FEEDBACK ──────────────────────────────────────────
+const answers = {
+  q1:  { correct:'B',    station:1, clueNum:1,
+    winMsg:`🎉 Yes! Drip tips are basically leaf rain gutters! The pointy tip lets water drip off fast so the leaf doesn't get covered in mold or algae. In a rainforest that gets 79 inches of rain a year, that's a VERY important job. Imagine if your nose was a drip tip — rainy days would be interesting. 🌧️`,
+    clue:`Think about what a pointy tip does to water on a leaf — does it hold water or let it drip off quickly?` },
+
+  q2:  { correct:'True', station:1, clueNum:2,
+    winMsg:`✅ True! Buttress roots are some of the coolest structures in nature. These giant tree "fins" can be taller than a full-grown adult and spread out like a tripod to keep enormous trees standing in soggy soil. It's like the tree grew its own kickstand. 🌳`,
+    clue:`Look at Station 1 — find the buttress root section and what those wide fins do for the tree.` },
+
+  q3:  { correct:'B',    station:1, clueNum:3,
+    winMsg:`🍂 Nailed it! Rainforests run the fastest recycling system on Earth. A dead leaf hits the ground and bacteria, fungi, and bugs break it down SO fast the nutrients go right back to tree roots — sometimes in just a few weeks. No landfill needed. 🔄`,
+    clue:`Think: does recycling dead leaves ADD nutrients or REMOVE them from the soil?` },
+
+  q4:  { correct:'C',    station:2, clueNum:1,
+    winMsg:`🪲 Correct! Decomposers are the unsung heroes of the rainforest. Termites, fungi, and bacteria do the gross work of eating dead material so nutrients return to the soil. They're nature's cleanup crew — and they work around the clock for free. 💼`,
+    clue:`Which word means 'breaks dead things down'? Station 2's termite nest shows this job in action.` },
+
+  q5:  { correct:'False',station:2, clueNum:2,
+    winMsg:`🌿 FALSE — and this surprises a lot of people! Rainforest trees have SHALLOW roots because almost all the nutrients are right at the surface. The soil below is quite poor. So instead of going deep, roots spread out WIDE to grab everything they can. Buttress roots help with the balance. Smart trees! 🧠`,
+    clue:`Station 2's tree root info icon explains exactly why roots stay shallow — the answer is right there!` },
+
+  q6:  { correct:'C',    station:2, clueNum:3,
+    winMsg:`🌱 Yes! The understory is like the basement apartment of the rainforest — not a lot of light, but the right plants love it! These shade-tolerant species evolved to thrive on only the tiny slivers of sunlight that filter down through the canopy above. 🏠`,
+    clue:`The four layers are: Forest Floor, Understory, Canopy, Emergent. Which one is dim and full of small plants?` },
+
+  q7:  { correct:'True', station:3, clueNum:2,
+    winMsg:`🔬 True! Real scientists study the rainforest like a doctor examines a patient — carefully and without causing more damage. Notebooks, cameras, careful observation. That's conservation in action! 📓`,
+    clue:`Look at Station 3 — how do the researchers interact with the environment? The word 'conservation' is your clue.` },
+
+  q8:  { correct:'C',    station:3, clueNum:3,
+    winMsg:`🌲 That's it! The emergent layer is the penthouse of the rainforest — only the tallest, toughest trees get up there. They can top 60 meters — taller than a 15-story building! They handle full sun and strong winds with zero canopy protection. No shade up there! ☀️`,
+    clue:`Which layer is the VERY tallest? At Station 3 you look up to spot the trees poking above everything else.` },
+
+  q9:  { correct:'drag', station:3, clueNum:2,
+    winMsg:`🧩 Perfect matches — all four! Conservation = protecting nature. Ecosystem = living + nonliving things as one system. Biodiversity = variety of species in a place. Endemic = found ONLY in one specific spot on Earth (like orangutans in Southeast Asian rainforests!). 🏆`,
+    clue:`Check your lesson vocabulary — each of these four words has a very specific definition.` },
+
+  q10: { correct:'B',    station:4, clueNum:1,
+    winMsg:`🐒 Yes! The canopy is the VIP floor of the rainforest. Most sunlight, most food, most species — over HALF of all rainforest life lives up there. Monkeys, sloths, birds, insects, frogs — it's the world's busiest apartment building. 🏢`,
+    clue:`The canopy is the treetop 'roof.' Where does MOST of the rainforest's biodiversity live?` },
+
+  q11: { correct:'True', station:4, clueNum:1,
+    winMsg:`🌈 True! Biodiversity = lots of different species living together. And here's the superpower: the more species an ecosystem has, the better it handles problems. If one species disappears, another can step in. It's like having many backup players on a sports team. 🏅`,
+    clue:`'Bio' = life, 'diversity' = variety. Go back to the vocabulary section of your lesson.` },
+
+  q12: { correct:'drag', station:4, clueNum:1,
+    winMsg:`🎯 All four layers matched! Emergent = the sky-scraper trees above the roof. Canopy = the dense treetop roof where most life happens. Understory = shady small plants below the canopy. Forest Floor = the ground where decomposers do their work. You've got the whole building mapped out! 🏙️`,
+    clue:`Review all four layers and what kind of life is found in each one at Station 4.` },
+
+  q13: { correct:'B',    station:5, clueNum:2,
+    winMsg:`☀️ Right! A light gap is like pulling back the curtains in a dark room. The understory plants that were barely surviving suddenly go WILD — growing as fast as they can to grab that sunlight before the canopy closes back up. It's basically a plant race. 🌿🏃`,
+    clue:`At Station 5 — when a tree falls and light hits the ground, what happens to the plants that were stuck in the shade?` },
+
+  q14: { correct:'True', station:5, clueNum:3,
+    winMsg:`🌞 True! Abiotic factors are non-living things that control life in an ecosystem — sunlight, water, temperature, and soil are the big four. Change the sunlight in one spot and the whole plant community there changes too. Pretty powerful for something that isn't even alive! ⚡`,
+    clue:`Abiotic = non-living. Is sunlight alive? Station 5 shows light as a key factor that changes which plants survive.` },
+
+  q15: { correct:'A',    station:5, clueNum:3,
+    winMsg:`🌧️ Yes! Mind-blowing fact: the rainforest LOOKS lush, but the dirt is actually terrible! Heavy rain washes minerals down through the soil, AND plants snatch nutrients so fast almost none stay in the ground. The plants are basically hoarding everything in their own roots and leaves. 🪴`,
+    clue:`The red dirt pile at Station 5 is your clue. Also check 'Characteristics' in the lesson.` },
+
+  q16: { correct:'True', station:6, clueNum:1,
+    winMsg:`🌿 True! The Old Light Gap proves rainforests can bounce back — if we give them the chance. Vines, bushes, and new trees rush in to fill the space over time. This secondary growth is nature's own repair system working in real time. 🔧`,
+    clue:`Compare the New Light Gap (fresh and open) to the Old Light Gap (thick and grown back) at Station 6.` },
+
+  q17: { correct:'B',    station:6, clueNum:3,
+    winMsg:`🌱 Exactly! High biodiversity means lots of species — and lots of species means lots of COMPETITION for sunlight, water, and space. At the Old Light Gap you can literally see plants climbing over each other to reach the light. Looks peaceful, secretly very dramatic. 🎭`,
+    clue:`What big lesson idea explains many species fighting for the same space? It starts with 'B' — biodiversity!` },
+
+  q18: { correct:'drag', station:6, clueNum:null,
+    winMsg:`🌍 All four matched! Deforestation = cutting forests down (for farms, roads, timber). Habitat Fragmentation = splitting a big forest into small isolated pieces. Endemic = only found in ONE place on Earth. Conservation = protecting ecosystems. These four ideas explain how humans threaten — and can help — the rainforest. 🐆`,
+    clue:`Check your lesson vocabulary — each word has a precise scientific meaning.` },
+};
+
+// ─── STATE ───────────────────────────────────────────────────────────────────
+const attemptsLeft    = {};
+const questionCorrect = {};
+Object.keys(answers).forEach(q => { attemptsLeft[q] = 2; questionCorrect[q] = false; });
+let totalCorrect = 0;
+const TOTAL = 18;
+
+function updateProgress() {
+  const pct = Math.round((totalCorrect / TOTAL) * 100);
+  document.getElementById('progress-fill').style.width = pct + '%';
+  document.getElementById('progress-pct').textContent  = pct + '%';
+  document.getElementById('correct-count').textContent  = totalCorrect;
+}
+
+// ─── SHUFFLE DRAG BANKS ──────────────────────────────────────────────────────
+function shuffleBank(bankId) {
+  const bank = document.getElementById(bankId);
+  if (!bank) return;
+  const items = Array.from(bank.children);
+  for (let i = items.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [items[i], items[j]] = [items[j], items[i]];
+  }
+  items.forEach(el => bank.appendChild(el));
+}
+['bank-q9','bank-q12','bank-q18'].forEach(shuffleBank);
+
+// ─── DRAG & DROP ─────────────────────────────────────────────────────────────
+let dragging = null;
+
+document.querySelectorAll('.drag-item').forEach(item => {
+  item.addEventListener('dragstart', () => {
+    dragging = item;
+    setTimeout(() => item.classList.add('dragging'), 0);
+  });
+  item.addEventListener('dragend', () => {
+    item.classList.remove('dragging');
+    dragging = null;
+  });
+});
+
+document.querySelectorAll('.drop-zone').forEach(zone => {
+  zone.addEventListener('dragover',  e => { e.preventDefault(); zone.classList.add('drag-over'); });
+  zone.addEventListener('dragleave', ()  => zone.classList.remove('drag-over'));
+  zone.addEventListener('drop', e => {
+    e.preventDefault();
+    zone.classList.remove('drag-over');
+    if (!dragging) return;
+    const q = zone.dataset.q;
+    if (questionCorrect[q]) return;
+
+    // Return existing item to bank
+    const existing = zone.querySelector('.drag-item');
+    if (existing) {
+      document.getElementById('bank-' + q).appendChild(existing);
+      existing.setAttribute('draggable', 'true');
+      zone.classList.remove('filled');
+    }
+
+    // Clear from previous zone if dragging from a zone
+    const prevZone = dragging.closest('.drop-zone');
+    if (prevZone) prevZone.classList.remove('filled');
+
+    zone.appendChild(dragging);
+    zone.classList.add('filled');
+  });
+});
+
+// ─── FEEDBACK ────────────────────────────────────────────────────────────────
+const wrongOpeners = [
+  "🌧️ Hmm, not quite — even the rainforest has bad weather days. Take another look!",
+  "🐛 Oops! Even the smartest termite misses one sometimes. You've got another try!",
+  "🌿 Not this time — but the canopy is still rooting for you. 🌳",
+  "🦜 Squawk! That's not it — but you've still got a try left!",
+  "🐢 The sloth moves faster than that answer. Give it another shot!",
+];
+
+function showFeedback(q, correct, chosenVal) {
+  const fb   = document.getElementById('fb-' + q);
+  const card = document.getElementById('card-' + q);
+  const att  = document.getElementById('att-' + q);
+  const info = answers[q];
+
+  if (correct) {
+    fb.className = 'feedback show correct-fb';
+    fb.innerHTML = info.winMsg;
+    card.classList.add('correct'); card.classList.remove('wrong');
+    questionCorrect[q] = true;
+    totalCorrect++;
+    updateProgress();
+    lockQuestion(q);
+    return;
+  }
+
+  attemptsLeft[q]--;
+  att.textContent = 'Attempts left: ' + attemptsLeft[q];
+  card.classList.add('wrong'); card.classList.remove('correct');
+
+  const whyKey = q + '_' + chosenVal;
+  const whyMsg = wrongFeedback[whyKey] || '';
+  const whyDiv = whyMsg
+    ? `<div class="why-wrong">🔎 Why that doesn't work scientifically: ${whyMsg}</div>`
+    : '';
+
+  const clueDiv = `<div class="clue">💡 Clue: ${info.clue}</div>`;
+  let goBackDiv = '';
+  if (info.station && info.clueNum) {
+    goBackDiv = `<div class="go-back">👉 Go back to <strong>Station ${info.station}</strong>, checklist item #${info.clueNum} on the Scavenger Hunt — the link is earlier on today's Classkick. Haven't done the hunt yet? That's probably why! 🌿</div>`;
+  } else if (info.station) {
+    goBackDiv = `<div class="go-back">👉 Go back to <strong>Station ${info.station}</strong> on the Scavenger Hunt — earlier on today's Classkick. 🌿</div>`;
+  }
+
+  const opener = wrongOpeners[Math.floor(Math.random() * wrongOpeners.length)];
+
+  if (attemptsLeft[q] <= 0) {
+    fb.className = 'feedback show wrong-fb';
+    fb.innerHTML = `❌ <strong>Out of tries on this one!</strong>${whyDiv}${clueDiv}${goBackDiv}`;
+    lockQuestion(q);
+  } else {
+    fb.className = 'feedback show wrong-fb';
+    fb.innerHTML = `${opener}${whyDiv}${clueDiv}${goBackDiv}`;
+  }
+}
+
+function lockQuestion(q) {
+  const card = document.getElementById('card-' + q);
+  card.querySelectorAll('.mc-btn, .tf-btn').forEach(b => b.disabled = true);
+  card.querySelector('.check-btn').disabled = true;
+  card.classList.add('locked');
+  card.querySelectorAll('.drag-item').forEach(d => d.setAttribute('draggable', 'false'));
+  card.querySelectorAll('.drop-zone').forEach(z => z.style.pointerEvents = 'none');
+  card.querySelectorAll('.drag-banks').forEach(b => b.style.pointerEvents = 'none');
+}
+
+// ─── SELECTION ───────────────────────────────────────────────────────────────
+document.querySelectorAll('.mc-btn').forEach(btn => {
+  btn.addEventListener('click', () => {
+    const q = btn.dataset.q;
+    if (questionCorrect[q] || attemptsLeft[q] <= 0) return;
+    document.querySelectorAll(`.mc-btn[data-q="${q}"]`).forEach(b => b.classList.remove('selected'));
+    btn.classList.add('selected');
+  });
+});
+document.querySelectorAll('.tf-btn').forEach(btn => {
+  btn.addEventListener('click', () => {
+    const q = btn.dataset.q;
+    if (questionCorrect[q] || attemptsLeft[q] <= 0) return;
+    document.querySelectorAll(`.tf-btn[data-q="${q}"]`).forEach(b => b.classList.remove('selected'));
+    btn.classList.add('selected');
+  });
+});
+
+// ─── CHECK BUTTONS ───────────────────────────────────────────────────────────
+document.querySelectorAll('.check-btn').forEach(btn => {
+  btn.addEventListener('click', () => {
+    const q    = btn.dataset.q;
+    if (questionCorrect[q] || attemptsLeft[q] <= 0) return;
+    const info = answers[q];
+
+    if (info.correct === 'drag') {
+      const zones = document.querySelectorAll(`.drop-zone[data-q="${q}"]`);
+      let allCorrect = true;
+      zones.forEach(zone => {
+        const placed = zone.querySelector('.drag-item');
+        if (!placed || placed.dataset.word !== zone.dataset.answer) allCorrect = false;
+      });
+      if (allCorrect) {
+        zones.forEach(z => z.classList.add('correct'));
+        showFeedback(q, true, 'drag');
+      } else {
+        zones.forEach(zone => {
+          const placed = zone.querySelector('.drag-item');
+          if (!placed || placed.dataset.word !== zone.dataset.answer) zone.classList.add('wrong');
+        });
+        showFeedback(q, false, 'drag');
+        if (attemptsLeft[q] > 0) {
+          setTimeout(() => {
+            document.querySelectorAll(`.drop-zone[data-q="${q}"]`).forEach(z => z.classList.remove('wrong'));
+          }, 1500);
+        }
+      }
+    } else {
+      const selected = document.querySelector(`.mc-btn.selected[data-q="${q}"], .tf-btn.selected[data-q="${q}"]`);
+      if (!selected) {
+        const fb = document.getElementById('fb-' + q);
+        fb.className = 'feedback show wrong-fb';
+        fb.innerHTML = '⚠️ Pick an answer first before checking!';
+        return;
+      }
+      const val     = selected.dataset.val;
+      const correct = val === info.correct;
+      document.querySelectorAll(`.mc-btn[data-q="${q}"], .tf-btn[data-q="${q}"]`).forEach(b => {
+        b.classList.remove('selected');
+        if (b.dataset.val === info.correct) b.classList.add('correct-ans');
+        else if (b.dataset.val === val && !correct) b.classList.add('wrong-ans');
+      });
+      showFeedback(q, correct, val);
+    }
+  });
+});
+
+// ─── FINAL SUBMIT ────────────────────────────────────────────────────────────
+function generateCode(score) {
+  const codes = {80:'VINE80',81:'FROG81',82:'LEAF82',83:'MOSS83',84:'TOAD84',85:'BIRD85',86:'SLUG86',87:'FERN87',88:'MOTH88',89:'WASP89',90:'TREE90',91:'ANTS91',92:'WORM92',93:'FROG93',94:'BARK94',95:'SILK95',96:'RAIN96',97:'SONG97',98:'MIST98',99:'DUSK99',100:'WILD00'};
+  return codes[score] || 'PASS' + score;
+}
+
+document.getElementById('submit-all').addEventListener('click', () => {
+  const pct = Math.round((totalCorrect / TOTAL) * 100);
+  if (pct >= 80) {
+    // Pre-fill score and code so they're ready when student submits their name
+    document.getElementById('ticket-score').textContent = totalCorrect + ' / ' + TOTAL + '  (' + pct + '%)';
+    document.getElementById('ticket-code').textContent  = generateCode(pct);
+    document.getElementById('exit-ticket').style.display = 'block';
+    document.getElementById('fail-msg').style.display    = 'none';
+    document.getElementById('exit-ticket').scrollIntoView({ behavior: 'smooth' });
+  } else {
+    document.getElementById('fail-score').textContent    = totalCorrect + ' / ' + TOTAL + ' (' + pct + '%)';
+    document.getElementById('fail-msg').style.display    = 'block';
+    document.getElementById('exit-ticket').style.display = 'none';
+    document.getElementById('fail-msg').scrollIntoView({ behavior: 'smooth' });
+  }
+});
+
+// ─── TICKET FORM SUBMIT ──────────────────────────────────────────────────────
+document.getElementById('submit-ticket-btn').addEventListener('click', () => {
+  const name   = document.getElementById('student-name').value.trim();
+  const period = document.getElementById('class-period').value;
+  const errEl  = document.getElementById('form-error');
+
+  if (!name || !period) {
+    errEl.style.display = 'block';
+    return;
+  }
+  errEl.style.display = 'none';
+
+  // Show confirmed view
+  document.getElementById('confirmed-name').textContent   = '🌿 ' + name;
+  document.getElementById('confirmed-period').textContent = period + ' · Science';
+
+  // Timestamp
+  const now = new Date();
+  const ts  = now.toLocaleDateString('en-US', { month:'long', day:'numeric', year:'numeric' })
+              + ' at ' + now.toLocaleTimeString('en-US', { hour:'numeric', minute:'2-digit' });
+  document.getElementById('ticket-timestamp').textContent = 'Submitted: ' + ts;
+
+  document.getElementById('ticket-form').style.display      = 'none';
+  document.getElementById('ticket-confirmed').style.display = 'block';
+});
+
+updateProgress();
+</script>
+</body>
+</html>
