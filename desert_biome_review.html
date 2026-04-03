@@ -1,0 +1,1436 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Desert Biome Scavenger Hunt Review</title>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Nunito:wght@400;600;700;800&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --sand: #E8C98A;
+    --dark-sand: #C4973B;
+    --terracotta: #C05E2E;
+    --rust: #8B2F10;
+    --sky: #87CEEB;
+    --sage: #7A8C5E;
+    --rock: #6B5B47;
+    --cream: #FDF6E3;
+    --dark: #2C1A0E;
+    --cactus: #4A7C59;
+    --sunset: #E87040;
+    --gold: #F0A500;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    font-family: 'Nunito', sans-serif;
+    background-color: #1a0f05;
+    background-image:
+      radial-gradient(ellipse at 20% 80%, rgba(192,94,46,0.15) 0%, transparent 50%),
+      radial-gradient(ellipse at 80% 20%, rgba(232,112,64,0.1) 0%, transparent 50%),
+      url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23C4973B' fill-opacity='0.04'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+    min-height: 100vh;
+    color: var(--dark);
+    padding-bottom: 60px;
+  }
+
+  /* ── HEADER ── */
+  .page-header {
+    background: linear-gradient(135deg, #8B2F10 0%, #C05E2E 40%, #E87040 70%, #F0A500 100%);
+    padding: 0;
+    position: relative;
+    overflow: hidden;
+  }
+  .page-header::before {
+    content: '';
+    position: absolute; inset: 0;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1200 200'%3E%3Cpath d='M0,200 L0,120 Q50,80 100,110 Q150,140 200,90 Q250,50 300,80 Q350,110 400,70 Q450,30 500,60 Q550,90 600,50 Q650,20 700,55 Q750,90 800,60 Q850,30 900,70 Q950,110 1000,80 Q1050,50 1100,90 Q1150,130 1200,100 L1200,200 Z' fill='rgba(0,0,0,0.2)'/%3E%3C/svg%3E");
+    background-size: cover; background-position: bottom;
+    opacity: 0.6;
+  }
+  .header-content {
+    position: relative; z-index: 2;
+    text-align: center;
+    padding: 36px 20px 28px;
+  }
+  .header-emoji { font-size: 3rem; display: block; margin-bottom: 8px; }
+  .page-title {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: clamp(2.4rem, 6vw, 4rem);
+    color: #fff;
+    letter-spacing: 3px;
+    text-shadow: 2px 4px 8px rgba(0,0,0,0.4);
+    line-height: 1;
+  }
+  .page-subtitle {
+    color: rgba(255,255,255,0.88);
+    font-size: 1rem;
+    font-weight: 700;
+    margin-top: 8px;
+    letter-spacing: 1px;
+  }
+  .dunes {
+    width: 100%;
+    display: block;
+    margin-top: -2px;
+  }
+
+  /* ── PROGRESS BAR ── */
+  .progress-wrap {
+    background: #2C1A0E;
+    padding: 14px 20px;
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    border-bottom: 3px solid var(--dark-sand);
+  }
+  .progress-label {
+    color: var(--sand);
+    font-weight: 800;
+    font-size: 0.85rem;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 6px;
+  }
+  .progress-bar-bg {
+    background: rgba(255,255,255,0.1);
+    border-radius: 20px;
+    height: 18px;
+    overflow: hidden;
+    border: 2px solid rgba(196,151,59,0.3);
+  }
+  .progress-bar-fill {
+    height: 100%;
+    border-radius: 20px;
+    background: linear-gradient(90deg, #C05E2E, #F0A500);
+    transition: width 0.5s cubic-bezier(.23,1.5,.5,1);
+    width: 0%;
+    position: relative;
+  }
+  .progress-bar-fill::after {
+    content: '';
+    position: absolute; right: 0; top: 0; bottom: 0; width: 8px;
+    background: rgba(255,255,255,0.4);
+    border-radius: 0 20px 20px 0;
+  }
+  .threshold-marker {
+    position: relative;
+    margin-top: 4px;
+    font-size: 0.75rem;
+    color: rgba(232,201,138,0.7);
+    text-align: right;
+  }
+
+  /* ── MAIN CONTAINER ── */
+  .container { max-width: 820px; margin: 0 auto; padding: 24px 16px; }
+
+  /* ── STATION HEADERS ── */
+  .station-header {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    background: linear-gradient(135deg, var(--rust), var(--terracotta));
+    border-radius: 16px 16px 0 0;
+    padding: 16px 20px;
+    margin-top: 36px;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.4);
+  }
+  .station-icon { font-size: 2rem; }
+  .station-title {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 1.6rem;
+    color: #fff;
+    letter-spacing: 2px;
+    line-height: 1;
+  }
+  .station-sub {
+    color: rgba(255,255,255,0.75);
+    font-size: 0.78rem;
+    font-weight: 700;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+  }
+  .station-body {
+    background: var(--cream);
+    border-radius: 0 0 16px 16px;
+    padding: 6px 0 16px;
+    box-shadow: 0 6px 24px rgba(0,0,0,0.35);
+  }
+
+  /* ── QUESTION CARD ── */
+  .q-card {
+    background: #fff;
+    border-radius: 12px;
+    margin: 12px 16px;
+    padding: 20px;
+    border: 2px solid transparent;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+    transition: border-color 0.3s, transform 0.2s;
+  }
+  .q-card.correct { border-color: #4CAF50; background: #f1faf2; }
+  .q-card.wrong   { border-color: #e53935; background: #fff5f5; }
+  .q-card.locked  { opacity: 0.7; pointer-events: none; }
+
+  .q-num {
+    font-size: 0.72rem;
+    font-weight: 800;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: var(--terracotta);
+    margin-bottom: 6px;
+  }
+  .q-text {
+    font-size: 1.05rem;
+    font-weight: 700;
+    color: var(--dark);
+    line-height: 1.5;
+    margin-bottom: 14px;
+  }
+
+  /* ── ANSWER OPTIONS ── */
+  .options { display: flex; flex-direction: column; gap: 8px; }
+  .opt-btn {
+    background: var(--cream);
+    border: 2.5px solid rgba(196,151,59,0.35);
+    border-radius: 10px;
+    padding: 12px 16px;
+    font-family: 'Nunito', sans-serif;
+    font-size: 0.95rem;
+    font-weight: 700;
+    color: var(--dark);
+    cursor: pointer;
+    text-align: left;
+    transition: all 0.2s;
+  }
+  .opt-btn:hover:not(:disabled) {
+    background: #fff7e6;
+    border-color: var(--dark-sand);
+    transform: translateX(4px);
+  }
+  .opt-btn.chosen-correct { background: #d4edda; border-color: #4CAF50; color: #1a6329; }
+  .opt-btn.chosen-wrong   { background: #fde8e8; border-color: #e53935; color: #8b0000; }
+  .opt-btn.reveal-correct { background: #d4edda; border-color: #4CAF50; }
+  .opt-btn:disabled { cursor: default; }
+
+  /* ── FEEDBACK BOXES ── */
+  .feedback {
+    margin-top: 14px;
+    border-radius: 10px;
+    padding: 14px 16px;
+    font-size: 0.9rem;
+    line-height: 1.55;
+    display: none;
+    animation: popIn 0.3s ease;
+  }
+  @keyframes popIn {
+    from { opacity: 0; transform: translateY(-8px) scale(0.97); }
+    to   { opacity: 1; transform: none; }
+  }
+  .feedback.show { display: block; }
+  .feedback.correct-fb {
+    background: linear-gradient(135deg, #e8f5e9, #c8e6c9);
+    border: 2px solid #4CAF50;
+  }
+  .feedback.wrong-fb {
+    background: linear-gradient(135deg, #fff3e0, #ffe0b2);
+    border: 2px solid #E87040;
+  }
+  .fb-opener { font-size: 1.1rem; font-weight: 800; margin-bottom: 6px; color: var(--rust); }
+  .fb-why { font-weight: 700; margin: 6px 0 2px; color: #5d4037; }
+  .fb-clue { font-style: italic; color: var(--rock); margin-top: 6px; font-size: 0.85rem; }
+  .fb-link { color: var(--terracotta); font-weight: 800; }
+  .fb-correct-text { font-weight: 700; color: #2e7d32; }
+  .fb-funfact { color: #1b5e20; margin-top: 4px; }
+
+  /* ── ATTEMPTS COUNTER ── */
+  .attempts-left {
+    font-size: 0.75rem;
+    color: var(--rock);
+    font-weight: 700;
+    margin-bottom: 8px;
+    display: flex; gap: 4px; align-items: center;
+  }
+  .attempt-dot {
+    width: 10px; height: 10px; border-radius: 50%;
+    background: var(--dark-sand); display: inline-block;
+  }
+  .attempt-dot.used { background: #ccc; }
+
+  /* ── DRAG & DROP ── */
+  .dnd-container { display: flex; flex-direction: column; gap: 14px; }
+  .dnd-wordbank {
+    background: rgba(232,201,138,0.2);
+    border: 2px dashed var(--dark-sand);
+    border-radius: 10px;
+    padding: 12px 14px;
+  }
+  .dnd-wb-label {
+    font-size: 0.72rem;
+    font-weight: 800;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: var(--terracotta);
+    margin-bottom: 8px;
+  }
+  .dnd-chips {
+    display: flex; flex-wrap: wrap; gap: 8px; min-height: 38px;
+  }
+  .dnd-chip {
+    background: linear-gradient(135deg, var(--terracotta), var(--rust));
+    color: #fff;
+    border-radius: 20px;
+    padding: 6px 14px;
+    font-size: 0.88rem;
+    font-weight: 800;
+    cursor: grab;
+    user-select: none;
+    transition: transform 0.15s, box-shadow 0.15s;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.25);
+    touch-action: none;
+  }
+  .dnd-chip:hover { transform: scale(1.06); box-shadow: 0 4px 12px rgba(0,0,0,0.3); }
+  .dnd-chip.dragging { opacity: 0.4; }
+  .dnd-chip.placed { display: none; }
+
+  .dnd-zones { display: flex; flex-direction: column; gap: 8px; }
+  .dnd-zone {
+    display: flex; align-items: center; gap: 10px;
+    background: var(--cream);
+    border: 2.5px dashed rgba(196,151,59,0.5);
+    border-radius: 10px;
+    padding: 10px 14px;
+    min-height: 46px;
+    transition: border-color 0.2s, background 0.2s;
+  }
+  .dnd-zone.drag-over { border-color: var(--terracotta); background: #fff7e6; }
+  .dnd-zone.correct-zone { border-color: #4CAF50; background: #f1faf2; }
+  .dnd-zone.wrong-zone  { border-color: #e53935; background: #fff5f5; }
+  .dnd-zone-label {
+    font-size: 0.88rem; font-weight: 700; color: var(--rock);
+    flex: 1; min-width: 0;
+  }
+  .dnd-zone-slot {
+    min-width: 120px; min-height: 32px;
+    border-radius: 8px;
+    border: 2px solid rgba(196,151,59,0.3);
+    background: rgba(232,201,138,0.15);
+    display: flex; align-items: center; justify-content: center;
+    font-size: 0.82rem; color: #aaa; font-style: italic;
+    transition: all 0.2s;
+    padding: 4px 8px;
+  }
+  .dnd-zone-slot .dnd-chip {
+    font-size: 0.8rem;
+    padding: 4px 12px;
+    cursor: pointer;
+    margin: 0;
+  }
+  .dnd-check-btn {
+    background: linear-gradient(135deg, var(--terracotta), var(--rust));
+    color: #fff;
+    border: none;
+    border-radius: 10px;
+    padding: 11px 22px;
+    font-family: 'Nunito', sans-serif;
+    font-size: 0.95rem;
+    font-weight: 800;
+    cursor: pointer;
+    margin-top: 10px;
+    transition: transform 0.15s, box-shadow 0.15s;
+    box-shadow: 0 3px 12px rgba(0,0,0,0.25);
+  }
+  .dnd-check-btn:hover { transform: translateY(-2px); box-shadow: 0 6px 18px rgba(0,0,0,0.3); }
+  .dnd-check-btn:disabled { opacity: 0.5; cursor: default; transform: none; }
+
+  /* ── EXIT TICKET ── */
+  .exit-section {
+    background: linear-gradient(135deg, #2C1A0E, #4a2c0e);
+    border-radius: 20px;
+    padding: 32px 24px;
+    margin-top: 40px;
+    text-align: center;
+    border: 3px solid var(--dark-sand);
+    box-shadow: 0 8px 32px rgba(0,0,0,0.5);
+    display: none;
+  }
+  .exit-section.show { display: block; animation: popIn 0.5s ease; }
+  .exit-title {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 2.2rem;
+    color: var(--gold);
+    letter-spacing: 3px;
+    margin-bottom: 6px;
+  }
+  .exit-subtitle { color: var(--sand); font-size: 0.95rem; margin-bottom: 24px; }
+  .exit-score-display {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 3rem;
+    color: var(--gold);
+    letter-spacing: 2px;
+    margin-bottom: 16px;
+  }
+  .exit-form { display: flex; flex-direction: column; gap: 14px; max-width: 400px; margin: 0 auto; }
+  .exit-input, .exit-select {
+    background: rgba(255,255,255,0.1);
+    border: 2px solid var(--dark-sand);
+    border-radius: 10px;
+    padding: 13px 16px;
+    font-family: 'Nunito', sans-serif;
+    font-size: 1rem;
+    font-weight: 700;
+    color: #fff;
+    outline: none;
+    transition: border-color 0.2s;
+  }
+  .exit-input::placeholder { color: rgba(255,255,255,0.4); }
+  .exit-input:focus, .exit-select:focus { border-color: var(--gold); }
+  .exit-select option { background: #2C1A0E; color: #fff; }
+  .exit-submit-btn {
+    background: linear-gradient(135deg, var(--gold), var(--dark-sand));
+    color: var(--dark);
+    border: none;
+    border-radius: 12px;
+    padding: 14px;
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 1.4rem;
+    letter-spacing: 2px;
+    cursor: pointer;
+    transition: transform 0.15s, box-shadow 0.15s;
+    box-shadow: 0 4px 16px rgba(240,165,0,0.4);
+  }
+  .exit-submit-btn:hover { transform: translateY(-3px); box-shadow: 0 8px 24px rgba(240,165,0,0.5); }
+
+  /* ── TICKET ── */
+  .ticket {
+    display: none;
+    background: linear-gradient(135deg, #FDF6E3, #fff);
+    border-radius: 16px;
+    padding: 28px 24px;
+    margin-top: 20px;
+    border: 3px solid var(--gold);
+    box-shadow: 0 0 30px rgba(240,165,0,0.4);
+    position: relative;
+    overflow: hidden;
+  }
+  .ticket::before {
+    content: '🌵🌵🌵';
+    position: absolute; top: 10px; right: 14px;
+    font-size: 1.8rem; opacity: 0.2;
+  }
+  .ticket.show { display: block; animation: popIn 0.5s ease; }
+  .ticket-header {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 1.8rem;
+    color: var(--rust);
+    letter-spacing: 3px;
+    border-bottom: 3px dashed var(--dark-sand);
+    padding-bottom: 10px;
+    margin-bottom: 16px;
+  }
+  .ticket-row {
+    display: flex; justify-content: space-between;
+    padding: 8px 0;
+    border-bottom: 1px solid rgba(196,151,59,0.2);
+    font-size: 0.95rem;
+  }
+  .ticket-row:last-child { border-bottom: none; }
+  .ticket-key { font-weight: 800; color: var(--rock); }
+  .ticket-val { font-weight: 700; color: var(--dark); text-align: right; }
+  .ticket-passcode {
+    background: linear-gradient(135deg, var(--terracotta), var(--rust));
+    color: #fff;
+    border-radius: 10px;
+    padding: 12px 20px;
+    text-align: center;
+    margin-top: 16px;
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 2rem;
+    letter-spacing: 6px;
+  }
+  .ticket-instructions {
+    margin-top: 14px;
+    font-size: 0.85rem;
+    color: var(--rock);
+    font-weight: 700;
+    text-align: center;
+    line-height: 1.6;
+  }
+  .not-yet {
+    background: linear-gradient(135deg, #4a2c0e, #3d2008);
+    border-radius: 14px;
+    padding: 20px;
+    margin-top: 40px;
+    text-align: center;
+    display: none;
+    border: 2px solid var(--rust);
+  }
+  .not-yet.show { display: block; }
+  .not-yet-title { font-family:'Bebas Neue',sans-serif; font-size:1.8rem; color:#e87040; letter-spacing:2px; }
+  .not-yet-text { color:var(--sand); margin-top:8px; font-size:0.9rem; line-height:1.6; }
+
+  /* ── CACTUS DIVIDERS ── */
+  .cactus-row {
+    text-align: center;
+    font-size: 1.4rem;
+    letter-spacing: 6px;
+    margin: 10px 0 0;
+    opacity: 0.35;
+    color: var(--cactus);
+  }
+
+  /* ── RESPONSIVE ── */
+  @media (max-width: 500px) {
+    .q-text { font-size: 0.97rem; }
+    .opt-btn { font-size: 0.88rem; }
+    .dnd-chip { font-size: 0.8rem; padding: 5px 11px; }
+  }
+</style>
+</head>
+<body>
+
+<!-- HEADER -->
+<header class="page-header">
+  <div class="header-content">
+    <span class="header-emoji">🌵☀️🦎</span>
+    <div class="page-title">Desert Biome Review</div>
+    <div class="page-subtitle">Lesson 6.06 · Use your Scavenger Hunt to help!</div>
+  </div>
+  <svg class="dunes" viewBox="0 0 1200 60" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="none">
+    <path d="M0,60 L0,30 Q150,0 300,25 Q450,50 600,20 Q750,0 900,28 Q1050,55 1200,22 L1200,60 Z" fill="#1a0f05"/>
+  </svg>
+</header>
+
+<!-- PROGRESS BAR -->
+<div class="progress-wrap">
+  <div class="progress-label">
+    <span>🌡️ CORRECT ANSWERS: <span id="scoreCount">0</span> / 18</span>
+    <span>Need <strong>14</strong> for exit ticket</span>
+  </div>
+  <div class="progress-bar-bg">
+    <div class="progress-bar-fill" id="progressFill"></div>
+  </div>
+  <div class="threshold-marker">📋 Exit ticket unlocks at 14/18</div>
+</div>
+
+<!-- ========================= QUESTIONS ========================= -->
+<div class="container" id="quizContainer">
+
+<!-- =================== STATION 1: DESERT CHOLLA =================== -->
+<div>
+  <div class="station-header">
+    <div class="station-icon">🌵</div>
+    <div>
+      <div class="station-title">Station 1: Desert Cholla</div>
+      <div class="station-sub">Plant spacing · Brittlebush · Chain-fruit Cholla</div>
+    </div>
+  </div>
+  <div class="station-body">
+    <div class="cactus-row">🌵 🌵 🌵</div>
+
+    <!-- Q1: MC -->
+    <div class="q-card" id="qcard-1" data-qid="1">
+      <div class="q-num">Question 1 of 18 · Multiple Choice</div>
+      <div class="attempts-left" id="att-1">
+        <span>Tries left:</span>
+        <span class="attempt-dot" id="att-1-d1"></span>
+        <span class="attempt-dot" id="att-1-d2"></span>
+      </div>
+      <div class="q-text">Why do desert plants grow far apart from each other?</div>
+      <div class="options" id="opts-1">
+        <button class="opt-btn" onclick="checkMC(1,'A')">A. They don't like sharing sunlight</button>
+        <button class="opt-btn" onclick="checkMC(1,'B')">B. Wide spaces stop fires from spreading fast</button>
+        <button class="opt-btn" onclick="checkMC(1,'C')">C. Animals need room to run between them</button>
+        <button class="opt-btn" onclick="checkMC(1,'D')">D. The roots push other plants away</button>
+      </div>
+      <div class="feedback" id="fb-1"></div>
+    </div>
+
+    <!-- Q2: TF -->
+    <div class="q-card" id="qcard-2" data-qid="2">
+      <div class="q-num">Question 2 of 18 · True or False</div>
+      <div class="attempts-left" id="att-2">
+        <span>Tries left:</span>
+        <span class="attempt-dot" id="att-2-d1"></span>
+        <span class="attempt-dot" id="att-2-d2"></span>
+      </div>
+      <div class="q-text">The Brittlebush has a waxy coating on its leaves. This waxy coating helps the plant hold in water.</div>
+      <div class="options" id="opts-2">
+        <button class="opt-btn" onclick="checkMC(2,'A')">✅ True</button>
+        <button class="opt-btn" onclick="checkMC(2,'B')">❌ False</button>
+      </div>
+      <div class="feedback" id="fb-2"></div>
+    </div>
+
+    <!-- Q3: MC -->
+    <div class="q-card" id="qcard-3" data-qid="3">
+      <div class="q-num">Question 3 of 18 · Multiple Choice</div>
+      <div class="attempts-left" id="att-3">
+        <span>Tries left:</span>
+        <span class="attempt-dot" id="att-3-d1"></span>
+        <span class="attempt-dot" id="att-3-d2"></span>
+      </div>
+      <div class="q-text">The Chain-fruit Cholla has spines with backward barbs, like a fishhook. How does this help the cactus spread its seeds?</div>
+      <div class="options" id="opts-3">
+        <button class="opt-btn" onclick="checkMC(3,'A')">A. The barbs attract birds that carry seeds</button>
+        <button class="opt-btn" onclick="checkMC(3,'B')">B. The barbs store water for the seeds</button>
+        <button class="opt-btn" onclick="checkMC(3,'C')">C. The barbs hook onto passing animals and hitch a ride to new places</button>
+        <button class="opt-btn" onclick="checkMC(3,'D')">D. The barbs block wind from blowing seeds away</button>
+      </div>
+      <div class="feedback" id="fb-3"></div>
+    </div>
+  </div>
+</div>
+
+<!-- =================== STATION 2: SAGUARO CACTI =================== -->
+<div>
+  <div class="station-header">
+    <div class="station-icon">🏜️</div>
+    <div>
+      <div class="station-title">Station 2: Saguaro Cacti</div>
+      <div class="station-sub">Saguaro · Gilded Flicker · Desert Tortoise</div>
+    </div>
+  </div>
+  <div class="station-body">
+    <div class="cactus-row">☀️ 🌵 ☀️</div>
+
+    <!-- Q4: MC -->
+    <div class="q-card" id="qcard-4" data-qid="4">
+      <div class="q-num">Question 4 of 18 · Multiple Choice</div>
+      <div class="attempts-left" id="att-4">
+        <span>Tries left:</span>
+        <span class="attempt-dot" id="att-4-d1"></span>
+        <span class="attempt-dot" id="att-4-d2"></span>
+      </div>
+      <div class="q-text">The Saguaro cactus has vertical pleats, like accordion folds. What do these pleats let the cactus do?</div>
+      <div class="options" id="opts-4">
+        <button class="opt-btn" onclick="checkMC(4,'A')">A. Grow taller to reach more sunlight</button>
+        <button class="opt-btn" onclick="checkMC(4,'B')">B. Expand and store more water after rain</button>
+        <button class="opt-btn" onclick="checkMC(4,'C')">C. Attract birds with their pattern</button>
+        <button class="opt-btn" onclick="checkMC(4,'D')">D. Cool the cactus down by moving air</button>
+      </div>
+      <div class="feedback" id="fb-4"></div>
+    </div>
+
+    <!-- Q5: TF -->
+    <div class="q-card" id="qcard-5" data-qid="5">
+      <div class="q-num">Question 5 of 18 · True or False</div>
+      <div class="attempts-left" id="att-5">
+        <span>Tries left:</span>
+        <span class="attempt-dot" id="att-5-d1"></span>
+        <span class="attempt-dot" id="att-5-d2"></span>
+      </div>
+      <div class="q-text">The Desert Tortoise burrows underground during the day to escape heat. This is an example of a behavioral adaptation.</div>
+      <div class="options" id="opts-5">
+        <button class="opt-btn" onclick="checkMC(5,'A')">✅ True</button>
+        <button class="opt-btn" onclick="checkMC(5,'B')">❌ False</button>
+      </div>
+      <div class="feedback" id="fb-5"></div>
+    </div>
+
+    <!-- Q6: MC -->
+    <div class="q-card" id="qcard-6" data-qid="6">
+      <div class="q-num">Question 6 of 18 · Multiple Choice</div>
+      <div class="attempts-left" id="att-6">
+        <span>Tries left:</span>
+        <span class="attempt-dot" id="att-6-d1"></span>
+        <span class="attempt-dot" id="att-6-d2"></span>
+      </div>
+      <div class="q-text">The Gilded Flicker bird digs holes in Saguaro cactus trunks to make nests. Why is a cactus trunk a good place for a bird nest in the desert?</div>
+      <div class="options" id="opts-6">
+        <button class="opt-btn" onclick="checkMC(6,'A')">A. The cactus gives the bird food and water</button>
+        <button class="opt-btn" onclick="checkMC(6,'B')">B. The inside of the cactus is cool, which helps birds escape the heat</button>
+        <button class="opt-btn" onclick="checkMC(6,'C')">C. The cactus has soft wood that is easy to dig</button>
+        <button class="opt-btn" onclick="checkMC(6,'D')">D. Cactus holes face north to block wind</button>
+      </div>
+      <div class="feedback" id="fb-6"></div>
+    </div>
+  </div>
+</div>
+
+<!-- =================== STATION 3: DESERT STREAM =================== -->
+<div>
+  <div class="station-header">
+    <div class="station-icon">💧</div>
+    <div>
+      <div class="station-title">Station 3: Desert Stream</div>
+      <div class="station-sub">Desert Wash · Seed germination · Water</div>
+    </div>
+  </div>
+  <div class="station-body">
+    <div class="cactus-row">💧 🌵 💧</div>
+
+    <!-- Q7: MC -->
+    <div class="q-card" id="qcard-7" data-qid="7">
+      <div class="q-num">Question 7 of 18 · Multiple Choice</div>
+      <div class="attempts-left" id="att-7">
+        <span>Tries left:</span>
+        <span class="attempt-dot" id="att-7-d1"></span>
+        <span class="attempt-dot" id="att-7-d2"></span>
+      </div>
+      <div class="q-text">A desert wash is usually dry. After a rainstorm, it fills with water fast. How are the seeds near a wash adapted to this?</div>
+      <div class="options" id="opts-7">
+        <button class="opt-btn" onclick="checkMC(7,'A')">A. They float downstream to find better soil</button>
+        <button class="opt-btn" onclick="checkMC(7,'B')">B. They germinate (sprout) and grow quickly before the water is gone</button>
+        <button class="opt-btn" onclick="checkMC(7,'C')">C. They wait underground for years until enough rain falls</button>
+        <button class="opt-btn" onclick="checkMC(7,'D')">D. They only grow in places that are always wet</button>
+      </div>
+      <div class="feedback" id="fb-7"></div>
+    </div>
+
+    <!-- Q8: TF -->
+    <div class="q-card" id="qcard-8" data-qid="8">
+      <div class="q-num">Question 8 of 18 · True or False</div>
+      <div class="attempts-left" id="att-8">
+        <span>Tries left:</span>
+        <span class="attempt-dot" id="att-8-d1"></span>
+        <span class="attempt-dot" id="att-8-d2"></span>
+      </div>
+      <div class="q-text">Desert plants called ephemerals (annual plants) grow, flower, and make seeds quickly right after rain. Then they dry out and die.</div>
+      <div class="options" id="opts-8">
+        <button class="opt-btn" onclick="checkMC(8,'A')">✅ True</button>
+        <button class="opt-btn" onclick="checkMC(8,'B')">❌ False</button>
+      </div>
+      <div class="feedback" id="fb-8"></div>
+    </div>
+
+    <!-- Q9: MC -->
+    <div class="q-card" id="qcard-9" data-qid="9">
+      <div class="q-num">Question 9 of 18 · Multiple Choice</div>
+      <div class="attempts-left" id="att-9">
+        <span>Tries left:</span>
+        <span class="attempt-dot" id="att-9-d1"></span>
+        <span class="attempt-dot" id="att-9-d2"></span>
+      </div>
+      <div class="q-text">Desert plants have two main root strategies. Which of these is a correct match?</div>
+      <div class="options" id="opts-9">
+        <button class="opt-btn" onclick="checkMC(9,'A')">A. Deep roots → catch short rain on the surface; shallow roots → reach underground water</button>
+        <button class="opt-btn" onclick="checkMC(9,'B')">B. Deep roots → reach underground water; shallow wide roots → catch brief surface rain</button>
+        <button class="opt-btn" onclick="checkMC(9,'C')">C. All desert plants have only deep roots because rain never reaches the surface</button>
+        <button class="opt-btn" onclick="checkMC(9,'D')">D. Desert plants have no roots because the soil is too sandy</button>
+      </div>
+      <div class="feedback" id="fb-9"></div>
+    </div>
+  </div>
+</div>
+
+<!-- =================== STATION 4: INSIDE THE CHOLLA CACTUS =================== -->
+<div>
+  <div class="station-header">
+    <div class="station-icon">🐦</div>
+    <div>
+      <div class="station-title">Station 4: Inside the Cholla Cactus</div>
+      <div class="station-sub">Thrasher nest · Cactus spines · Bird adaptations</div>
+    </div>
+  </div>
+  <div class="station-body">
+    <div class="cactus-row">🐦 🌵 🐦</div>
+
+    <!-- Q10: MC -->
+    <div class="q-card" id="qcard-10" data-qid="10">
+      <div class="q-num">Question 10 of 18 · Multiple Choice</div>
+      <div class="attempts-left" id="att-10">
+        <span>Tries left:</span>
+        <span class="attempt-dot" id="att-10-d1"></span>
+        <span class="attempt-dot" id="att-10-d2"></span>
+      </div>
+      <div class="q-text">The Curve-billed Thrasher is an omnivore — it eats both plants and animals. Why is being an omnivore helpful in the desert?</div>
+      <div class="options" id="opts-10">
+        <button class="opt-btn" onclick="checkMC(10,'A')">A. Omnivores taste better to predators, so they get left alone</button>
+        <button class="opt-btn" onclick="checkMC(10,'B')">B. If one food source disappears for months, the bird can switch to eating something else</button>
+        <button class="opt-btn" onclick="checkMC(10,'C')">C. Eating both plants and animals helps the bird stay cool</button>
+        <button class="opt-btn" onclick="checkMC(10,'D')">D. Omnivores do not need to drink water</button>
+      </div>
+      <div class="feedback" id="fb-10"></div>
+    </div>
+
+    <!-- Q11: TF -->
+    <div class="q-card" id="qcard-11" data-qid="11">
+      <div class="q-num">Question 11 of 18 · True or False</div>
+      <div class="attempts-left" id="att-11">
+        <span>Tries left:</span>
+        <span class="attempt-dot" id="att-11-d1"></span>
+        <span class="attempt-dot" id="att-11-d2"></span>
+      </div>
+      <div class="q-text">Cactus spines are actually modified leaves. They give shade to the cactus body and protect it from animals that want to eat it for water.</div>
+      <div class="options" id="opts-11">
+        <button class="opt-btn" onclick="checkMC(11,'A')">✅ True</button>
+        <button class="opt-btn" onclick="checkMC(11,'B')">❌ False</button>
+      </div>
+      <div class="feedback" id="fb-11"></div>
+    </div>
+
+    <!-- Q12: DRAG & DROP -->
+    <div class="q-card" id="qcard-12" data-qid="12" data-type="dnd">
+      <div class="q-num">Question 12 of 18 · Drag &amp; Drop Matching</div>
+      <div class="attempts-left" id="att-12">
+        <span>Tries left:</span>
+        <span class="attempt-dot" id="att-12-d1"></span>
+        <span class="attempt-dot" id="att-12-d2"></span>
+      </div>
+      <div class="q-text">Match each desert animal to its special adaptation.</div>
+      <div class="dnd-container" id="dnd-12">
+        <div class="dnd-wordbank">
+          <div class="dnd-wb-label">🌵 Word Bank — drag to the right box</div>
+          <div class="dnd-chips" id="bank-12"></div>
+        </div>
+        <div class="dnd-zones" id="zones-12"></div>
+        <button class="dnd-check-btn" id="dnd-check-12" onclick="checkDnD(12)">Check My Answers ✔</button>
+      </div>
+      <div class="feedback" id="fb-12"></div>
+    </div>
+  </div>
+</div>
+
+<!-- =================== STATION 5: GILA MONSTER & BIOLOGIST =================== -->
+<div>
+  <div class="station-header">
+    <div class="station-icon">🦎</div>
+    <div>
+      <div class="station-title">Station 5: Gila Monster &amp; Biologist</div>
+      <div class="station-sub">Gila monster · Desert Spiny Lizard · Fat storage</div>
+    </div>
+  </div>
+  <div class="station-body">
+    <div class="cactus-row">🦎 🌵 🦎</div>
+
+    <!-- Q13: MC -->
+    <div class="q-card" id="qcard-13" data-qid="13">
+      <div class="q-num">Question 13 of 18 · Multiple Choice</div>
+      <div class="attempts-left" id="att-13">
+        <span>Tries left:</span>
+        <span class="attempt-dot" id="att-13-d1"></span>
+        <span class="attempt-dot" id="att-13-d2"></span>
+      </div>
+      <div class="q-text">The Gila monster stores fat in its tail and water in its bladder. This lets it go 80–90 days in summer without drinking. What kind of adaptation is this?</div>
+      <div class="options" id="opts-13">
+        <button class="opt-btn" onclick="checkMC(13,'A')">A. Behavioral — it changes what it does</button>
+        <button class="opt-btn" onclick="checkMC(13,'B')">B. Structural — it is built into the body</button>
+        <button class="opt-btn" onclick="checkMC(13,'C')">C. Both structural and behavioral</button>
+        <button class="opt-btn" onclick="checkMC(13,'D')">D. Neither — it is just luck</button>
+      </div>
+      <div class="feedback" id="fb-13"></div>
+    </div>
+
+    <!-- Q14: MC -->
+    <div class="q-card" id="qcard-14" data-qid="14">
+      <div class="q-num">Question 14 of 18 · Multiple Choice</div>
+      <div class="attempts-left" id="att-14">
+        <span>Tries left:</span>
+        <span class="attempt-dot" id="att-14-d1"></span>
+        <span class="attempt-dot" id="att-14-d2"></span>
+      </div>
+      <div class="q-text">The Desert Spiny Lizard can drop its own tail when a predator grabs it. The tail keeps wiggling to distract the predator. Why is this useful in the desert?</div>
+      <div class="options" id="opts-14">
+        <button class="opt-btn" onclick="checkMC(14,'A')">A. Deserts have so much food that losing a tail is not a big deal</button>
+        <button class="opt-btn" onclick="checkMC(14,'B')">B. Food is scarce in the desert, so many predators compete — escaping alive is worth losing a tail</button>
+        <button class="opt-btn" onclick="checkMC(14,'C')">C. Lizard tails store water, so dropping them helps the lizard cool down</button>
+        <button class="opt-btn" onclick="checkMC(14,'D')">D. The tail grows back instantly, so there is no cost to losing it</button>
+      </div>
+      <div class="feedback" id="fb-14"></div>
+    </div>
+
+    <!-- Q15: TF -->
+    <div class="q-card" id="qcard-15" data-qid="15">
+      <div class="q-num">Question 15 of 18 · True or False</div>
+      <div class="attempts-left" id="att-15">
+        <span>Tries left:</span>
+        <span class="attempt-dot" id="att-15-d1"></span>
+        <span class="attempt-dot" id="att-15-d2"></span>
+      </div>
+      <div class="q-text">Being nocturnal (active at night) helps desert animals avoid both the extreme heat AND reduces water loss through the day.</div>
+      <div class="options" id="opts-15">
+        <button class="opt-btn" onclick="checkMC(15,'A')">✅ True</button>
+        <button class="opt-btn" onclick="checkMC(15,'B')">❌ False</button>
+      </div>
+      <div class="feedback" id="fb-15"></div>
+    </div>
+  </div>
+</div>
+
+<!-- =================== STATION 6–8: GILA MONSTER / RATTLESNAKE / TURKEY VULTURE =================== -->
+<div>
+  <div class="station-header">
+    <div class="station-icon">🐍</div>
+    <div>
+      <div class="station-title">Stations 6–8: Prickly Pear, Rattlesnake &amp; Turkey Vulture</div>
+      <div class="station-sub">Succulents · Forked tongue · Scavengers · Lichens</div>
+    </div>
+  </div>
+  <div class="station-body">
+    <div class="cactus-row">🐍 🌵 🦅</div>
+
+    <!-- Q16: MC -->
+    <div class="q-card" id="qcard-16" data-qid="16">
+      <div class="q-num">Question 16 of 18 · Multiple Choice</div>
+      <div class="attempts-left" id="att-16">
+        <span>Tries left:</span>
+        <span class="attempt-dot" id="att-16-d1"></span>
+        <span class="attempt-dot" id="att-16-d2"></span>
+      </div>
+      <div class="q-text">A rattlesnake has a forked tongue that picks up smell from two slightly different directions at once. How does this help it survive in the desert?</div>
+      <div class="options" id="opts-16">
+        <button class="opt-btn" onclick="checkMC(16,'A')">A. It helps the snake make venom faster</button>
+        <button class="opt-btn" onclick="checkMC(16,'B')">B. It lets the snake track prey across the wide, open desert landscape</button>
+        <button class="opt-btn" onclick="checkMC(16,'C')">C. It cools the snake's mouth when panting</button>
+        <button class="opt-btn" onclick="checkMC(16,'D')">D. The forked shape scares away predators</button>
+      </div>
+      <div class="feedback" id="fb-16"></div>
+    </div>
+
+    <!-- Q17: TF -->
+    <div class="q-card" id="qcard-17" data-qid="17">
+      <div class="q-num">Question 17 of 18 · True or False</div>
+      <div class="attempts-left" id="att-17">
+        <span>Tries left:</span>
+        <span class="attempt-dot" id="att-17-d1"></span>
+        <span class="attempt-dot" id="att-17-d2"></span>
+      </div>
+      <div class="q-text">Lichens are made of a fungus and an alga living together. The alga makes food through photosynthesis and shares it with the fungus. This relationship is called mutualism.</div>
+      <div class="options" id="opts-17">
+        <button class="opt-btn" onclick="checkMC(17,'A')">✅ True</button>
+        <button class="opt-btn" onclick="checkMC(17,'B')">❌ False</button>
+      </div>
+      <div class="feedback" id="fb-17"></div>
+    </div>
+
+    <!-- Q18: DRAG & DROP -->
+    <div class="q-card" id="qcard-18" data-qid="18" data-type="dnd">
+      <div class="q-num">Question 18 of 18 · Drag &amp; Drop Matching</div>
+      <div class="attempts-left" id="att-18">
+        <span>Tries left:</span>
+        <span class="attempt-dot" id="att-18-d1"></span>
+        <span class="attempt-dot" id="att-18-d2"></span>
+      </div>
+      <div class="q-text">Match each desert plant to what makes it special.</div>
+      <div class="dnd-container" id="dnd-18">
+        <div class="dnd-wordbank">
+          <div class="dnd-wb-label">🌵 Word Bank — drag to the right box</div>
+          <div class="dnd-chips" id="bank-18"></div>
+        </div>
+        <div class="dnd-zones" id="zones-18"></div>
+        <button class="dnd-check-btn" id="dnd-check-18" onclick="checkDnD(18)">Check My Answers ✔</button>
+      </div>
+      <div class="feedback" id="fb-18"></div>
+    </div>
+
+  </div>
+</div>
+
+<!-- =================== EXIT TICKET =================== -->
+<div class="exit-section" id="exitSection">
+  <div class="exit-title">🎫 Exit Ticket Unlocked!</div>
+  <div class="exit-subtitle">Nice work, desert explorer! Fill this out to get your pass.</div>
+  <div class="exit-score-display" id="exitScoreDisplay"></div>
+  <div class="exit-form">
+    <input type="text" class="exit-input" id="studentName" placeholder="Your full name" autocomplete="off">
+    <select class="exit-select" id="classPeriod">
+      <option value="">— Select your class period —</option>
+      <option value="1st Period">1st Period</option>
+      <option value="2nd Period">2nd Period</option>
+      <option value="3rd Period">3rd Period</option>
+      <option value="4th Period">4th Period</option>
+      <option value="5th Period">5th Period</option>
+      <option value="6th Period">6th Period</option>
+      <option value="7th Period">7th Period</option>
+    </select>
+    <button class="exit-submit-btn" onclick="generateTicket()">Generate My Exit Ticket 🌵</button>
+  </div>
+  <div class="ticket" id="ticketDisplay">
+    <div class="ticket-header">🌵 DESERT BIOME EXIT TICKET</div>
+    <div class="ticket-row"><span class="ticket-key">Student Name</span><span class="ticket-val" id="t-name"></span></div>
+    <div class="ticket-row"><span class="ticket-key">Class Period</span><span class="ticket-val" id="t-period"></span></div>
+    <div class="ticket-row"><span class="ticket-key">Score</span><span class="ticket-val" id="t-score"></span></div>
+    <div class="ticket-row"><span class="ticket-key">Timestamp</span><span class="ticket-val" id="t-time"></span></div>
+    <div class="ticket-passcode" id="t-passcode"></div>
+    <div class="ticket-instructions">📸 Screenshot this screen OR show your teacher.<br>This is your digital turn-in — no paper needed!</div>
+  </div>
+</div>
+
+<div class="not-yet" id="notYetSection">
+  <div class="not-yet-title">🌵 Not Quite There Yet!</div>
+  <div class="not-yet-text" id="notYetText"></div>
+</div>
+
+</div><!-- end container -->
+
+<!-- ========================= JAVASCRIPT ========================= -->
+<script>
+// ─── QUESTION DATA ───────────────────────────────────────────────
+const questions = {
+  1: { correct:'B', type:'mc',
+    funfact:"🌵 Fun fact: Fire actually travels BETWEEN plants. Wide spacing is basically a firebreak — desert plants built their own fire code long before humans thought of it!",
+    wrongs:{
+      A:"Plants don't have feelings about sharing sunlight — they just grow where they can. The real reason is about fire, not social space!",
+      C:"Animals adapt TO the desert layout — they don't control it. Plant spacing is about surviving fire, not making running lanes.",
+      D:"Most desert plant roots actually spread OUT wide to catch surface rain — they push water toward other plants, not away!"
+    },
+    clue:"🔍 Go back to Station 1: Desert Cholla — look at the 'Empty Space & Plant Spacing' checklist item." },
+
+  2: { correct:'A', type:'tf',
+    funfact:"🌿 Fun fact: The Brittlebush's waxy cuticle is so effective at blocking water loss that Indigenous groups used the resin from it as incense. Nature's sealant and air freshener in one!",
+    wrongs:{
+      B:"This one is actually TRUE! Waxy cuticles on leaves are a textbook structural adaptation for holding in moisture. Flip your answer!"
+    },
+    clue:"🔍 Station 1: Desert Cholla — the Brittlebush checklist item talks about the waxy cuticle." },
+
+  3: { correct:'C', type:'mc',
+    funfact:"🌵 Fun fact: Cholla segments can attach to hikers, dogs, and animals so effectively that people joke the cactus 'jumps' at you. It's not moving — but those barbs grip FAST. One botanist described pulling a cholla segment off as needing two sticks and a prayer.",
+    wrongs:{
+      A:"The barbs don't attract birds — they do the opposite and stab things! Seed dispersal here is all about physical attachment to animals.",
+      B:"Barbs are solid and made of the same material as the spine — they don't store water. Stems and fleshy pads do that job.",
+      D:"Barbs point BACKWARD, which would actually HELP wind carry the seed along — but that's not their main job here. They hook onto fur and skin!"
+    },
+    clue:"🔍 Station 1: Desert Cholla — Question 1 of the scavenger hunt asks about the fishhook barbs and seed spreading." },
+
+  4: { correct:'B', type:'mc',
+    funfact:"🌵 Fun fact: A Saguaro can absorb 200 gallons of water in a single rainstorm and store it in those pleated stems. That's enough water to fill a bathtub four times — carried in a cactus!",
+    wrongs:{
+      A:"Pleats run top to bottom — they're for expanding sideways, not stretching upward. A Saguaro grows about 1 inch per year regardless of pleats.",
+      C:"The pleats create a corrugated surface that actually creates patterns of light and shadow — but birds pick nesting sites based on temperature and safety, not patterns.",
+      D:"Air doesn't flow through solid cactus pleats. Cacti cool through very slow water loss from their surface, not air circulation."
+    },
+    clue:"🔍 Station 2: Saguaro Cacti — the Saguaro checklist item asks exactly about the vertical pleats and water storage." },
+
+  5: { correct:'A', type:'tf',
+    funfact:"🐢 Fun fact: Desert tortoises can spend up to 95% of their lives underground! They burrow not just to escape heat, but also to hibernate through cold desert winters and estivate (summer-sleep) through the hottest months. Underground is basically their apartment.",
+    wrongs:{
+      B:"This is TRUE! Burrowing is a behavior — the tortoise CHOOSES to dig or seek shade. Behavioral adaptations are actions organisms take, and burrowing is a classic example."
+    },
+    clue:"🔍 Station 2: Saguaro Cacti — the Desert Tortoise checklist item asks why burrowing is a behavioral strategy." },
+
+  6: { correct:'B', type:'mc',
+    funfact:"🐦 Fun fact: After the Gilded Flicker digs a nest hole and moves on, the old holes are used by owls, snakes, and even bats. Saguaro nest holes get 'recycled' for generations — it's the desert's version of a housing market!",
+    wrongs:{
+      A:"The bird makes the nest inside the cactus, but doesn't eat the cactus itself. Gilded Flickers eat insects and fruit — they're not sipping cactus water.",
+      C:"Saguaro wood (called saguaro 'boots') is actually quite tough and fibrous — that's why the holes last for decades after the bird leaves!",
+      D:"Cactus holes face whatever direction the bird found convenient. Temperature control comes from the insulating walls of the cactus, not compass direction."
+    },
+    clue:"🔍 Station 2: Saguaro Cacti — the Gilded Flicker checklist item explains cactus nests as 'cool microhabitats.'" },
+
+  7: { correct:'B', type:'mc',
+    funfact:"🌊 Fun fact: A desert wash can go from completely dry to a raging flash flood in minutes — even if it isn't raining WHERE you're standing! Rain miles upstream rushes through the wash. Desert washes are genuinely dangerous for hikers who don't know this.",
+    wrongs:{
+      A:"Floating downstream would carry seeds OUT of the area — not helpful! Seeds need to stay near the wash where conditions are best for growth.",
+      C:"Waiting for enough rain is actually what some seeds DO — but the wash seeds are adapted to spring into action FAST after just a little rain, not wait for a lot.",
+      D:"If desert plants only grew where it was always wet, there would be almost no desert plants! The whole point is surviving with very little water."
+    },
+    clue:"🔍 Station 3: Desert Stream — the Desert Wash checklist item explains how seeds are adapted to germinate quickly." },
+
+  8: { correct:'A', type:'tf',
+    funfact:"🌼 Fun fact: Some desert annual plant seeds can stay dormant for over 100 years and still germinate when rain finally arrives. Scientists have sprouted seeds from ancient desert sediment layers — talk about patience!",
+    wrongs:{
+      B:"This is TRUE! Ephemerals (annual plants) are the sprinters of the plant world — full life cycle in a few weeks after rain, then gone until next time."
+    },
+    clue:"🔍 The lesson's section on plant adaptations covers 'seasonal life cycles' and ephemeral plants." },
+
+  9: { correct:'B', type:'mc',
+    funfact:"🌱 Fun fact: The Saguaro cactus has both! Its main taproot goes down several feet, AND it has shallow roots that spread out up to 30 feet from the cactus — almost as wide as the cactus is tall. It catches rain no matter where it falls.",
+    wrongs:{
+      A:"You've got them backwards! Deep taproots go DOWN to reach groundwater — they can't catch surface rain. Shallow roots spread OUT to catch rain that hasn't soaked in yet.",
+      C:"Many desert plants DO have surface roots because brief rain showers are common. Deep roots are for areas with underground water sources.",
+      D:"Sandy soil actually grows plants fine — it drains fast, which is WHY roots need to be shallow and wide to catch water quickly!"
+    },
+    clue:"🔍 The lesson covers root strategies under 'Plant adaptations (flora).' Two different strategies for two different water sources." },
+
+  10: { correct:'B', type:'mc',
+    funfact:"🐦 Fun fact: The Curve-billed Thrasher uses that long curved bill like a shovel — it can dig up a bug hiding under a rock or reach into a flower for nectar without touching the petals. Same bill, totally different jobs. That's versatility!",
+    wrongs:{
+      A:"Predators hunt by smell, sound, and movement — not by flavor preference. And being tasty or not doesn't relate to being an omnivore!",
+      C:"Diet and body temperature are separate systems. Eating both plants and animals doesn't affect how the bird regulates its temperature.",
+      D:"Omnivores still need water. Eating plants can provide some moisture, but no diet completely removes the need for water."
+    },
+    clue:"🔍 Station 4: Inside the Cholla Cactus — the Curve-billed Thrasher checklist item asks exactly why being an omnivore helps in the desert." },
+
+  11: { correct:'A', type:'tf',
+    funfact:"🌵 Fun fact: Some cactus spines are so specialized they act like tiny solar panels — they reflect sunlight at an angle that shades the cactus skin directly below. Nature engineered tiny air-conditioning units from what used to be leaves!",
+    wrongs:{
+      B:"This is TRUE! Spines are structurally modified leaves — they've evolved from leaf tissue over millions of years. The lesson specifically says so, and it was at Station 4!"
+    },
+    clue:"🔍 Station 4: Inside the Cholla Cactus — the 'Fortress of Spines' checklist item explains this directly." },
+
+  12: { type:'dnd',
+    pairs:[
+      { zone:"Fennec fox", chip:"Large ears help release heat from the body" },
+      { zone:"Kangaroo rat", chip:"Kidneys make very concentrated urine to save water" },
+      { zone:"Desert tortoise", chip:"Burrows underground during the hottest part of the day" },
+      { zone:"Gila monster", chip:"Stores fat in tail and water in bladder for 80–90 days" }
+    ],
+    funfact:"🦊 Fun fact: The Fennec Fox's ears are so large relative to its body that they can hear prey moving underground. So those giant ears are doing double duty: heating AND hearing!",
+    wrongfb:"🌵 Look at the lesson section on Animal Adaptations and the Gila Monster checklist items. Each animal has ONE main featured adaptation — re-read the descriptions and try again!",
+    clue:"🔍 Station 2 (Saguaro), Station 5 (Gila Monster), and the lesson's 'Animal Adaptations' section all have clues." },
+
+  13: { correct:'B', type:'mc',
+    funfact:"🦎 Fun fact: The Gila monster's tail can shrink noticeably when it uses up its fat reserves over a long summer. Scientists can estimate how recently the lizard ate just by looking at the tail. It's basically a built-in fuel gauge!",
+    wrongs:{
+      A:"Storing fat and water are physical body features — they're part of the body's structure, not a choice the lizard makes about what to do. That makes them structural.",
+      C:"The FAT STORAGE and BLADDER are structural. Being mostly underground is the behavioral part — but the question specifically asks about the fat and water storage.",
+      D:"Survival adaptations are NEVER just luck! They evolved over thousands of generations because lizards with this trait survived better than those without it."
+    },
+    clue:"🔍 Station 5: Gila Monster & Biologist — the 'Gila Monster Research' checklist item explains fat storage as a structural adaptation." },
+
+  14: { correct:'B', type:'mc',
+    funfact:"🦎 Fun fact: The dropped tail CAN grow back — but the new one is made of cartilage instead of bone, and it's not exactly the same. Lizards can only drop each tail once. So it's definitely a one-time emergency button!",
+    wrongs:{
+      A:"Deserts have SCARCE food — that's the whole point. Many predators compete for the same limited prey, which is why losing a tail to escape is worth it.",
+      C:"Lizard tails don't store water — the Gila monster stores water in its BLADDER. The tail drop is purely a predator-escape trick.",
+      D:"The tail does grow back, but it takes months and uses a lot of energy. It's a last resort, not a zero-cost move."
+    },
+    clue:"🔍 Station 5: Gila Monster & Biologist — the 'Desert Lizard Lane' item explains why food scarcity drives this adaptation." },
+
+  15: { correct:'A', type:'tf',
+    funfact:"🌙 Fun fact: At night, desert temperatures can drop 40–50°F from the daytime high. The kangaroo rat, one of the most nocturnal desert animals, never drinks water at all — it gets all its moisture from the seeds it eats at night!",
+    wrongs:{
+      B:"This is TRUE! The lesson lists both temperature AND water loss as reasons for nocturnality. Cooler air means less evaporation AND less overheating — two benefits for the price of one night shift!"
+    },
+    clue:"🔍 The lesson's 'Animal Adaptations' section lists nocturnality and mentions both heat AND water-related benefits." },
+
+  16: { correct:'B', type:'mc',
+    funfact:"🐍 Fun fact: The two forks of the tongue create a kind of 'stereo smell.' The snake's brain compares the signals from each fork to figure out which direction a smell is coming from — basically a biological GPS powered by stink!",
+    wrongs:{
+      A:"Venom is made in glands in the snake's head — the tongue has nothing to do with it. The tongue is purely a sensory organ.",
+      C:"Snakes don't pant to cool down — they're cold-blooded and regulate temperature by moving between sun and shade. The tongue is for smelling, not cooling.",
+      D:"The forked shape is not visible as a threat signal — predators can't really see it clearly. The tongue is used for finding food, not defense."
+    },
+    clue:"🔍 Station 7: Rattlesnake — the 'Watch Your Step' checklist item explains exactly how the forked tongue works as a tracking tool." },
+
+  17: { correct:'A', type:'tf',
+    funfact:"🪨 Fun fact: Lichens are SLOW — some only grow 1 millimeter per year. Some lichen colonies on rock surfaces have been estimated at over 8,000 years old. They were already ancient when the pyramids were being built!",
+    wrongs:{
+      B:"This is TRUE! The lesson and Station 8 both describe lichens as a mutualistic partnership: the fungus provides structure, the alga provides food through photosynthesis. Both species benefit — that's the definition of mutualism."
+    },
+    clue:"🔍 Station 8: Turkey Vulture — the 'Lichens' checklist item explains the fungus-alga partnership directly." },
+
+  18: { type:'dnd',
+    pairs:[
+      { zone:"Saguaro cactus", chip:"Has accordion-like pleats that let the stem expand and store water after rain" },
+      { zone:"Prickly pear cactus", chip:"Thick waxy skin and fleshy pads store water during long dry stretches" },
+      { zone:"Brittlebush", chip:"Waxy cuticle on grey-green leaves prevents water loss" },
+      { zone:"Ephemeral (annual) plant", chip:"Desert poppies and lupines that sprout fast after rain, bloom, then die" }
+    ],
+    funfact:"🌵 Fun fact: The Saguaro's accordion pleats are so effective that a fully hydrated cactus can weigh several tons — almost all of it water. After a monsoon, hikers report the cacti look noticeably 'fatter' than in dry season. Nature's own expandable water bottle!",
+    wrongfb:"🌿 Review the lesson's Plant Adaptations section and Stations 1, 2, and 6. Think about what makes each plant LOOK different — the saguaro's shape, the prickly pear's pads, the brittlebush's leaves, and how fast annuals grow after rain.",
+    clue:"🔍 The lesson's 'Plant Adaptations' section and Stations 1, 2, and 6 describe these plants in detail." }
+};
+
+// ─── STATE ────────────────────────────────────────────────────────
+const state = {};
+for(let i=1;i<=18;i++){
+  state[i] = { attemptsLeft:2, answered:false, correct:false };
+}
+let score = 0;
+
+// ─── PROGRESS UPDATE ─────────────────────────────────────────────
+function updateProgress(){
+  document.getElementById('scoreCount').textContent = score;
+  document.getElementById('progressFill').style.width = (score/18*100)+'%';
+  checkExitEligibility();
+}
+
+// ─── MULTIPLE CHOICE / TRUE-FALSE ────────────────────────────────
+function checkMC(qid, chosen){
+  const q = questions[qid];
+  const s = state[qid];
+  if(s.answered || s.attemptsLeft<=0) return;
+
+  const btns = document.querySelectorAll(`#opts-${qid} .opt-btn`);
+  const chosenBtn = btns[['A','B','C','D'].indexOf(chosen)];
+  const fb = document.getElementById(`fb-${qid}`);
+  const card = document.getElementById(`qcard-${qid}`);
+
+  if(chosen === q.correct){
+    s.answered = true; s.correct = true; score++;
+    btns.forEach(b=>b.disabled=true);
+    chosenBtn.classList.add('chosen-correct');
+    card.classList.add('correct');
+    fb.className='feedback correct-fb show';
+    fb.innerHTML=`<div class="fb-correct-text">✅ Correct!</div><div class="fb-funfact">${q.funfact}</div>`;
+    updateProgress();
+  } else {
+    s.attemptsLeft--;
+    chosenBtn.classList.add('chosen-wrong');
+    chosenBtn.disabled = true;
+
+    if(s.attemptsLeft <= 0){
+      s.answered = true;
+      btns.forEach(b=>{
+        b.disabled=true;
+        if(b.textContent.startsWith(['A.','B.','C.','D.'][['A','B','C','D'].indexOf(q.correct)]) ||
+           (q.correct==='A' && b.textContent.startsWith('✅')) ||
+           (q.correct==='A' && b===btns[0]) ||
+           b === btns[['A','B','C','D'].indexOf(q.correct)]){
+          b.classList.add('reveal-correct');
+        }
+      });
+      card.classList.add('wrong');
+      const opener = getOpener();
+      fb.className='feedback wrong-fb show';
+      fb.innerHTML=`<div class="fb-opener">${opener}</div>
+        <div class="fb-why">🔎 Why that doesn't work scientifically:</div>
+        <div>${q.wrongs[chosen] || 'That answer isn\'t quite right. Review the station content!'}</div>
+        <div class="fb-clue">${q.clue}</div>
+        <div class="fb-clue fb-link">📱 The Scavenger Hunt link is earlier on today's Classkick slide!</div>`;
+    } else {
+      fb.className='feedback wrong-fb show';
+      const opener = getOpener();
+      fb.innerHTML=`<div class="fb-opener">${opener}</div>
+        <div class="fb-why">🔎 Why that doesn't work scientifically:</div>
+        <div>${q.wrongs[chosen] || 'Not quite! Try again.'}</div>
+        <div class="fb-clue">${q.clue}</div>
+        <div class="fb-clue fb-link">📱 The Scavenger Hunt link is earlier on today's Classkick slide!</div>`;
+    }
+  }
+  updateDots(qid);
+}
+
+const openers = [
+  "☀️ Hot take — literally! That one's not it, desert explorer.",
+  "🌵 Ouch! That answer has more thorns than a cholla.",
+  "🦎 Even the lizard in the shade knows that's not right!",
+  "🏜️ That answer evaporated faster than water in the Sahara.",
+  "🐍 Sssssorry — the rattlesnake's smarter than that one.",
+  "🦅 The turkey vulture is circling that answer for a reason...",
+  "💧 Water is scarce in the desert AND so is that correct answer right now!",
+  "🌙 The nocturnal animals are awake at night — and they'd disagree with this.",
+];
+function getOpener(){ return openers[Math.floor(Math.random()*openers.length)]; }
+
+function updateDots(qid){
+  const s = state[qid];
+  const d1 = document.getElementById(`att-${qid}-d1`);
+  const d2 = document.getElementById(`att-${qid}-d2`);
+  if(d1&&d2){
+    if(s.attemptsLeft<=1) d1.classList.add('used');
+    if(s.attemptsLeft<=0) d2.classList.add('used');
+  }
+}
+
+// ─── DRAG & DROP SETUP ───────────────────────────────────────────
+function shuffle(arr){ return [...arr].sort(()=>Math.random()-0.5); }
+
+function setupDnD(qid){
+  const q = questions[qid];
+  const bank = document.getElementById(`bank-${qid}`);
+  const zones = document.getElementById(`zones-${qid}`);
+
+  const shuffled = shuffle(q.pairs);
+  shuffled.forEach(pair=>{
+    const chip = document.createElement('div');
+    chip.className='dnd-chip';
+    chip.textContent=pair.chip;
+    chip.dataset.value=pair.chip;
+    chip.dataset.qid=qid;
+    chip.draggable=true;
+    chip.addEventListener('dragstart',dragStart);
+    chip.addEventListener('touchstart',touchStart,{passive:true});
+    bank.appendChild(chip);
+  });
+
+  q.pairs.forEach(pair=>{
+    const zone = document.createElement('div');
+    zone.className='dnd-zone';
+    zone.dataset.correct=pair.chip;
+    zone.dataset.qid=qid;
+    const label=document.createElement('div');
+    label.className='dnd-zone-label';
+    label.textContent=pair.zone;
+    const slot=document.createElement('div');
+    slot.className='dnd-zone-slot';
+    slot.textContent='Drop here';
+    slot.dataset.qid=qid;
+    zone.appendChild(label);
+    zone.appendChild(slot);
+    zone.addEventListener('dragover',e=>e.preventDefault());
+    zone.addEventListener('dragenter',()=>zone.classList.add('drag-over'));
+    zone.addEventListener('dragleave',()=>zone.classList.remove('drag-over'));
+    zone.addEventListener('drop',handleDrop);
+    zones.appendChild(zone);
+  });
+}
+
+let draggedChip = null;
+function dragStart(e){ draggedChip=e.target; e.target.classList.add('dragging'); }
+document.addEventListener('dragend',e=>{if(e.target.classList)e.target.classList.remove('dragging');});
+
+function handleDrop(e){
+  e.preventDefault();
+  const zone = e.currentTarget;
+  zone.classList.remove('drag-over');
+  if(!draggedChip) return;
+  const slot = zone.querySelector('.dnd-zone-slot');
+  const qid = draggedChip.dataset.qid;
+  // If slot already has a chip, send it back to bank
+  if(slot.children.length>0){
+    const old = slot.children[0];
+    old.classList.remove('placed');
+    document.getElementById(`bank-${qid}`).appendChild(old);
+  }
+  slot.textContent='';
+  const chipClone = draggedChip.cloneNode(true);
+  chipClone.draggable=false;
+  chipClone.style.cursor='pointer';
+  chipClone.onclick=()=>{
+    chipClone.remove();
+    draggedChip.classList.remove('placed');
+    slot.textContent='Drop here';
+  };
+  slot.appendChild(chipClone);
+  draggedChip.classList.add('placed');
+}
+
+// Touch support
+let touchChip=null, touchClone=null;
+function touchStart(e){
+  touchChip=e.currentTarget;
+  touchClone=touchChip.cloneNode(true);
+  touchClone.style.cssText=`position:fixed;opacity:0.8;pointer-events:none;z-index:9999;transform:scale(1.1);`;
+  document.body.appendChild(touchClone);
+  moveTouchClone(e.touches[0]);
+  document.addEventListener('touchmove',onTouchMove,{passive:false});
+  document.addEventListener('touchend',onTouchEnd);
+}
+function moveTouchClone(t){
+  if(!touchClone)return;
+  touchClone.style.left=(t.clientX-60)+'px';
+  touchClone.style.top=(t.clientY-20)+'px';
+}
+function onTouchMove(e){ e.preventDefault(); moveTouchClone(e.touches[0]); }
+function onTouchEnd(e){
+  document.removeEventListener('touchmove',onTouchMove);
+  document.removeEventListener('touchend',onTouchEnd);
+  if(!touchClone||!touchChip){return;}
+  const t=e.changedTouches[0];
+  const el=document.elementFromPoint(t.clientX,t.clientY);
+  let zone=el&&el.closest('.dnd-zone');
+  if(zone){
+    const slot=zone.querySelector('.dnd-zone-slot');
+    const qid=touchChip.dataset.qid;
+    if(slot.children.length>0){
+      const old=slot.children[0];
+      old.classList.remove('placed');
+      document.getElementById(`bank-${qid}`).appendChild(old);
+    }
+    slot.textContent='';
+    const chipClone=touchChip.cloneNode(true);
+    chipClone.draggable=false;
+    chipClone.style.cursor='pointer';
+    chipClone.onclick=()=>{
+      chipClone.remove();
+      touchChip.classList.remove('placed');
+      slot.textContent='Drop here';
+    };
+    slot.appendChild(chipClone);
+    touchChip.classList.add('placed');
+  }
+  touchClone.remove();
+  touchClone=null; touchChip=null;
+}
+
+function checkDnD(qid){
+  const q = questions[qid];
+  const s = state[qid];
+  if(s.answered||s.attemptsLeft<=0) return;
+  const zones = document.querySelectorAll(`#zones-${qid} .dnd-zone`);
+  let allCorrect=true;
+  zones.forEach(zone=>{
+    const slot=zone.querySelector('.dnd-zone-slot');
+    const placed=slot.children[0]?slot.children[0].dataset.value:'';
+    if(placed===zone.dataset.correct){
+      zone.classList.add('correct-zone');
+    } else {
+      zone.classList.add('wrong-zone');
+      allCorrect=false;
+    }
+  });
+
+  const fb=document.getElementById(`fb-${qid}`);
+  s.attemptsLeft--;
+  document.getElementById(`att-${qid}-d1`).classList.add('used');
+
+  if(allCorrect){
+    s.answered=true; s.correct=true; score++;
+    document.getElementById(`dnd-check-${qid}`).disabled=true;
+    document.getElementById(`qcard-${qid}`).classList.add('correct');
+    fb.className='feedback correct-fb show';
+    fb.innerHTML=`<div class="fb-correct-text">✅ All matched correctly!</div><div class="fb-funfact">${q.funfact}</div>`;
+    updateProgress();
+  } else {
+    if(s.attemptsLeft<=0){
+      s.answered=true;
+      document.getElementById(`dnd-check-${qid}`).disabled=true;
+      document.getElementById(`qcard-${qid}`).classList.add('wrong');
+      document.getElementById(`att-${qid}-d2`).classList.add('used');
+      fb.className='feedback wrong-fb show';
+      fb.innerHTML=`<div class="fb-opener">${getOpener()}</div>
+        <div class="fb-why">🔎 Why that doesn't work scientifically:</div>
+        <div>${q.wrongfb}</div>
+        <div class="fb-clue">${q.clue}</div>
+        <div class="fb-clue fb-link">📱 The Scavenger Hunt link is earlier on today's Classkick slide!</div>`;
+    } else {
+      document.getElementById(`att-${qid}-d2`).classList.add('used');
+      zones.forEach(z=>{ z.classList.remove('correct-zone','wrong-zone'); });
+      fb.className='feedback wrong-fb show';
+      fb.innerHTML=`<div class="fb-opener">${getOpener()}</div>
+        <div class="fb-why">🔎 Why that doesn't work scientifically:</div>
+        <div>${q.wrongfb}</div>
+        <div class="fb-clue">${q.clue}</div>
+        <div class="fb-clue fb-link">📱 The Scavenger Hunt link is earlier on today's Classkick slide!</div>`;
+    }
+  }
+}
+
+// ─── EXIT TICKET ─────────────────────────────────────────────────
+function checkExitEligibility(){
+  const exit=document.getElementById('exitSection');
+  const notYet=document.getElementById('notYetSection');
+  const allAnswered=Object.values(state).every(s=>s.answered);
+  if(!allAnswered) return;
+
+  document.getElementById('exitScoreDisplay').textContent=`${score} / 18`;
+
+  if(score>=14){
+    exit.classList.add('show');
+    notYet.classList.remove('show');
+  } else {
+    notYet.classList.add('show');
+    const missed=18-score;
+    document.getElementById('notYetText').innerHTML=
+      `You got <strong>${score}/18</strong> correct. You need <strong>14</strong> to earn your exit ticket.<br>
+      You're ${14-score} answer${14-score===1?'':'s'} away! Go back and re-read the scavenger hunt stations you struggled with.<br>
+      📱 The Scavenger Hunt link is earlier on today's Classkick slide!`;
+  }
+}
+
+function generateTicket(){
+  const name=document.getElementById('studentName').value.trim();
+  const period=document.getElementById('classPeriod').value;
+  if(!name){ alert('Please type your full name!'); return; }
+  if(!period){ alert('Please select your class period!'); return; }
+
+  const now=new Date();
+  const ts=now.toLocaleDateString('en-US',{month:'short',day:'numeric',year:'numeric'})+
+    ' at '+now.toLocaleTimeString('en-US',{hour:'2-digit',minute:'2-digit'});
+
+  // Passcode based on score + name initials + period number
+  const initials=name.split(' ').map(w=>w[0]||'').join('').toUpperCase().slice(0,3);
+  const periodNum=period.replace(/\D/g,'');
+  const codeNums=(score*7+parseInt(periodNum||1)*3+name.length*11)%1000;
+  const passcode=`DESERT-${initials}${periodNum}-${String(codeNums).padStart(3,'0')}`;
+
+  document.getElementById('t-name').textContent=name;
+  document.getElementById('t-period').textContent=period;
+  document.getElementById('t-score').textContent=`${score}/18 (${Math.round(score/18*100)}%)`;
+  document.getElementById('t-time').textContent=ts;
+  document.getElementById('t-passcode').textContent=passcode;
+  document.getElementById('ticketDisplay').classList.add('show');
+  document.getElementById('ticketDisplay').scrollIntoView({behavior:'smooth',block:'center'});
+}
+
+// ─── INIT ─────────────────────────────────────────────────────────
+setupDnD(12);
+setupDnD(18);
+</script>
+</body>
+</html>
