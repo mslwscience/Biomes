@@ -1,0 +1,1114 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Tundra Scavenger Hunt Review | Lesson 6.07</title>
+<link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800;900&family=Fredoka+One&display=swap" rel="stylesheet">
+<style>
+:root {
+  --ice: #e8f4f8;
+  --arctic: #b8dce8;
+  --teal: #2a7a8c;
+  --deep: #1a3a4a;
+  --snow: #f4f9fb;
+  --frost: #d0eaf3;
+  --moss: #4a7a4a;
+  --gold: #e8b84b;
+  --danger: #c0392b;
+  --correct: #27ae60;
+  --card: #ffffff;
+  --shadow: 0 4px 20px rgba(26,58,74,0.12);
+}
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body {
+  font-family: 'Nunito', sans-serif;
+  background: linear-gradient(160deg, #c2e0ef 0%, #e8f4f8 50%, #d4ead4 100%);
+  min-height: 100vh;
+  color: var(--deep);
+}
+
+/* HEADER */
+.page-header {
+  background: linear-gradient(135deg, var(--deep) 0%, #2a6a7c 60%, #3a8a6a 100%);
+  color: white; padding: 28px 24px 22px; text-align: center;
+  position: relative; overflow: hidden;
+}
+.page-header::before {
+  content: '❄  ❄  ❄  ❄  ❄  ❄  ❄  ❄  ❄  ❄  ❄  ❄  ❄  ❄  ❄  ❄  ❄  ❄';
+  position: absolute; top: 5px; left: 0; right: 0; font-size: 11px;
+  letter-spacing: 4px; opacity: 0.22; pointer-events: none;
+}
+.page-header::after {
+  content: '❄  ❄  ❄  ❄  ❄  ❄  ❄  ❄  ❄  ❄  ❄  ❄  ❄  ❄  ❄  ❄  ❄  ❄';
+  position: absolute; bottom: 5px; left: 0; right: 0; font-size: 11px;
+  letter-spacing: 4px; opacity: 0.22; pointer-events: none;
+}
+.page-header h1 { font-family: 'Fredoka One', cursive; font-size: 2rem; letter-spacing: 1px; }
+.page-header p { font-size: 0.92rem; opacity: 0.85; margin-top: 5px; }
+.standard-badge {
+  display: inline-block; margin-top: 8px;
+  background: rgba(255,255,255,0.2); border-radius: 20px;
+  padding: 3px 16px; font-size: 0.76rem; font-weight: 800; letter-spacing: 0.5px;
+}
+
+/* PROGRESS */
+.progress-wrap {
+  background: var(--deep); padding: 11px 20px;
+  position: sticky; top: 0; z-index: 100;
+  box-shadow: 0 3px 12px rgba(0,0,0,0.35);
+}
+.progress-labels { display: flex; justify-content: space-between; color: white; font-size: 0.8rem; font-weight: 800; margin-bottom: 6px; }
+.pbar-bg { background: rgba(255,255,255,0.18); border-radius: 20px; height: 13px; overflow: hidden; position: relative; }
+.pbar-fill {
+  height: 100%; border-radius: 20px; width: 0%;
+  background: linear-gradient(90deg, #4a9a5a, #7ec87e);
+  transition: width 0.5s cubic-bezier(.4,2,.6,1);
+}
+.pbar-threshold {
+  position: absolute; top: 0; bottom: 0; width: 2px;
+  background: var(--gold); left: 80%;
+}
+.threshold-note { color: var(--gold); font-size: 0.72rem; font-weight: 700; text-align: right; margin-top: 3px; }
+
+/* CONTAINER */
+.container { max-width: 860px; margin: 0 auto; padding: 24px 16px 70px; }
+
+/* STATION HEADER */
+.station-header { display: flex; align-items: center; gap: 12px; margin: 32px 0 12px; }
+.station-icon {
+  width: 46px; height: 46px; border-radius: 12px;
+  background: linear-gradient(135deg, var(--teal), var(--deep));
+  display: flex; align-items: center; justify-content: center;
+  font-size: 1.35rem; flex-shrink: 0;
+  box-shadow: 0 3px 10px rgba(42,122,140,0.35);
+}
+.station-name { font-family: 'Fredoka One', cursive; font-size: 1.15rem; color: var(--teal); }
+.station-sub { font-size: 0.75rem; color: #6a8a9a; font-weight: 700; text-transform: uppercase; letter-spacing: 0.5px; margin-top: 2px; }
+
+/* QUESTION CARD */
+.q-card {
+  background: var(--card); border-radius: 16px;
+  padding: 20px 22px; margin-bottom: 14px;
+  box-shadow: var(--shadow); border: 2px solid transparent;
+  transition: border-color 0.3s, transform 0.2s;
+}
+.q-card:hover { transform: translateY(-1px); }
+.q-card.state-correct { border-color: var(--correct); }
+.q-card.state-locked  { border-color: var(--danger); opacity: 0.9; }
+.q-num { font-size: 0.7rem; font-weight: 800; color: var(--teal); text-transform: uppercase; letter-spacing: 1.2px; margin-bottom: 6px; }
+.q-text { font-size: 0.98rem; font-weight: 700; line-height: 1.55; margin-bottom: 14px; }
+
+/* MULTIPLE CHOICE */
+.choices { display: flex; flex-direction: column; gap: 8px; }
+.choice-btn {
+  background: var(--ice); border: 2px solid var(--arctic);
+  border-radius: 10px; padding: 10px 14px;
+  font-family: 'Nunito', sans-serif; font-size: 0.9rem; font-weight: 700;
+  color: var(--deep); cursor: pointer; text-align: left;
+  transition: all 0.18s; display: flex; align-items: center; gap: 10px;
+}
+.choice-btn:hover:not(:disabled) { background: var(--frost); border-color: var(--teal); transform: translateX(3px); }
+.choice-btn.sel-correct { background: #d5f5e3; border-color: var(--correct); color: #1a5c35; }
+.choice-btn.sel-wrong   { background: #fde8e6; border-color: var(--danger);  color: #7b1c14; }
+.choice-btn:disabled { cursor: default; }
+.choice-letter {
+  width: 26px; height: 26px; border-radius: 50%; flex-shrink: 0;
+  background: var(--arctic); display: flex; align-items: center;
+  justify-content: center; font-size: 0.78rem; font-weight: 900;
+}
+
+/* TRUE / FALSE */
+.tf-row { display: flex; gap: 10px; }
+.tf-btn {
+  flex: 1; padding: 13px; border-radius: 12px;
+  border: 2px solid var(--arctic); background: var(--ice);
+  font-family: 'Nunito', sans-serif; font-size: 1rem; font-weight: 900;
+  cursor: pointer; transition: all 0.18s; color: var(--deep);
+}
+.tf-btn:hover:not(:disabled) { transform: scale(1.04); border-color: var(--teal); background: var(--frost); }
+.tf-btn.sel-correct { background: #d5f5e3; border-color: var(--correct); color: #1a5c35; }
+.tf-btn.sel-wrong   { background: #fde8e6; border-color: var(--danger);  color: #7b1c14; }
+.tf-btn:disabled { cursor: default; }
+
+/* DRAG & DROP */
+.dd-wordbank {
+  display: flex; flex-wrap: wrap; gap: 8px;
+  padding: 12px 14px; background: var(--frost);
+  border: 2px dashed var(--arctic); border-radius: 12px;
+  min-height: 50px; margin-bottom: 12px;
+}
+.dd-tag {
+  background: var(--teal); color: white;
+  padding: 7px 16px; border-radius: 20px;
+  font-weight: 800; font-size: 0.85rem;
+  cursor: grab; user-select: none;
+  transition: transform 0.15s, opacity 0.2s;
+  box-shadow: 0 2px 6px rgba(42,122,140,0.35);
+}
+.dd-tag:active { cursor: grabbing; transform: scale(1.07); }
+.dd-tag.dragging { opacity: 0.3; }
+.dd-pairs { display: flex; flex-direction: column; gap: 8px; }
+.dd-row { display: flex; align-items: center; gap: 10px; }
+.dd-prompt {
+  flex: 1.2; background: var(--ice); border-radius: 10px;
+  padding: 10px 14px; font-weight: 700; font-size: 0.87rem;
+  border: 2px solid var(--arctic); line-height: 1.4;
+}
+.dd-arrow { font-size: 1.1rem; color: var(--teal); flex-shrink: 0; }
+.dd-drop {
+  flex: 1; min-height: 42px; background: var(--snow);
+  border: 2px dashed var(--arctic); border-radius: 10px;
+  padding: 8px 12px; font-weight: 800; font-size: 0.85rem;
+  display: flex; align-items: center; transition: all 0.18s;
+  color: #9aafc0;
+}
+.dd-drop.dragover { background: var(--frost); border-color: var(--teal); color: var(--teal); }
+.dd-drop.filled   { color: var(--deep); background: white; border-style: solid; border-color: var(--teal); }
+.dd-drop.drop-correct { background: #d5f5e3; border-color: var(--correct); color: #1a5c35; border-style: solid; }
+.dd-drop.drop-wrong   { background: #fde8e6; border-color: var(--danger);  color: #7b1c14; border-style: solid; }
+.dd-check-btn {
+  background: var(--teal); color: white; border: none;
+  border-radius: 10px; padding: 10px 22px;
+  font-family: 'Nunito', sans-serif; font-weight: 800; font-size: 0.9rem;
+  cursor: pointer; margin-top: 10px; transition: all 0.18s; display: inline-block;
+}
+.dd-check-btn:hover:not(:disabled) { background: var(--deep); transform: translateY(-1px); }
+.dd-check-btn:disabled { opacity: 0.45; cursor: default; transform: none; }
+
+/* FEEDBACK */
+.feedback {
+  margin-top: 14px; border-radius: 12px; padding: 14px 16px;
+  display: none; font-size: 0.875rem; line-height: 1.65;
+}
+.feedback.show { display: block; animation: fadeSlide 0.3s ease; }
+.feedback.fb-correct { background: #eafaf1; border: 2px solid #a9dfbf; }
+.feedback.fb-wrong   { background: #fef9f0; border: 2px solid #f9ca8c; }
+.fb-correct-head { font-weight: 900; color: var(--correct); font-size: 1rem; margin-bottom: 6px; }
+.fb-wrong-opener { font-weight: 900; font-size: 0.95rem; color: #8a5a0a; margin-bottom: 8px; }
+.fb-section { font-weight: 800; color: var(--deep); margin-top: 8px; margin-bottom: 3px; font-size: 0.8rem; text-transform: uppercase; letter-spacing: 0.5px; }
+.fb-text { color: #3a4a5a; }
+.attempts-left { font-size: 0.74rem; font-weight: 700; color: #9aafc0; margin-top: 8px; text-align: right; }
+
+@keyframes fadeSlide {
+  from { opacity:0; transform:translateY(-6px); }
+  to   { opacity:1; transform:translateY(0); }
+}
+
+/* SCORE SUMMARY */
+#score-summary {
+  background: var(--card); border-radius: 20px;
+  padding: 28px 24px; margin-top: 36px; text-align: center;
+  box-shadow: var(--shadow); border: 3px solid var(--arctic); display: none;
+}
+#score-summary h2 { font-family: 'Fredoka One', cursive; font-size: 1.6rem; color: var(--teal); }
+.score-big { font-size: 3.2rem; font-weight: 900; color: var(--deep); margin: 10px 0 4px; }
+#score-summary p { font-size: 0.92rem; color: #5a7a8a; }
+
+/* EXIT TICKET */
+#exit-ticket-section {
+  background: var(--card); border-radius: 20px;
+  padding: 28px 26px; margin-top: 24px;
+  box-shadow: var(--shadow); border: 3px solid var(--gold); display: none;
+}
+#exit-ticket-section h2 { font-family: 'Fredoka One', cursive; font-size: 1.5rem; color: var(--teal); margin-bottom: 6px; }
+#exit-ticket-section > p { font-size: 0.9rem; color: #4a6a7a; margin-bottom: 18px; }
+.ticket-form { display: flex; flex-direction: column; gap: 14px; }
+.ticket-form label { font-weight: 800; font-size: 0.85rem; color: var(--deep); margin-bottom: 3px; display: block; }
+.ticket-form input, .ticket-form select {
+  width: 100%; padding: 11px 14px; border-radius: 10px;
+  border: 2px solid var(--arctic);
+  font-family: 'Nunito', sans-serif; font-size: 0.95rem; font-weight: 700;
+  color: var(--deep); background: var(--ice); transition: border-color 0.2s;
+}
+.ticket-form input:focus, .ticket-form select:focus { outline: none; border-color: var(--teal); }
+#ticket-error { color: var(--danger); font-weight: 800; font-size: 0.85rem; display: none; margin-top: 4px; }
+.ticket-submit-btn {
+  background: linear-gradient(135deg, var(--teal), var(--deep));
+  color: white; border: none; border-radius: 12px; padding: 13px 28px;
+  font-family: 'Nunito', sans-serif; font-weight: 900; font-size: 1rem;
+  cursor: pointer; transition: all 0.2s; align-self: flex-start; margin-top: 4px;
+}
+.ticket-submit-btn:hover { transform: translateY(-2px); box-shadow: 0 6px 16px rgba(42,122,140,0.4); }
+
+#confirmed-ticket {
+  background: linear-gradient(135deg, #1a3a4a, #2a7a8c);
+  color: white; border-radius: 18px; padding: 28px 24px;
+  margin-top: 22px; display: none; text-align: center;
+}
+#confirmed-ticket h3 { font-family: 'Fredoka One', cursive; font-size: 1.7rem; margin-bottom: 12px; }
+.ticket-detail { font-size: 0.92rem; margin: 5px 0; opacity: 0.9; }
+.ticket-passcode {
+  font-family: 'Fredoka One', cursive; font-size: 2rem;
+  background: rgba(255,255,255,0.18); border-radius: 12px;
+  padding: 10px 28px; display: inline-block; margin: 16px 0;
+  letter-spacing: 4px; color: var(--gold);
+}
+.ticket-instruction {
+  font-size: 0.82rem; opacity: 0.72; margin-top: 12px;
+  background: rgba(0,0,0,0.15); border-radius: 10px; padding: 10px 14px;
+}
+
+/* NOT YET BANNER */
+#not-yet-banner {
+  background: #fff8e8; border: 2px solid var(--gold);
+  border-radius: 14px; padding: 18px 20px; margin-top: 30px;
+  text-align: center; display: none;
+}
+#not-yet-banner h3 { font-family: 'Fredoka One', cursive; font-size: 1.2rem; color: #8a5a0a; }
+#not-yet-banner p { font-size: 0.87rem; color: #7a6a3a; margin-top: 5px; }
+
+/* RESPONSIVE */
+@media (max-width: 520px) {
+  .dd-row { flex-direction: column; align-items: stretch; }
+  .dd-arrow { display: none; }
+  .page-header h1 { font-size: 1.45rem; }
+}
+</style>
+</head>
+<body>
+
+<!-- ══ HEADER ══ -->
+<div class="page-header">
+  <h1>🌨️ Tundra Scavenger Hunt Review</h1>
+  <p>Lesson 6.07 — Check what you found out there in the frozen wilderness!</p>
+  <div class="standard-badge">Ohio Standard 7.LS.2</div>
+</div>
+
+<!-- ══ PROGRESS BAR ══ -->
+<div class="progress-wrap">
+  <div class="progress-labels">
+    <span>❄️ Correct: <span id="score-count">0</span> / 10</span>
+    <span id="pct-label">0%</span>
+  </div>
+  <div class="pbar-bg">
+    <div class="pbar-fill" id="pbar"></div>
+    <div class="pbar-threshold" title="Pass threshold: 8/10"></div>
+  </div>
+  <div class="threshold-note">⭐ You need 8/10 correct to earn your exit ticket</div>
+</div>
+
+<!-- ══ QUESTIONS ══ -->
+<div class="container">
+
+  <!-- ─────────────────────────────────────────
+       STATION 1: GLACIAL STREAM
+  ───────────────────────────────────────── -->
+  <div class="station-header">
+    <div class="station-icon">🧊</div>
+    <div>
+      <div class="station-name">Station 1: Glacial Stream</div>
+      <div class="station-sub">Winter Ice · What's So Green?</div>
+    </div>
+  </div>
+
+  <!-- Q1 · Multiple Choice -->
+  <div class="q-card" id="qcard-1">
+    <div class="q-num">Question 1 · Multiple Choice</div>
+    <div class="q-text">When the ice in a glacial stream melts in summer, what does it become for plants and animals across the tundra?</div>
+    <div class="choices" id="choices-1">
+      <button class="choice-btn" onclick="answerMC(1,'A')"><span class="choice-letter">A</span>A source of freshwater</button>
+      <button class="choice-btn" onclick="answerMC(1,'B')"><span class="choice-letter">B</span>A source of salt water</button>
+      <button class="choice-btn" onclick="answerMC(1,'C')"><span class="choice-letter">C</span>A wall that blocks animal migration</button>
+      <button class="choice-btn" onclick="answerMC(1,'D')"><span class="choice-letter">D</span>A new layer of permafrost</button>
+    </div>
+    <div class="feedback" id="fb-1"></div>
+    <div class="attempts-left" id="att-1"></div>
+  </div>
+
+  <!-- Q2 · True / False -->
+  <div class="q-card" id="qcard-2">
+    <div class="q-num">Question 2 · True or False</div>
+    <div class="q-text">Moss is one of the FIRST living things to grow on bare rock in the tundra.</div>
+    <div class="tf-row">
+      <button class="tf-btn" onclick="answerTF(2,true)">✅ True</button>
+      <button class="tf-btn" onclick="answerTF(2,false)">❌ False</button>
+    </div>
+    <div class="feedback" id="fb-2"></div>
+    <div class="attempts-left" id="att-2"></div>
+  </div>
+
+  <!-- ─────────────────────────────────────────
+       STATION 3: SMALL GLACIER
+  ───────────────────────────────────────── -->
+  <div class="station-header">
+    <div class="station-icon">🔵</div>
+    <div>
+      <div class="station-name">Station 3: Small Glacier</div>
+      <div class="station-sub">Glacial Life</div>
+    </div>
+  </div>
+
+  <!-- Q3 · True / False -->
+  <div class="q-card" id="qcard-3">
+    <div class="q-num">Question 3 · True or False</div>
+    <div class="q-text">No living things can survive on or inside a glacier — it is too cold for all life.</div>
+    <div class="tf-row">
+      <button class="tf-btn" onclick="answerTF(3,true)">✅ True</button>
+      <button class="tf-btn" onclick="answerTF(3,false)">❌ False</button>
+    </div>
+    <div class="feedback" id="fb-3"></div>
+    <div class="attempts-left" id="att-3"></div>
+  </div>
+
+  <!-- ─────────────────────────────────────────
+       STATION 7: TUNDRA CARPET
+  ───────────────────────────────────────── -->
+  <div class="station-header">
+    <div class="station-icon">🌿</div>
+    <div>
+      <div class="station-name">Station 7: Tundra Carpet</div>
+      <div class="station-sub">What's Under This? · Low Growth</div>
+    </div>
+  </div>
+
+  <!-- Q4 · Multiple Choice -->
+  <div class="q-card" id="qcard-4">
+    <div class="q-num">Question 4 · Multiple Choice</div>
+    <div class="q-text">Just a few inches under the tundra plants, the ground stays frozen all year. What is this frozen layer called?</div>
+    <div class="choices" id="choices-4">
+      <button class="choice-btn" onclick="answerMC(4,'A')"><span class="choice-letter">A</span>Frostbite</button>
+      <button class="choice-btn" onclick="answerMC(4,'B')"><span class="choice-letter">B</span>Permafrost</button>
+      <button class="choice-btn" onclick="answerMC(4,'C')"><span class="choice-letter">C</span>Deep freeze soil</button>
+      <button class="choice-btn" onclick="answerMC(4,'D')"><span class="choice-letter">D</span>Arctic clay</button>
+    </div>
+    <div class="feedback" id="fb-4"></div>
+    <div class="attempts-left" id="att-4"></div>
+  </div>
+
+  <!-- Q5 · True / False -->
+  <div class="q-card" id="qcard-5">
+    <div class="q-num">Question 5 · True or False</div>
+    <div class="q-text">Plants in the tundra stay low to the ground mainly because there is not enough sunlight for them to grow tall.</div>
+    <div class="tf-row">
+      <button class="tf-btn" onclick="answerTF(5,true)">✅ True</button>
+      <button class="tf-btn" onclick="answerTF(5,false)">❌ False</button>
+    </div>
+    <div class="feedback" id="fb-5"></div>
+    <div class="attempts-left" id="att-5"></div>
+  </div>
+
+  <!-- ─────────────────────────────────────────
+       STATION 8: VOLCANIC & MOSSY HIGHLANDS
+  ───────────────────────────────────────── -->
+  <div class="station-header">
+    <div class="station-icon">🦌</div>
+    <div>
+      <div class="station-name">Station 8: Volcanic &amp; Mossy Highlands</div>
+      <div class="station-sub">Reindeer Adaptations</div>
+    </div>
+  </div>
+
+  <!-- Q6 · Drag & Drop -->
+  <div class="q-card" id="qcard-6">
+    <div class="q-num">Question 6 · Drag &amp; Drop Matching</div>
+    <div class="q-text">Match each reindeer feature to what it helps the reindeer DO in the tundra. Drag the answer tags into the correct boxes.</div>
+    <div class="dd-wordbank" id="bank-6"></div>
+    <div class="dd-pairs">
+      <div class="dd-row">
+        <div class="dd-prompt">Thick fur</div>
+        <div class="dd-arrow">→</div>
+        <div class="dd-drop" id="drop-6-0" data-answer="Stay warm" ondragover="ddOver(event)" ondrop="ddDrop(event,'6','0')" ondragleave="ddLeave(event)">Drop here</div>
+      </div>
+      <div class="dd-row">
+        <div class="dd-prompt">Wide hooves</div>
+        <div class="dd-arrow">→</div>
+        <div class="dd-drop" id="drop-6-1" data-answer="Walk on snow" ondragover="ddOver(event)" ondrop="ddDrop(event,'6','1')" ondragleave="ddLeave(event)">Drop here</div>
+      </div>
+      <div class="dd-row">
+        <div class="dd-prompt">Digging through snow</div>
+        <div class="dd-arrow">→</div>
+        <div class="dd-drop" id="drop-6-2" data-answer="Find food" ondragover="ddOver(event)" ondrop="ddDrop(event,'6','2')" ondragleave="ddLeave(event)">Drop here</div>
+      </div>
+      <div class="dd-row">
+        <div class="dd-prompt">Migrating to tundra in summer</div>
+        <div class="dd-arrow">→</div>
+        <div class="dd-drop" id="drop-6-3" data-answer="Feed and breed" ondragover="ddOver(event)" ondrop="ddDrop(event,'6','3')" ondragleave="ddLeave(event)">Drop here</div>
+      </div>
+    </div>
+    <button class="dd-check-btn" id="check-6" onclick="checkDD(6)">Check My Answers</button>
+    <div class="feedback" id="fb-6"></div>
+    <div class="attempts-left" id="att-6"></div>
+  </div>
+
+  <!-- ─────────────────────────────────────────
+       STATION 10: PUFFIN CLIFFS
+  ───────────────────────────────────────── -->
+  <div class="station-header">
+    <div class="station-icon">🐦</div>
+    <div>
+      <div class="station-name">Station 10: Puffin Cliffs</div>
+      <div class="station-sub">Atlantic Puffins · Lichens</div>
+    </div>
+  </div>
+
+  <!-- Q7 · True / False -->
+  <div class="q-card" id="qcard-7">
+    <div class="q-num">Question 7 · True or False</div>
+    <div class="q-text">Lichen is actually TWO living things — a fungus and an algae — working together as one organism.</div>
+    <div class="tf-row">
+      <button class="tf-btn" onclick="answerTF(7,true)">✅ True</button>
+      <button class="tf-btn" onclick="answerTF(7,false)">❌ False</button>
+    </div>
+    <div class="feedback" id="fb-7"></div>
+    <div class="attempts-left" id="att-7"></div>
+  </div>
+
+  <!-- ─────────────────────────────────────────
+       STATION 13: MOSS COVERED LAVA FLOW
+  ───────────────────────────────────────── -->
+  <div class="station-header">
+    <div class="station-icon">🪨</div>
+    <div>
+      <div class="station-name">Station 13: Moss Covered Lava Flow</div>
+      <div class="station-sub">Otherworldly · Low Growth</div>
+    </div>
+  </div>
+
+  <!-- Q8 · Multiple Choice -->
+  <div class="q-card" id="qcard-8">
+    <div class="q-num">Question 8 · Multiple Choice</div>
+    <div class="q-text">Moss is called a "pioneer species." What does that mean?</div>
+    <div class="choices" id="choices-8">
+      <button class="choice-btn" onclick="answerMC(8,'A')"><span class="choice-letter">A</span>It was the first species discovered by scientists</button>
+      <button class="choice-btn" onclick="answerMC(8,'B')"><span class="choice-letter">B</span>It grows faster than any other plant</button>
+      <button class="choice-btn" onclick="answerMC(8,'C')"><span class="choice-letter">C</span>It is one of the first living things to grow where there is no soil at all</button>
+      <button class="choice-btn" onclick="answerMC(8,'D')"><span class="choice-letter">D</span>It only grows in warm places with deep soil</button>
+    </div>
+    <div class="feedback" id="fb-8"></div>
+    <div class="attempts-left" id="att-8"></div>
+  </div>
+
+  <!-- ─────────────────────────────────────────
+       BIG IDEAS: LESSON + SCAVENGER HUNT
+  ───────────────────────────────────────── -->
+  <div class="station-header">
+    <div class="station-icon">📚</div>
+    <div>
+      <div class="station-name">Big Tundra Ideas</div>
+      <div class="station-sub">From the lesson reading + all stations</div>
+    </div>
+  </div>
+
+  <!-- Q9 · Drag & Drop -->
+  <div class="q-card" id="qcard-9">
+    <div class="q-num">Question 9 · Drag &amp; Drop Matching</div>
+    <div class="q-text">Match each tundra term to its correct meaning.</div>
+    <div class="dd-wordbank" id="bank-9"></div>
+    <div class="dd-pairs">
+      <div class="dd-row">
+        <div class="dd-prompt">Permafrost</div>
+        <div class="dd-arrow">→</div>
+        <div class="dd-drop" id="drop-9-0" data-answer="Soil frozen 2+ years" ondragover="ddOver(event)" ondrop="ddDrop(event,'9','0')" ondragleave="ddLeave(event)">Drop here</div>
+      </div>
+      <div class="dd-row">
+        <div class="dd-prompt">Adaptation</div>
+        <div class="dd-arrow">→</div>
+        <div class="dd-drop" id="drop-9-1" data-answer="Trait that helps survival" ondragover="ddOver(event)" ondrop="ddDrop(event,'9','1')" ondragleave="ddLeave(event)">Drop here</div>
+      </div>
+      <div class="dd-row">
+        <div class="dd-prompt">Biodiversity</div>
+        <div class="dd-arrow">→</div>
+        <div class="dd-drop" id="drop-9-2" data-answer="Variety of species in an area" ondragover="ddOver(event)" ondrop="ddDrop(event,'9','2')" ondragleave="ddLeave(event)">Drop here</div>
+      </div>
+      <div class="dd-row">
+        <div class="dd-prompt">Conservation</div>
+        <div class="dd-arrow">→</div>
+        <div class="dd-drop" id="drop-9-3" data-answer="Actions to protect ecosystems" ondragover="ddOver(event)" ondrop="ddDrop(event,'9','3')" ondragleave="ddLeave(event)">Drop here</div>
+      </div>
+    </div>
+    <button class="dd-check-btn" id="check-9" onclick="checkDD(9)">Check My Answers</button>
+    <div class="feedback" id="fb-9"></div>
+    <div class="attempts-left" id="att-9"></div>
+  </div>
+
+  <!-- Q10 · Multiple Choice -->
+  <div class="q-card" id="qcard-10">
+    <div class="q-num">Question 10 · Multiple Choice</div>
+    <div class="q-text">Thawing permafrost releases stored carbon as carbon dioxide and methane. Why is this a problem?</div>
+    <div class="choices" id="choices-10">
+      <button class="choice-btn" onclick="answerMC(10,'A')"><span class="choice-letter">A</span>It makes the ground too soft for animals to walk on</button>
+      <button class="choice-btn" onclick="answerMC(10,'B')"><span class="choice-letter">B</span>It can speed up global warming and change tundra ecosystems</button>
+      <button class="choice-btn" onclick="answerMC(10,'C')"><span class="choice-letter">C</span>It removes all the freshwater from tundra streams</button>
+      <button class="choice-btn" onclick="answerMC(10,'D')"><span class="choice-letter">D</span>It kills moss by making the soil too warm</button>
+    </div>
+    <div class="feedback" id="fb-10"></div>
+    <div class="attempts-left" id="att-10"></div>
+  </div>
+
+  <!-- ══ SCORE SUMMARY ══ -->
+  <div id="score-summary">
+    <h2 id="summary-emoji">🎉</h2>
+    <div class="score-big" id="summary-score"></div>
+    <p id="summary-msg"></p>
+  </div>
+
+  <!-- ══ NOT YET BANNER ══ -->
+  <div id="not-yet-banner">
+    <h3>🌨️ Not quite there yet!</h3>
+    <p id="not-yet-msg"></p>
+  </div>
+
+  <!-- ══ EXIT TICKET ══ -->
+  <div id="exit-ticket-section">
+    <h2>🎟️ Exit Ticket</h2>
+    <p>You passed! Fill in your info below, then screenshot or show your teacher the confirmed ticket.</p>
+    <div class="ticket-form">
+      <div>
+        <label for="student-name">Your Full Name</label>
+        <input type="text" id="student-name" placeholder="First and Last Name" autocomplete="off">
+      </div>
+      <div>
+        <label for="student-period">Class Period</label>
+        <select id="student-period">
+          <option value="">-- Select your period --</option>
+          <option value="1st Period">1st Period</option>
+          <option value="2nd Period">2nd Period</option>
+          <option value="3rd Period">3rd Period</option>
+          <option value="4th Period">4th Period</option>
+          <option value="5th Period">5th Period</option>
+          <option value="6th Period">6th Period</option>
+          <option value="7th Period">7th Period</option>
+        </select>
+      </div>
+      <div id="ticket-error">⚠️ Please enter your full name and select your period.</div>
+      <button class="ticket-submit-btn" onclick="confirmTicket()">Generate My Exit Ticket ❄️</button>
+    </div>
+
+    <div id="confirmed-ticket">
+      <h3>✅ Exit Ticket Confirmed!</h3>
+      <div class="ticket-detail" id="t-name"></div>
+      <div class="ticket-detail" id="t-period"></div>
+      <div class="ticket-detail" id="t-score"></div>
+      <div class="ticket-passcode" id="t-code"></div>
+      <div class="ticket-detail" id="t-time"></div>
+      <div class="ticket-instruction">📸 Screenshot this screen OR show your teacher before leaving.</div>
+    </div>
+  </div>
+
+</div><!-- /container -->
+
+<script>
+// ══════════════════════════════════════════
+//  DATA — answers, feedback, attempt counts
+// ══════════════════════════════════════════
+const TOTAL = 10;
+const PASS  = 8;
+
+let scores    = {}; // qid -> true/false
+let attempts  = {}; // qid -> number used
+let answered  = {}; // qid -> locked?
+let scoreCount = 0;
+
+for (let i = 1; i <= TOTAL; i++) {
+  scores[i]   = false;
+  attempts[i] = 0;
+  answered[i] = false;
+}
+
+// ── Q1: correct = A
+const Q1 = {
+  correct: 'A',
+  feedback: {
+    correct: {
+      head: '✅ Nice work! Freshwater from melting ice is critical.',
+      body: 'When snow and glacier ice melt in summer, they release freshwater. In the tundra — which gets very little rain — this meltwater is one of the only freshwater sources plants and animals have. Without it, many species couldn\'t survive the short summer growing season. Fun fact: some Arctic rivers are almost entirely fed by glacial melt — no glacier, no river!'
+    },
+    B: { opener: '🌊 Whoa there, this isn\'t the ocean!', why: 'Glaciers and snowpack are made of frozen freshwater, not salt water. The ocean is salty, but rivers, streams, and glaciers are not.', clue: '👉 Go back to Station 1: Winter Ice. Read what happens when the ice melts in summer.' },
+    C: { opener: '🚧 A wall? Those caribou would have some thoughts!', why: 'Melting ice becomes liquid water — it flows downhill, it doesn\'t build a wall. Water moves animals toward it, not away from it.', clue: '👉 Re-read Station 1: Winter Ice. Think about what liquid water is useful for.' },
+    D: { opener: '🧊 Melted ice… becoming more frozen ice? Hmm.', why: 'Melting is the opposite of freezing. When ice melts, it becomes liquid water — it cannot become permafrost at the same time.', clue: '👉 Check Station 1: Winter Ice again. Focus on the word "abiotic source."' }
+  }
+};
+
+// ── Q2: correct = true
+const Q2 = {
+  correct: true,
+  feedback: {
+    correct: {
+      head: '✅ That\'s right — moss is a tundra trailblazer!',
+      body: 'Moss is one of the first organisms to colonize bare rock. It doesn\'t need soil — it grips onto rock, absorbs moisture directly, and slowly breaks down the rock surface over time. Iceland alone has over 600 species of moss doing exactly this. It\'s basically the tundra\'s construction crew, building soil for future plants.'
+    },
+    wrong: { opener: '🪨 False? Even the rocks disagree with you on this one.', why: 'The scavenger hunt tells us at Station 1 that moss is one of the first living things to colonize bare rock in the tundra. That makes the statement TRUE, not false.', clue: '👉 Look at Station 1: What\'s So Green? Read what it says about moss and bare rock.' }
+  }
+};
+
+// ── Q3: correct = false
+const Q3 = {
+  correct: false,
+  feedback: {
+    correct: {
+      head: '✅ Correct — life finds a way, even on glaciers!',
+      body: 'Glaciers seem lifeless, but they\'re not! Ice worms, snow fleas, glacial midges, and snow algae all survive in and on glaciers. These organisms are specially adapted to survive in one of the coldest environments on Earth. Scientists actually study them to understand how life might exist on other icy planets. Pretty wild, right?'
+    },
+    wrong: { opener: '🥶 Sorry, life is MUCH tougher than a glacier!', why: 'The statement says NO life can survive on glaciers — that\'s false. Station 3 tells us that ice worms, snow fleas, glacial midges, and snow algae all live on and in glaciers. Life adapts to extreme conditions.', clue: '👉 Re-read Station 3: Glacial Life. Look for the list of organisms that survive on glaciers.' }
+  }
+};
+
+// ── Q4: correct = B
+const Q4 = {
+  correct: 'B',
+  feedback: {
+    correct: {
+      head: '✅ Permafrost — the tundra\'s underground freezer!',
+      body: 'Permafrost is soil that stays frozen for two or more years in a row. In the Arctic tundra, it sits just inches below the surface. Because roots can\'t grow through frozen soil, trees can\'t survive here — which is one big reason the tundra is sometimes called a "treeless plain." Fun fact: permafrost stores a HUGE amount of carbon — more than many forests!'
+    },
+    A: { opener: '🤕 Frostbite is what happens to your ears, not soil!', why: 'Frostbite is a medical condition affecting living tissue exposed to extreme cold. It\'s not a term for frozen soil. The correct science word for soil frozen for two or more years is permafrost.', clue: '👉 Check Station 7: What\'s Under This? The vocabulary section of your lesson also defines this word.' },
+    C: { opener: '🤔 "Deep freeze soil" — did you invent that one?', why: 'That\'s not a real science term. The correct vocabulary word from your lesson is permafrost, which specifically means soil frozen for two or more consecutive years.', clue: '👉 Look at the Key Vocabulary in your lesson reading. Find the word for frozen soil.' },
+    D: { opener: '🏔️ Arctic clay? Not quite, geologist!', why: 'Clay is a type of fine-grained soil — it\'s not the same as frozen ground. The term for soil that stays frozen is permafrost, and it\'s found all over Arctic tundra regions.', clue: '👉 Re-read Station 7: What\'s Under This? The answer is right there.' }
+  }
+};
+
+// ── Q5: correct = false
+const Q5 = {
+  correct: false,
+  feedback: {
+    correct: {
+      head: '✅ Right! It\'s wind and frozen ground, not sunlight.',
+      body: 'During Arctic summer, plants actually get TONS of sunlight — the sun doesn\'t even set for weeks! The real reasons plants stay low are: (1) strong winds would snap or dry out tall plants, and (2) permafrost just below the surface stops roots from growing deep. Staying low to the ground is an adaptation that beats the wind and the frozen soil, not the sun.'
+    },
+    wrong: { opener: '☀️ No sunlight? The tundra actually has midnight sun in summer!', why: 'The statement says plants stay low because of not enough sunlight — that\'s false. In Arctic summer, the sun can stay above the horizon for weeks! Plants stay low because of strong winds and permafrost blocking deep roots, not lack of light.', clue: '👉 Read Station 7: Low Growth. Also check the fun facts in your lesson about Arctic summer.' }
+  }
+};
+
+// ── Q6: drag & drop (reindeer)
+const Q6_ANSWERS = ['Stay warm','Walk on snow','Find food','Feed and breed'];
+const Q6 = {
+  feedback: {
+    correct: {
+      head: '✅ Perfect match — you know your reindeer!',
+      body: 'Reindeer (also called caribou) are built for the tundra from hoof to nose. Thick fur traps body heat, wide hooves act like snowshoes, and those big hooves can also dig through snow to find plants underneath. Migrating to the tundra in summer lets them take advantage of the burst of plant growth when the snow melts. Every single one of those features is an adaptation!'
+    },
+    wrong: { opener: '🦌 The reindeer are confused — let\'s try that again!', why: 'Some of your matches aren\'t quite right. Each reindeer feature connects to a specific survival purpose in the tundra\'s cold environment.', clue: '👉 Go back to Station 8: Reindeer. Read each bullet carefully and match the body part or behavior to what it helps the reindeer do.' }
+  }
+};
+
+// ── Q7: correct = true
+const Q7 = {
+  correct: true,
+  feedback: {
+    correct: {
+      head: '✅ Yep — lichen is a power couple of the tundra!',
+      body: 'Lichen is a symbiotic relationship between a fungus and an algae (or sometimes cyanobacteria). The fungus provides structure and protection, and the algae makes food through photosynthesis. Together they can survive on bare rock in extreme cold, wind, and drought where almost nothing else can live. Some lichen are thousands of years old — the tundra\'s version of ancient wisdom!'
+    },
+    wrong: { opener: '🍄 False? Tell that to the fungus AND the algae!', why: 'The statement is TRUE. Lichen is actually two organisms living as one — a fungus and an algae working together. This partnership is called symbiosis, and it lets lichen survive in places most life can\'t handle.', clue: '👉 Re-read Station 10: Lichens. It explains exactly what lichen is made of.' }
+  }
+};
+
+// ── Q8: correct = C
+const Q8 = {
+  correct: 'C',
+  feedback: {
+    correct: {
+      head: '✅ Exactly right — moss is the tundra\'s first responder!',
+      body: 'A pioneer species is one of the very first organisms to move into a place where nothing lives yet — like bare rock or cooled lava. Moss doesn\'t need soil. Over time it breaks down rock and builds up a thin layer of soil that other plants can eventually use. Without pioneer species like moss, the rest of the food web couldn\'t get started. It\'s the tundra\'s way of building from scratch!'
+    },
+    A: { opener: '🔬 First discovered by scientists? Scientists didn\'t name it — moss doesn\'t care about credit!', why: '"Pioneer species" is a science term about ecological succession, not about discovery history. It describes organisms that colonize bare, lifeless areas first — before soil even exists.', clue: '👉 Look at Station 13: Otherworldly. The explanation of pioneer species is right there.' },
+    B: { opener: '🏃 Moss is fast? Have you ever watched moss grow?', why: 'Moss actually grows very slowly — sometimes just a few millimeters a year. "Pioneer species" has nothing to do with speed. It means being first in a place with no soil at all.', clue: '👉 Go back to Station 13: Otherworldly and read what a pioneer species actually is.' },
+    D: { opener: '🌡️ Warm places with deep soil? That\'s basically the opposite of where moss lives!', why: 'Moss is specifically adapted to grow in COLD, harsh environments with little to no soil. It thrives on bare rock and lava — exactly the opposite of warm, deep soil.', clue: '👉 Re-read Station 13. Also check Station 1: What\'s So Green? for more moss clues.' }
+  }
+};
+
+// ── Q9: drag & drop (vocab)
+const Q9_ANSWERS = ['Soil frozen 2+ years','Trait that helps survival','Variety of species in an area','Actions to protect ecosystems'];
+const Q9 = {
+  feedback: {
+    correct: {
+      head: '✅ Vocab master! You nailed all four terms.',
+      body: 'These four words are the core vocabulary of the tundra unit — and of ecology in general! Permafrost shapes the whole tundra landscape. Adaptations are what let organisms survive in it. Biodiversity tells us how healthy an ecosystem is. And conservation is what we do to protect it. If you remember these four words, you basically understand tundra biology. Nice work!'
+    },
+    wrong: { opener: '📖 A few of those words got mixed up — let\'s sort it out!', why: 'Some of your matches don\'t match the definitions from the lesson. Go back and check the Key Vocabulary section at the top of your lesson reading.', clue: '👉 Open your lesson reading and find the Key Vocabulary section. Each of these four words is defined there.' }
+  }
+};
+
+// ── Q10: correct = B
+const Q10 = {
+  correct: 'B',
+  feedback: {
+    correct: {
+      head: '✅ You got it — thawing permafrost is a climate feedback loop!',
+      body: 'Here\'s the scary part: tundra permafrost stores more carbon than most forests — even though the plants are tiny! When permafrost thaws, that stored carbon gets released as CO₂ and methane. Those are greenhouse gases that trap heat. More heat means more thawing, which releases more carbon, which causes more warming… it\'s a cycle. Scientists call this a "positive feedback loop," but there\'s nothing positive about it!'
+    },
+    A: { opener: '🦶 Soft ground is inconvenient, but it\'s not the big problem here!', why: 'While thawing permafrost CAN make ground unstable for buildings and roads, the BIGGER scientific concern is the release of greenhouse gases like carbon dioxide and methane, which speed up global warming.', clue: '👉 Re-read the Human Impact section of your lesson. Look for what happens when stored carbon is released.' },
+    C: { opener: '💧 Thawing permafrost actually ADDS water, not removes it!', why: 'When permafrost thaws, it releases water into the soil and landscape — it doesn\'t remove freshwater from streams. The main concern is the release of greenhouse gases stored in the frozen soil.', clue: '👉 Check the "Climate change" bullet under Human Activities in your lesson reading.' },
+    D: { opener: '🌿 Moss can handle warm soil just fine, actually!', why: 'While warming does change what species can live in the tundra, the answer isn\'t specifically about moss dying from warm soil. The key issue is that thawing permafrost releases stored carbon, speeding up global warming.', clue: '👉 Look at the Climate Change section of your lesson. Focus on the idea of "stored carbon."' }
+  }
+};
+
+const QData = { 1:Q1, 2:Q2, 3:Q3, 4:Q4, 5:Q5, 6:Q6, 7:Q7, 8:Q8, 9:Q9, 10:Q10 };
+
+// ══════════════════════════════════════════
+//  DRAG & DROP SETUP
+// ══════════════════════════════════════════
+let draggedTag = null;
+let draggedFrom = null; // 'bank' or drop id
+
+function shuffle(arr) {
+  let a = [...arr];
+  for (let i = a.length - 1; i > 0; i--) {
+    let j = Math.floor(Math.random() * (i + 1));
+    [a[i], a[j]] = [a[j], a[i]];
+  }
+  return a;
+}
+
+function buildWordBank(qid, answers) {
+  const bank = document.getElementById('bank-' + qid);
+  const shuffled = shuffle(answers);
+  bank.innerHTML = '';
+  shuffled.forEach(ans => {
+    const tag = document.createElement('div');
+    tag.className = 'dd-tag';
+    tag.textContent = ans;
+    tag.draggable = true;
+    tag.dataset.value = ans;
+    tag.addEventListener('dragstart', e => {
+      draggedTag = tag;
+      draggedFrom = 'bank-' + qid;
+      tag.classList.add('dragging');
+      e.dataTransfer.setData('text/plain', ans);
+    });
+    tag.addEventListener('dragend', () => tag.classList.remove('dragging'));
+    bank.appendChild(tag);
+  });
+}
+
+function ddOver(e) {
+  e.preventDefault();
+  e.currentTarget.classList.add('dragover');
+}
+function ddLeave(e) {
+  e.currentTarget.classList.remove('dragover');
+}
+function ddDrop(e, qid, idx) {
+  e.preventDefault();
+  const drop = e.currentTarget;
+  drop.classList.remove('dragover');
+  if (!draggedTag) return;
+
+  // If this drop zone already has something, return it to bank
+  const existing = drop.dataset.filled;
+  if (existing) {
+    returnToBank(qid, existing);
+  }
+
+  // If tag came from another drop zone, clear that zone
+  if (draggedFrom && draggedFrom.startsWith('drop-')) {
+    const fromDrop = document.getElementById(draggedFrom);
+    if (fromDrop) {
+      fromDrop.textContent = 'Drop here';
+      fromDrop.classList.remove('filled');
+      delete fromDrop.dataset.filled;
+    }
+  } else if (draggedFrom && draggedFrom.startsWith('bank-')) {
+    // remove from bank
+    if (draggedTag.parentNode) draggedTag.parentNode.removeChild(draggedTag);
+  }
+
+  drop.textContent = draggedTag.dataset.value;
+  drop.classList.add('filled');
+  drop.dataset.filled = draggedTag.dataset.value;
+  draggedTag.id = 'drop-tag-' + qid + '-' + idx;
+  draggedFrom = 'drop-' + qid + '-' + idx;
+  draggedTag = null;
+}
+
+function returnToBank(qid, value) {
+  const bank = document.getElementById('bank-' + qid);
+  const tag = document.createElement('div');
+  tag.className = 'dd-tag';
+  tag.textContent = value;
+  tag.draggable = true;
+  tag.dataset.value = value;
+  tag.addEventListener('dragstart', e => {
+    draggedTag = tag;
+    draggedFrom = 'bank-' + qid;
+    tag.classList.add('dragging');
+    e.dataTransfer.setData('text/plain', value);
+  });
+  tag.addEventListener('dragend', () => tag.classList.remove('dragging'));
+  bank.appendChild(tag);
+}
+
+// ══════════════════════════════════════════
+//  CHECK DRAG & DROP
+// ══════════════════════════════════════════
+function checkDD(qid) {
+  if (answered[qid]) return;
+  const q = QData[qid];
+  const correctAnswers = qid === 6 ? Q6_ANSWERS : Q9_ANSWERS;
+
+  // Check all 4 drops filled
+  let allFilled = true;
+  for (let i = 0; i < 4; i++) {
+    const drop = document.getElementById('drop-' + qid + '-' + i);
+    if (!drop.dataset.filled) { allFilled = false; break; }
+  }
+  if (!allFilled) {
+    alert('Please fill in all four boxes before checking!');
+    return;
+  }
+
+  attempts[qid]++;
+  let allCorrect = true;
+  for (let i = 0; i < 4; i++) {
+    const drop = document.getElementById('drop-' + qid + '-' + i);
+    const given = drop.dataset.filled;
+    const expected = correctAnswers[i];
+    if (given === expected) {
+      drop.classList.add('drop-correct');
+    } else {
+      drop.classList.add('drop-wrong');
+      allCorrect = false;
+    }
+  }
+
+  const fb = document.getElementById('fb-' + qid);
+  const att = document.getElementById('att-' + qid);
+  const btn = document.getElementById('check-' + qid);
+  const card = document.getElementById('qcard-' + qid);
+
+  if (allCorrect) {
+    scored(qid);
+    card.classList.add('state-correct');
+    btn.disabled = true;
+    lockDrops(qid);
+    showFeedback(fb, true, q.feedback.correct.head, q.feedback.correct.body);
+    att.textContent = '';
+  } else {
+    if (attempts[qid] >= 2) {
+      answered[qid] = true;
+      btn.disabled = true;
+      lockDrops(qid);
+      card.classList.add('state-locked');
+      showFeedback(fb, false,
+        q.feedback.wrong.opener,
+        null,
+        q.feedback.wrong.why,
+        q.feedback.wrong.clue
+      );
+      att.textContent = '🔒 No more attempts. Check the clue above!';
+    } else {
+      const left = 2 - attempts[qid];
+      att.textContent = `⚠️ Not quite! ${left} attempt${left>1?'s':''} left. Drag to fix your answers.`;
+      // reset color classes but keep values
+      for (let i = 0; i < 4; i++) {
+        const drop = document.getElementById('drop-' + qid + '-' + i);
+        drop.classList.remove('drop-correct','drop-wrong');
+      }
+      showFeedback(fb, false,
+        q.feedback.wrong.opener,
+        null,
+        q.feedback.wrong.why,
+        q.feedback.wrong.clue
+      );
+    }
+  }
+  checkAllDone();
+}
+
+function lockDrops(qid) {
+  for (let i = 0; i < 4; i++) {
+    const drop = document.getElementById('drop-' + qid + '-' + i);
+    drop.ondragover = null;
+    drop.ondrop = null;
+    drop.ondragleave = null;
+  }
+  const bank = document.getElementById('bank-' + qid);
+  if (bank) {
+    bank.querySelectorAll('.dd-tag').forEach(t => t.draggable = false);
+  }
+}
+
+// ══════════════════════════════════════════
+//  ANSWER HANDLERS
+// ══════════════════════════════════════════
+function answerMC(qid, choice) {
+  if (answered[qid]) return;
+  attempts[qid]++;
+
+  const q = QData[qid];
+  const btns = document.querySelectorAll(`#qcard-${qid} .choice-btn`);
+  const fb   = document.getElementById('fb-' + qid);
+  const att  = document.getElementById('att-' + qid);
+  const card = document.getElementById('qcard-' + qid);
+  const letters = ['A','B','C','D'];
+
+  const isCorrect = (choice === q.correct);
+  btns[letters.indexOf(choice)].classList.add(isCorrect ? 'sel-correct' : 'sel-wrong');
+
+  if (isCorrect) {
+    answered[qid] = true;
+    scored(qid);
+    card.classList.add('state-correct');
+    btns.forEach(b => b.disabled = true);
+    showFeedback(fb, true, q.feedback.correct.head, q.feedback.correct.body);
+    att.textContent = '';
+  } else {
+    const wf = q.feedback[choice];
+    if (attempts[qid] >= 2) {
+      answered[qid] = true;
+      btns.forEach(b => b.disabled = true);
+      card.classList.add('state-locked');
+      showFeedback(fb, false, wf.opener, null, wf.why, wf.clue);
+      att.textContent = '🔒 No more attempts. Check the clue above!';
+      // reveal correct
+      btns[letters.indexOf(q.correct)].classList.add('sel-correct');
+    } else {
+      const left = 2 - attempts[qid];
+      showFeedback(fb, false, wf.opener, null, wf.why, wf.clue);
+      att.textContent = `⚠️ That's not it. ${left} attempt${left>1?'s':''} left.`;
+    }
+  }
+  checkAllDone();
+}
+
+function answerTF(qid, choice) {
+  if (answered[qid]) return;
+  attempts[qid]++;
+
+  const q = QData[qid];
+  const btns = document.querySelectorAll(`#qcard-${qid} .tf-btn`);
+  const fb   = document.getElementById('fb-' + qid);
+  const att  = document.getElementById('att-' + qid);
+  const card = document.getElementById('qcard-' + qid);
+
+  const isCorrect = (choice === q.correct);
+  const idx = choice ? 0 : 1;
+  btns[idx].classList.add(isCorrect ? 'sel-correct' : 'sel-wrong');
+
+  if (isCorrect) {
+    answered[qid] = true;
+    scored(qid);
+    card.classList.add('state-correct');
+    btns.forEach(b => b.disabled = true);
+    showFeedback(fb, true, q.feedback.correct.head, q.feedback.correct.body);
+    att.textContent = '';
+  } else {
+    const wf = q.feedback.wrong;
+    if (attempts[qid] >= 2) {
+      answered[qid] = true;
+      btns.forEach(b => b.disabled = true);
+      card.classList.add('state-locked');
+      showFeedback(fb, false, wf.opener, null, wf.why, wf.clue);
+      att.textContent = '🔒 No more attempts. Check the clue above!';
+      btns[q.correct ? 0 : 1].classList.add('sel-correct');
+    } else {
+      const left = 2 - attempts[qid];
+      showFeedback(fb, false, wf.opener, null, wf.why, wf.clue);
+      att.textContent = `⚠️ That's not it. ${left} attempt${left>1?'s':''} left.`;
+    }
+  }
+  checkAllDone();
+}
+
+// ══════════════════════════════════════════
+//  SCORING & PROGRESS
+// ══════════════════════════════════════════
+function scored(qid) {
+  if (scores[qid]) return;
+  scores[qid] = true;
+  answered[qid] = true;
+  scoreCount++;
+  updateProgress();
+}
+
+function updateProgress() {
+  const pct = Math.round((scoreCount / TOTAL) * 100);
+  document.getElementById('score-count').textContent = scoreCount;
+  document.getElementById('pct-label').textContent = pct + '%';
+  document.getElementById('pbar').style.width = pct + '%';
+}
+
+function checkAllDone() {
+  const allAnswered = Object.values(answered).every(v => v === true);
+  if (!allAnswered) return;
+
+  // Show score summary
+  const summary = document.getElementById('score-summary');
+  summary.style.display = 'block';
+  const emoji = scoreCount >= PASS ? '🎉' : '🌨️';
+  document.getElementById('summary-emoji').textContent = emoji;
+  document.getElementById('summary-score').textContent = scoreCount + ' / ' + TOTAL;
+  const msg = scoreCount >= PASS
+    ? `Amazing! You scored ${scoreCount}/10 and earned your exit ticket!`
+    : `You got ${scoreCount}/10. You need ${PASS} to pass — ask your teacher what to do next.`;
+  document.getElementById('summary-msg').textContent = msg;
+
+  if (scoreCount >= PASS) {
+    document.getElementById('exit-ticket-section').style.display = 'block';
+    document.getElementById('not-yet-banner').style.display = 'none';
+  } else {
+    document.getElementById('not-yet-banner').style.display = 'block';
+    document.getElementById('not-yet-msg').textContent =
+      `You got ${scoreCount}/10. You need at least ${PASS} correct to earn an exit ticket. Check the clues in your wrong answers and talk to your teacher.`;
+    document.getElementById('exit-ticket-section').style.display = 'none';
+  }
+
+  // Scroll to summary
+  setTimeout(() => summary.scrollIntoView({ behavior: 'smooth', block: 'start' }), 200);
+}
+
+// ══════════════════════════════════════════
+//  FEEDBACK RENDERER
+// ══════════════════════════════════════════
+function showFeedback(el, correct, head, body, why, clue) {
+  el.className = 'feedback show ' + (correct ? 'fb-correct' : 'fb-wrong');
+  if (correct) {
+    el.innerHTML = `<div class="fb-correct-head">${head}</div><div class="fb-text">${body}</div>`;
+  } else {
+    el.innerHTML = `
+      <div class="fb-wrong-opener">${head}</div>
+      ${why  ? `<div class="fb-section">🔎 Why that doesn't work scientifically:</div><div class="fb-text">${why}</div>` : ''}
+      ${clue ? `<div class="fb-section">📍 Clue:</div><div class="fb-text">${clue}</div>` : ''}
+      <div class="fb-section">📲 Reminder:</div>
+      <div class="fb-text">Your Scavenger Hunt link is earlier on today's Classkick assignment!</div>
+    `;
+  }
+}
+
+// ══════════════════════════════════════════
+//  EXIT TICKET
+// ══════════════════════════════════════════
+function confirmTicket() {
+  const name   = document.getElementById('student-name').value.trim();
+  const period = document.getElementById('student-period').value;
+  const err    = document.getElementById('ticket-error');
+
+  if (!name || !period) {
+    err.style.display = 'block';
+    return;
+  }
+  err.style.display = 'none';
+
+  // Generate passcode based on score + name initials + timestamp
+  const initials = name.split(' ').map(w => w[0] ? w[0].toUpperCase() : '').join('');
+  const now = new Date();
+  const mins = String(now.getMinutes()).padStart(2,'0');
+  const hrs  = String(now.getHours()).padStart(2,'0');
+  const code = `${initials}${scoreCount}${hrs}${mins}`;
+
+  const timeStr = now.toLocaleString('en-US', {
+    weekday:'short', month:'short', day:'numeric',
+    year:'numeric', hour:'numeric', minute:'2-digit'
+  });
+
+  document.getElementById('t-name').textContent   = '👤 ' + name;
+  document.getElementById('t-period').textContent = '🕐 ' + period;
+  document.getElementById('t-score').textContent  = '⭐ Score: ' + scoreCount + ' / ' + TOTAL;
+  document.getElementById('t-code').textContent   = code;
+  document.getElementById('t-time').textContent   = '🕓 ' + timeStr;
+
+  document.getElementById('confirmed-ticket').style.display = 'block';
+  document.getElementById('confirmed-ticket').scrollIntoView({ behavior:'smooth', block:'center' });
+}
+
+// ══════════════════════════════════════════
+//  INIT — build word banks on load
+// ══════════════════════════════════════════
+window.addEventListener('DOMContentLoaded', () => {
+  buildWordBank(6, Q6_ANSWERS);
+  buildWordBank(9, Q9_ANSWERS);
+});
+</script>
+</body>
+</html>
