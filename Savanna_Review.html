@@ -1,0 +1,1263 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Savanna Scavenger Hunt Review 🦁</title>
+<link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@400;600;800&family=Nunito:wght@400;600;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --sun: #F5A623;
+    --grass: #7CB518;
+    --soil: #C2703A;
+    --sky: #EAD99F;
+    --bark: #8B5E3C;
+    --dusk: #E8700A;
+    --night: #2D1B0E;
+    --cream: #FDF6E3;
+    --correct: #5A9E3B;
+    --wrong: #C0392B;
+    --card-bg: #FFFDF5;
+    --shadow: 0 4px 18px rgba(45,27,14,0.13);
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    font-family: 'Nunito', sans-serif;
+    background: linear-gradient(160deg, #F7E9C5 0%, #EDD9A3 40%, #D4A96A 100%);
+    min-height: 100vh;
+    color: var(--night);
+  }
+
+  /* STICKY PROGRESS BAR */
+  #progress-bar-wrap {
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    background: var(--bark);
+    padding: 10px 20px;
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    box-shadow: 0 3px 12px rgba(0,0,0,0.25);
+  }
+  #progress-bar-wrap .pb-label {
+    color: #FFF8EC;
+    font-family: 'Baloo 2', cursive;
+    font-weight: 800;
+    font-size: 0.95rem;
+    white-space: nowrap;
+  }
+  #progress-track {
+    flex: 1;
+    height: 18px;
+    background: #5A3820;
+    border-radius: 99px;
+    overflow: hidden;
+    border: 2px solid #7A4E30;
+  }
+  #progress-fill {
+    height: 100%;
+    width: 0%;
+    background: linear-gradient(90deg, var(--grass), var(--sun));
+    border-radius: 99px;
+    transition: width 0.5s cubic-bezier(.4,2,.6,1);
+  }
+  #progress-count {
+    color: var(--sun);
+    font-family: 'Baloo 2', cursive;
+    font-weight: 800;
+    font-size: 1rem;
+    white-space: nowrap;
+  }
+
+  /* HERO */
+  .hero {
+    text-align: center;
+    padding: 48px 20px 28px;
+  }
+  .hero-emoji { font-size: 3.5rem; display: block; margin-bottom: 10px; }
+  .hero h1 {
+    font-family: 'Baloo 2', cursive;
+    font-size: 2.4rem;
+    font-weight: 800;
+    color: var(--bark);
+    text-shadow: 2px 2px 0 #FFF0CC;
+    line-height: 1.1;
+  }
+  .hero p {
+    margin-top: 10px;
+    font-size: 1.05rem;
+    color: #6B4226;
+    max-width: 540px;
+    margin-left: auto;
+    margin-right: auto;
+    line-height: 1.5;
+  }
+  .threshold-note {
+    display: inline-block;
+    margin-top: 14px;
+    background: var(--bark);
+    color: #FFF8EC;
+    padding: 6px 18px;
+    border-radius: 99px;
+    font-family: 'Baloo 2', cursive;
+    font-weight: 700;
+    font-size: 0.95rem;
+  }
+
+  /* STATION HEADER */
+  .station-header {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin: 36px 0 8px;
+    padding: 0 4px;
+  }
+  .station-header h2 {
+    font-family: 'Baloo 2', cursive;
+    font-weight: 800;
+    font-size: 1.25rem;
+    color: var(--bark);
+  }
+  .station-line {
+    flex: 1;
+    height: 3px;
+    background: linear-gradient(90deg, var(--soil), transparent);
+    border-radius: 2px;
+  }
+
+  /* QUESTION CARD */
+  .q-card {
+    background: var(--card-bg);
+    border-radius: 18px;
+    box-shadow: var(--shadow);
+    padding: 22px 24px;
+    margin-bottom: 18px;
+    border-left: 6px solid var(--sun);
+    transition: transform 0.15s;
+    position: relative;
+  }
+  .q-card.answered-correct { border-left-color: var(--correct); background: #F4FBF0; }
+  .q-card.answered-wrong { border-left-color: var(--wrong); background: #FFF5F5; }
+
+  .q-num {
+    font-family: 'Baloo 2', cursive;
+    font-size: 0.8rem;
+    font-weight: 700;
+    color: var(--dusk);
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    margin-bottom: 6px;
+  }
+  .q-text {
+    font-size: 1.08rem;
+    font-weight: 600;
+    color: var(--night);
+    line-height: 1.45;
+    margin-bottom: 16px;
+  }
+
+  /* MC / TF OPTIONS */
+  .options { display: flex; flex-direction: column; gap: 9px; }
+  .opt-btn {
+    background: #FFF8EC;
+    border: 2px solid #E8D5A3;
+    border-radius: 12px;
+    padding: 10px 16px;
+    font-family: 'Nunito', sans-serif;
+    font-size: 0.97rem;
+    font-weight: 600;
+    color: var(--night);
+    cursor: pointer;
+    text-align: left;
+    transition: all 0.15s;
+  }
+  .opt-btn:hover:not(:disabled) {
+    background: #FFF0CC;
+    border-color: var(--sun);
+    transform: translateX(3px);
+  }
+  .opt-btn.selected-correct {
+    background: #E8F7E2;
+    border-color: var(--correct);
+    color: #2D6A1F;
+  }
+  .opt-btn.selected-wrong {
+    background: #FDECEA;
+    border-color: var(--wrong);
+    color: var(--wrong);
+  }
+  .opt-btn:disabled { cursor: default; }
+
+  /* FEEDBACK */
+  .feedback {
+    margin-top: 14px;
+    border-radius: 12px;
+    padding: 14px 16px;
+    font-size: 0.95rem;
+    line-height: 1.55;
+    display: none;
+  }
+  .feedback.show { display: block; }
+  .feedback.correct-fb {
+    background: #E8F7E2;
+    border: 2px solid #7DC55F;
+    color: #1E5C0F;
+  }
+  .feedback.wrong-fb {
+    background: #FFF3F2;
+    border: 2px solid #E8A09A;
+    color: #7A1F1F;
+  }
+  .feedback .fb-opener { font-weight: 800; font-size: 1.05rem; margin-bottom: 6px; }
+  .feedback .fb-why { margin-top: 8px; }
+  .feedback .fb-why strong { color: var(--wrong); }
+  .feedback .fb-clue { margin-top: 8px; background: #FFF8EC; border-radius: 8px; padding: 8px 12px; font-size: 0.9rem; color: #5A3820; }
+  .feedback .fb-link { margin-top: 6px; font-size: 0.88rem; color: var(--bark); font-style: italic; }
+  .feedback .fb-funfact { font-weight: 700; margin-bottom: 4px; }
+
+  /* DRAG AND DROP */
+  .drag-container { display: flex; flex-direction: column; gap: 16px; }
+  .word-bank {
+    display: flex; flex-wrap: wrap; gap: 8px;
+    padding: 12px;
+    background: #FFF8E8;
+    border-radius: 12px;
+    border: 2px dashed #D4A96A;
+    min-height: 52px;
+  }
+  .word-bank-label, .drop-zones-label {
+    font-size: 0.82rem;
+    font-weight: 700;
+    color: var(--soil);
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    margin-bottom: 4px;
+  }
+  .drag-chip {
+    background: var(--bark);
+    color: #FFF8EC;
+    padding: 6px 14px;
+    border-radius: 99px;
+    font-size: 0.9rem;
+    font-weight: 700;
+    cursor: grab;
+    user-select: none;
+    transition: transform 0.1s, box-shadow 0.1s;
+    touch-action: none;
+  }
+  .drag-chip:active { transform: scale(1.07); box-shadow: 0 4px 14px rgba(0,0,0,0.2); }
+  .drag-chip.dragging { opacity: 0.45; }
+
+  .drop-zones { display: flex; flex-direction: column; gap: 8px; }
+  .drop-row {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+  .drop-label {
+    flex: 1;
+    font-size: 0.95rem;
+    font-weight: 600;
+    color: var(--night);
+    line-height: 1.35;
+  }
+  .drop-zone {
+    min-width: 140px;
+    min-height: 38px;
+    background: #FFF8EC;
+    border: 2px dashed #D4A96A;
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 4px 8px;
+    transition: background 0.15s, border-color 0.15s;
+    font-size: 0.88rem;
+    color: #B08A60;
+  }
+  .drop-zone.over { background: #FFF0CC; border-color: var(--sun); border-style: solid; }
+  .drop-zone.correct-zone { background: #E8F7E2; border-color: var(--correct); border-style: solid; color: #1E5C0F; font-weight: 700; }
+  .drop-zone.wrong-zone { background: #FDECEA; border-color: var(--wrong); border-style: solid; color: var(--wrong); font-weight: 700; }
+  .drop-zone .placed-chip { font-weight: 700; color: var(--bark); }
+
+  .check-match-btn {
+    align-self: flex-start;
+    margin-top: 4px;
+    background: var(--bark);
+    color: #FFF8EC;
+    border: none;
+    border-radius: 99px;
+    padding: 9px 22px;
+    font-family: 'Baloo 2', cursive;
+    font-weight: 700;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: background 0.15s, transform 0.1s;
+  }
+  .check-match-btn:hover { background: var(--dusk); transform: translateY(-1px); }
+  .check-match-btn:disabled { background: #C0A080; cursor: default; transform: none; }
+
+  /* MAIN CONTENT WRAP */
+  .content-wrap {
+    max-width: 720px;
+    margin: 0 auto;
+    padding: 0 18px 60px;
+  }
+
+  /* EXIT TICKET */
+  #exit-section {
+    display: none;
+    margin-top: 40px;
+  }
+  #exit-section.show { display: block; }
+  .exit-card {
+    background: var(--bark);
+    color: #FFF8EC;
+    border-radius: 22px;
+    padding: 30px 28px;
+    box-shadow: 0 8px 32px rgba(45,27,14,0.25);
+  }
+  .exit-card h2 {
+    font-family: 'Baloo 2', cursive;
+    font-size: 1.7rem;
+    font-weight: 800;
+    margin-bottom: 6px;
+  }
+  .exit-card p { font-size: 0.97rem; line-height: 1.5; opacity: 0.9; margin-bottom: 18px; }
+  .exit-input {
+    width: 100%;
+    padding: 11px 16px;
+    border-radius: 10px;
+    border: 2px solid #C2884A;
+    background: #FFF8EC;
+    font-family: 'Nunito', sans-serif;
+    font-size: 1rem;
+    color: var(--night);
+    margin-bottom: 12px;
+    outline: none;
+  }
+  .exit-input:focus { border-color: var(--sun); }
+  .period-grid {
+    display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 16px;
+  }
+  .period-btn {
+    background: #5A3820;
+    color: #FFF8EC;
+    border: 2px solid #8B5E3C;
+    border-radius: 99px;
+    padding: 6px 16px;
+    font-family: 'Baloo 2', cursive;
+    font-weight: 700;
+    cursor: pointer;
+    transition: all 0.15s;
+  }
+  .period-btn.selected { background: var(--sun); color: var(--night); border-color: var(--sun); }
+  .submit-ticket-btn {
+    background: var(--sun);
+    color: var(--night);
+    border: none;
+    border-radius: 99px;
+    padding: 12px 30px;
+    font-family: 'Baloo 2', cursive;
+    font-weight: 800;
+    font-size: 1.1rem;
+    cursor: pointer;
+    transition: transform 0.15s, box-shadow 0.15s;
+    box-shadow: 0 4px 16px rgba(245,166,35,0.35);
+  }
+  .submit-ticket-btn:hover { transform: translateY(-2px); box-shadow: 0 6px 22px rgba(245,166,35,0.45); }
+  .exit-error { color: #FFD580; font-size: 0.9rem; margin-top: 8px; display: none; }
+
+  /* CONFIRMED TICKET */
+  #confirmed-ticket {
+    display: none;
+    margin-top: 18px;
+    background: linear-gradient(135deg, #FFF8EC, #FFF0CC);
+    border: 3px solid var(--sun);
+    border-radius: 18px;
+    padding: 26px 24px;
+    text-align: center;
+    box-shadow: 0 4px 24px rgba(245,166,35,0.25);
+  }
+  #confirmed-ticket.show { display: block; }
+  #confirmed-ticket .ticket-title {
+    font-family: 'Baloo 2', cursive;
+    font-size: 1.5rem;
+    font-weight: 800;
+    color: var(--bark);
+    margin-bottom: 14px;
+  }
+  #confirmed-ticket .ticket-row {
+    display: flex;
+    justify-content: space-between;
+    padding: 7px 0;
+    border-bottom: 1px solid #E8D5A3;
+    font-size: 0.97rem;
+    color: var(--night);
+  }
+  #confirmed-ticket .ticket-row:last-of-type { border-bottom: none; }
+  #confirmed-ticket .ticket-row .label { font-weight: 700; color: var(--soil); }
+  #confirmed-ticket .ticket-row .value { font-weight: 600; }
+  #confirmed-ticket .passcode {
+    margin-top: 16px;
+    background: var(--bark);
+    color: var(--sun);
+    border-radius: 12px;
+    padding: 10px 16px;
+    font-family: 'Baloo 2', cursive;
+    font-size: 1.4rem;
+    font-weight: 800;
+    letter-spacing: 0.12em;
+  }
+  #confirmed-ticket .screenshot-note {
+    margin-top: 12px;
+    font-size: 0.88rem;
+    color: var(--soil);
+    font-style: italic;
+  }
+
+  /* NOT YET SECTION */
+  #not-yet-section { display: none; margin-top: 30px; }
+  #not-yet-section.show { display: block; }
+  .not-yet-card {
+    background: #FFF3E0;
+    border: 3px solid var(--soil);
+    border-radius: 18px;
+    padding: 26px 24px;
+    text-align: center;
+  }
+  .not-yet-card h2 {
+    font-family: 'Baloo 2', cursive;
+    font-size: 1.4rem;
+    color: var(--bark);
+    margin-bottom: 10px;
+  }
+  .not-yet-card p { color: #6B4226; font-size: 0.97rem; line-height: 1.5; }
+
+  .attempts-left { font-size: 0.82rem; color: var(--soil); margin-top: 8px; font-style: italic; }
+
+  .q-location {
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+    background: #FFF0CC;
+    border: 1.5px solid #D4A96A;
+    border-radius: 8px;
+    padding: 4px 10px;
+    font-size: 0.82rem;
+    font-weight: 700;
+    color: #7A4A1E;
+    margin-bottom: 14px;
+  }
+  .q-location span { opacity: 0.75; font-weight: 600; }
+
+  @media (max-width: 500px) {
+    .hero h1 { font-size: 1.7rem; }
+    .drop-row { flex-direction: column; align-items: flex-start; }
+    .drop-zone { min-width: 100%; }
+  }
+</style>
+</head>
+<body>
+
+<!-- STICKY PROGRESS BAR -->
+<div id="progress-bar-wrap">
+  <span class="pb-label">🦁 Progress</span>
+  <div id="progress-track"><div id="progress-fill"></div></div>
+  <span id="progress-count">0 / 18</span>
+</div>
+
+<!-- HERO -->
+<div class="hero">
+  <span class="hero-emoji">🌾</span>
+  <h1>Savanna Scavenger Hunt Review</h1>
+  <p>Answer questions about what you explored in the virtual savanna. Use what you found in the scavenger hunt and what you read in the lesson!</p>
+  <span class="threshold-note">🎟️ Get 14 out of 18 correct to earn your exit ticket</span>
+</div>
+
+<div class="content-wrap">
+
+<!-- ===== STATION 1: Study Site 1 – Researchers at Work ===== -->
+<div class="station-header">
+  <h2>🐘 Station 1: Study Site 1 – Researchers at Work</h2>
+  <div class="station-line"></div>
+</div>
+
+<!-- Q1 -->
+<div class="q-card" id="qcard-1">
+  <div class="q-num">Question 1 · Multiple Choice</div>
+  <div class="q-text">Elephants only digest about 40% of what they eat. What does that mean for other animals in the savanna?</div>
+  <div class="q-location">📍 <span>Find it at:</span> Station 1 → Study Site 1 → <strong>Elephant Poop</strong> icon</div>
+  <div class="options">
+    <button class="opt-btn" onclick="checkMC(1, this, false, 'Elephants do eat a lot, but that\'s not why the dung is helpful. The KEY is that undigested food stays in the dung — making it a snack for others.', 'Station 1 → Elephant Poop icon')">Elephants eat so much that other animals go hungry.</button>
+    <button class="opt-btn" onclick="checkMC(1, this, true)">Their dung still has lots of nutrients that dung beetles and birds can eat.</button>
+    <button class="opt-btn" onclick="checkMC(1, this, false, 'The dung does NOT poison the soil. In fact, it adds nutrients! Decomposers break it down and fertilize the ground.', 'Station 1 → Elephant Poop icon')">Their dung poisons the soil so plants can\'t grow.</button>
+    <button class="opt-btn" onclick="checkMC(1, this, false, 'Dung beetles actually love this stuff — it\'s basically a buffet to them. No avoiding happening here!', 'Station 1 → Elephant Poop icon')">Other animals avoid the dung because it smells bad.</button>
+  </div>
+  <div class="feedback" id="fb-1"></div>
+  <div class="attempts-left" id="att-1">2 attempts remaining</div>
+</div>
+
+<!-- Q2 -->
+<div class="q-card" id="qcard-2">
+  <div class="q-num">Question 2 · True or False</div>
+  <div class="q-text">Scientists drill small holes in savanna trees to study the sugar stored inside. Trees store this sugar so they can grow back after being damaged.</div>
+  <div class="q-location">📍 <span>Find it at:</span> Station 1 → Study Site 1 → <strong>Tree Coring</strong> icon</div>
+  <div class="options">
+    <button class="opt-btn" onclick="checkMC(2, this, true)">True</button>
+    <button class="opt-btn" onclick="checkMC(2, this, false, 'It actually IS true! Tree coring lets scientists study how trees store energy — especially after big herbivores like elephants chew them up. Trees are basically carrying snacks for emergencies.', 'Station 1 → Tree Coring icon')">False</button>
+  </div>
+  <div class="feedback" id="fb-2"></div>
+  <div class="attempts-left" id="att-2">2 attempts remaining</div>
+</div>
+
+<!-- ===== STATION 2: Study Site 2 – The Electric Fence ===== -->
+<div class="station-header">
+  <h2>⚡ Station 2: Study Site 2 – The Electric Fence</h2>
+  <div class="station-line"></div>
+</div>
+
+<!-- Q3 -->
+<div class="q-card" id="qcard-3">
+  <div class="q-num">Question 3 · Multiple Choice</div>
+  <div class="q-text">Scientists built a special fence to keep out large animals like elephants and giraffes. Why did they do this?</div>
+  <div class="q-location">📍 <span>Find it at:</span> Station 2 → Study Site 2 → <strong>Megaherbivore Exclosure</strong> icon</div>
+  <div class="options">
+    <button class="opt-btn" onclick="checkMC(3, this, false, 'The fence wasn\'t about keeping animals safe from each other — it was about REMOVING grazers to see what happens to plants. Elephants and lions aren\'t really sharing snacks anyway.', 'Station 2 → Megaherbivore Exclosure icon')">To stop lions from eating the elephants inside.</button>
+    <button class="opt-btn" onclick="checkMC(3, this, false, 'Irrigation wasn\'t the goal here. The fence was about studying plant growth WITHOUT large grazers, not about watering anything.', 'Station 2 → Megaherbivore Exclosure icon')">To keep water inside so plants could be irrigated.</button>
+    <button class="opt-btn" onclick="checkMC(3, this, true)">To study what plants look like when big grazers aren\'t eating them.</button>
+    <button class="opt-btn" onclick="checkMC(3, this, false, 'The fence had nothing to do with hiding animals. It was set up to test what happens to vegetation when large herbivores are removed.', 'Station 2 → Megaherbivore Exclosure icon')">To give small animals a safe place to hide from predators.</button>
+  </div>
+  <div class="feedback" id="fb-3"></div>
+  <div class="attempts-left" id="att-3">2 attempts remaining</div>
+</div>
+
+<!-- ===== STATION 3: Study Site 3 – The Ant Tree ===== -->
+<div class="station-header">
+  <h2>🐜 Station 3: Study Site 3 – The Ant Tree</h2>
+  <div class="station-line"></div>
+</div>
+
+<!-- Q4 -->
+<div class="q-card" id="qcard-4">
+  <div class="q-num">Question 4 · Multiple Choice</div>
+  <div class="q-text">Tiny ants live inside the tree's thorns and attack animals that try to eat the tree. The tree gives the ants food and shelter. What is this called?</div>
+  <div class="q-location">📍 <span>Find it at:</span> Station 3 → Study Site 3 → <strong>Ants on Tree Trunk</strong> icon</div>
+  <div class="options">
+    <button class="opt-btn" onclick="checkMC(4, this, false, 'Predation is when one organism eats another. Here, neither the tree nor the ants are eating each other — they\'re helping each other. That\'s a very different relationship!', 'Station 3 → Ants on Tree Trunk icon')">Predation</button>
+    <button class="opt-btn" onclick="checkMC(4, this, true)">Mutualism</button>
+    <button class="opt-btn" onclick="checkMC(4, this, false, 'Competition is when two species fight over the same resources. The ants and tree aren\'t competing — they\'re literally helping each other out. Total team players.', 'Station 3 → Ants on Tree Trunk icon')">Competition</button>
+    <button class="opt-btn" onclick="checkMC(4, this, false, 'Parasitism is when one organism benefits and the other is harmed. BOTH the tree and the ants benefit here — so this isn\'t parasitism. No one is getting hurt.', 'Station 3 → Ants on Tree Trunk icon')">Parasitism</button>
+  </div>
+  <div class="feedback" id="fb-4"></div>
+  <div class="attempts-left" id="att-4">2 attempts remaining</div>
+</div>
+
+<!-- Q5 -->
+<div class="q-card" id="qcard-5">
+  <div class="q-num">Question 5 · True or False</div>
+  <div class="q-text">When ants trim away new tree growth, it actually helps the tree grow bigger thorns and survive better.</div>
+  <div class="q-location">📍 <span>Find it at:</span> Station 3 → Study Site 3 → <strong>Thorns Everywhere</strong> icon</div>
+  <div class="options">
+    <button class="opt-btn" onclick="checkMC(5, this, true)">True</button>
+    <button class="opt-btn" onclick="checkMC(5, this, false, 'It IS true! This is a surprising one — ants pruning the tree triggers it to grow denser, bigger thorns. Those thorns then protect it from elephants and fire. Ants are basically the tree\'s personal bodyguards.', 'Station 3 → Thorns Everywhere icon')">False</button>
+  </div>
+  <div class="feedback" id="fb-5"></div>
+  <div class="attempts-left" id="att-5">2 attempts remaining</div>
+</div>
+
+<!-- ===== STATION 4–5: Animal Stops – Ostrich & Zebras ===== -->
+<div class="station-header">
+  <h2>🦓 Station 4–5: Animal Stops – Ostrich &amp; Zebras</h2>
+  <div class="station-line"></div>
+</div>
+
+<!-- Q6 -->
+<div class="q-card" id="qcard-6">
+  <div class="q-num">Question 6 · Multiple Choice</div>
+  <div class="q-text">Ostriches can't fly. How do they escape from predators like lions?</div>
+  <div class="q-location">📍 <span>Find it at:</span> Station 4 → Animal Stop 1 → <strong>Common Ostrich</strong> icon</div>
+  <div class="options">
+    <button class="opt-btn" onclick="checkMC(6, this, false, 'Ostriches don\'t dig tunnels — that\'s meerkats! Ostriches use their powerful legs in a totally different way to deal with danger.', 'Station 4 → Common Ostrich icon')">They dig tunnels and hide underground.</button>
+    <button class="opt-btn" onclick="checkMC(6, this, false, 'Ostriches don\'t camouflage well — they\'re huge birds that are hard to miss! Their survival strategy is about speed and kicking, not blending in.', 'Station 4 → Common Ostrich icon')">They camouflage themselves in tall grass.</button>
+    <button class="opt-btn" onclick="checkMC(6, this, true)">They run up to 40 mph and can kick predators hard.</button>
+    <button class="opt-btn" onclick="checkMC(6, this, false, 'Ostriches aren\'t known for teamwork defense. They rely on their own speed and powerful legs — not group protection strategies.', 'Station 4 → Common Ostrich icon')">They call other animals to help protect them.</button>
+  </div>
+  <div class="feedback" id="fb-6"></div>
+  <div class="attempts-left" id="att-6">2 attempts remaining</div>
+</div>
+
+<!-- Q7 -->
+<div class="q-card" id="qcard-7">
+  <div class="q-num">Question 7 · Multiple Choice</div>
+  <div class="q-text">A long drought hits the savanna. Zebras start dying from lack of water. Who ELSE is affected — and why?</div>
+  <div class="q-location">📍 <span>Find it at:</span> Station 5 → Animal Stop 2 → <strong>Beth Talking</strong> scientist icon</div>
+  <div class="options">
+    <button class="opt-btn" onclick="checkMC(7, this, false, 'Fish live in water, not the savanna — and they wouldn\'t eat zebras anyway. Think about what animals in the savanna depend on zebras for food or share their habitat.', 'Station 5 → Beth Talking icon')">Fish in the nearby river, because they drink the same water.</button>
+    <button class="opt-btn" onclick="checkMC(7, this, true)">Predators like lions and hyenas, because they lose a food source.</button>
+    <button class="opt-btn" onclick="checkMC(7, this, false, 'Trees don\'t eat zebras! Trees are affected by drought through lack of water, not through the food web. The bigger concern is the animals that depend on zebras as prey.', 'Station 5 → Beth Talking icon')">Savanna trees, because they ate the zebras\' nutrients.</button>
+    <button class="opt-btn" onclick="checkMC(7, this, false, 'The drought affects many species, not just zebras. Predators that eat zebras lose a key food source — which ripples through the entire food web.', 'Station 5 → Beth Talking icon')">Only the zebras are affected; other animals find different food.</button>
+  </div>
+  <div class="feedback" id="fb-7"></div>
+  <div class="attempts-left" id="att-7">2 attempts remaining</div>
+</div>
+
+<!-- ===== STATION 6: Animal Stop 3 – Giraffes ===== -->
+<div class="station-header">
+  <h2>🦒 Station 6: Animal Stop 3 – Giraffes</h2>
+  <div class="station-line"></div>
+</div>
+
+<!-- Q8 DRAG AND DROP -->
+<div class="q-card" id="qcard-8">
+  <div class="q-num">Question 8 · Drag-and-Drop Matching</div>
+  <div class="q-text">Match each description to the correct term. Drag the words into the right boxes!</div>
+  <div class="q-location">📍 <span>Find it at:</span> Station 6 → Animal Stop 3 → <strong>Grasses</strong> icon &amp; <strong>Time of Year – Weather</strong> icon</div>
+  <div class="drag-container">
+    <div class="word-bank-label">Word Bank — drag these:</div>
+    <div class="word-bank" id="wb-8"></div>
+    <div class="drop-zones-label">Drop zones:</div>
+    <div class="drop-zones" id="dz-8">
+      <div class="drop-row">
+        <div class="drop-label">Non-living things like rainfall, soil, and fire that control savanna plant life</div>
+        <div class="drop-zone" id="dz-8-0" data-answer="Abiotic factors" ondragover="dzOver(event)" ondrop="dzDrop(event,'8',0)" ondragleave="dzLeave(event)"><span class="drop-placeholder">Drop here</span></div>
+      </div>
+      <div class="drop-row">
+        <div class="drop-label">Living things like grazing animals that affect what plants grow in the savanna</div>
+        <div class="drop-zone" id="dz-8-1" data-answer="Biotic factors" ondragover="dzOver(event)" ondrop="dzDrop(event,'8',1)" ondragleave="dzLeave(event)"><span class="drop-placeholder">Drop here</span></div>
+      </div>
+      <div class="drop-row">
+        <div class="drop-label">The animals that graze on savanna grasses and keep them from getting too tall</div>
+        <div class="drop-zone" id="dz-8-2" data-answer="Herbivores" ondragover="dzOver(event)" ondrop="dzDrop(event,'8',2)" ondragleave="dzLeave(event)"><span class="drop-placeholder">Drop here</span></div>
+      </div>
+      <div class="drop-row">
+        <div class="drop-label">After April and May rains, grasses turn green and animals breed — rain acts as this</div>
+        <div class="drop-zone" id="dz-8-3" data-answer="Abiotic trigger" ondragover="dzOver(event)" ondrop="dzDrop(event,'8',3)" ondragleave="dzLeave(event)"><span class="drop-placeholder">Drop here</span></div>
+      </div>
+    </div>
+    <button class="check-match-btn" id="check-8" onclick="checkDrag('8')">Check My Answers</button>
+  </div>
+  <div class="feedback" id="fb-8"></div>
+  <div class="attempts-left" id="att-8">2 attempts remaining</div>
+</div>
+
+<!-- ===== STATION 7: Animal Stop 4 – Hyena ===== -->
+<div class="station-header">
+  <h2>🌙 Station 7: Animal Stop 4 – Hyena</h2>
+  <div class="station-line"></div>
+</div>
+
+<!-- Q9 -->
+<div class="q-card" id="qcard-9">
+  <div class="q-num">Question 9 · Multiple Choice</div>
+  <div class="q-text">Spotted hyenas hunt mostly at night. What abiotic factor causes this behavior?</div>
+  <div class="q-location">📍 <span>Find it at:</span> Station 7 → Animal Stop 4 → <strong>Hyena</strong> icon</div>
+  <div class="options">
+    <button class="opt-btn" onclick="checkMC(9, this, false, 'The moon doesn\'t directly cause the behavior — it\'s actually the TEMPERATURE change at night that matters. Cooler air makes hunting easier for hyenas.', 'Station 7 → Hyena icon')">The light from the moon helps them see better.</button>
+    <button class="opt-btn" onclick="checkMC(9, this, true)">Temperature — it\'s cooler at night, making it easier to be active.</button>
+    <button class="opt-btn" onclick="checkMC(9, this, false, 'Rain isn\'t the trigger here. Hyenas hunt at night because of temperature, not precipitation. The savanna doesn\'t even get much rain during the dry season when hunting is hardest.', 'Station 7 → Hyena icon')">Rain — it rains more at night in the savanna.</button>
+    <button class="opt-btn" onclick="checkMC(9, this, false, 'Soil doesn\'t influence when hyenas hunt. Temperature is the abiotic factor that makes nighttime better for staying active — the savanna is scorching during the day!', 'Station 7 → Hyena icon')">Soil — certain soils are softer at night for running.</button>
+  </div>
+  <div class="feedback" id="fb-9"></div>
+  <div class="attempts-left" id="att-9">2 attempts remaining</div>
+</div>
+
+<!-- ===== STATION 8: Animal Stop 5 – Elephant Mother and Baby ===== -->
+<div class="station-header">
+  <h2>👶🐘 Station 8: Elephant Mother and Baby</h2>
+  <div class="station-line"></div>
+</div>
+
+<!-- Q10 -->
+<div class="q-card" id="qcard-10">
+  <div class="q-num">Question 10 · True or False</div>
+  <div class="q-text">Elephant calves are raised by the whole social group for many years. Living and communicating in groups is a behavioral adaptation.</div>
+  <div class="q-location">📍 <span>Find it at:</span> Station 8 → Animal Stop 5 → <strong>Elephant Mother and Baby</strong> icon</div>
+  <div class="options">
+    <button class="opt-btn" onclick="checkMC(10, this, true)">True</button>
+    <button class="opt-btn" onclick="checkMC(10, this, false, 'It IS true! Elephant moms are pregnant for almost 2 years, and then the whole herd helps raise the baby. That group behavior — including communication through rumbles and calls — is what makes elephants such great survivors.', 'Station 8 → Elephant Mother and Baby icon')">False</button>
+  </div>
+  <div class="feedback" id="fb-10"></div>
+  <div class="attempts-left" id="att-10">2 attempts remaining</div>
+</div>
+
+<!-- ===== STATION 9: Animal Stop 6 – Watering Hole ===== -->
+<div class="station-header">
+  <h2>💧 Station 9: Animal Stop 6 – Watering Hole</h2>
+  <div class="station-line"></div>
+</div>
+
+<!-- Q11 -->
+<div class="q-card" id="qcard-11">
+  <div class="q-num">Question 11 · Multiple Choice</div>
+  <div class="q-text">The savanna's red soil has very few nutrients. But in spots where livestock were kept overnight, plants grow much thicker today. Why?</div>
+  <div class="q-location">📍 <span>Find it at:</span> Station 9 → Animal Stop 6 → <strong>Red Soil</strong> icon</div>
+  <div class="options">
+    <button class="opt-btn" onclick="checkMC(11, this, false, 'The livestock didn\'t water the plants — they changed the SOIL. Their waste left behind nutrients that fertilized the ground, making it richer and supporting more plant growth.', 'Station 9 → Red Soil icon')">The livestock watered the plants every day.</button>
+    <button class="opt-btn" onclick="checkMC(11, this, false, 'The livestock actually left the area — but their waste stayed behind and fertilized the soil. The thicker plant growth is a long-lasting effect of that nutrient boost.', 'Station 9 → Red Soil icon')">The livestock ate all the plants so new ones grew faster.</button>
+    <button class="opt-btn" onclick="checkMC(11, this, true)">Their waste added nutrients to the soil, making it richer for plants.</button>
+    <button class="opt-btn" onclick="checkMC(11, this, false, 'Livestock hooves would actually compact soil, not loosen it. The real reason is the nutrient boost from their waste — turning poor red soil into a plant paradise.', 'Station 9 → Red Soil icon')">Their hooves loosened the soil so roots could grow deeper.</button>
+  </div>
+  <div class="feedback" id="fb-11"></div>
+  <div class="attempts-left" id="att-11">2 attempts remaining</div>
+</div>
+
+<!-- ===== STATION 10: Weaver Bird Tree ===== -->
+<div class="station-header">
+  <h2>🐦 Station 10: Animal Stop 7 – Weaver Bird Tree</h2>
+  <div class="station-line"></div>
+</div>
+
+<!-- Q12 -->
+<div class="q-card" id="qcard-12">
+  <div class="q-num">Question 12 · Multiple Choice</div>
+  <div class="q-text">Weaver birds build their nests together in one tree. How does living in a colony help their eggs survive?</div>
+  <div class="q-location">📍 <span>Find it at:</span> Station 10 → Animal Stop 7 → <strong>Weaver Bird Nests</strong> icon</div>
+  <div class="options">
+    <button class="opt-btn" onclick="checkMC(12, this, true)">More birds guard the eggs, and predators get overwhelmed by the large number of nests.</button>
+    <button class="opt-btn" onclick="checkMC(12, this, false, 'The tree\'s thorns protect the tree itself from herbivores, but the BIRDS benefit from being in large numbers — overwhelming predators with sheer volume of nests and guards.', 'Station 10 → Weaver Bird Nests icon')">The tree\'s thorns keep all predators away from the nests.</button>
+    <button class="opt-btn" onclick="checkMC(12, this, false, 'Weaver birds don\'t share warmth this way. The survival advantage is about safety in numbers — more guards, more nests, and predators can\'t catch them all.', 'Station 10 → Weaver Bird Nests icon')">The birds share body warmth, keeping eggs from getting cold.</button>
+    <button class="opt-btn" onclick="checkMC(12, this, false, 'Weaver birds in colonies actually draw MORE attention, not less. But that\'s the strategy — with so many nests, predators can\'t possibly get all the eggs, so each individual egg is safer.', 'Station 10 → Weaver Bird Nests icon')">They hide the nests so predators can\'t find them at all.</button>
+  </div>
+  <div class="feedback" id="fb-12"></div>
+  <div class="attempts-left" id="att-12">2 attempts remaining</div>
+</div>
+
+<!-- ===== STATION 11–13: Research Stations ===== -->
+<div class="station-header">
+  <h2>🔬 Station 11–13: Research Stations</h2>
+  <div class="station-line"></div>
+</div>
+
+<!-- Q13 -->
+<div class="q-card" id="qcard-13">
+  <div class="q-num">Question 13 · Multiple Choice</div>
+  <div class="q-text">The leopard tortoise eats grass AND hyena poop. Why does it eat the hyena poop?</div>
+  <div class="q-location">📍 <span>Find it at:</span> Station 11 → Research Station 1 → <strong>Leopard Tortoise</strong> icon</div>
+  <div class="options">
+    <button class="opt-btn" onclick="checkMC(13, this, false, 'Hyenas and tortoises don\'t really hang out together that way. The tortoise eats the poop because of what\'s INSIDE it — bone fragments from the hyena\'s meals give the tortoise calcium for its shell.', 'Station 11 → Leopard Tortoise icon')">To scare away hyenas by eating their poop.</button>
+    <button class="opt-btn" onclick="checkMC(13, this, true)">The poop has bone fragments that give the tortoise calcium for its shell.</button>
+    <button class="opt-btn" onclick="checkMC(13, this, false, 'Hyena poop isn\'t fertile — the tortoise isn\'t using it as fertilizer. It\'s eating it for the bone fragments that give it the calcium needed to build and maintain its shell.', 'Station 11 → Leopard Tortoise icon')">To fertilize the soil so more grass grows for it to eat.</button>
+    <button class="opt-btn" onclick="checkMC(13, this, false, 'This isn\'t about hiding from predators. The poop contains bone fragments from the hyena\'s prey — and the tortoise needs those bones for the calcium that keeps its shell strong.', 'Station 11 → Leopard Tortoise icon')">To mark its territory so predators know to stay away.</button>
+  </div>
+  <div class="feedback" id="fb-13"></div>
+  <div class="attempts-left" id="att-13">2 attempts remaining</div>
+</div>
+
+<!-- Q14 DRAG AND DROP -->
+<div class="q-card" id="qcard-14">
+  <div class="q-num">Question 14 · Drag-and-Drop Matching</div>
+  <div class="q-text">Match each animal to its key survival adaptation from the scavenger hunt.</div>
+  <div class="q-location">📍 <span>Find it at:</span> Stations 12 &amp; 13 → <strong>Vulturine Guineafowl</strong>, <strong>Vervet Monkey</strong>, <strong>Acacia Etbaica Tree</strong> icons · Station 8 → <strong>Elephant Mother and Baby</strong> icon</div>
+  <div class="drag-container">
+    <div class="word-bank-label">Word Bank — drag these:</div>
+    <div class="word-bank" id="wb-14"></div>
+    <div class="drop-zones-label">Drop zones:</div>
+    <div class="drop-zones" id="dz-14">
+      <div class="drop-row">
+        <div class="drop-label">Vervet Monkey — uses up to 33 different calls, each one warning about a specific predator</div>
+        <div class="drop-zone" id="dz-14-0" data-answer="Alarm calls" ondragover="dzOver(event)" ondrop="dzDrop(event,'14',0)" ondragleave="dzLeave(event)"><span class="drop-placeholder">Drop here</span></div>
+      </div>
+      <div class="drop-row">
+        <div class="drop-label">Vulturine Guineafowl — uses different sounds to signal "predator spotted" or "food here"</div>
+        <div class="drop-zone" id="dz-14-1" data-answer="Vocal signals" ondragover="dzOver(event)" ondrop="dzDrop(event,'14',1)" ondragleave="dzLeave(event)"><span class="drop-placeholder">Drop here</span></div>
+      </div>
+      <div class="drop-row">
+        <div class="drop-label">Acacia Tree — grows long, sharp spines to stop large herbivores from eating its leaves</div>
+        <div class="drop-zone" id="dz-14-2" data-answer="Physical spines" ondragover="dzOver(event)" ondrop="dzDrop(event,'14',2)" ondragleave="dzLeave(event)"><span class="drop-placeholder">Drop here</span></div>
+      </div>
+      <div class="drop-row">
+        <div class="drop-label">Elephant — lives and communicates in social groups to survive and raise young</div>
+        <div class="drop-zone" id="dz-14-3" data-answer="Social behavior" ondragover="dzOver(event)" ondrop="dzDrop(event,'14',3)" ondragleave="dzLeave(event)"><span class="drop-placeholder">Drop here</span></div>
+      </div>
+    </div>
+    <button class="check-match-btn" id="check-14" onclick="checkDrag('14')">Check My Answers</button>
+  </div>
+  <div class="feedback" id="fb-14"></div>
+  <div class="attempts-left" id="att-14">2 attempts remaining</div>
+</div>
+
+<!-- ===== BIG PICTURE QUESTIONS from Lesson ===== -->
+<div class="station-header">
+  <h2>🌍 Big Picture: Lesson Questions</h2>
+  <div class="station-line"></div>
+</div>
+
+<!-- Q15 -->
+<div class="q-card" id="qcard-15">
+  <div class="q-num">Question 15 · Multiple Choice</div>
+  <div class="q-text">What is the main job of fire in a savanna ecosystem?</div>
+  <div class="q-location">📍 <span>Find it at:</span> Lesson text → <strong>Fire Ecology</strong> section &amp; Biodiversity and Ecological Roles</div>
+  <div class="options">
+    <button class="opt-btn" onclick="checkMC(15, this, false, 'Fire actually does the opposite — it CLEARS old growth and opens up the area. It doesn\'t help trees take over. If fire was suppressed, trees would actually start to crowd out the grasses!', 'Lesson → Fire Ecology section')">Fire helps trees grow taller and take over the grassland.</button>
+    <button class="opt-btn" onclick="checkMC(15, this, false, 'Fire is actually important for savanna health — it\'s not purely harmful. When used correctly, it returns nutrients to the soil and helps fire-adapted plants regrow.', 'Lesson → Fire Ecology section')">Fire only destroys things and is always bad for the savanna.</button>
+    <button class="opt-btn" onclick="checkMC(15, this, true)">Fire clears old growth, returns nutrients to the soil, and helps new plants grow.</button>
+    <button class="opt-btn" onclick="checkMC(15, this, false, 'Fire doesn\'t create water — it removes old dead material and releases nutrients. Rain is what refills water sources, not fire!', 'Lesson → Fire Ecology section')">Fire creates new water sources for animals to drink from.</button>
+  </div>
+  <div class="feedback" id="fb-15"></div>
+  <div class="attempts-left" id="att-15">2 attempts remaining</div>
+</div>
+
+<!-- Q16 -->
+<div class="q-card" id="qcard-16">
+  <div class="q-num">Question 16 · True or False</div>
+  <div class="q-text">Savannas get more rainfall than deserts, which is why they can support large herds of animals and continuous grass cover.</div>
+  <div class="q-location">📍 <span>Find it at:</span> Lesson text → <strong>Key Differences</strong> section (Savanna vs. Desert)</div>
+  <div class="options">
+    <button class="opt-btn" onclick="checkMC(16, this, true)">True</button>
+    <button class="opt-btn" onclick="checkMC(16, this, false, 'This IS true! Savannas receive significantly more rain than deserts — that\'s what makes the difference. More rain = grass can grow all season = food for huge herds of herbivores. Deserts can\'t support that.', 'Lesson → Key Differences section')">False</button>
+  </div>
+  <div class="feedback" id="fb-16"></div>
+  <div class="attempts-left" id="att-16">2 attempts remaining</div>
+</div>
+
+<!-- Q17 DRAG AND DROP -->
+<div class="q-card" id="qcard-17">
+  <div class="q-num">Question 17 · Drag-and-Drop Matching</div>
+  <div class="q-text">Match each savanna organism to the role it plays in the ecosystem.</div>
+  <div class="q-location">📍 <span>Find it at:</span> Lesson text → <strong>Biodiversity and Ecological Roles</strong> section</div>
+  <div class="drag-container">
+    <div class="word-bank-label">Word Bank — drag these:</div>
+    <div class="word-bank" id="wb-17"></div>
+    <div class="drop-zones-label">Drop zones:</div>
+    <div class="drop-zones" id="dz-17">
+      <div class="drop-row">
+        <div class="drop-label">Grasses — stabilize soil, store carbon, and provide food for plant-eaters</div>
+        <div class="drop-zone" id="dz-17-0" data-answer="Producers" ondragover="dzOver(event)" ondrop="dzDrop(event,'17',0)" ondragleave="dzLeave(event)"><span class="drop-placeholder">Drop here</span></div>
+      </div>
+      <div class="drop-row">
+        <div class="drop-label">Lions and hyenas — keep herbivore populations balanced so there's no overgrazing</div>
+        <div class="drop-zone" id="dz-17-1" data-answer="Predators" ondragover="dzOver(event)" ondrop="dzDrop(event,'17',1)" ondragleave="dzLeave(event)"><span class="drop-placeholder">Drop here</span></div>
+      </div>
+      <div class="drop-row">
+        <div class="drop-label">Bacteria and fungi — break down dead material and return nutrients to the soil</div>
+        <div class="drop-zone" id="dz-17-2" data-answer="Decomposers" ondragover="dzOver(event)" ondrop="dzDrop(event,'17',2)" ondragleave="dzLeave(event)"><span class="drop-placeholder">Drop here</span></div>
+      </div>
+      <div class="drop-row">
+        <div class="drop-label">Elephants and zebras — influence plant growth through grazing and seed dispersal</div>
+        <div class="drop-zone" id="dz-17-3" data-answer="Herbivores" ondragover="dzOver(event)" ondrop="dzDrop(event,'17',3)" ondragleave="dzLeave(event)"><span class="drop-placeholder">Drop here</span></div>
+      </div>
+    </div>
+    <button class="check-match-btn" id="check-17" onclick="checkDrag('17')">Check My Answers</button>
+  </div>
+  <div class="feedback" id="fb-17"></div>
+  <div class="attempts-left" id="att-17">2 attempts remaining</div>
+</div>
+
+<!-- Q18 -->
+<div class="q-card" id="qcard-18">
+  <div class="q-num">Question 18 · Multiple Choice</div>
+  <div class="q-text">Which of these is an example of a POSITIVE conservation action for savannas?</div>
+  <div class="q-location">📍 <span>Find it at:</span> Lesson text → <strong>Human Impact and Conservation</strong> section (Positive Actions)</div>
+  <div class="options">
+    <button class="opt-btn" onclick="checkMC(18, this, false, 'Banning ALL fire in savannas is actually harmful — fire is a natural and important part of the ecosystem. What helps is CONTROLLED burns that mimic natural fire patterns.', 'Lesson → Conservation section')">Banning all fires so plants are never burned.</button>
+    <button class="opt-btn" onclick="checkMC(18, this, false, 'Removing predators from protected areas would actually cause herbivore populations to explode, leading to overgrazing and ecosystem damage. Predators are essential!', 'Lesson → Conservation section')">Removing all predators from national parks so herbivores are safe.</button>
+    <button class="opt-btn" onclick="checkMC(18, this, false, 'Farming more land in savannas means habitat loss — one of the biggest THREATS to savannas. Conservation is about protecting habitat, not replacing it with farms.', 'Lesson → Conservation section')">Farming more land in savanna areas so people have food.</button>
+    <button class="opt-btn" onclick="checkMC(18, this, true)">Using controlled burns to mimic natural fire and protect native species.</button>
+  </div>
+  <div class="feedback" id="fb-18"></div>
+  <div class="attempts-left" id="att-18">2 attempts remaining</div>
+</div>
+
+<!-- NOT YET -->
+<div id="not-yet-section">
+  <div class="not-yet-card">
+    <h2>🦁 Not Quite There Yet!</h2>
+    <p>You got <strong id="not-yet-score"></strong> out of 18. You need at least 14 to earn an exit ticket. Review your answers, go back to the Scavenger Hunt link earlier in Classkick, and try to improve your score!</p>
+  </div>
+</div>
+
+<!-- EXIT TICKET -->
+<div id="exit-section">
+  <div class="exit-card">
+    <h2>🎟️ Exit Ticket Time!</h2>
+    <p>You hit the threshold — nice work out there on the savanna! Fill this out and show or screenshot it for your teacher.</p>
+    <input class="exit-input" id="student-name" type="text" placeholder="Your full name (First Last)" autocomplete="name">
+    <div style="color:#FFD580; font-size:0.9rem; margin-bottom:10px;">Select your class period:</div>
+    <div class="period-grid" id="period-grid">
+      <button class="period-btn" onclick="selectPeriod(this, '1st Period')">1st</button>
+      <button class="period-btn" onclick="selectPeriod(this, '2nd Period')">2nd</button>
+      <button class="period-btn" onclick="selectPeriod(this, '3rd Period')">3rd</button>
+      <button class="period-btn" onclick="selectPeriod(this, '4th Period')">4th</button>
+      <button class="period-btn" onclick="selectPeriod(this, '5th Period')">5th</button>
+      <button class="period-btn" onclick="selectPeriod(this, '6th Period')">6th</button>
+      <button class="period-btn" onclick="selectPeriod(this, '7th Period')">7th</button>
+    </div>
+    <button class="submit-ticket-btn" onclick="submitTicket()">🌾 Generate My Exit Ticket</button>
+    <div class="exit-error" id="exit-error">Please enter your full name and select your period!</div>
+  </div>
+
+  <div id="confirmed-ticket">
+    <div class="ticket-title">✅ Exit Ticket Confirmed! 🦁</div>
+    <div class="ticket-row"><span class="label">Student Name</span><span class="value" id="t-name"></span></div>
+    <div class="ticket-row"><span class="label">Period</span><span class="value" id="t-period"></span></div>
+    <div class="ticket-row"><span class="label">Score</span><span class="value" id="t-score"></span></div>
+    <div class="ticket-row"><span class="label">Date &amp; Time</span><span class="value" id="t-time"></span></div>
+    <div class="passcode" id="t-passcode"></div>
+    <div class="screenshot-note">📸 Screenshot this screen or show your teacher before you close the tab!</div>
+  </div>
+</div>
+
+</div><!-- end content-wrap -->
+
+<script>
+// ===================== STATE =====================
+const totalQ = 18;
+const threshold = 14;
+let correctCount = 0;
+let attempts = {}; // qId -> attemptsUsed
+let answered = {}; // qId -> true/false (correct?)
+let selectedPeriod = '';
+
+// Drag state
+let draggedChip = null;
+let draggedFrom = null; // 'wb' or dzId
+
+// ===================== DRAG SETUP =====================
+const dragData = {
+  '8': ['Abiotic factors', 'Biotic factors', 'Herbivores', 'Abiotic trigger'],
+  '14': ['Alarm calls', 'Vocal signals', 'Physical spines', 'Social behavior'],
+  '17': ['Producers', 'Predators', 'Decomposers', 'Herbivores']
+};
+
+function shuffle(arr) {
+  const a = [...arr];
+  for (let i = a.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [a[i], a[j]] = [a[j], a[i]];
+  }
+  return a;
+}
+
+function buildWordBank(qId) {
+  const wb = document.getElementById('wb-' + qId);
+  const words = shuffle(dragData[qId]);
+  words.forEach(word => {
+    const chip = document.createElement('div');
+    chip.className = 'drag-chip';
+    chip.textContent = word;
+    chip.draggable = true;
+    chip.dataset.word = word;
+    chip.dataset.source = 'wb-' + qId;
+    chip.addEventListener('dragstart', e => {
+      draggedChip = chip;
+      draggedFrom = 'wb';
+      chip.classList.add('dragging');
+      e.dataTransfer.effectAllowed = 'move';
+    });
+    chip.addEventListener('dragend', () => chip.classList.remove('dragging'));
+    // Touch support
+    addTouchDrag(chip, qId);
+    wb.appendChild(chip);
+  });
+}
+
+function addTouchDrag(chip, qId) {
+  let startX, startY, clone;
+  chip.addEventListener('touchstart', e => {
+    const t = e.touches[0];
+    startX = t.clientX; startY = t.clientY;
+    clone = chip.cloneNode(true);
+    clone.style.cssText = `position:fixed;opacity:0.8;pointer-events:none;z-index:9999;top:${t.clientY-20}px;left:${t.clientX-40}px;`;
+    document.body.appendChild(clone);
+    draggedChip = chip;
+  }, {passive: true});
+  chip.addEventListener('touchmove', e => {
+    e.preventDefault();
+    const t = e.touches[0];
+    if (clone) { clone.style.top = (t.clientY - 20) + 'px'; clone.style.left = (t.clientX - 40) + 'px'; }
+  }, {passive: false});
+  chip.addEventListener('touchend', e => {
+    if (clone) { clone.remove(); clone = null; }
+    const t = e.changedTouches[0];
+    const el = document.elementFromPoint(t.clientX, t.clientY);
+    const dz = el?.closest?.('.drop-zone');
+    if (dz) {
+      const qid = dz.id.split('-')[1];
+      const idx = parseInt(dz.id.split('-')[2]);
+      performDrop(qid, idx, dz);
+    }
+    draggedChip = null;
+  });
+}
+
+function dzOver(e) { e.preventDefault(); e.currentTarget.classList.add('over'); }
+function dzLeave(e) { e.currentTarget.classList.remove('over'); }
+function dzDrop(e, qId, idx) {
+  e.preventDefault();
+  const dz = document.getElementById('dz-' + qId + '-' + idx);
+  dz.classList.remove('over');
+  performDrop(qId, idx, dz);
+}
+
+function performDrop(qId, idx, dz) {
+  if (!draggedChip) return;
+  // If zone already has a chip, return it to word bank
+  const existing = dz.querySelector('.drag-chip');
+  if (existing) {
+    document.getElementById('wb-' + qId).appendChild(existing);
+  }
+  dz.innerHTML = '';
+  const placed = draggedChip.cloneNode(true);
+  placed.classList.remove('dragging');
+  placed.draggable = true;
+  placed.dataset.word = draggedChip.dataset.word;
+  placed.addEventListener('dragstart', e => {
+    draggedChip = placed;
+    draggedFrom = 'dz';
+    placed.classList.add('dragging');
+    e.dataTransfer.effectAllowed = 'move';
+  });
+  placed.addEventListener('dragend', e => {
+    placed.classList.remove('dragging');
+    // If dropped outside a zone, send back to wb
+    setTimeout(() => {
+      if (placed.parentElement && placed.parentElement.classList.contains('drop-zone')) return;
+      // already moved somewhere
+    }, 50);
+  });
+  addTouchDrag(placed, qId);
+  dz.appendChild(placed);
+  // Remove from source
+  draggedChip.remove();
+  draggedChip = null;
+}
+
+function checkDrag(qId) {
+  if (answered[qId]) return;
+  if (!attempts[qId]) attempts[qId] = 0;
+  attempts[qId]++;
+
+  let allCorrect = true;
+  const zones = document.querySelectorAll('#dz-' + qId + ' .drop-zone');
+  zones.forEach(dz => {
+    const placed = dz.querySelector('.drag-chip');
+    const expected = dz.dataset.answer;
+    if (!placed || placed.dataset.word !== expected) allCorrect = false;
+  });
+
+  if (allCorrect) {
+    zones.forEach(dz => dz.classList.add('correct-zone'));
+    document.getElementById('check-' + qId).disabled = true;
+    answered[qId] = true;
+    correctCount++;
+    updateProgress();
+    showFeedback(qId, true);
+    document.getElementById('qcard-' + qId).classList.add('answered-correct');
+    checkFinished();
+  } else {
+    if (attempts[qId] >= 2) {
+      // Reveal correct
+      zones.forEach(dz => {
+        const placed = dz.querySelector('.drag-chip');
+        if (placed && placed.dataset.word === dz.dataset.answer) {
+          dz.classList.add('correct-zone');
+        } else {
+          dz.classList.add('wrong-zone');
+        }
+      });
+      document.getElementById('check-' + qId).disabled = true;
+      answered[qId] = false;
+      showFeedback(qId, false);
+      document.getElementById('qcard-' + qId).classList.add('answered-wrong');
+      document.getElementById('att-' + qId).textContent = 'No attempts remaining';
+      checkFinished();
+    } else {
+      zones.forEach(dz => {
+        const placed = dz.querySelector('.drag-chip');
+        if (placed) {
+          if (placed.dataset.word === dz.dataset.answer) dz.classList.add('correct-zone');
+          else dz.classList.add('wrong-zone');
+        }
+      });
+      document.getElementById('att-' + qId).textContent = '1 attempt remaining';
+      showFeedback(qId, false);
+    }
+  }
+}
+
+// ===================== MC / TF =====================
+function checkMC(qId, btn, isCorrect, wrongReason, wrongStation) {
+  if (answered[qId]) return;
+  if (!attempts[qId]) attempts[qId] = 0;
+  attempts[qId]++;
+
+  const card = document.getElementById('qcard-' + qId);
+  const attEl = document.getElementById('att-' + qId);
+
+  if (isCorrect) {
+    btn.classList.add('selected-correct');
+    disableBtns(qId);
+    answered[qId] = true;
+    correctCount++;
+    updateProgress();
+    showFeedback(qId, true);
+    card.classList.add('answered-correct');
+    checkFinished();
+  } else {
+    btn.classList.add('selected-wrong');
+    btn.disabled = true;
+    if (attempts[qId] >= 2) {
+      disableBtns(qId);
+      answered[qId] = false;
+      attEl.textContent = 'No attempts remaining';
+      showFeedback(qId, false, wrongReason, wrongStation);
+      card.classList.add('answered-wrong');
+      checkFinished();
+    } else {
+      attEl.textContent = '1 attempt remaining';
+      showFeedback(qId, false, wrongReason, wrongStation);
+    }
+  }
+}
+
+function disableBtns(qId) {
+  document.querySelectorAll('#qcard-' + qId + ' .opt-btn').forEach(b => b.disabled = true);
+}
+
+// ===================== FEEDBACK =====================
+const correctFunFacts = {
+  1: "🐞 Dung beetles are nature's recyclers — they roll elephant dung into balls and bury it, feeding their larvae AND fertilizing the soil at the same time!",
+  2: "🌳 Some savanna trees store so much sugar that indigenous communities have actually tapped them as a food source during famines!",
+  3: "🧪 The fenced area (called an 'exclosure') showed scientists that without elephants, shrubs and small trees take over — proving how important megaherbivores are to keeping savannas open!",
+  4: "🐜 This ant-acacia mutualism is one of the most well-studied relationships in ecology. Remove the ants, and herbivores mow the tree down within months — it can't survive without its tiny bodyguards!",
+  5: "✂️ Some scientists call ants 'ecosystem engineers' because they change the physical structure of their environment — in this case, making trees grow thornier and tougher!",
+  6: "👟 An ostrich's kick is powerful enough to kill a lion. Their two-toed feet can also cover 10–16 feet in a single stride. They're basically running on stilts!",
+  7: "🔗 This is called a 'trophic cascade' — when one species is removed or reduced, the effects ripple all the way up and down the food chain. Zebras are a keystone link!",
+  8: "🌧️ The rain in the Serengeti is so predictable that wildebeest have evolved to give birth within days of each other at the start of the wet season — flooding the predators with more calves than they can eat!",
+  9: "🌡️ Hyenas are actually more successful hunters than lions — they win more food through hunting, but lions often steal it from them! Temperature drives when both species are most active.",
+  10: "📢 Elephants communicate through infrasound — low-frequency rumbles that travel through the ground for miles. Other elephants feel these vibrations through their feet before they even hear them!",
+  11: "🌱 Scientists actually use old livestock pen sites to study soil improvement — the nutrient boost from animal waste can last centuries, permanently changing plant communities!",
+  12: "🪹 Some weaver bird colonies have hundreds of nests in one tree. Predators can't possibly raid them all, so statistically each egg is much safer — it's strength in numbers!",
+  13: "🐢 The leopard tortoise is one of the world's largest tortoise species and can live over 100 years. Its shell grows throughout its life — which means it needs calcium continuously!",
+  14: "🐒 Vervet monkeys were the first animals discovered to have predator-specific alarm calls — this was a groundbreaking discovery in animal behavior science in the 1980s!",
+  15: "🔥 Indigenous communities in Africa and Australia have practiced controlled burning for thousands of years — long before Western conservation science 'discovered' it as a management tool!",
+  16: "☔ The Serengeti gets about 24 inches of rain per year — a desert gets less than 10 inches. That 14-inch difference supports over 1 million wildebeest!",
+  17: "🌍 Savannas cover about 20% of Earth's land surface and store enormous amounts of carbon in their root systems underground — making them crucial in fighting climate change!",
+  18: "🔥 Controlled burns, or prescribed fires, are now used in many U.S. national parks too! Land managers carefully plan and set fires to keep ecosystems healthy — it's fire used as a tool, not a disaster!"
+};
+
+const wrongOpeners = {
+  1: "🦏 Yikes! Even the dung beetles are looking confused right now...",
+  2: "🌳 Hmm! Even baobab trees store more than that!",
+  3: "⚡ Bzzt! That's not quite electrifying enough!",
+  4: "🐜 Uh oh — the ants are shaking their tiny heads!",
+  5: "🌵 Not quite! The thorns disagree with you!",
+  6: "🦁 Whoa! Even the lions are laughing at that one!",
+  7: "💧 The whole food web is feeling that one...",
+  8: "🗺️ Some of those don't match — check the map again!",
+  9: "🌙 The hyenas are hunting in the dark AND you missed this one!",
+  10: "🐘 The elephant herd didn't get that memo!",
+  11: "🌱 The red soil would like a word with you!",
+  12: "🐦 The weaver birds are huddling together in disappointment!",
+  13: "🐢 The tortoise is retreating into its shell...",
+  14: "🐒 The vervet monkey is making its 'wrong answer' call right now!",
+  15: "🔥 The fire ecology section is feeling burned!",
+  16: "🌧️ The rain data doesn't match your answer!",
+  17: "🌍 The food web has some holes in it!",
+  18: "♻️ Conservation headquarters is reviewing your answer..."
+};
+
+function showFeedback(qId, isCorrect, wrongReason, wrongStation) {
+  const fb = document.getElementById('fb-' + qId);
+  fb.classList.remove('show', 'correct-fb', 'wrong-fb');
+  if (isCorrect) {
+    fb.className = 'feedback correct-fb show';
+    fb.innerHTML = `<div class="fb-funfact">✅ Correct! 🎉</div>
+    <div>${correctFunFacts[qId] || 'Great job!'}</div>`;
+  } else {
+    const opener = wrongOpeners[qId] || '🦁 Not quite!';
+    fb.className = 'feedback wrong-fb show';
+    const clue = wrongStation ? `<div class="fb-clue">📍 <strong>Where to look:</strong> Go back to <em>${wrongStation}</em> in your Scavenger Hunt link earlier on today's Classkick page.</div>` : '';
+    const why = wrongReason ? `<div class="fb-why"><strong>🔎 Why that doesn't work scientifically:</strong> ${wrongReason}</div>` : '';
+    const attLeft = (attempts[qId] || 0) < 2 ? '' : '<div class="fb-link">💡 Look for the Scavenger Hunt link earlier on today\'s Classkick page to review!</div>';
+    fb.innerHTML = `<div class="fb-opener">${opener}</div>${why}${clue}${attLeft}`;
+  }
+}
+
+// ===================== PROGRESS =====================
+function updateProgress() {
+  const pct = (correctCount / totalQ) * 100;
+  document.getElementById('progress-fill').style.width = pct + '%';
+  document.getElementById('progress-count').textContent = correctCount + ' / ' + totalQ;
+}
+
+// ===================== FINISHED CHECK =====================
+function checkFinished() {
+  const totalAnswered = Object.keys(answered).length;
+  if (totalAnswered < totalQ) return;
+  if (correctCount >= threshold) {
+    document.getElementById('exit-section').classList.add('show');
+    document.getElementById('exit-section').scrollIntoView({behavior: 'smooth', block: 'start'});
+  } else {
+    document.getElementById('not-yet-section').classList.add('show');
+    document.getElementById('not-yet-score').textContent = correctCount;
+    document.getElementById('not-yet-section').scrollIntoView({behavior: 'smooth', block: 'start'});
+  }
+}
+
+// ===================== PERIOD SELECTION =====================
+function selectPeriod(btn, period) {
+  document.querySelectorAll('.period-btn').forEach(b => b.classList.remove('selected'));
+  btn.classList.add('selected');
+  selectedPeriod = period;
+}
+
+// ===================== EXIT TICKET =====================
+function submitTicket() {
+  const name = document.getElementById('student-name').value.trim();
+  const errEl = document.getElementById('exit-error');
+  if (!name || !selectedPeriod) {
+    errEl.style.display = 'block';
+    return;
+  }
+  errEl.style.display = 'none';
+  const now = new Date();
+  const timeStr = now.toLocaleDateString('en-US', {weekday:'short', month:'short', day:'numeric', year:'numeric'}) +
+    ' · ' + now.toLocaleTimeString('en-US', {hour:'2-digit', minute:'2-digit'});
+  // Passcode: biome-based + score hash
+  const code = 'SVN-' + correctCount + '-' + (name.split(' ').map(w => w[0]).join('').toUpperCase()) + '-' + (now.getMonth()+1) + '' + now.getDate();
+
+  document.getElementById('t-name').textContent = name;
+  document.getElementById('t-period').textContent = selectedPeriod;
+  document.getElementById('t-score').textContent = correctCount + ' / ' + totalQ + ' correct (' + Math.round(correctCount/totalQ*100) + '%)';
+  document.getElementById('t-time').textContent = timeStr;
+  document.getElementById('t-passcode').textContent = '🦁 Pass Code: ' + code;
+  document.getElementById('confirmed-ticket').classList.add('show');
+  document.getElementById('confirmed-ticket').scrollIntoView({behavior: 'smooth'});
+}
+
+// ===================== INIT DRAG AND DROP =====================
+window.addEventListener('DOMContentLoaded', () => {
+  buildWordBank('8');
+  buildWordBank('14');
+  buildWordBank('17');
+  updateProgress();
+
+  // Allow dropping back on word banks
+  ['wb-8','wb-14','wb-17'].forEach(wbId => {
+    const wb = document.getElementById(wbId);
+    wb.addEventListener('dragover', e => e.preventDefault());
+    wb.addEventListener('drop', e => {
+      e.preventDefault();
+      if (draggedChip) {
+        const clone = draggedChip.cloneNode(true);
+        clone.draggable = true;
+        clone.dataset.word = draggedChip.dataset.word;
+        const qId = wbId.split('-')[1];
+        clone.addEventListener('dragstart', ev => { draggedChip = clone; draggedFrom = 'wb'; clone.classList.add('dragging'); ev.dataTransfer.effectAllowed = 'move'; });
+        clone.addEventListener('dragend', () => clone.classList.remove('dragging'));
+        addTouchDrag(clone, qId);
+        wb.appendChild(clone);
+        draggedChip.remove();
+        draggedChip = null;
+      }
+    });
+  });
+});
+</script>
+</body>
+</html>
