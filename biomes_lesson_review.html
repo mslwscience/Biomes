@@ -1,0 +1,880 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Biomes & Climate — Lesson Review</title>
+<link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800&family=Nunito+Sans:wght@400;600&display=swap" rel="stylesheet">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --green:  #1D9E75;
+    --green-light: #E1F5EE;
+    --green-dark:  #0F6E56;
+    --amber:  #EF9F27;
+    --amber-light: #FAEEDA;
+    --blue:   #378ADD;
+    --blue-light: #E6F1FB;
+    --coral:  #D85A30;
+    --coral-light: #FAECE7;
+    --red-light: #FCEBEB;
+    --red-text: #A32D2D;
+    --bg: #f5f9f6;
+    --card: #ffffff;
+    --text: #1a2e22;
+    --muted: #5a7a68;
+    --border: #cce4d8;
+    --radius: 14px;
+  }
+
+  body {
+    font-family: 'Nunito Sans', sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    min-height: 100vh;
+    padding: 1.5rem 1rem 3rem;
+    font-size: 16px;
+    line-height: 1.65;
+  }
+
+  h1, h2, h3, .q-num { font-family: 'Nunito', sans-serif; }
+
+  .container { max-width: 700px; margin: 0 auto; }
+
+  /* Header */
+  .header {
+    text-align: center;
+    margin-bottom: 2rem;
+    padding: 1.5rem 1rem;
+    background: var(--card);
+    border-radius: var(--radius);
+    border: 2px solid var(--border);
+  }
+  .header h1 { font-size: 1.6rem; font-weight: 800; color: var(--green-dark); margin-bottom: 0.25rem; }
+  .header p { font-size: 0.95rem; color: var(--muted); }
+  .header .emoji { font-size: 2.5rem; display: block; margin-bottom: 0.5rem; }
+
+  /* Progress */
+  .progress-wrap { margin-bottom: 1.5rem; }
+  .progress-label { font-size: 13px; color: var(--muted); margin-bottom: 5px; font-family: 'Nunito', sans-serif; font-weight: 600; }
+  .progress-bg { height: 10px; background: var(--border); border-radius: 5px; }
+  .progress-fill { height: 10px; background: var(--green); border-radius: 5px; transition: width 0.5s ease; }
+
+  /* Question card */
+  .q-card {
+    background: var(--card);
+    border: 2px solid var(--border);
+    border-radius: var(--radius);
+    padding: 1.5rem;
+    margin-bottom: 1.25rem;
+  }
+  .q-header { display: flex; align-items: center; gap: 10px; margin-bottom: 1rem; }
+  .q-num {
+    background: var(--green);
+    color: #fff;
+    font-size: 13px;
+    font-weight: 800;
+    padding: 3px 12px;
+    border-radius: 20px;
+    white-space: nowrap;
+  }
+  .q-type {
+    font-size: 11px;
+    font-weight: 700;
+    font-family: 'Nunito', sans-serif;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    padding: 3px 10px;
+    border-radius: 20px;
+    background: var(--amber-light);
+    color: #854F0B;
+  }
+  .q-type.vocab  { background: var(--blue-light);  color: #0C447C; }
+  .q-type.sort   { background: #EEEDFE; color: #3C3489; }
+  .q-type.match  { background: var(--coral-light); color: #712B13; }
+  .q-type.drag   { background: #EEEDFE; color: #3C3489; }
+
+  .q-text { font-size: 1rem; color: var(--text); margin-bottom: 1.1rem; font-weight: 600; line-height: 1.55; }
+  .q-hint-ref { font-size: 13px; color: var(--muted); margin-bottom: 1rem; font-style: italic; }
+
+  /* Multiple choice */
+  .choices { display: flex; flex-direction: column; gap: 8px; }
+  .choice-btn {
+    text-align: left;
+    padding: 11px 16px;
+    border-radius: 10px;
+    border: 2px solid var(--border);
+    background: #fff;
+    font-size: 15px;
+    font-family: 'Nunito Sans', sans-serif;
+    color: var(--text);
+    cursor: pointer;
+    transition: border-color 0.15s, background 0.15s;
+    line-height: 1.4;
+  }
+  .choice-btn:hover:not(:disabled) { border-color: var(--green); background: var(--green-light); }
+  .choice-btn.correct { border-color: var(--green); background: var(--green-light); color: var(--green-dark); font-weight: 700; }
+  .choice-btn.wrong   { border-color: var(--coral); background: var(--coral-light); color: var(--coral); }
+  .choice-btn:disabled { cursor: default; }
+
+  /* Feedback box */
+  .feedback {
+    margin-top: 1rem;
+    padding: 12px 16px;
+    border-radius: 10px;
+    font-size: 14px;
+    line-height: 1.6;
+    display: none;
+    border-left: 4px solid;
+  }
+  .feedback.correct { background: var(--green-light); border-color: var(--green); color: var(--green-dark); }
+  .feedback.wrong   { background: var(--coral-light); border-color: var(--coral); color: #712B13; }
+  .feedback .fb-title { font-weight: 800; font-family: 'Nunito', sans-serif; font-size: 15px; margin-bottom: 4px; }
+
+  /* Matching */
+  .match-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+  .match-col { display: flex; flex-direction: column; gap: 8px; }
+  .match-term {
+    padding: 10px 14px;
+    background: var(--blue-light);
+    border: 2px solid #B5D4F4;
+    border-radius: 10px;
+    font-size: 14px;
+    font-weight: 700;
+    color: #0C447C;
+    line-height: 1.35;
+  }
+  .match-select {
+    width: 100%;
+    padding: 9px 12px;
+    border: 2px solid var(--border);
+    border-radius: 10px;
+    font-size: 14px;
+    font-family: 'Nunito Sans', sans-serif;
+    color: var(--text);
+    background: #fff;
+    cursor: pointer;
+  }
+  .match-select:disabled { background: #f5f5f5; }
+  .match-select.correct { border-color: var(--green); background: var(--green-light); color: var(--green-dark); }
+  .match-select.wrong   { border-color: var(--coral); background: var(--coral-light); }
+  .match-submit { margin-top: 10px; }
+
+  /* Drag and drop */
+  .drag-bank {
+    display: flex; flex-wrap: wrap; gap: 8px;
+    padding: 12px;
+    background: var(--bg);
+    border: 2px dashed var(--border);
+    border-radius: 10px;
+    min-height: 52px;
+    margin-bottom: 1rem;
+  }
+  .drag-chip {
+    padding: 7px 14px;
+    background: #fff;
+    border: 2px solid var(--border);
+    border-radius: 20px;
+    font-size: 14px;
+    font-weight: 700;
+    color: var(--text);
+    cursor: grab;
+    user-select: none;
+    transition: border-color 0.15s, background 0.15s;
+    font-family: 'Nunito', sans-serif;
+  }
+  .drag-chip:hover { border-color: var(--green); background: var(--green-light); }
+  .drag-chip.dragging { opacity: 0.4; }
+
+  .drop-zones { display: flex; flex-direction: column; gap: 10px; }
+  .drop-row { display: grid; grid-template-columns: 160px 1fr; gap: 10px; align-items: center; }
+  .drop-label { font-size: 14px; font-weight: 700; color: var(--text); line-height: 1.35; }
+  .drop-zone {
+    min-height: 44px;
+    border: 2px dashed var(--border);
+    border-radius: 10px;
+    padding: 6px 10px;
+    display: flex; flex-wrap: wrap; gap: 6px; align-items: center;
+    background: #fff;
+    transition: border-color 0.15s, background 0.15s;
+  }
+  .drop-zone.over { border-color: var(--green); background: var(--green-light); }
+  .drop-zone.correct { border-color: var(--green); background: var(--green-light); }
+  .drop-zone.wrong   { border-color: var(--coral); background: var(--coral-light); }
+  .drag-chip.placed { cursor: grab; }
+  .drag-submit { margin-top: 10px; }
+
+  /* Sorting */
+  .sort-list { display: flex; flex-direction: column; gap: 8px; }
+  .sort-item {
+    display: flex; align-items: center; gap: 10px;
+    padding: 10px 14px;
+    background: #fff;
+    border: 2px solid var(--border);
+    border-radius: 10px;
+    cursor: grab;
+    font-size: 15px;
+    font-family: 'Nunito', sans-serif;
+    font-weight: 600;
+    user-select: none;
+    transition: border-color 0.15s;
+  }
+  .sort-item:hover { border-color: var(--green); }
+  .sort-item.dragging { opacity: 0.3; }
+  .sort-handle { color: var(--muted); font-size: 18px; }
+  .sort-submit { margin-top: 10px; }
+
+  /* Buttons */
+  button {
+    cursor: pointer;
+    font-family: 'Nunito', sans-serif;
+    font-weight: 700;
+    border-radius: 10px;
+    border: 2px solid var(--border);
+    background: #fff;
+    color: var(--text);
+    font-size: 14px;
+    padding: 9px 20px;
+    transition: background 0.15s, border-color 0.15s;
+  }
+  button:hover:not(:disabled) { background: var(--green-light); border-color: var(--green); }
+  button:disabled { opacity: 0.45; cursor: default; }
+  .btn-green { background: var(--green); color: #fff; border-color: var(--green); }
+  .btn-green:hover:not(:disabled) { background: var(--green-dark); border-color: var(--green-dark); }
+
+  /* Exit ticket */
+  .exit-wrap { display: none; }
+  .exit-card {
+    background: var(--card);
+    border: 3px solid transparent;
+    border-radius: var(--radius);
+    padding: 4px;
+    background:
+      linear-gradient(white, white) padding-box,
+      repeating-linear-gradient(45deg,
+        #1D9E75 0px,  #1D9E75 10px,
+        #9FE1CB 10px, #9FE1CB 20px,
+        #EF9F27 20px, #EF9F27 30px,
+        #D85A30 30px, #D85A30 40px,
+        #378ADD 40px, #378ADD 50px,
+        #9FE1CB 50px, #9FE1CB 60px
+      ) border-box;
+    margin-bottom: 1rem;
+  }
+  .exit-inner { background: #fff; border-radius: 11px; padding: 1.75rem; text-align: center; }
+  .exit-emoji { font-size: 3rem; margin-bottom: 0.5rem; }
+  .exit-score { font-size: 3rem; font-weight: 800; font-family: 'Nunito', sans-serif; color: var(--green); }
+  .exit-label { font-size: 1rem; color: var(--muted); margin-bottom: 1rem; }
+  .exit-badge {
+    display: inline-block;
+    padding: 8px 24px;
+    border-radius: 30px;
+    font-family: 'Nunito', sans-serif;
+    font-weight: 800;
+    font-size: 1.1rem;
+    margin-bottom: 1.25rem;
+  }
+  .exit-badge.pass { background: var(--green-light); color: var(--green-dark); border: 2px solid var(--green); }
+  .exit-badge.fail { background: var(--coral-light); color: var(--coral); border: 2px solid var(--coral); }
+  .exit-summary { text-align: left; margin-top: 1.25rem; }
+  .exit-row { display: flex; justify-content: space-between; align-items: center; padding: 8px 0; border-bottom: 1px solid var(--border); font-size: 13px; gap: 8px; }
+  .exit-row:last-child { border-bottom: none; }
+  .exit-q-label { color: var(--muted); flex: 1; }
+  .exit-status { font-size: 11px; font-weight: 700; padding: 2px 10px; border-radius: 20px; white-space: nowrap; }
+  .exit-status.p { background: var(--green-light); color: var(--green-dark); }
+  .exit-status.f { background: var(--red-light); color: var(--red-text); }
+  .save-btn { width: 100%; margin-top: 1rem; font-size: 15px; padding: 12px; }
+  .save-btn.saved { background: #639922; border-color: #639922; color: #fff; }
+  .retry-btn { width: 100%; margin-top: 0.5rem; font-size: 14px; padding: 10px; }
+</style>
+</head>
+<body>
+<div class="container">
+
+  <div class="header">
+    <span class="emoji">🌍</span>
+    <h1>Biomes &amp; Climate Review</h1>
+    <p>12 questions · Answer each one to earn your completion badge!</p>
+  </div>
+
+  <div class="progress-wrap">
+    <div class="progress-label" id="prog-label">Question 0 of 12 answered</div>
+    <div class="progress-bg"><div class="progress-fill" id="prog-fill" style="width:0%"></div></div>
+  </div>
+
+  <div id="questions"></div>
+
+  <div class="exit-wrap" id="exit-wrap">
+    <div class="exit-card">
+      <div class="exit-inner" id="exit-inner">
+        <div class="exit-emoji" id="exit-emoji">🌿</div>
+        <div class="exit-score" id="exit-score"></div>
+        <div class="exit-label" id="exit-label"></div>
+        <div class="exit-badge" id="exit-badge"></div>
+        <div class="exit-summary" id="exit-summary"></div>
+      </div>
+    </div>
+    <button class="btn-green save-btn" id="save-btn" onclick="saveImage()">🖼 Save as image to upload to Classkick</button>
+    <button class="retry-btn" onclick="location.reload()">🔄 Try again</button>
+  </div>
+
+</div>
+
+<script>
+const questions = [
+  // Q1 - vocab - multiple choice
+  {
+    type: "mc",
+    qtype: "vocab",
+    qtypeLabel: "Vocabulary",
+    num: 1,
+    text: "What does the word CLIMATE mean?",
+    ref: "Look at the Key Vocabulary list at the top of the reading.",
+    choices: [
+      "The weather outside right now — like if it is sunny or rainy today",
+      "The average weather in a place over many, many years",
+      "How hot or cold it is in a place right now",
+      "A big storm that happens once a year"
+    ],
+    correct: 1,
+    feedback: {
+      right: "Yes! Climate is the average weather over MANY years — not just today. That's why scientists look at decades of data, not just one day!",
+      wrong: "Not quite. Climate is not about today's weather — that would be called 'weather.' Climate means the long-term average over many years. Find it in the Key Vocabulary section!"
+    }
+  },
+  // Q2 - vocab - multiple choice
+  {
+    type: "mc",
+    qtype: "vocab",
+    qtypeLabel: "Vocabulary",
+    num: 2,
+    text: "What is an ABIOTIC factor?",
+    ref: "Check the Key Vocabulary list. The word 'abiotic' has its own definition there.",
+    choices: [
+      "A living thing like a plant or animal",
+      "A nonliving thing in the environment, like temperature, water, or wind",
+      "An animal that eats only plants",
+      "A type of weather that happens in the desert"
+    ],
+    correct: 1,
+    feedback: {
+      right: "You got it! Abiotic means NON-living. Think: 'a' = not, 'bio' = life. Sunlight, water, temperature, and soil are all abiotic factors!",
+      wrong: "Careful! Abiotic means NON-living. Living things are called biotic. The prefix 'a' means 'not' — so abiotic = not living. Check the vocabulary list!"
+    }
+  },
+  // Q3 - vocab matching
+  {
+    type: "match",
+    qtype: "vocab",
+    qtypeLabel: "Vocabulary Match",
+    num: 3,
+    text: "Match each word to its meaning. Use the Key Vocabulary section to help you!",
+    ref: "All of these words are in the Key Vocabulary list in the reading.",
+    pairs: [
+      { term: "Biome",         correct: "A large region with similar climate, plants, and animals" },
+      { term: "Producer",      correct: "An organism that makes its own food using sunlight" },
+      { term: "Adaptation",    correct: "A trait that helps an organism survive in its environment" },
+      { term: "Precipitation", correct: "Water that falls from the sky — rain, snow, sleet, or hail" },
+    ],
+    options: [
+      "A large region with similar climate, plants, and animals",
+      "An organism that makes its own food using sunlight",
+      "A trait that helps an organism survive in its environment",
+      "Water that falls from the sky — rain, snow, sleet, or hail",
+      "The average weather in a place over many years",
+      "A nonliving factor like temperature or wind"
+    ],
+    feedback: {
+      right: "Great matching! These are key words for the whole unit. Producers, biomes, and adaptations all connect to how climate shapes life on Earth.",
+      wrong: "Some matches need fixing. Go back to the Key Vocabulary section and read each definition carefully. Try to find words in the definitions that match the vocabulary word — like 'sunlight' for producer!"
+    }
+  },
+  // Q4 - guiding question - multiple choice
+  {
+    type: "mc",
+    qtype: "mc",
+    qtypeLabel: "Multiple Choice",
+    num: 4,
+    text: "What is the BIG difference between weather and climate?",
+    ref: "Look at the 'Climate vs. Weather' section and the first guiding question.",
+    choices: [
+      "Weather happens in hot places; climate happens in cold places",
+      "Weather changes day to day; climate shows patterns over many years",
+      "Weather is studied by biologists; climate is studied by geologists",
+      "Weather only happens near the ocean; climate happens everywhere"
+    ],
+    correct: 1,
+    feedback: {
+      right: "Exactly right! Weather is short-term — what's happening outside TODAY. Climate is long-term — the pattern over decades. Great job!",
+      wrong: "Not quite. Think about it this way: 'Climate is what you expect, weather is what you get.' Climate = many years of patterns. Weather = today. Find it under 'Climate vs. Weather' in the reading!"
+    }
+  },
+  // Q5 - guiding question drag and drop (abiotic factors)
+  {
+    type: "drag",
+    qtype: "drag",
+    qtypeLabel: "Drag & Drop",
+    num: 5,
+    text: "Sort these things into two groups — ABIOTIC (nonliving) or BIOTIC (living).",
+    ref: "Think about the definition of abiotic from the vocabulary list. Also check the 'How abiotic factors produce weather and climate' section.",
+    items: [
+      { label: "Sunlight",    zone: "Abiotic" },
+      { label: "A cactus",   zone: "Biotic"  },
+      { label: "Wind",       zone: "Abiotic" },
+      { label: "A zebra",    zone: "Biotic"  },
+      { label: "Rainfall",   zone: "Abiotic" },
+      { label: "Ferns",      zone: "Biotic"  },
+    ],
+    zones: ["Abiotic (nonliving)", "Biotic (living)"],
+    zoneKeys: ["Abiotic", "Biotic"],
+    feedback: {
+      right: "Perfect sorting! Abiotic = nonliving things like sunlight, wind, and rain. Biotic = living things like plants and animals. This is the foundation of ecology!",
+      wrong: "Some are in the wrong group. Remember: ABIOTIC = nonliving (sun, wind, water, temperature). BIOTIC = living (plants, animals, fungi). The vocabulary section and the abiotic factors section both have clues!"
+    }
+  },
+  // Q6 - guiding question - multiple choice (what affects plant growth)
+  {
+    type: "mc",
+    qtype: "mc",
+    qtypeLabel: "Multiple Choice",
+    num: 6,
+    text: "Which TWO abiotic factors most help plants grow?",
+    ref: "Look at the 'Climate and plant growth' section. It lists what plants need to survive.",
+    choices: [
+      "Predators and competition",
+      "Sunlight and water",
+      "Animals and soil bacteria",
+      "Wind and ocean currents"
+    ],
+    correct: 1,
+    feedback: {
+      right: "You nailed it! Plants use sunlight to make food through photosynthesis, and they need water to survive and grow. These are both abiotic factors — nonliving things that drive plant life!",
+      wrong: "Close, but not quite. Think about what a plant needs to grow. You water a houseplant and put it by a window — those are the two biggest abiotic factors! Find the list in 'Climate and plant growth.'"
+    }
+  },
+  // Q7 - sorting - biomes by rainfall
+  {
+    type: "sort",
+    qtype: "sort",
+    qtypeLabel: "Put in Order",
+    num: 7,
+    text: "Put these biomes in order from LEAST rainfall (driest) to MOST rainfall (wettest). Drag them into order!",
+    ref: "Look at the 'Key differences' section at the bottom and the 'Climate and plant growth' section.",
+    items: ["Desert", "Tundra / Arctic", "Temperate Forest", "Tropical Rainforest"],
+    correct: ["Desert", "Tundra / Arctic", "Temperate Forest", "Tropical Rainforest"],
+    feedback: {
+      right: "Amazing! Deserts get the least rain — sometimes almost none. Tundra gets a little. Temperate forests get moderate rain with seasons. Tropical rainforests get tons of rain all year!",
+      wrong: "Not quite right. Think: which biome has cacti that store water because it barely ever rains? That's the driest. Which biome is warm AND rainy year-round? That's the wettest. Check the 'Key differences' section!"
+    }
+  },
+  // Q8 - multiple choice - real world example
+  {
+    type: "mc",
+    qtype: "mc",
+    qtypeLabel: "Multiple Choice",
+    num: 8,
+    text: "In the lesson, leafcutter ants live in tropical rainforests. What happens if the climate changes and the forest gets too dry?",
+    ref: "Find the 'Real-world example' box about leafcutter ants in the 'Climate and plant growth' section.",
+    choices: [
+      "The ants grow bigger and stronger to survive",
+      "Nothing changes — ants can live anywhere",
+      "Ant populations fall, soil gets less fertile, and animals that eat ants must find new food",
+      "The ants move to the desert and eat cacti instead"
+    ],
+    correct: 2,
+    feedback: {
+      right: "Correct! This shows a domino effect — when climate changes and plants decline, it affects the ants AND the animals that eat the ants AND the soil quality. Everything in an ecosystem is connected!",
+      wrong: "Not quite. The reading explains a domino effect. When rainfall drops, plants decline → ants struggle → soil gets worse → other animals lose their food source. Find the leafcutter ant box in the reading!"
+    }
+  },
+  // Q9 - vocab - multiple choice (biodiversity)
+  {
+    type: "mc",
+    qtype: "vocab",
+    qtypeLabel: "Vocabulary",
+    num: 9,
+    text: "Which biome has the HIGHEST biodiversity — meaning the most different types of living things?",
+    ref: "Look at 'Climate and biodiversity' and the 'Key differences' section. Also check the fun facts!",
+    choices: [
+      "Desert — because it is very hot",
+      "Arctic — because it is very cold",
+      "Tropical rainforest — because it is warm and wet year-round",
+      "Temperate forest — because it has four seasons"
+    ],
+    correct: 2,
+    feedback: {
+      right: "You got it! Warm + wet = lots of plant growth = food and shelter for MANY species. The fun facts even say rainforests cover less than 10% of land but hold MORE THAN HALF of the world's species!",
+      wrong: "Think about what living things need — warmth and water. Which biome has both all year long? The 'Climate and biodiversity' section and the fun facts at the bottom will help!"
+    }
+  },
+  // Q10 - drag and drop - match biome to adaptation
+  {
+    type: "drag",
+    qtype: "drag",
+    qtypeLabel: "Drag & Drop",
+    num: 10,
+    text: "Match each organism to its biome by dragging the organism into the correct box.",
+    ref: "Look at 'Climate and adaptations' and the real-world examples throughout the reading.",
+    items: [
+      { label: "Saguaro cactus", zone: "Desert"           },
+      { label: "Conifer tree",   zone: "Taiga/Tundra"     },
+      { label: "Epiphyte vine",  zone: "Tropical Rainforest" },
+      { label: "Polar bear",     zone: "Arctic"            },
+    ],
+    zones: ["Desert", "Taiga/Tundra", "Tropical Rainforest", "Arctic"],
+    zoneKeys: ["Desert", "Taiga/Tundra", "Tropical Rainforest", "Arctic"],
+    feedback: {
+      right: "Excellent! Each organism has adaptations that only work in its specific biome — cacti store water for the desert, conifers conserve water in cold winters, epiphytes climb for rainforest sunlight, and polar bears rely on Arctic sea ice.",
+      wrong: "Some organisms are in the wrong biome. Think about each organism's adaptation and what climate it needs. Cacti = dry. Conifers = cold winters. Epiphytes = crowded rainforest floors. Polar bears = sea ice. Check 'Climate and adaptations!'"
+    }
+  },
+  // Q11 - guiding question - multiple choice
+  {
+    type: "mc",
+    qtype: "mc",
+    qtypeLabel: "Multiple Choice",
+    num: 11,
+    text: "The reading talks about saguaro cacti in Arizona and Mexico. What happens to OTHER animals if saguaro cacti disappear because of too much heat and drought?",
+    ref: "Look at the 'Climate and adaptations' section — the desert example with saguaro cacti.",
+    choices: [
+      "Nothing — other animals do not use cacti",
+      "Animals that depend on cacti for food and shelter also struggle or disappear",
+      "The cacti come back stronger after a drought",
+      "New animals move in and replace the ones that left"
+    ],
+    correct: 1,
+    feedback: {
+      right: "Exactly! The cactus is a PRODUCER — it's at the base of the food web. When it disappears, everything that depends on it (food, shelter) is also affected. This is why producers are so important!",
+      wrong: "Think about what the saguaro cactus provides. The reading says it gives food AND shelter to animals. If it disappears, what happens to those animals? Find the saguaro section under 'Climate and adaptations.'"
+    }
+  },
+  // Q12 - post question synthesis - multiple choice
+  {
+    type: "mc",
+    qtype: "mc",
+    qtypeLabel: "Big Idea",
+    num: 12,
+    text: "Here is the BIG IDEA of this whole lesson. Which sentence best explains it?",
+    ref: "Read the Summary section at the very end of the reading. It wraps up the main idea!",
+    choices: [
+      "Animals are more important than plants in all ecosystems",
+      "Climate — the long-term weather patterns of a place — shapes which plants and animals can live there, and changes to climate can disrupt entire food webs",
+      "Deserts are the most important biome because they are the hardest to live in",
+      "Scientists only study climate change in the Arctic because that is where it is worst"
+    ],
+    correct: 1,
+    feedback: {
+      right: "That's the heart of the whole lesson! Climate → shapes biomes → determines which producers grow → supports the food web. Change the climate, and everything else changes too. You've got it!",
+      wrong: "Not quite. The lesson is about how climate controls life on Earth — plants, animals, and food webs all depend on it. Read the Summary at the very end of the reading. It puts the whole lesson in just a few sentences!"
+    }
+  }
+];
+
+// State
+const state = {};
+questions.forEach((q,i) => { state[i] = { answered: false, correct: false }; });
+let totalAnswered = 0;
+
+function updateProgress() {
+  totalAnswered = Object.values(state).filter(s => s.answered).length;
+  const pct = Math.round((totalAnswered / questions.length) * 100);
+  document.getElementById("prog-fill").style.width = pct + "%";
+  document.getElementById("prog-label").textContent = `Question ${totalAnswered} of ${questions.length} answered`;
+  if (totalAnswered === questions.length) {
+    setTimeout(showExit, 500);
+  }
+}
+
+function showFeedback(idx, correct) {
+  const fb = document.getElementById("fb-" + idx);
+  const q = questions[idx];
+  fb.className = "feedback " + (correct ? "correct" : "wrong");
+  fb.style.display = "block";
+  const title = correct ? "✅ That's right!" : "❌ Not quite!";
+  fb.innerHTML = `<div class="fb-title">${title}</div>${correct ? q.feedback.right : q.feedback.wrong}`;
+}
+
+// Multiple choice
+function buildMC(q, idx) {
+  const choicesHtml = q.choices.map((c, ci) =>
+    `<button class="choice-btn" id="c-${idx}-${ci}" onclick="checkMC(${idx},${ci})">${c}</button>`
+  ).join("");
+  return `<div class="choices">${choicesHtml}</div>`;
+}
+
+function checkMC(idx, chosen) {
+  if (state[idx].answered) return;
+  state[idx].answered = true;
+  const q = questions[idx];
+  const correct = chosen === q.correct;
+  state[idx].correct = correct;
+  q.choices.forEach((_, ci) => {
+    const btn = document.getElementById(`c-${idx}-${ci}`);
+    btn.disabled = true;
+    if (ci === q.correct) btn.classList.add("correct");
+    else if (ci === chosen && !correct) btn.classList.add("wrong");
+  });
+  showFeedback(idx, correct);
+  updateProgress();
+}
+
+// Matching
+function buildMatch(q, idx) {
+  const rows = q.pairs.map((p, pi) => `
+    <div style="display:grid; grid-template-columns:1fr 1fr; gap:10px; margin-bottom:8px; align-items:center;">
+      <div class="match-term">${p.term}</div>
+      <select class="match-select" id="ms-${idx}-${pi}">
+        <option value="">-- pick a definition --</option>
+        ${q.options.map(o => `<option value="${o}">${o}</option>`).join("")}
+      </select>
+    </div>`).join("");
+  return `${rows}<button class="btn-green match-submit" onclick="checkMatch(${idx})">Check my matches</button>`;
+}
+
+function checkMatch(idx) {
+  if (state[idx].answered) return;
+  const q = questions[idx];
+  let allCorrect = true;
+  q.pairs.forEach((p, pi) => {
+    const sel = document.getElementById(`ms-${idx}-${pi}`);
+    const val = sel.value;
+    sel.disabled = true;
+    if (val === p.correct) { sel.classList.add("correct"); }
+    else { sel.classList.add("wrong"); allCorrect = false; }
+  });
+  state[idx].answered = true;
+  state[idx].correct = allCorrect;
+  showFeedback(idx, allCorrect);
+  updateProgress();
+}
+
+// Drag and drop
+let dragging = null;
+let draggingFrom = null;
+
+function buildDrag(q, idx) {
+  const bankId = `bank-${idx}`;
+  const chips = q.items.map((item, ii) =>
+    `<div class="drag-chip" id="chip-${idx}-${ii}" draggable="true"
+      ondragstart="onDragStart(event,'${idx}','${ii}','bank')"
+      ondragend="onDragEnd(event)">${item.label}</div>`
+  ).join("");
+
+  const zones = q.zones.map((z, zi) => `
+    <div class="drop-row">
+      <div class="drop-label">${z}</div>
+      <div class="drop-zone" id="zone-${idx}-${zi}"
+        ondragover="onDragOver(event)"
+        ondragleave="onDragLeave(event)"
+        ondrop="onDrop(event,'${idx}','${zi}')"></div>
+    </div>`).join("");
+
+  return `
+    <div style="font-size:13px;color:var(--muted);margin-bottom:8px;">📦 Words to sort:</div>
+    <div class="drag-bank" id="${bankId}"
+      ondragover="onDragOver(event)"
+      ondragleave="onDragLeave(event)"
+      ondrop="onDropBank(event,'${idx}')">${chips}</div>
+    <div class="drop-zones">${zones}</div>
+    <button class="btn-green drag-submit" style="margin-top:10px;" onclick="checkDrag(${idx})">Check my sorting</button>`;
+}
+
+function onDragStart(e, idx, chipIdx, from) {
+  dragging = { idx, chipIdx };
+  draggingFrom = from;
+  setTimeout(() => document.getElementById(`chip-${idx}-${chipIdx}`).classList.add("dragging"), 0);
+  e.dataTransfer.effectAllowed = "move";
+}
+function onDragEnd(e) {
+  if (dragging) document.getElementById(`chip-${dragging.idx}-${dragging.chipIdx}`)?.classList.remove("dragging");
+  dragging = null;
+  draggingFrom = null;
+}
+function onDragOver(e) { e.preventDefault(); e.currentTarget.classList.add("over"); }
+function onDragLeave(e) { e.currentTarget.classList.remove("over"); }
+function onDrop(e, idx, zi) {
+  e.preventDefault();
+  e.currentTarget.classList.remove("over");
+  if (!dragging || dragging.idx != idx) return;
+  const chip = document.getElementById(`chip-${idx}-${dragging.chipIdx}`);
+  if (chip) e.currentTarget.appendChild(chip);
+}
+function onDropBank(e, idx) {
+  e.preventDefault();
+  e.currentTarget.classList.remove("over");
+  if (!dragging || dragging.idx != idx) return;
+  const chip = document.getElementById(`chip-${idx}-${dragging.chipIdx}`);
+  if (chip) e.currentTarget.appendChild(chip);
+}
+
+function checkDrag(idx) {
+  if (state[idx].answered) return;
+  const q = questions[idx];
+  let allCorrect = true;
+  q.zones.forEach((z, zi) => {
+    const zone = document.getElementById(`zone-${idx}-${zi}`);
+    const chipsInZone = zone.querySelectorAll(".drag-chip");
+    const expectedKey = q.zoneKeys[zi];
+    chipsInZone.forEach(chip => {
+      const chipLabel = chip.textContent.trim();
+      const item = q.items.find(it => it.label === chipLabel);
+      if (!item || item.zone !== expectedKey) allCorrect = false;
+    });
+    const expectedCount = q.items.filter(it => it.zone === expectedKey).length;
+    if (chipsInZone.length !== expectedCount) allCorrect = false;
+  });
+  q.zones.forEach((z, zi) => {
+    const zone = document.getElementById(`zone-${idx}-${zi}`);
+    zone.querySelectorAll(".drag-chip").forEach(c => { c.draggable = false; c.style.cursor = "default"; });
+  });
+  document.querySelectorAll(`#bank-${idx} .drag-chip`).forEach(c => { c.draggable = false; c.style.cursor = "default"; });
+  state[idx].answered = true;
+  state[idx].correct = allCorrect;
+  showFeedback(idx, allCorrect);
+  updateProgress();
+}
+
+// Sorting
+let sortDragging = null;
+let sortDragOverEl = null;
+
+function buildSort(q, idx) {
+  const items = [...q.items];
+  shuffle(items);
+  const rows = items.map((item, ii) => `
+    <div class="sort-item" id="sort-${idx}-${ii}" draggable="true" data-label="${item}"
+      ondragstart="sortStart(event,'${idx}','sort-${idx}-${ii}')"
+      ondragend="sortEnd(event)"
+      ondragover="sortOver(event,'${idx}')"
+      ondrop="sortDrop(event,'${idx}')">
+      <span class="sort-handle">☰</span>${item}
+    </div>`).join("");
+  return `
+    <div style="font-size:13px;color:var(--muted);margin-bottom:8px;">☝️ Drag to reorder — driest at top, wettest at bottom:</div>
+    <div class="sort-list" id="sortlist-${idx}">${rows}</div>
+    <button class="btn-green sort-submit" style="margin-top:10px;" onclick="checkSort(${idx})">Check my order</button>`;
+}
+
+function shuffle(arr) {
+  for (let i = arr.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [arr[i], arr[j]] = [arr[j], arr[i]];
+  }
+}
+
+function sortStart(e, idx, id) {
+  sortDragging = document.getElementById(id);
+  e.dataTransfer.effectAllowed = "move";
+  setTimeout(() => sortDragging?.classList.add("dragging"), 0);
+}
+function sortEnd(e) {
+  sortDragging?.classList.remove("dragging");
+  sortDragging = null; sortDragOverEl = null;
+}
+function sortOver(e, idx) {
+  e.preventDefault();
+  const target = e.currentTarget;
+  if (target === sortDragging) return;
+  const list = document.getElementById(`sortlist-${idx}`);
+  const items = [...list.querySelectorAll(".sort-item")];
+  const overIdx = items.indexOf(target);
+  const dragIdx = items.indexOf(sortDragging);
+  if (overIdx > dragIdx) list.insertBefore(sortDragging, target.nextSibling);
+  else list.insertBefore(sortDragging, target);
+}
+function sortDrop(e, idx) { e.preventDefault(); }
+
+function checkSort(idx) {
+  if (state[idx].answered) return;
+  const q = questions[idx];
+  const list = document.getElementById(`sortlist-${idx}`);
+  const current = [...list.querySelectorAll(".sort-item")].map(el => el.dataset.label);
+  const correct = JSON.stringify(current) === JSON.stringify(q.correct);
+  state[idx].answered = true;
+  state[idx].correct = correct;
+  list.querySelectorAll(".sort-item").forEach(el => { el.draggable = false; el.style.cursor = "default"; });
+  showFeedback(idx, correct);
+  updateProgress();
+}
+
+// Exit ticket
+function showExit() {
+  const score = Object.values(state).filter(s => s.correct).length;
+  const total = questions.length;
+  const pct = Math.round((score / total) * 100);
+  const pass = pct >= 80;
+
+  document.getElementById("exit-emoji").textContent = pass ? "🏅" : "🌱";
+  document.getElementById("exit-score").textContent = `${score}/${total}`;
+  document.getElementById("exit-label").textContent = `You got ${pct}% correct`;
+  const badge = document.getElementById("exit-badge");
+  badge.textContent = pass ? "✅ Lesson Complete!" : "Keep practicing — you've got this!";
+  badge.className = "exit-badge " + (pass ? "pass" : "fail");
+
+  let summaryHtml = `<div style="font-size:13px;font-weight:700;color:var(--muted);margin-bottom:8px;font-family:'Nunito',sans-serif;">Question summary:</div>`;
+  questions.forEach((q, i) => {
+    const s = state[i];
+    summaryHtml += `
+      <div class="exit-row">
+        <div class="exit-q-label">Q${q.num}: ${q.text.substring(0, 55)}…</div>
+        <div class="exit-status ${s.correct ? 'p' : 'f'}">${s.correct ? "correct" : "review"}</div>
+      </div>`;
+  });
+  document.getElementById("exit-summary").innerHTML = summaryHtml;
+  document.getElementById("exit-wrap").style.display = "block";
+  document.getElementById("exit-wrap").scrollIntoView({ behavior: "smooth" });
+}
+
+function saveImage() {
+  const el = document.getElementById("exit-inner");
+  const btn = document.getElementById("save-btn");
+  btn.textContent = "⏳ Generating image…";
+  btn.disabled = true;
+  html2canvas(el, { scale: 2, backgroundColor: "#ffffff", useCORS: true, logging: false }).then(canvas => {
+    const link = document.createElement("a");
+    link.download = "biomes-review-completion.png";
+    link.href = canvas.toDataURL("image/png");
+    link.click();
+    btn.textContent = "✓ Saved! Upload it to Classkick.";
+    btn.classList.add("saved");
+    setTimeout(() => {
+      btn.textContent = "🖼 Save as image to upload to Classkick";
+      btn.classList.remove("saved");
+      btn.disabled = false;
+    }, 4000);
+  }).catch(() => {
+    btn.textContent = "🖼 Save as image to upload to Classkick";
+    btn.disabled = false;
+  });
+}
+
+// Render
+function render() {
+  const container = document.getElementById("questions");
+  container.innerHTML = questions.map((q, idx) => {
+    let body = "";
+    if (q.type === "mc")    body = buildMC(q, idx);
+    if (q.type === "match") body = buildMatch(q, idx);
+    if (q.type === "drag")  body = buildDrag(q, idx);
+    if (q.type === "sort")  body = buildSort(q, idx);
+
+    return `
+      <div class="q-card" id="qcard-${idx}">
+        <div class="q-header">
+          <span class="q-num">Q${q.num}</span>
+          <span class="q-type ${q.qtype}">${q.qtypeLabel}</span>
+        </div>
+        <div class="q-text">${q.text}</div>
+        <div class="q-hint-ref">📖 Hint: ${q.ref}</div>
+        ${body}
+        <div class="feedback" id="fb-${idx}"></div>
+      </div>`;
+  }).join("");
+}
+
+render();
+</script>
+</body>
+</html>
