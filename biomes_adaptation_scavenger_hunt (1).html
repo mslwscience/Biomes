@@ -1,0 +1,561 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Biomes Adaptation Scavenger Hunt</title>
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    font-family: 'Segoe UI', system-ui, sans-serif;
+    background: #f4f6f4;
+    color: #1a1a1a;
+    min-height: 100vh;
+    padding: 2rem 1rem;
+  }
+
+  .page-header {
+    text-align: center;
+    margin-bottom: 2rem;
+  }
+  .page-header h1 {
+    font-size: 1.6rem;
+    font-weight: 600;
+    color: #1a3a28;
+    margin-bottom: 0.25rem;
+  }
+  .page-header p {
+    font-size: 0.9rem;
+    color: #557060;
+  }
+
+  .container {
+    max-width: 680px;
+    margin: 0 auto;
+  }
+
+  .progress-bar-bg {
+    height: 6px;
+    background: #d4e4da;
+    border-radius: 3px;
+    margin-bottom: 1.5rem;
+  }
+  .progress-bar-fill {
+    height: 6px;
+    background: #1D9E75;
+    border-radius: 3px;
+    transition: width 0.4s;
+  }
+
+  .biome-badge {
+    display: inline-block;
+    font-size: 12px;
+    font-weight: 600;
+    padding: 3px 10px;
+    border-radius: 20px;
+    margin-bottom: 10px;
+  }
+
+  .question-card {
+    background: #ffffff;
+    border: 1px solid #d0ddd5;
+    border-radius: 12px;
+    padding: 1.5rem;
+    margin-bottom: 1rem;
+  }
+
+  .question-text {
+    font-size: 15px;
+    color: #1a1a1a;
+    margin: 0 0 10px;
+    line-height: 1.65;
+  }
+
+  .link-note {
+    font-size: 13px;
+    color: #557060;
+    margin-bottom: 12px;
+    font-style: italic;
+  }
+  .link-note a { color: #1D9E75; }
+
+  textarea {
+    width: 100%;
+    border: 1px solid #c4d4ca;
+    border-radius: 8px;
+    padding: 10px 12px;
+    font-size: 14px;
+    font-family: inherit;
+    color: #1a1a1a;
+    background: #f9fbfa;
+    resize: vertical;
+    margin-bottom: 10px;
+    outline: none;
+    transition: border-color 0.2s;
+  }
+  textarea:focus { border-color: #1D9E75; background: #fff; }
+  textarea:disabled { background: #f0f4f1; color: #557060; }
+
+  button {
+    cursor: pointer;
+    font-family: inherit;
+    font-size: 13px;
+    padding: 7px 16px;
+    border-radius: 8px;
+    border: 1px solid #c4d4ca;
+    background: #fff;
+    color: #1a3a28;
+    transition: background 0.15s, border-color 0.15s;
+  }
+  button:hover:not(:disabled) { background: #eef5f1; border-color: #1D9E75; }
+  button:disabled { opacity: 0.45; cursor: default; }
+
+  .check-btn {
+    background: #1D9E75;
+    color: #fff;
+    border-color: #1D9E75;
+    margin-right: 8px;
+  }
+  .check-btn:hover:not(:disabled) { background: #17896a; border-color: #17896a; }
+
+  .hint-btn {
+    background: none;
+    border: none;
+    color: #557060;
+    font-size: 13px;
+    cursor: pointer;
+    padding: 0;
+    text-decoration: underline;
+  }
+
+  .hint-text {
+    font-size: 13px;
+    color: #3B6D11;
+    margin-top: 10px;
+    padding: 10px 14px;
+    background: #EAF3DE;
+    border-radius: 8px;
+    display: none;
+    line-height: 1.55;
+  }
+
+  .feedback {
+    font-size: 13px;
+    margin-top: 10px;
+    padding: 10px 14px;
+    border-radius: 8px;
+    line-height: 1.6;
+  }
+  .feedback.correct { background: #EAF3DE; color: #27500A; }
+  .feedback.incorrect { background: #FCEBEB; color: #A32D2D; }
+
+  .nav-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-top: 1rem;
+  }
+  .q-counter {
+    font-size: 13px;
+    color: #557060;
+  }
+
+  .complete-panel {
+    text-align: center;
+    padding: 3rem 1rem;
+    background: #fff;
+    border: 1px solid #d0ddd5;
+    border-radius: 12px;
+  }
+  .score-big { font-size: 56px; font-weight: 700; color: #1D9E75; }
+  .score-label { font-size: 16px; color: #557060; margin: 0.5rem 0 2rem; }
+
+  .response-review {
+    background: #fff;
+    border: 1px solid #d0ddd5;
+    border-radius: 12px;
+    padding: 1.5rem;
+    margin-top: 1.5rem;
+    display: none;
+  }
+  .response-review h2 {
+    font-size: 1rem;
+    font-weight: 600;
+    color: #1a3a28;
+    margin-bottom: 0.25rem;
+  }
+  .response-review .rr-sub {
+    font-size: 13px;
+    color: #557060;
+    margin-bottom: 1.25rem;
+  }
+  .rr-section-title {
+    font-size: 12px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    color: #557060;
+    margin: 1.25rem 0 0.6rem;
+    padding-bottom: 4px;
+    border-bottom: 1px solid #e0eae4;
+  }
+  .rr-row {
+    display: grid;
+    grid-template-columns: 160px 1fr auto;
+    gap: 10px;
+    align-items: start;
+    padding: 10px 0;
+    border-bottom: 1px solid #f0f4f1;
+    font-size: 13px;
+  }
+  .rr-row:last-child { border-bottom: none; }
+  .rr-label { color: #557060; line-height: 1.5; }
+  .rr-answer { color: #1a1a1a; line-height: 1.55; }
+  .rr-answer.empty { color: #aabdb5; font-style: italic; }
+  .rr-status { font-size: 11px; font-weight: 600; padding: 2px 8px; border-radius: 20px; white-space: nowrap; }
+  .rr-status.correct { background: #EAF3DE; color: #3B6D11; }
+  .rr-status.incorrect { background: #FCEBEB; color: #A32D2D; }
+  .rr-status.blank { background: #f0f4f1; color: #557060; }
+  .et-response-block { margin-bottom: 1rem; }
+  .et-response-label { font-size: 13px; font-weight: 600; color: #557060; margin-bottom: 4px; }
+  .et-response-text { font-size: 14px; color: #1a1a1a; line-height: 1.6; background: #f9fbfa; border-radius: 8px; padding: 10px 14px; }
+  .et-response-text.empty { color: #aabdb5; font-style: italic; }
+  .classkick-directions {
+    background: #fffbe6;
+    border: 2px dashed #f0c040;
+    border-radius: 8px;
+    padding: 12px 16px;
+    margin-bottom: 1rem;
+    font-size: 13px;
+    color: #5a4a00;
+    line-height: 1.6;
+  }
+  .classkick-directions strong { color: #3a3000; }
+  .ticket-border {
+    border: 5px solid transparent;
+    border-radius: 14px;
+    padding: 4px;
+    background:
+      linear-gradient(white, white) padding-box,
+      repeating-linear-gradient(
+        45deg,
+        #1D9E75 0px, #1D9E75 10px,
+        #9FE1CB 10px, #9FE1CB 20px,
+        #EF9F27 20px, #EF9F27 30px,
+        #D85A30 30px, #D85A30 40px,
+        #378ADD 40px, #378ADD 50px,
+        #9FE1CB 50px, #9FE1CB 60px
+      ) border-box;
+    margin-bottom: 1rem;
+  }
+  .ticket-inner {
+    background: #fff;
+    border-radius: 10px;
+    padding: 1.25rem;
+  }
+  .copy-btn {
+    width: 100%;
+    margin-top: 1rem;
+    background: #1D9E75;
+    color: #fff;
+    border: 1px solid #1D9E75;
+    font-size: 14px;
+    padding: 10px;
+    border-radius: 8px;
+    cursor: pointer;
+    font-family: inherit;
+    transition: background 0.15s;
+  }
+  .copy-btn:hover { background: #17896a; }
+  .copy-btn.copied { background: #639922; border-color: #639922; }
+  .print-btn {
+    margin-top: 0.75rem;
+    width: 100%;
+    font-size: 13px;
+    padding: 8px;
+    color: #557060;
+    border-color: #c4d4ca;
+  }
+  @media print {
+    .nav-row, .page-header, #question-area, button, .classkick-directions { display: none !important; }
+    .response-review { display: block !important; border: none; padding: 0; }
+    .ticket-border { border: 2px solid #1D9E75; background: none; }
+    body { background: #fff; }
+  }
+</style>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+</head>
+<body>
+
+<div class="container">
+  <div class="page-header">
+    <h1>🌍 Biomes Adaptation Scavenger Hunt</h1>
+    <p>Use the <a href="https://artsandculture.google.com/story/biomes/SQVR-od51JaMAA?hl=en" target="_blank" style="color:#1D9E75;">Google Arts &amp; Culture Biomes story</a> to find each answer.</p>
+  </div>
+
+  <div class="progress-bar-bg"><div class="progress-bar-fill" id="prog" style="width:0%"></div></div>
+
+  <div id="question-area"></div>
+
+  <div class="nav-row" id="nav-row">
+    <button id="prev-btn" onclick="move(-1)">← Previous</button>
+    <span class="q-counter" id="q-counter"></span>
+    <button id="next-btn" onclick="move(1)">Next →</button>
+  </div>
+
+  <div class="complete-panel" id="complete-panel" style="display:none;">
+    <div class="score-big" id="final-score"></div>
+    <div class="score-label" id="final-label"></div>
+    <button onclick="restart()" style="margin-right:8px;">Try again</button>
+    <button onclick="showReview()">See my full responses →</button>
+  </div>
+
+  <div class="response-review" id="response-review">
+    <h2>📋 Your Response Summary</h2>
+    <p class="rr-sub">Here's everything you recorded today.</p>
+
+    <div class="classkick-directions">
+      <strong>Submitting to Classkick?</strong> Click the green button below to save your responses as an image (.png file). Then open your Classkick assignment, insert an image, and upload the file you just saved — your formatting will be preserved exactly.
+    </div>
+
+    <div class="ticket-border">
+      <div class="ticket-inner" id="copy-target">
+        <div style="font-size:14px; font-weight:600; color:#1a3a28; margin-bottom:0.75rem;">🌍 Biomes Adaptation Scavenger Hunt — My Responses</div>
+        <div class="rr-section-title" style="margin-top:0;">Scavenger Hunt — all 10 questions</div>
+        <div id="rr-hunt-rows"></div>
+      </div>
+    </div>
+
+    <button class="copy-btn" id="img-btn" onclick="saveAsImage()">🖼 Save as image to upload to Classkick</button>
+  </div>
+</div>
+
+<script>
+const LINK = "https://artsandculture.google.com/story/biomes/SQVR-od51JaMAA?hl=en";
+
+const biomeColors = {
+  "Tundra":              { bg:"#E6F1FB", text:"#0C447C", border:"#378ADD" },
+  "Taiga":               { bg:"#EAF3DE", text:"#27500A", border:"#639922" },
+  "Temperate Forest":    { bg:"#FAEEDA", text:"#633806", border:"#BA7517" },
+  "Tropical Rainforest": { bg:"#E1F5EE", text:"#085041", border:"#1D9E75" },
+  "Savanna":             { bg:"#FAEEDA", text:"#633806", border:"#EF9F27" },
+  "Desert":              { bg:"#FAECE7", text:"#712B13", border:"#D85A30" },
+};
+
+const questions = [
+  {
+    biome: "Tundra", section: "Grasses",
+    q: "Look at the Tundra section. Grasses survive the short growing season because of one key trait. What is it, and why does it help?",
+    keywords: ["shallow","root","roots","shallow roots"],
+    hint: "Think about what part of the plant you'd find underground — and why depth matters in frozen ground.",
+    explain: "Grasses have shallow roots, so they can grow quickly in the thin layer of soil that thaws during the brief tundra summer. Deep roots can't penetrate the permafrost below."
+  },
+  {
+    biome: "Tundra", section: "Reindeer Moss",
+    q: "Reindeer moss isn't actually a moss — it's a lichen. Find the section that explains how the two organisms inside it survive together. What does each partner contribute?",
+    keywords: ["fungus","algae","moisture","photosynthesis","energy","algae provides","fungus absorbs"],
+    hint: "Look for what each organism gives the other. One provides water, the other provides food energy.",
+    explain: "The fungus absorbs and provides moisture the algae needs to photosynthesize. In return, the algae provides the fungus with energy. This is a mutualistic adaptation to harsh, dry tundra conditions."
+  },
+  {
+    biome: "Taiga", section: "Conifers",
+    q: "In the Taiga section, conifers (evergreens) keep their leaves all year. Look for the specific structural adaptation that helps them conserve water. What is it?",
+    keywords: ["waxy","wax","needle","needles","waxy layer","waxy coating"],
+    hint: "It's a coating on the outside of the needle-shaped leaves.",
+    explain: "Conifer needles are covered in a waxy layer that reduces water loss — critical in the taiga where cold temperatures limit how much liquid water is available."
+  },
+  {
+    biome: "Temperate Forest", section: "Saplings",
+    q: "In the Temperate Forest section, look at the saplings growing under the giant redwoods. What specific challenge have these smaller trees adapted to?",
+    keywords: ["shade","shadow","sunlight","light","sun","shade-tolerant","shadow of"],
+    hint: "The redwood canopy above creates a very specific abiotic condition on the forest floor.",
+    explain: "The redwood canopy blocks most sunlight, so saplings below have adapted to grow in low-light (shade) conditions — a direct response to the abiotic factor of limited sunlight."
+  },
+  {
+    biome: "Temperate Forest", section: "Ferns",
+    q: "Still in the Temperate Forest section — ferns and ivies are described as tolerant of a specific abiotic condition on the forest floor. What is that condition?",
+    keywords: ["shade","shadow","low light","low-light","lack of sunlight","canopy","sun"],
+    hint: "It's the same limiting abiotic factor that affects the saplings nearby.",
+    explain: "Ferns and ivies are shade-tolerant, meaning they can photosynthesize effectively even with very little direct sunlight — a key adaptation to life beneath the forest canopy."
+  },
+  {
+    biome: "Tropical Rainforest", section: "Epiphytes",
+    q: "In the Tropical Rainforest section, find epiphytes. What problem do they solve by growing on other plants instead of the forest floor?",
+    keywords: ["sunlight","light","crowded","space","floor","access to sunlight","limited","sun"],
+    hint: "Two things are scarce on the rainforest floor: space and something plants need to make food.",
+    explain: "The rainforest floor is overcrowded and almost no sunlight reaches it. Epiphytes like orchids and vines grow on other plants to get closer to sunlight — an adaptation to competition for light and space."
+  },
+  {
+    biome: "Savanna", section: "Trees",
+    q: "In the Savanna section, look at the acacia tree. It has a physical adaptation that protects its leaves from being eaten. What is it, and does it always work?",
+    keywords: ["thorn","thorns","spiny","spine","spines","ants","tree ants","giraffe","giraffes"],
+    hint: "Look for what the tree grows AND what animals are also involved in defense.",
+    explain: "Acacia trees grow spiny thorns to discourage grazing animals. However, giraffes' long tongues let them reach around the thorns — but tree ants also help by biting the giraffes! This shows layered adaptations between species."
+  },
+  {
+    biome: "Savanna", section: "Zebra",
+    q: "Zebras in the Savanna section have a striking pattern. The text gives TWO possible explanations for why stripes are an adaptation. What are they?",
+    keywords: ["blend","camouflage","grass","grasses","herd","pick","predator","stripes","single"],
+    hint: "One idea is about blending in; the other is about confusing a predator when zebras are in a group.",
+    explain: "Some scientists think the stripes help zebras blend with the grasses (camouflage). Others think the pattern makes it hard for predators to pick a single zebra out of a moving herd — both are adaptations that reduce predation."
+  },
+  {
+    biome: "Desert", section: "Joshua Trees",
+    q: "Look at Joshua Trees in the Desert section. What structural adaptation helps them survive in extremely dry soil where few other trees can grow?",
+    keywords: ["root","roots","deep","large roots","deep root","large root","deep into"],
+    hint: "Think about where the water is in a desert — it's usually far underground.",
+    explain: "Joshua trees have large roots growing deep into the ground, allowing them to reach water far below the dry desert surface — an adaptation to the abiotic factor of extremely low precipitation."
+  },
+  {
+    biome: "Desert", section: "Dead or Alive?",
+    q: "The last section describes desert plants that look dead but aren't. Find TWO survival strategies the text mentions for getting through a drought.",
+    keywords: ["dormant","dormancy","photosynthesis","different strategies","photosynthesize","drought","survive"],
+    hint: "One is about changing HOW they photosynthesize; the other is about going into a kind of 'pause.'",
+    explain: "Desert plants may use different strategies for photosynthesizing (some do it at night to avoid heat) OR they may enter a dormant period — essentially pausing growth and metabolism — to survive prolonged drought."
+  }
+];
+
+let current = 0;
+let answers = Array(questions.length).fill("");
+let checked = Array(questions.length).fill(false);
+let correct  = Array(questions.length).fill(false);
+
+function render() {
+  const q = questions[current];
+  const c = biomeColors[q.biome];
+  const isChecked = checked[current];
+  const isCorrect = correct[current];
+
+  document.getElementById("q-counter").textContent = `Question ${current+1} of ${questions.length}`;
+  document.getElementById("prog").style.width = `${Math.round((checked.filter(Boolean).length / questions.length)*100)}%`;
+
+  document.getElementById("question-area").innerHTML = `
+    <div class="question-card">
+      <span class="biome-badge" style="background:${c.bg};color:${c.text};border:1px solid ${c.border}">${q.biome} — ${q.section}</span>
+      <p class="question-text">${q.q}</p>
+      <p class="link-note">Open the story to find it: <a href="${LINK}" target="_blank">Google Arts &amp; Culture — Biomes ↗</a></p>
+      <textarea id="ans-input" rows="3" placeholder="Type what you found in the story…" ${isChecked ? "disabled" : ""}>${answers[current]}</textarea>
+      ${!isChecked
+        ? `<button class="check-btn" onclick="checkAnswer()">Check answer</button>
+           <button class="hint-btn" onclick="toggleHint()">Show hint</button>
+           <div class="hint-text" id="hint-box">💡 ${q.hint}</div>`
+        : `<div class="feedback ${isCorrect ? 'correct' : 'incorrect'}">
+             ${isCorrect ? '✓ Nice work! ' : '✗ Not quite. '}${q.explain}
+           </div>`
+      }
+    </div>`;
+
+  if (!isChecked) {
+    document.getElementById("ans-input").addEventListener("input", e => { answers[current] = e.target.value; });
+  }
+
+  document.getElementById("prev-btn").disabled = current === 0;
+  document.getElementById("next-btn").textContent = current === questions.length - 1 ? "Finish" : "Next →";
+}
+
+function checkAnswer() {
+  const val = (document.getElementById("ans-input").value || "").toLowerCase();
+  answers[current] = val;
+  correct[current] = questions[current].keywords.some(k => val.includes(k.toLowerCase()));
+  checked[current] = true;
+  render();
+}
+
+function toggleHint() {
+  const box = document.getElementById("hint-box");
+  box.style.display = box.style.display === "block" ? "none" : "block";
+}
+
+function move(dir) {
+  const next = current + dir;
+  if (next < 0) return;
+  if (next >= questions.length) { showComplete(); return; }
+  current = next;
+  render();
+}
+
+function showComplete() {
+  document.getElementById("question-area").style.display = "none";
+  document.getElementById("nav-row").style.display = "none";
+  document.getElementById("complete-panel").style.display = "block";
+  const score = correct.filter(Boolean).length;
+  const pct = Math.round((score / questions.length) * 100);
+  document.getElementById("final-score").textContent = `${score}/${questions.length}`;
+  document.getElementById("final-label").textContent =
+    pct === 100 ? "Perfect! You found every adaptation." :
+    pct >= 70   ? "Great work — solid understanding of adaptations!" :
+                  "Good effort — try re-reading the sections you missed.";
+}
+
+function restart() {
+  answers = Array(questions.length).fill("");
+  checked = Array(questions.length).fill(false);
+  correct  = Array(questions.length).fill(false);
+  current  = 0;
+  document.getElementById("question-area").style.display = "block";
+  document.getElementById("nav-row").style.display = "flex";
+  document.getElementById("complete-panel").style.display = "none";
+  document.getElementById("response-review").style.display = "none";
+  render();
+}
+
+function showReview() {
+  document.getElementById("complete-panel").style.display = "none";
+
+  let huntHTML = "";
+  questions.forEach((q, i) => {
+    const statusClass = !checked[i] ? "blank" : correct[i] ? "correct" : "incorrect";
+    const statusText  = !checked[i] ? "skipped" : correct[i] ? "correct" : "review";
+    const ansText = answers[i] ? escapeHTML(answers[i]) : "";
+    huntHTML += `
+      <div class="rr-row">
+        <div class="rr-label"><strong>${q.biome}</strong><br>${q.section}</div>
+        <div class="rr-answer ${ansText ? '' : 'empty'}">${ansText || "No answer entered"}</div>
+        <div><span class="rr-status ${statusClass}">${statusText}</span></div>
+      </div>`;
+  });
+  document.getElementById("rr-hunt-rows").innerHTML = huntHTML;
+
+  const rr = document.getElementById("response-review");
+  rr.style.display = "block";
+  rr.scrollIntoView({ behavior: "smooth" });
+}
+
+function saveAsImage() {
+  const el = document.getElementById("copy-target");
+  const btn = document.getElementById("img-btn");
+  btn.textContent = "⏳ Generating image…";
+  btn.disabled = true;
+  html2canvas(el, {
+    scale: 2,
+    backgroundColor: "#ffffff",
+    useCORS: true,
+    logging: false
+  }).then(canvas => {
+    const link = document.createElement("a");
+    link.download = "biomes-scavenger-hunt-responses.png";
+    link.href = canvas.toDataURL("image/png");
+    link.click();
+    btn.textContent = "✓ Image saved! Upload it to Classkick.";
+    btn.classList.add("copied");
+    setTimeout(() => {
+      btn.textContent = "🖼 Save as image to upload to Classkick";
+      btn.classList.remove("copied");
+      btn.disabled = false;
+    }, 4000);
+  }).catch(() => {
+    btn.textContent = "🖼 Save as image to upload to Classkick";
+    btn.disabled = false;
+    alert("Image generation failed. Try printing instead (Ctrl+P).");
+  });
+}
+
+function escapeHTML(str) {
+  return str.replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;").replace(/\n/g,"<br>");
+}
+
+render();
+</script>
+</body>
+</html>
