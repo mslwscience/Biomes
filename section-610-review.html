@@ -1,0 +1,757 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Section 6.10 Review — Human Impact on Biomes</title>
+<link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800;900&family=Nunito+Sans:wght@400;600;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --green-dark: #1a5c2e;
+    --green-mid: #2d8a4e;
+    --green-light: #4cb87a;
+    --green-pale: #d4f0e0;
+    --green-bg: #eaf7f0;
+    --amber: #c97010;
+    --amber-pale: #fff3e0;
+    --red: #c0392b;
+    --red-pale: #fdecea;
+    --blue: #1a6fa8;
+    --blue-pale: #e3f2fd;
+    --text: #1a2a1e;
+    --text-light: #6b8c75;
+    --bg: #f4fbf7;
+    --white: #ffffff;
+    --border: #c5e0cf;
+    --radius: 14px;
+    --radius-sm: 8px;
+    --shadow: 0 2px 12px rgba(0,0,0,0.07);
+    --shadow-hover: 0 6px 24px rgba(0,0,0,0.13);
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: 'Nunito Sans', sans-serif; background: var(--bg); color: var(--text); min-height: 100vh; font-size: 16px; }
+
+  /* HEADER */
+  .header { background: linear-gradient(135deg, var(--green-dark) 0%, var(--green-mid) 60%, var(--green-light) 100%); color: white; padding: 2.5rem 2rem 2rem; position: relative; overflow: hidden; }
+  .header::before { content:''; position:absolute; top:-40px; right:-40px; width:220px; height:220px; background:rgba(255,255,255,0.06); border-radius:50%; }
+  .header::after  { content:''; position:absolute; bottom:-60px; left:30%; width:300px; height:300px; background:rgba(255,255,255,0.04); border-radius:50%; }
+  .header-inner { max-width:760px; margin:0 auto; position:relative; z-index:1; }
+  .header .badge { display:inline-block; background:rgba(255,255,255,0.18); border:1px solid rgba(255,255,255,0.3); border-radius:20px; padding:4px 14px; font-size:12px; font-family:'Nunito',sans-serif; font-weight:700; letter-spacing:.06em; text-transform:uppercase; margin-bottom:12px; }
+  .header h1 { font-family:'Nunito',sans-serif; font-size:clamp(22px,5vw,32px); font-weight:900; line-height:1.2; margin-bottom:6px; }
+  .header p { font-size:15px; opacity:.85; margin-bottom:1.25rem; }
+  .header-meta { display:flex; flex-wrap:wrap; gap:10px; font-size:13px; }
+  .meta-pill { background:rgba(255,255,255,0.15); border-radius:20px; padding:4px 12px; display:flex; align-items:center; gap:5px; }
+
+  /* ATTEMPT BAR */
+  .attempt-bar { background:var(--white); border-bottom:1px solid var(--border); padding:.6rem 2rem; display:flex; align-items:center; justify-content:space-between; gap:12px; position:sticky; top:0; z-index:100; box-shadow:0 2px 8px rgba(0,0,0,0.05); }
+  .attempt-info { font-family:'Nunito',sans-serif; font-weight:700; font-size:14px; color:var(--green-dark); display:flex; align-items:center; gap:8px; }
+  .dot { width:10px; height:10px; border-radius:50%; background:var(--green-light); display:inline-block; }
+  .dot.attempt2 { background:var(--amber); }
+  .pass-note { font-size:13px; color:var(--text-light); }
+
+  /* MAIN */
+  .main { max-width:760px; margin:0 auto; padding:1.5rem 1rem 3rem; }
+
+  /* SECTION LABEL */
+  .section-label { font-family:'Nunito',sans-serif; font-size:11px; font-weight:800; letter-spacing:.1em; text-transform:uppercase; color:var(--green-mid); margin:2rem 0 .75rem; display:flex; align-items:center; gap:8px; }
+  .section-label::after { content:''; flex:1; height:1px; background:var(--border); }
+
+  /* CARD */
+  .card { background:var(--white); border:1.5px solid var(--border); border-radius:var(--radius); padding:1.25rem 1.5rem; margin-bottom:1rem; box-shadow:var(--shadow); transition:box-shadow .2s, border-color .3s; }
+  .card:hover { box-shadow:var(--shadow-hover); }
+  .card.card-correct { border-color:var(--green-mid); border-width:2px; }
+  .card.card-wrong   { border-color:var(--red);       border-width:2px; }
+  .q-num { font-size:11px; font-family:'Nunito',sans-serif; font-weight:800; text-transform:uppercase; letter-spacing:.06em; color:var(--text-light); margin-bottom:6px; }
+  .q-text { font-size:16px; font-weight:600; line-height:1.5; margin-bottom:1rem; color:var(--text); }
+
+  /* CHOICES */
+  .choices { display:flex; flex-direction:column; gap:8px; }
+  .choice { display:flex; align-items:flex-start; gap:10px; padding:10px 14px; border:1.5px solid var(--border); border-radius:var(--radius-sm); cursor:pointer; font-size:15px; transition:all .15s; line-height:1.4; }
+  .choice:hover:not(.correct):not(.wrong):not(.locked) { background:var(--green-bg); border-color:var(--green-light); }
+  .choice.selected { border-color:var(--blue); background:var(--blue-pale); color:var(--blue); font-weight:600; }
+  .choice.correct  { border-color:var(--green-mid); background:var(--green-pale); color:var(--green-dark); font-weight:600; }
+  .choice.wrong    { border-color:var(--red); background:var(--red-pale); color:var(--red); }
+  .choice.locked   { pointer-events:none; }
+  .choice input[type=radio]    { margin-top:3px; accent-color:var(--blue); flex-shrink:0; }
+  .choice input[type=checkbox] { margin-top:3px; accent-color:var(--blue); flex-shrink:0; }
+
+  /* PER-QUESTION FEEDBACK */
+  .q-feedback { margin-top:14px; padding:14px 16px; border-radius:var(--radius-sm); font-size:14px; line-height:1.65; display:none; animation:fadeUp .3s ease; }
+  .q-feedback.show { display:block; }
+  @keyframes fadeUp { from { opacity:0; transform:translateY(8px); } to { opacity:1; transform:translateY(0); } }
+  .q-feedback.fb-correct { background:var(--green-pale); border-left:4px solid var(--green-mid); color:#1a3d24; }
+  .q-feedback.fb-wrong   { background:var(--red-pale);   border-left:4px solid var(--red);       color:#5a1212; }
+  .fb-title { font-family:'Nunito',sans-serif; font-weight:800; font-size:15px; margin-bottom:6px; display:flex; align-items:center; gap:6px; }
+  .fb-body  { margin-bottom:0; }
+  .fb-ref   { margin-top:10px; padding:8px 12px; border-radius:var(--radius-sm); font-size:13px; font-style:italic; }
+  .fb-correct .fb-ref { background:rgba(45,138,78,0.1); color:var(--green-dark); }
+  .fb-wrong   .fb-ref { background:rgba(192,57,43,0.1);  color:#7a1a1a; }
+
+  /* CHECK BUTTON (for multi/match/drag) */
+  .check-btn { padding:7px 18px; font-size:13px; font-family:'Nunito',sans-serif; font-weight:700; background:none; border:1.5px solid var(--blue); border-radius:20px; cursor:pointer; color:var(--blue); transition:all .15s; margin-bottom:10px; }
+  .check-btn:hover:not(:disabled) { background:var(--blue-pale); }
+  .check-btn:disabled { opacity:.45; cursor:not-allowed; }
+
+  /* MATCHING */
+  .match-list { display:flex; flex-direction:column; gap:10px; }
+  .match-row { display:flex; align-items:center; gap:12px; padding:10px 14px; border:1.5px solid var(--border); border-radius:var(--radius-sm); background:var(--bg); transition:border-color .15s; }
+  .match-row.correct { border-color:var(--green-mid); background:var(--green-pale); }
+  .match-row.wrong   { border-color:var(--red);       background:var(--red-pale); }
+  .match-term { font-weight:700; font-size:14px; min-width:130px; color:var(--green-dark); font-family:'Nunito',sans-serif; }
+  .match-arrow { color:var(--text-light); font-size:18px; flex-shrink:0; }
+  .match-select { flex:1; font-size:14px; padding:7px 10px; border:1.5px solid var(--border); border-radius:var(--radius-sm); background:var(--white); color:var(--text); font-family:'Nunito Sans',sans-serif; cursor:pointer; appearance:none; background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%236b8c75' stroke-width='2' fill='none' stroke-linecap='round'/%3E%3C/svg%3E"); background-repeat:no-repeat; background-position:right 10px center; padding-right:30px; }
+
+  /* DRAG & DROP */
+  .drag-bank { display:flex; flex-wrap:wrap; gap:8px; margin-bottom:14px; min-height:46px; padding:8px; background:var(--bg); border:1.5px dashed var(--border); border-radius:var(--radius-sm); }
+  .chip { padding:6px 14px; background:var(--white); border:1.5px solid var(--green-light); border-radius:20px; font-size:13px; font-weight:600; font-family:'Nunito',sans-serif; cursor:grab; user-select:none; transition:all .15s; color:var(--green-dark); }
+  .chip:hover { background:var(--green-pale); transform:translateY(-1px); }
+  .chip:active { cursor:grabbing; }
+  .chip.placed { opacity:.35; pointer-events:none; }
+  .drop-areas { display:flex; flex-direction:column; gap:10px; }
+  .drop-label { font-size:12px; font-weight:700; font-family:'Nunito',sans-serif; color:var(--green-dark); margin-bottom:5px; text-transform:uppercase; letter-spacing:.04em; }
+  .drop-zone { min-height:50px; border:2px dashed var(--border); border-radius:var(--radius-sm); padding:8px; display:flex; flex-wrap:wrap; gap:6px; transition:all .15s; background:var(--bg); }
+  .drop-zone.over         { border-color:var(--blue);      background:var(--blue-pale); }
+  .drop-zone.correct-zone { border-color:var(--green-mid); background:var(--green-pale); }
+  .drop-zone.wrong-zone   { border-color:var(--red);       background:var(--red-pale); }
+  .btn-row { display:flex; gap:8px; margin-top:8px; flex-wrap:wrap; }
+  .reset-btn { padding:6px 14px; font-size:12px; font-family:'Nunito',sans-serif; font-weight:700; background:none; border:1.5px solid var(--border); border-radius:20px; cursor:pointer; color:var(--text-light); transition:all .15s; }
+  .reset-btn:hover:not(:disabled) { border-color:var(--green-mid); color:var(--green-dark); background:var(--green-pale); }
+  .reset-btn:disabled { opacity:.4; cursor:not-allowed; }
+
+  /* SUBMIT */
+  .submit-wrap { text-align:center; margin:2rem 0 1rem; }
+  .submit-btn { display:inline-block; padding:14px 48px; background:var(--green-dark); color:white; border:none; border-radius:30px; font-family:'Nunito',sans-serif; font-size:17px; font-weight:800; cursor:pointer; transition:all .2s; box-shadow:0 4px 16px rgba(26,92,46,0.3); }
+  .submit-btn:hover:not(:disabled) { background:var(--green-mid); transform:translateY(-2px); box-shadow:0 8px 24px rgba(26,92,46,0.35); }
+  .submit-btn:disabled { background:var(--text-light); cursor:not-allowed; transform:none; box-shadow:none; }
+
+  /* OVERALL FEEDBACK */
+  .feedback-box { padding:16px 20px; border-radius:var(--radius-sm); font-size:15px; margin-top:1rem; font-weight:600; line-height:1.6; display:none; }
+  .feedback-box.show { display:block; }
+  .fb-good { background:var(--green-pale); color:var(--green-dark); border:1.5px solid var(--green-mid); }
+  .fb-warn { background:var(--amber-pale); color:#5a3500; border:1.5px solid var(--amber); }
+  .fb-bad  { background:var(--red-pale);   color:var(--red);        border:1.5px solid var(--red); }
+  .score-bar-wrap { background:var(--border); border-radius:20px; height:14px; overflow:hidden; margin:10px 0 8px; }
+  .score-bar { height:100%; border-radius:20px; transition:width .7s cubic-bezier(.4,0,.2,1); }
+  .retry-btn { display:inline-block; margin-top:14px; padding:11px 32px; background:var(--amber); color:white; border:none; border-radius:30px; font-family:'Nunito',sans-serif; font-size:15px; font-weight:800; cursor:pointer; transition:all .2s; }
+  .retry-btn:hover { background:#a55c0a; transform:translateY(-1px); }
+
+  /* EXIT TICKET */
+  .exit-ticket { background:var(--white); border:3px solid var(--green-mid); border-radius:var(--radius); padding:2rem 1.5rem; text-align:center; margin-top:2rem; position:relative; display:none; box-shadow:0 8px 32px rgba(45,138,78,0.15); }
+  .exit-ticket::before { content:''; position:absolute; inset:6px; border:1.5px dashed var(--green-pale); border-radius:10px; pointer-events:none; }
+  .exit-ticket .leaf { font-size:44px; margin-bottom:.5rem; }
+  .exit-ticket h2 { font-family:'Nunito',sans-serif; font-size:22px; font-weight:900; color:var(--green-dark); margin-bottom:4px; }
+  .exit-ticket .score-big { font-family:'Nunito',sans-serif; font-size:52px; font-weight:900; color:var(--green-mid); line-height:1; margin:.4rem 0; }
+  .exit-ticket .lesson-name { font-size:16px; font-weight:700; color:var(--green-dark); margin-bottom:6px; }
+  .exit-ticket .details { font-size:14px; color:var(--text-light); line-height:1.7; }
+  .exit-ticket .standard-pill { display:inline-block; margin-top:12px; background:var(--green-pale); color:var(--green-dark); border-radius:20px; padding:4px 14px; font-size:12px; font-weight:700; font-family:'Nunito',sans-serif; }
+  .confetti-row { font-size:22px; margin-bottom:8px; letter-spacing:4px; }
+
+  @media print {
+    .attempt-bar,.submit-wrap,.feedback-box,.q-feedback { display:none!important; }
+    .exit-ticket { display:block!important; }
+    body { background:white; }
+  }
+  @media (max-width:500px) {
+    .match-term { min-width:90px; font-size:12px; }
+    .chip { font-size:12px; padding:5px 10px; }
+    .header { padding:1.5rem 1rem 1.25rem; }
+  }
+</style>
+</head>
+<body>
+
+<div class="header">
+  <div class="header-inner">
+    <div class="badge">7th Grade Science</div>
+    <h1>Human Impact on Biomes</h1>
+    <p>Section 6.10 Review — Answer each question and get instant feedback!</p>
+    <div class="header-meta">
+      <div class="meta-pill">🌿 12 Questions</div>
+      <div class="meta-pill">🎯 Need 80% to pass</div>
+      <div class="meta-pill">🔄 2 Attempts</div>
+      <div class="meta-pill">💬 Feedback after each answer</div>
+    </div>
+  </div>
+</div>
+
+<div class="attempt-bar">
+  <div class="attempt-info">
+    <span class="dot" id="attempt-dot"></span>
+    <span id="attempt-text">Attempt 1 of 2</span>
+  </div>
+  <div class="pass-note">Score 80% or better to earn your exit ticket!</div>
+</div>
+
+<div class="main">
+  <div id="quiz-area"></div>
+  <div class="submit-wrap">
+    <button class="submit-btn" id="submit-btn">Check My Final Score ✓</button>
+  </div>
+  <div class="feedback-box" id="feedback-box"></div>
+  <div class="exit-ticket" id="exit-ticket"></div>
+</div>
+
+<script>
+const Qs = [
+  {
+    id:'q1', type:'mc', section:'Multiple Choice',
+    text:'What does the word "biome" mean?',
+    choices:['A big city with lots of people','A large area with its own climate, plants, and animals','A type of pollution in rivers','A machine that cleans the air'],
+    answer:1,
+    fb:{
+      correct:'Yes! A biome is a large region that has its own special climate, plants, and animals. Examples include tropical rainforests, deserts, and grasslands. They cover huge parts of Earth!',
+      wrong:'A biome is NOT a city or a machine. Think of places like "tropical rainforest" or "desert" — those are biomes. They are big natural areas with their own weather and wildlife.',
+      ref:'Key Vocabulary section at the top of Lesson 6.10 — find the word "Biome."'
+    }
+  },
+  {
+    id:'q2', type:'mc', section:'Multiple Choice',
+    text:'What is deforestation?',
+    choices:['Planting new trees in a park','Adding fish to a lake','Cutting down or clearing forests for farming or building','Cleaning up pollution in a river'],
+    answer:2,
+    fb:{
+      correct:'Correct! Deforestation means removing forests so land can be used for farming, logging, or building. The Amazon rainforest is a real example of this from the lesson.',
+      wrong:'Deforestation is about REMOVING forests — not planting trees or cleaning water. The prefix "de-" usually means to undo or take away something.',
+      ref:'"Deforestation" in the Key Vocabulary section AND the "Deforestation" paragraph under Descriptions of Major Human Impacts in Lesson 6.10.'
+    }
+  },
+  {
+    id:'q3', type:'mc', section:'Multiple Choice',
+    text:'How does habitat fragmentation hurt animals?',
+    choices:['It gives animals more space to live','It cuts big habitats into small pieces so animals cannot find food or mates easily','It brings clean water to animals','It removes pollution from the air'],
+    answer:1,
+    fb:{
+      correct:'Exactly! When roads, farms, or towns cut through a habitat, animals get trapped in small patches. They cannot travel to find food, mates, or shelter — which lowers genetic diversity and can cause local extinction.',
+      wrong:'Fragmentation means breaking apart. When habitats are fragmented, animals actually have LESS space and get separated from each other — making survival much harder.',
+      ref:'"Habitat Fragmentation and Urbanization" section in Lesson 6.10, plus the Key Vocabulary definition for "habitat fragmentation."'
+    }
+  },
+  {
+    id:'q4', type:'mc', section:'Multiple Choice',
+    text:'Which of these is an example of pollution?',
+    choices:['Planting native trees','Building a wildlife refuge','Fertilizer running off a farm into a river','Creating a habitat corridor'],
+    answer:2,
+    fb:{
+      correct:'Yes! Fertilizer and pesticide runoff from farms is chemical pollution that travels into rivers. It can cause harmful algae blooms — just like what happened in the Chesapeake Bay example in the lesson!',
+      wrong:'The other choices are actually conservation strategies that HELP nature. Pollution means harmful substances entering the environment — things like chemical runoff, factory smoke, or plastic in the ocean.',
+      ref:'"Pollution" section under Descriptions of Major Human Impacts, and the Chesapeake Bay real-world example in Lesson 6.10.'
+    }
+  },
+  {
+    id:'q5', type:'multi', section:'Select All That Apply',
+    text:'Select ALL the ways people can help conserve a biome. Choose 3.',
+    choices:['Create protected parks and wildlife refuges','Cut down more trees for farmland','Build habitat corridors to connect fragmented land','Plant invasive species in local parks','Reduce chemical runoff and pollution'],
+    answers:[0,2,4],
+    fb:{
+      correct:'Wonderful! Parks and refuges protect habitats from damage. Habitat corridors help animals travel safely between patches. Reducing pollution keeps ecosystems healthy. These are all real conservation strategies!',
+      wrong:'Look carefully — cutting down trees and planting invasive species both HARM biomes. The three correct choices are the ones that protect or improve the natural environment.',
+      ref:'"Strategies for Conservation and Restoration" section near the bottom of Lesson 6.10.'
+    }
+  },
+  {
+    id:'q6', type:'multi', section:'Select All That Apply',
+    text:'Select ALL the things that can happen when forests are cut down. Choose 3.',
+    choices:['Local climate gets drier and hotter','More animals move in and thrive','Soil can lose its fertility','Carbon dioxide in the air increases','Fish populations grow bigger'],
+    answers:[0,2,3],
+    fb:{
+      correct:'Spot on! Trees hold moisture and shade the ground, so without them the climate gets drier and hotter. Tree roots hold nutrients in the soil, so fertility drops. And trees absorb CO₂, so cutting them releases more carbon dioxide into the air.',
+      wrong:'Think about what trees actually do. Without trees: the local climate gets drier and hotter, the soil loses nutrients, and more CO₂ enters the air. Animals and fish do not thrive when their forest home disappears.',
+      ref:'"Deforestation" subsection under Descriptions of Major Human Impacts in Lesson 6.10.'
+    }
+  },
+  {
+    id:'q7', type:'match', section:'Vocabulary Matching',
+    text:'Match each word to its correct meaning.',
+    pairs:[
+      {term:'Biodiversity',  def:'The variety of different living things in a place'},
+      {term:'Stewardship',   def:'Taking care of the environment through thoughtful choices'},
+      {term:'Sustainable',   def:'Using resources without hurting future generations'},
+      {term:'Conservation',  def:'Protecting and managing nature and natural resources'},
+    ],
+    fb:{
+      correct:'Perfect! These four vocabulary words are the foundation for understanding how humans can protect nature. Knowing these words will help you throughout all of your science work this year!',
+      wrong:'Some matches need fixing. Try reading each definition and thinking about the word\'s meaning. Clue: "Bio" means life — so biodiversity is about the variety of LIFE in a place.',
+      ref:'Key Vocabulary section at the very top of Lesson 6.10 — all four definitions are listed there.'
+    }
+  },
+  {
+    id:'q8', type:'match', section:'Vocabulary Matching',
+    text:'Match each human activity to its main effect on a biome.',
+    pairs:[
+      {term:'Overfishing',      def:'Fish populations drop faster than they can recover'},
+      {term:'Pollution',        def:'Harmful chemicals enter water and air'},
+      {term:'Urbanization',     def:'Natural land is replaced by buildings and pavement'},
+      {term:'Invasive species', def:'Non-native animals outcompete local wildlife'},
+    ],
+    fb:{
+      correct:'Excellent! Each of these activities causes a chain reaction that harms the whole ecosystem — not just one animal or plant. That is why scientists call these "cascading effects."',
+      wrong:'A few are off. Think about what each word means: overfishing removes fish faster than they can reproduce; urbanization means cities growing over natural land; invasive species do not belong in that ecosystem.',
+      ref:'"Overexploitation and Invasive Species" section AND "Habitat Fragmentation and Urbanization" section in Lesson 6.10.'
+    }
+  },
+  {
+    id:'q9', type:'drag', section:'Drag and Drop',
+    text:'Drag each example into the correct type of human impact.',
+    categories:['Deforestation','Pollution','Habitat Fragmentation'],
+    items:[
+      {label:'Amazon cattle ranching',              cat:0},
+      {label:'Nutrient runoff into Chesapeake Bay', cat:1},
+      {label:'Roads cutting through a forest',      cat:2},
+      {label:'Logging temperate forests',           cat:0},
+      {label:'Plastics in the ocean',               cat:1},
+      {label:'Farms dividing grasslands',           cat:2},
+    ],
+    fb:{
+      correct:'Amazing! You sorted them all correctly. Amazon ranching and logging both remove trees (deforestation). Nutrient runoff and plastics introduce harmful substances (pollution). Roads and farms dividing land are habitat fragmentation.',
+      wrong:'Some are in the wrong group. Remember: deforestation = removing trees; pollution = harmful stuff (chemicals, plastics) entering water or air; habitat fragmentation = dividing natural land into smaller pieces with roads or farms.',
+      ref:'"Real-World Examples" section AND each impact description in the middle of Lesson 6.10.'
+    }
+  },
+  {
+    id:'q10', type:'drag', section:'Drag and Drop',
+    text:'Drag each strategy into the correct group — does it PROTECT a biome or RESTORE a damaged biome?',
+    categories:['Protect a Biome','Restore a Biome'],
+    items:[
+      {label:'National parks',            cat:0},
+      {label:'Planting native trees',     cat:1},
+      {label:'Marine protected areas',    cat:0},
+      {label:'Removing invasive species', cat:1},
+      {label:'Pollution laws',            cat:0},
+      {label:'Restoring wetlands',        cat:1},
+    ],
+    fb:{
+      correct:'Great thinking! Protect strategies stop damage BEFORE it happens — like parks, marine areas, and laws. Restore strategies fix damage that ALREADY happened — like planting trees, removing invasives, and rebuilding wetlands.',
+      wrong:'Think about the difference: PROTECT = keeping a healthy biome safe from future damage. RESTORE = fixing a biome that is already damaged. Planting and rebuilding are repair actions — parks and laws are prevention.',
+      ref:'"Strategies for Conservation and Restoration" section near the bottom of Lesson 6.10.'
+    }
+  },
+  {
+    id:'q11', type:'mc', section:'Think About It',
+    text:'A student finds trash and invasive plants in a local park. What is the BEST stewardship action?',
+    choices:['Build a new road through the park','Remove the invasive plants and organize a cleanup','Cut down all the trees so invasive plants have no shade','Do nothing — nature fixes itself on its own'],
+    answer:1,
+    fb:{
+      correct:'Yes! This is environmental stewardship in real life. Removing invasive plants helps native species recover their habitat. Cleaning up trash removes pollution. The lesson says community action like this is key to long-term ecosystem health.',
+      wrong:'Stewardship means responsible care for the environment. Building a road or cutting all the trees would cause MORE damage. And nature cannot always fix itself on its own — especially when invasive species are involved.',
+      ref:'"Importance of Environmental Stewardship" section near the end of Lesson 6.10.'
+    }
+  },
+  {
+    id:'q12', type:'mc', section:'Think About It',
+    text:'The lesson says coral reefs are being damaged. Which answer lists ALL three causes the lesson mentions?',
+    choices:['Deforestation, invasive species, and cold water','Pollution, warming ocean temperatures, and overfishing','Too much rain, oil spills, and invasive birds','Habitat corridors, logging, and soil erosion'],
+    answer:1,
+    fb:{
+      correct:'Perfect! The lesson specifically names three threats to coral reefs: pollution, warming ocean temperatures, and overfishing. All three together cause coral bleaching and reef decline, reducing habitats for countless marine species.',
+      wrong:'The lesson names exactly three causes for coral reef damage. Look for the coral reef bullet point in the real-world examples section — it lists three specific things happening to reefs right now.',
+      ref:'"Coral reefs (marine biome)" bullet under the "Real-World Examples" section in Lesson 6.10.'
+    }
+  },
+];
+
+let attempt = 1;
+let userAnswers = {};
+let locked = {};
+
+function buildQuiz() {
+  const area = document.getElementById('quiz-area');
+  area.innerHTML = '';
+  let lastSec = '';
+  Qs.forEach((q, i) => {
+    if (q.section !== lastSec) {
+      lastSec = q.section;
+      const sl = document.createElement('div');
+      sl.className = 'section-label';
+      sl.textContent = q.section;
+      area.appendChild(sl);
+    }
+    area.appendChild(buildCard(q, i));
+  });
+}
+
+function showQFeedback(q, isCorrect) {
+  const el = document.getElementById('qfb-' + q.id);
+  if (!el) return;
+  const card = document.getElementById('card-' + q.id);
+  el.className = 'q-feedback ' + (isCorrect ? 'fb-correct' : 'fb-wrong') + ' show';
+  el.innerHTML =
+    '<div class="fb-title">' + (isCorrect ? '✅ Correct!' : '❌ Not quite!') + '</div>' +
+    '<div class="fb-body">' + (isCorrect ? q.fb.correct : q.fb.wrong) + '</div>' +
+    (isCorrect ? '' : '<div class="fb-ref">📖 Where to look in Lesson 6.10: ' + q.fb.ref + '</div>');
+  if (card) { card.classList.remove('card-correct','card-wrong'); card.classList.add(isCorrect ? 'card-correct' : 'card-wrong'); }
+}
+
+function buildCard(q, i) {
+  const card = document.createElement('div');
+  card.className = 'card'; card.id = 'card-' + q.id;
+  const num = document.createElement('div'); num.className = 'q-num';
+  num.textContent = 'Question ' + (i+1) + ' of ' + Qs.length;
+  card.appendChild(num);
+  const qt = document.createElement('div'); qt.className = 'q-text'; qt.textContent = q.text;
+  card.appendChild(qt);
+  if (q.type === 'mc')    buildMC(card, q);
+  if (q.type === 'multi') buildMulti(card, q);
+  if (q.type === 'match') buildMatch(card, q);
+  if (q.type === 'drag')  buildDrag(card, q);
+  const fb = document.createElement('div'); fb.className = 'q-feedback'; fb.id = 'qfb-' + q.id;
+  card.appendChild(fb);
+  return card;
+}
+
+function buildMC(card, q) {
+  if (userAnswers[q.id] === undefined) userAnswers[q.id] = null;
+  const div = document.createElement('div'); div.className = 'choices';
+  q.choices.forEach((c, ci) => {
+    const ch = document.createElement('label');
+    ch.className = 'choice' + (userAnswers[q.id] === ci ? ' selected' : '') + (locked[q.id] ? ' locked' : '');
+    const inp = document.createElement('input');
+    inp.type = 'radio'; inp.name = q.id; inp.value = ci;
+    inp.checked = userAnswers[q.id] === ci;
+    if (locked[q.id]) inp.disabled = true;
+    inp.addEventListener('change', () => {
+      if (locked[q.id]) return;
+      div.querySelectorAll('.choice').forEach(x => x.classList.remove('selected'));
+      ch.classList.add('selected');
+      userAnswers[q.id] = ci;
+      locked[q.id] = true;
+      div.querySelectorAll('.choice').forEach((x, xi) => {
+        x.classList.remove('selected');
+        if (xi === q.answer) x.classList.add('correct');
+        else if (xi === ci) x.classList.add('wrong');
+        x.classList.add('locked');
+        x.querySelector('input').disabled = true;
+      });
+      showQFeedback(q, ci === q.answer);
+    });
+    ch.appendChild(inp); ch.appendChild(document.createTextNode(' ' + c));
+    div.appendChild(ch);
+  });
+  if (locked[q.id] && userAnswers[q.id] !== null) {
+    div.querySelectorAll('.choice').forEach((x, xi) => {
+      if (xi === q.answer) x.classList.add('correct');
+      else if (xi === userAnswers[q.id]) x.classList.add('wrong');
+    });
+    showQFeedback(q, userAnswers[q.id] === q.answer);
+  }
+  card.appendChild(div);
+}
+
+function buildMulti(card, q) {
+  if (!userAnswers[q.id]) userAnswers[q.id] = [];
+  const checkBtn = document.createElement('button');
+  checkBtn.className = 'check-btn'; checkBtn.textContent = '✓ Check my selections';
+  if (locked[q.id]) checkBtn.disabled = true;
+  const div = document.createElement('div'); div.className = 'choices';
+  q.choices.forEach((c, ci) => {
+    const ch = document.createElement('label');
+    ch.className = 'choice' + (userAnswers[q.id].includes(ci) ? ' selected' : '') + (locked[q.id] ? ' locked' : '');
+    const inp = document.createElement('input');
+    inp.type = 'checkbox'; inp.value = ci; inp.checked = userAnswers[q.id].includes(ci);
+    if (locked[q.id]) inp.disabled = true;
+    inp.addEventListener('change', () => {
+      if (locked[q.id]) return;
+      if (inp.checked) { ch.classList.add('selected'); if (!userAnswers[q.id].includes(ci)) userAnswers[q.id].push(ci); }
+      else { ch.classList.remove('selected'); userAnswers[q.id] = userAnswers[q.id].filter(x => x !== ci); }
+    });
+    ch.appendChild(inp); ch.appendChild(document.createTextNode(' ' + c));
+    div.appendChild(ch);
+  });
+  checkBtn.addEventListener('click', () => {
+    if (locked[q.id]) return;
+    locked[q.id] = true; checkBtn.disabled = true;
+    const ua = [...userAnswers[q.id]].sort((a,b)=>a-b).join(',');
+    const ca = [...q.answers].sort((a,b)=>a-b).join(',');
+    div.querySelectorAll('.choice').forEach((ch, ci) => {
+      ch.classList.remove('selected','correct','wrong');
+      if (q.answers.includes(ci)) ch.classList.add('correct');
+      else if (userAnswers[q.id].includes(ci)) ch.classList.add('wrong');
+      ch.classList.add('locked'); ch.querySelector('input').disabled = true;
+    });
+    showQFeedback(q, ua === ca);
+  });
+  if (locked[q.id]) {
+    const ua = [...userAnswers[q.id]].sort((a,b)=>a-b).join(',');
+    const ca = [...q.answers].sort((a,b)=>a-b).join(',');
+    div.querySelectorAll('.choice').forEach((ch, ci) => {
+      if (q.answers.includes(ci)) ch.classList.add('correct');
+      else if (userAnswers[q.id].includes(ci)) ch.classList.add('wrong');
+    });
+    showQFeedback(q, ua === ca);
+  }
+  card.appendChild(checkBtn); card.appendChild(div);
+}
+
+function buildMatch(card, q) {
+  if (!userAnswers[q.id]) userAnswers[q.id] = {};
+  const defs = q.pairs.map(p => p.def).sort(() => Math.random() - 0.5);
+  const checkBtn = document.createElement('button');
+  checkBtn.className = 'check-btn'; checkBtn.textContent = '✓ Check my matches';
+  if (locked[q.id]) checkBtn.disabled = true;
+  card.appendChild(checkBtn);
+  const list = document.createElement('div'); list.className = 'match-list';
+  q.pairs.forEach((p, pi) => {
+    const row = document.createElement('div'); row.className = 'match-row'; row.id = 'mrow-' + q.id + '-' + pi;
+    const term = document.createElement('div'); term.className = 'match-term'; term.textContent = p.term;
+    const arrow = document.createElement('div'); arrow.className = 'match-arrow'; arrow.textContent = '→';
+    const sel = document.createElement('select'); sel.className = 'match-select';
+    sel.innerHTML = '<option value="">— choose a definition —</option>' +
+      defs.map(d => '<option value="' + encodeURIComponent(d) + '"' + (userAnswers[q.id][pi] === d ? ' selected' : '') + '>' + d + '</option>').join('');
+    if (locked[q.id]) sel.disabled = true;
+    sel.addEventListener('change', () => { userAnswers[q.id][pi] = decodeURIComponent(sel.value); });
+    row.appendChild(term); row.appendChild(arrow); row.appendChild(sel);
+    list.appendChild(row);
+  });
+  checkBtn.addEventListener('click', () => {
+    if (locked[q.id]) return;
+    locked[q.id] = true; checkBtn.disabled = true;
+    let allOk = true;
+    q.pairs.forEach((p, pi) => {
+      const row = document.getElementById('mrow-' + q.id + '-' + pi);
+      const ok = userAnswers[q.id][pi] === p.def;
+      row.classList.add(ok ? 'correct' : 'wrong');
+      row.querySelector('select').disabled = true;
+      if (!ok) allOk = false;
+    });
+    showQFeedback(q, allOk);
+  });
+  if (locked[q.id]) {
+    let allOk = true;
+    q.pairs.forEach((p, pi) => {
+      const row = document.getElementById('mrow-' + q.id + '-' + pi);
+      if (!row) return;
+      const ok = userAnswers[q.id][pi] === p.def;
+      row.classList.add(ok ? 'correct' : 'wrong');
+      if (!ok) allOk = false;
+    });
+    showQFeedback(q, allOk);
+  }
+  card.appendChild(list);
+}
+
+function buildDrag(card, q) {
+  if (!userAnswers[q.id]) userAnswers[q.id] = {};
+  const shuffled = [...q.items].sort(() => Math.random() - 0.5);
+  const bank = document.createElement('div'); bank.className = 'drag-bank'; bank.id = 'bank-' + q.id;
+  shuffled.forEach(item => {
+    const chip = makeChip(q.id, item.label);
+    if (Object.keys(userAnswers[q.id]).includes(item.label)) chip.classList.add('placed');
+    bank.appendChild(chip);
+  });
+  card.appendChild(bank);
+
+  bank.addEventListener('dragover', e => e.preventDefault());
+  bank.addEventListener('drop', e => {
+    e.preventDefault();
+    if (locked[q.id]) return;
+    let data; try { data = JSON.parse(e.dataTransfer.getData('text/plain')); } catch(er) { return; }
+    if (data.qid !== q.id) return;
+    delete userAnswers[q.id][data.label];
+    const bc = document.getElementById('chip-' + q.id + '-' + data.label.replace(/[^a-z0-9]/gi,'_'));
+    if (bc) bc.classList.remove('placed');
+  });
+
+  const zones = document.createElement('div'); zones.className = 'drop-areas';
+  q.categories.forEach((cat, ci) => {
+    const row = document.createElement('div'); row.className = 'drop-row';
+    const lbl = document.createElement('div'); lbl.className = 'drop-label'; lbl.textContent = cat;
+    const zone = document.createElement('div'); zone.className = 'drop-zone'; zone.id = 'zone-' + q.id + '-' + ci;
+    zone.addEventListener('dragover', e => { e.preventDefault(); if (!locked[q.id]) zone.classList.add('over'); });
+    zone.addEventListener('dragleave', () => zone.classList.remove('over'));
+    zone.addEventListener('drop', e => {
+      e.preventDefault(); zone.classList.remove('over');
+      if (locked[q.id]) return;
+      let data; try { data = JSON.parse(e.dataTransfer.getData('text/plain')); } catch(er) { return; }
+      if (data.qid !== q.id) return;
+      dropToZone(q, data.label, ci, zone, bank);
+    });
+    if (userAnswers[q.id]) {
+      Object.entries(userAnswers[q.id]).forEach(([lbl2, cat2]) => {
+        if (parseInt(cat2) === ci) zone.appendChild(makePlacedChip(q.id, lbl2, q));
+      });
+    }
+    row.appendChild(lbl); row.appendChild(zone); zones.appendChild(row);
+  });
+  card.appendChild(zones);
+
+  const btnRow = document.createElement('div'); btnRow.className = 'btn-row';
+  const resetBtn = document.createElement('button'); resetBtn.className = 'reset-btn'; resetBtn.textContent = '↺ Return all to bank';
+  if (locked[q.id]) resetBtn.disabled = true;
+  const checkBtn = document.createElement('button'); checkBtn.className = 'check-btn'; checkBtn.textContent = '✓ Check my sorting';
+  if (locked[q.id]) checkBtn.disabled = true;
+
+  resetBtn.addEventListener('click', () => {
+    if (locked[q.id]) return;
+    q.categories.forEach((c, ci) => {
+      const z = document.getElementById('zone-' + q.id + '-' + ci);
+      z.querySelectorAll('.chip').forEach(ch => ch.remove());
+      z.classList.remove('correct-zone','wrong-zone');
+    });
+    bank.querySelectorAll('.chip').forEach(ch => ch.classList.remove('placed'));
+    userAnswers[q.id] = {};
+    const fbEl = document.getElementById('qfb-' + q.id);
+    if (fbEl) fbEl.classList.remove('show');
+    const crd = document.getElementById('card-' + q.id);
+    if (crd) crd.classList.remove('card-correct','card-wrong');
+  });
+
+  checkBtn.addEventListener('click', () => {
+    if (locked[q.id]) return;
+    locked[q.id] = true; checkBtn.disabled = true; resetBtn.disabled = true;
+    let allOk = true;
+    q.categories.forEach((cat, ci) => {
+      const zone = document.getElementById('zone-' + q.id + '-' + ci);
+      zone.classList.remove('correct-zone','wrong-zone');
+      const placed = Array.from(zone.querySelectorAll('.chip')).map(c => c.textContent.trim());
+      const expected = q.items.filter(it => it.cat === ci).map(it => it.label);
+      const zOk = placed.length === expected.length && placed.every(p => expected.includes(p));
+      if (placed.length > 0 || expected.length > 0) { if (!zOk) allOk = false; }
+      if (placed.length > 0) zone.classList.add(zOk ? 'correct-zone' : 'wrong-zone');
+    });
+    bank.querySelectorAll('.chip').forEach(ch => { ch.draggable = false; ch.style.cursor = 'default'; });
+    showQFeedback(q, allOk);
+  });
+
+  if (locked[q.id]) {
+    let allOk = true;
+    q.categories.forEach((cat, ci) => {
+      const zone = document.getElementById('zone-' + q.id + '-' + ci);
+      if (!zone) return;
+      const placed = Array.from(zone.querySelectorAll('.chip')).map(c => c.textContent.trim());
+      const expected = q.items.filter(it => it.cat === ci).map(it => it.label);
+      const zOk = placed.length === expected.length && placed.every(p => expected.includes(p));
+      if (placed.length > 0) zone.classList.add(zOk ? 'correct-zone' : 'wrong-zone');
+      if (!zOk) allOk = false;
+    });
+    showQFeedback(q, allOk);
+  }
+
+  btnRow.appendChild(resetBtn); btnRow.appendChild(checkBtn);
+  card.appendChild(btnRow);
+}
+
+function makeChip(qid, label) {
+  const chip = document.createElement('div');
+  chip.className = 'chip'; chip.textContent = label; chip.draggable = true;
+  chip.id = 'chip-' + qid + '-' + label.replace(/[^a-z0-9]/gi,'_');
+  chip.addEventListener('dragstart', e => e.dataTransfer.setData('text/plain', JSON.stringify({qid, label})));
+  return chip;
+}
+
+function makePlacedChip(qid, label, q) {
+  const chip = document.createElement('div');
+  chip.className = 'chip'; chip.textContent = label; chip.draggable = !locked[qid];
+  chip.addEventListener('dragstart', e => {
+    if (locked[qid]) { e.preventDefault(); return; }
+    e.dataTransfer.setData('text/plain', JSON.stringify({qid, label}));
+    setTimeout(() => chip.remove(), 0);
+  });
+  chip.addEventListener('dragend', () => {
+    if (!chip.isConnected) {
+      delete userAnswers[qid][label];
+      const bc = document.getElementById('chip-' + qid + '-' + label.replace(/[^a-z0-9]/gi,'_'));
+      if (bc) bc.classList.remove('placed');
+    }
+  });
+  return chip;
+}
+
+function dropToZone(q, label, ci, zone, bank) {
+  const bankChip = document.getElementById('chip-' + q.id + '-' + label.replace(/[^a-z0-9]/gi,'_'));
+  q.categories.forEach((c, i) => {
+    const z = document.getElementById('zone-' + q.id + '-' + i);
+    z.querySelectorAll('.chip').forEach(ch => { if (ch.textContent.trim() === label) ch.remove(); });
+  });
+  delete userAnswers[q.id][label];
+  const placed = makePlacedChip(q.id, label, q);
+  zone.appendChild(placed);
+  if (bankChip) bankChip.classList.add('placed');
+  userAnswers[q.id][label] = ci;
+}
+
+function scoreQuiz() {
+  let correct = 0, total = 0;
+  Qs.forEach(q => {
+    if (q.type === 'mc') { total++; if (userAnswers[q.id] === q.answer) correct++; }
+    if (q.type === 'multi') {
+      total++;
+      const ua = [...(userAnswers[q.id]||[])].sort((a,b)=>a-b).join(',');
+      const ca = [...q.answers].sort((a,b)=>a-b).join(',');
+      if (ua === ca) correct++;
+    }
+    if (q.type === 'match') {
+      q.pairs.forEach((p, pi) => { total++; if ((userAnswers[q.id]||{})[pi] === p.def) correct++; });
+    }
+    if (q.type === 'drag') {
+      q.items.forEach(item => { total++; if ((userAnswers[q.id]||{})[item.label] === item.cat) correct++; });
+    }
+  });
+  return {correct, total};
+}
+
+function unlockAll() {
+  Qs.forEach(q => {
+    locked[q.id] = false;
+    const card = document.getElementById('card-' + q.id); if (!card) return;
+    card.classList.remove('card-correct','card-wrong');
+    const fbEl = document.getElementById('qfb-' + q.id); if (fbEl) fbEl.classList.remove('show');
+    card.querySelectorAll('.choice').forEach(ch => ch.classList.remove('correct','wrong','selected','locked'));
+    card.querySelectorAll('.match-row').forEach(r => r.classList.remove('correct','wrong'));
+    card.querySelectorAll('.drop-zone').forEach(z => z.classList.remove('correct-zone','wrong-zone'));
+    card.querySelectorAll('input,select').forEach(el => el.disabled = false);
+    card.querySelectorAll('button').forEach(b => b.disabled = false);
+    card.querySelectorAll('.chip').forEach(ch => { ch.draggable = true; ch.style.cursor = ''; });
+  });
+}
+
+document.getElementById('submit-btn').addEventListener('click', () => {
+  const {correct, total} = scoreQuiz();
+  const pct = Math.round((correct / total) * 100);
+  const fb = document.getElementById('feedback-box');
+  const barColor = pct >= 80 ? '#2d8a4e' : pct >= 60 ? '#c97010' : '#c0392b';
+  const bar = '<div class="score-bar-wrap"><div class="score-bar" style="width:' + pct + '%;background:' + barColor + '"></div></div>' +
+    '<div style="font-size:14px;margin-bottom:10px;font-weight:600;">' + correct + ' out of ' + total + ' points correct (' + pct + '%)</div>';
+
+  if (pct >= 80) {
+    const now = new Date();
+    const dateStr = now.toLocaleDateString('en-US', {year:'numeric', month:'long', day:'numeric'});
+    fb.className = 'feedback-box show fb-good';
+    fb.innerHTML = bar + '🎉 Fantastic work — you passed! Your exit ticket is ready below. 🌿';
+    document.getElementById('submit-btn').disabled = true;
+    document.getElementById('submit-btn').textContent = '✓ Completed!';
+    const et = document.getElementById('exit-ticket');
+    et.style.display = 'block';
+    et.innerHTML = '<div class="confetti-row">🎉 🌿 🎉</div><div class="leaf">🌎</div><h2>Exit Ticket</h2>' +
+      '<p class="lesson-name">Section 6.10 — Human Impact on Biomes</p>' +
+      '<div class="score-big">' + pct + '%</div>' +
+      '<p class="details">' + correct + ' out of ' + total + ' points correct<br>Completed on ' + dateStr + '<br>Attempt ' + attempt + ' of 2</p>' +
+      '<div class="standard-pill">Ohio Standard 7.LS.2 ✓</div>';
+    et.scrollIntoView({behavior:'smooth', block:'center'});
+  } else if (attempt === 1) {
+    fb.className = 'feedback-box show fb-warn';
+    fb.innerHTML = bar + '📖 You need 80% to pass. Read the feedback bubbles on each question — they tell you exactly what to fix and where to look in Lesson 6.10. Then click the button below to try your corrections!<br>' +
+      '<button class="retry-btn" id="retry-btn">Make Corrections — Attempt 2 of 2</button>';
+    document.getElementById('submit-btn').style.display = 'none';
+    document.getElementById('retry-btn').addEventListener('click', () => {
+      unlockAll();
+      document.getElementById('attempt-dot').classList.add('attempt2');
+      document.getElementById('attempt-text').textContent = 'Attempt 2 of 2';
+      attempt = 2;
+      fb.classList.remove('show');
+      document.getElementById('submit-btn').style.display = '';
+      document.getElementById('submit-btn').textContent = 'Submit Final Answers ✓';
+      document.getElementById('submit-btn').disabled = false;
+      window.scrollTo({top: 0, behavior:'smooth'});
+    });
+  } else {
+    fb.className = 'feedback-box show fb-bad';
+    fb.innerHTML = bar + '❌ You scored ' + pct + '%. You have used both attempts. Please go back and re-read Lesson 6.10, then ask your teacher to reset your quiz. You can do it — keep trying! 💪';
+    document.getElementById('submit-btn').disabled = true;
+    document.getElementById('submit-btn').textContent = 'Please re-read Lesson 6.10';
+  }
+  fb.scrollIntoView({behavior:'smooth', block:'nearest'});
+});
+
+buildQuiz();
+</script>
+</body>
+</html>
