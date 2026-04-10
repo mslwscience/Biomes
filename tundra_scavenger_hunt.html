@@ -67,7 +67,7 @@ body {
 }
 .pbar-threshold {
   position: absolute; top: 0; bottom: 0; width: 2px;
-  background: var(--gold); left: 80%;
+  background: var(--gold); left: 83.33%;
 }
 .threshold-note { color: var(--gold); font-size: 0.72rem; font-weight: 700; text-align: right; margin-top: 3px; }
 
@@ -130,51 +130,6 @@ body {
 .tf-btn.sel-correct { background: #d5f5e3; border-color: var(--correct); color: #1a5c35; }
 .tf-btn.sel-wrong   { background: #fde8e6; border-color: var(--danger);  color: #7b1c14; }
 .tf-btn:disabled { cursor: default; }
-
-/* DRAG & DROP */
-.dd-wordbank {
-  display: flex; flex-wrap: wrap; gap: 8px;
-  padding: 12px 14px; background: var(--frost);
-  border: 2px dashed var(--arctic); border-radius: 12px;
-  min-height: 50px; margin-bottom: 12px;
-}
-.dd-tag {
-  background: var(--teal); color: white;
-  padding: 7px 16px; border-radius: 20px;
-  font-weight: 800; font-size: 0.85rem;
-  cursor: grab; user-select: none;
-  transition: transform 0.15s, opacity 0.2s;
-  box-shadow: 0 2px 6px rgba(42,122,140,0.35);
-}
-.dd-tag:active { cursor: grabbing; transform: scale(1.07); }
-.dd-tag.dragging { opacity: 0.3; }
-.dd-pairs { display: flex; flex-direction: column; gap: 8px; }
-.dd-row { display: flex; align-items: center; gap: 10px; }
-.dd-prompt {
-  flex: 1.2; background: var(--ice); border-radius: 10px;
-  padding: 10px 14px; font-weight: 700; font-size: 0.87rem;
-  border: 2px solid var(--arctic); line-height: 1.4;
-}
-.dd-arrow { font-size: 1.1rem; color: var(--teal); flex-shrink: 0; }
-.dd-drop {
-  flex: 1; min-height: 42px; background: var(--snow);
-  border: 2px dashed var(--arctic); border-radius: 10px;
-  padding: 8px 12px; font-weight: 800; font-size: 0.85rem;
-  display: flex; align-items: center; transition: all 0.18s;
-  color: #9aafc0;
-}
-.dd-drop.dragover { background: var(--frost); border-color: var(--teal); color: var(--teal); }
-.dd-drop.filled   { color: var(--deep); background: white; border-style: solid; border-color: var(--teal); }
-.dd-drop.drop-correct { background: #d5f5e3; border-color: var(--correct); color: #1a5c35; border-style: solid; }
-.dd-drop.drop-wrong   { background: #fde8e6; border-color: var(--danger);  color: #7b1c14; border-style: solid; }
-.dd-check-btn {
-  background: var(--teal); color: white; border: none;
-  border-radius: 10px; padding: 10px 22px;
-  font-family: 'Nunito', sans-serif; font-weight: 800; font-size: 0.9rem;
-  cursor: pointer; margin-top: 10px; transition: all 0.18s; display: inline-block;
-}
-.dd-check-btn:hover:not(:disabled) { background: var(--deep); transform: translateY(-1px); }
-.dd-check-btn:disabled { opacity: 0.45; cursor: default; transform: none; }
 
 /* FEEDBACK */
 .feedback {
@@ -260,8 +215,6 @@ body {
 
 /* RESPONSIVE */
 @media (max-width: 520px) {
-  .dd-row { flex-direction: column; align-items: stretch; }
-  .dd-arrow { display: none; }
   .page-header h1 { font-size: 1.45rem; }
 }
 </style>
@@ -278,14 +231,14 @@ body {
 <!-- ══ PROGRESS BAR ══ -->
 <div class="progress-wrap">
   <div class="progress-labels">
-    <span>❄️ Correct: <span id="score-count">0</span> / 10</span>
+    <span>❄️ Correct: <span id="score-count">0</span> / 6</span>
     <span id="pct-label">0%</span>
   </div>
   <div class="pbar-bg">
     <div class="pbar-fill" id="pbar"></div>
-    <div class="pbar-threshold" title="Pass threshold: 8/10"></div>
+    <div class="pbar-threshold" title="Pass threshold: 5/6"></div>
   </div>
-  <div class="threshold-note">⭐ You need 8/10 correct to earn your exit ticket</div>
+  <div class="threshold-note">⭐ You need 5/6 correct to earn your exit ticket</div>
 </div>
 
 <!-- ══ QUESTIONS ══ -->
@@ -329,106 +282,28 @@ body {
   </div>
 
   <!-- ─────────────────────────────────────────
-       STATION 3: SMALL GLACIER
-  ───────────────────────────────────────── -->
-  <div class="station-header">
-    <div class="station-icon">🔵</div>
-    <div>
-      <div class="station-name">Station 3: Small Glacier</div>
-      <div class="station-sub">Glacial Life</div>
-    </div>
-  </div>
-
-  <!-- Q3 · True / False -->
-  <div class="q-card" id="qcard-3">
-    <div class="q-num">Question 3 · True or False</div>
-    <div class="q-text">No living things can survive on or inside a glacier — it is too cold for all life.</div>
-    <div class="tf-row">
-      <button class="tf-btn" onclick="answerTF(3,true)">✅ True</button>
-      <button class="tf-btn" onclick="answerTF(3,false)">❌ False</button>
-    </div>
-    <div class="feedback" id="fb-3"></div>
-    <div class="attempts-left" id="att-3"></div>
-  </div>
-
-  <!-- ─────────────────────────────────────────
        STATION 7: TUNDRA CARPET
   ───────────────────────────────────────── -->
   <div class="station-header">
     <div class="station-icon">🌿</div>
     <div>
       <div class="station-name">Station 7: Tundra Carpet</div>
-      <div class="station-sub">What's Under This? · Low Growth</div>
+      <div class="station-sub">What's Under This?</div>
     </div>
   </div>
 
-  <!-- Q4 · Multiple Choice -->
-  <div class="q-card" id="qcard-4">
-    <div class="q-num">Question 4 · Multiple Choice</div>
+  <!-- Q3 · Multiple Choice -->
+  <div class="q-card" id="qcard-3">
+    <div class="q-num">Question 3 · Multiple Choice</div>
     <div class="q-text">Just a few inches under the tundra plants, the ground stays frozen all year. What is this frozen layer called?</div>
-    <div class="choices" id="choices-4">
-      <button class="choice-btn" onclick="answerMC(4,'A')"><span class="choice-letter">A</span>Frostbite</button>
-      <button class="choice-btn" onclick="answerMC(4,'B')"><span class="choice-letter">B</span>Permafrost</button>
-      <button class="choice-btn" onclick="answerMC(4,'C')"><span class="choice-letter">C</span>Deep freeze soil</button>
-      <button class="choice-btn" onclick="answerMC(4,'D')"><span class="choice-letter">D</span>Arctic clay</button>
+    <div class="choices" id="choices-3">
+      <button class="choice-btn" onclick="answerMC(3,'A')"><span class="choice-letter">A</span>Frostbite</button>
+      <button class="choice-btn" onclick="answerMC(3,'B')"><span class="choice-letter">B</span>Permafrost</button>
+      <button class="choice-btn" onclick="answerMC(3,'C')"><span class="choice-letter">C</span>Deep freeze soil</button>
+      <button class="choice-btn" onclick="answerMC(3,'D')"><span class="choice-letter">D</span>Arctic clay</button>
     </div>
-    <div class="feedback" id="fb-4"></div>
-    <div class="attempts-left" id="att-4"></div>
-  </div>
-
-  <!-- Q5 · True / False -->
-  <div class="q-card" id="qcard-5">
-    <div class="q-num">Question 5 · True or False</div>
-    <div class="q-text">Plants in the tundra stay low to the ground mainly because there is not enough sunlight for them to grow tall.</div>
-    <div class="tf-row">
-      <button class="tf-btn" onclick="answerTF(5,true)">✅ True</button>
-      <button class="tf-btn" onclick="answerTF(5,false)">❌ False</button>
-    </div>
-    <div class="feedback" id="fb-5"></div>
-    <div class="attempts-left" id="att-5"></div>
-  </div>
-
-  <!-- ─────────────────────────────────────────
-       STATION 8: VOLCANIC & MOSSY HIGHLANDS
-  ───────────────────────────────────────── -->
-  <div class="station-header">
-    <div class="station-icon">🦌</div>
-    <div>
-      <div class="station-name">Station 8: Volcanic &amp; Mossy Highlands</div>
-      <div class="station-sub">Reindeer Adaptations</div>
-    </div>
-  </div>
-
-  <!-- Q6 · Drag & Drop -->
-  <div class="q-card" id="qcard-6">
-    <div class="q-num">Question 6 · Drag &amp; Drop Matching</div>
-    <div class="q-text">Match each reindeer feature to what it helps the reindeer DO in the tundra. Drag the answer tags into the correct boxes.</div>
-    <div class="dd-wordbank" id="bank-6"></div>
-    <div class="dd-pairs">
-      <div class="dd-row">
-        <div class="dd-prompt">Thick fur</div>
-        <div class="dd-arrow">→</div>
-        <div class="dd-drop" id="drop-6-0" data-answer="Stay warm" ondragover="ddOver(event)" ondrop="ddDrop(event,'6','0')" ondragleave="ddLeave(event)">Drop here</div>
-      </div>
-      <div class="dd-row">
-        <div class="dd-prompt">Wide hooves</div>
-        <div class="dd-arrow">→</div>
-        <div class="dd-drop" id="drop-6-1" data-answer="Walk on snow" ondragover="ddOver(event)" ondrop="ddDrop(event,'6','1')" ondragleave="ddLeave(event)">Drop here</div>
-      </div>
-      <div class="dd-row">
-        <div class="dd-prompt">Digging through snow</div>
-        <div class="dd-arrow">→</div>
-        <div class="dd-drop" id="drop-6-2" data-answer="Find food" ondragover="ddOver(event)" ondrop="ddDrop(event,'6','2')" ondragleave="ddLeave(event)">Drop here</div>
-      </div>
-      <div class="dd-row">
-        <div class="dd-prompt">Migrating to tundra in summer</div>
-        <div class="dd-arrow">→</div>
-        <div class="dd-drop" id="drop-6-3" data-answer="Feed and breed" ondragover="ddOver(event)" ondrop="ddDrop(event,'6','3')" ondragleave="ddLeave(event)">Drop here</div>
-      </div>
-    </div>
-    <button class="dd-check-btn" id="check-6" onclick="checkDD(6)">Check My Answers</button>
-    <div class="feedback" id="fb-6"></div>
-    <div class="attempts-left" id="att-6"></div>
+    <div class="feedback" id="fb-3"></div>
+    <div class="attempts-left" id="att-3"></div>
   </div>
 
   <!-- ─────────────────────────────────────────
@@ -438,20 +313,20 @@ body {
     <div class="station-icon">🐦</div>
     <div>
       <div class="station-name">Station 10: Puffin Cliffs</div>
-      <div class="station-sub">Atlantic Puffins · Lichens</div>
+      <div class="station-sub">Lichens</div>
     </div>
   </div>
 
-  <!-- Q7 · True / False -->
-  <div class="q-card" id="qcard-7">
-    <div class="q-num">Question 7 · True or False</div>
+  <!-- Q4 · True / False -->
+  <div class="q-card" id="qcard-4">
+    <div class="q-num">Question 4 · True or False</div>
     <div class="q-text">Lichen is actually TWO living things — a fungus and an algae — working together as one organism.</div>
     <div class="tf-row">
-      <button class="tf-btn" onclick="answerTF(7,true)">✅ True</button>
-      <button class="tf-btn" onclick="answerTF(7,false)">❌ False</button>
+      <button class="tf-btn" onclick="answerTF(4,true)">✅ True</button>
+      <button class="tf-btn" onclick="answerTF(4,false)">❌ False</button>
     </div>
-    <div class="feedback" id="fb-7"></div>
-    <div class="attempts-left" id="att-7"></div>
+    <div class="feedback" id="fb-4"></div>
+    <div class="attempts-left" id="att-4"></div>
   </div>
 
   <!-- ─────────────────────────────────────────
@@ -465,22 +340,22 @@ body {
     </div>
   </div>
 
-  <!-- Q8 · Multiple Choice -->
-  <div class="q-card" id="qcard-8">
-    <div class="q-num">Question 8 · Multiple Choice</div>
+  <!-- Q5 · Multiple Choice -->
+  <div class="q-card" id="qcard-5">
+    <div class="q-num">Question 5 · Multiple Choice</div>
     <div class="q-text">Moss is called a "pioneer species." What does that mean?</div>
-    <div class="choices" id="choices-8">
-      <button class="choice-btn" onclick="answerMC(8,'A')"><span class="choice-letter">A</span>It was the first species discovered by scientists</button>
-      <button class="choice-btn" onclick="answerMC(8,'B')"><span class="choice-letter">B</span>It grows faster than any other plant</button>
-      <button class="choice-btn" onclick="answerMC(8,'C')"><span class="choice-letter">C</span>It is one of the first living things to grow where there is no soil at all</button>
-      <button class="choice-btn" onclick="answerMC(8,'D')"><span class="choice-letter">D</span>It only grows in warm places with deep soil</button>
+    <div class="choices" id="choices-5">
+      <button class="choice-btn" onclick="answerMC(5,'A')"><span class="choice-letter">A</span>It was the first species discovered by scientists</button>
+      <button class="choice-btn" onclick="answerMC(5,'B')"><span class="choice-letter">B</span>It grows faster than any other plant</button>
+      <button class="choice-btn" onclick="answerMC(5,'C')"><span class="choice-letter">C</span>It is one of the first living things to grow where there is no soil at all</button>
+      <button class="choice-btn" onclick="answerMC(5,'D')"><span class="choice-letter">D</span>It only grows in warm places with deep soil</button>
     </div>
-    <div class="feedback" id="fb-8"></div>
-    <div class="attempts-left" id="att-8"></div>
+    <div class="feedback" id="fb-5"></div>
+    <div class="attempts-left" id="att-5"></div>
   </div>
 
   <!-- ─────────────────────────────────────────
-       BIG IDEAS: LESSON + SCAVENGER HUNT
+       BIG IDEAS
   ───────────────────────────────────────── -->
   <div class="station-header">
     <div class="station-icon">📚</div>
@@ -490,50 +365,18 @@ body {
     </div>
   </div>
 
-  <!-- Q9 · Drag & Drop -->
-  <div class="q-card" id="qcard-9">
-    <div class="q-num">Question 9 · Drag &amp; Drop Matching</div>
-    <div class="q-text">Match each tundra term to its correct meaning.</div>
-    <div class="dd-wordbank" id="bank-9"></div>
-    <div class="dd-pairs">
-      <div class="dd-row">
-        <div class="dd-prompt">Permafrost</div>
-        <div class="dd-arrow">→</div>
-        <div class="dd-drop" id="drop-9-0" data-answer="Soil frozen 2+ years" ondragover="ddOver(event)" ondrop="ddDrop(event,'9','0')" ondragleave="ddLeave(event)">Drop here</div>
-      </div>
-      <div class="dd-row">
-        <div class="dd-prompt">Adaptation</div>
-        <div class="dd-arrow">→</div>
-        <div class="dd-drop" id="drop-9-1" data-answer="Trait that helps survival" ondragover="ddOver(event)" ondrop="ddDrop(event,'9','1')" ondragleave="ddLeave(event)">Drop here</div>
-      </div>
-      <div class="dd-row">
-        <div class="dd-prompt">Biodiversity</div>
-        <div class="dd-arrow">→</div>
-        <div class="dd-drop" id="drop-9-2" data-answer="Variety of species in an area" ondragover="ddOver(event)" ondrop="ddDrop(event,'9','2')" ondragleave="ddLeave(event)">Drop here</div>
-      </div>
-      <div class="dd-row">
-        <div class="dd-prompt">Conservation</div>
-        <div class="dd-arrow">→</div>
-        <div class="dd-drop" id="drop-9-3" data-answer="Actions to protect ecosystems" ondragover="ddOver(event)" ondrop="ddDrop(event,'9','3')" ondragleave="ddLeave(event)">Drop here</div>
-      </div>
-    </div>
-    <button class="dd-check-btn" id="check-9" onclick="checkDD(9)">Check My Answers</button>
-    <div class="feedback" id="fb-9"></div>
-    <div class="attempts-left" id="att-9"></div>
-  </div>
-
-  <!-- Q10 · Multiple Choice -->
-  <div class="q-card" id="qcard-10">
-    <div class="q-num">Question 10 · Multiple Choice</div>
+  <!-- Q6 · Multiple Choice -->
+  <div class="q-card" id="qcard-6">
+    <div class="q-num">Question 6 · Multiple Choice</div>
     <div class="q-text">Thawing permafrost releases stored carbon as carbon dioxide and methane. Why is this a problem?</div>
-    <div class="choices" id="choices-10">
-      <button class="choice-btn" onclick="answerMC(10,'A')"><span class="choice-letter">A</span>It makes the ground too soft for animals to walk on</button>
-      <button class="choice-btn" onclick="answerMC(10,'B')"><span class="choice-letter">B</span>It can speed up global warming and change tundra ecosystems</button>
-      <button class="choice-btn" onclick="answerMC(10,'C')"><span class="choice-letter">C</span>It removes all the freshwater from tundra streams</button>
-      <button class="choice-btn" onclick="answerMC(10,'D')"><span class="choice-letter">D</span>It kills moss by making the soil too warm</button>
+    <div class="choices" id="choices-6">
+      <button class="choice-btn" onclick="answerMC(6,'A')"><span class="choice-letter">A</span>It makes the ground too soft for animals to walk on</button>
+      <button class="choice-btn" onclick="answerMC(6,'B')"><span class="choice-letter">B</span>It can speed up global warming and change tundra ecosystems</button>
+      <button class="choice-btn" onclick="answerMC(6,'C')"><span class="choice-letter">C</span>It removes all the freshwater from tundra streams</button>
+      <button class="choice-btn" onclick="answerMC(6,'D')"><span class="choice-letter">D</span>It kills moss by making the soil too warm</button>
     </div>
-    <div class="feedback" id="fb-10"></div>
-    <div class="attempts-left" id="att-10"></div>
+    <div class="feedback" id="fb-6"></div>
+    <div class="attempts-left" id="att-6"></div>
   </div>
 
   <!-- ══ SCORE SUMMARY ══ -->
@@ -592,12 +435,12 @@ body {
 // ══════════════════════════════════════════
 //  DATA — answers, feedback, attempt counts
 // ══════════════════════════════════════════
-const TOTAL = 10;
-const PASS  = 8;
+const TOTAL = 6;
+const PASS  = 5;
 
-let scores    = {}; // qid -> true/false
-let attempts  = {}; // qid -> number used
-let answered  = {}; // qid -> locked?
+let scores    = {};
+let attempts  = {};
+let answered  = {};
 let scoreCount = 0;
 
 for (let i = 1; i <= TOTAL; i++) {
@@ -632,20 +475,8 @@ const Q2 = {
   }
 };
 
-// ── Q3: correct = false
+// ── Q3: correct = B
 const Q3 = {
-  correct: false,
-  feedback: {
-    correct: {
-      head: '✅ Correct — life finds a way, even on glaciers!',
-      body: 'Glaciers seem lifeless, but they\'re not! Ice worms, snow fleas, glacial midges, and snow algae all survive in and on glaciers. These organisms are specially adapted to survive in one of the coldest environments on Earth. Scientists actually study them to understand how life might exist on other icy planets. Pretty wild, right?'
-    },
-    wrong: { opener: '🥶 Sorry, life is MUCH tougher than a glacier!', why: 'The statement says NO life can survive on glaciers — that\'s false. Station 3 tells us that ice worms, snow fleas, glacial midges, and snow algae all live on and in glaciers. Life adapts to extreme conditions.', clue: '👉 Re-read Station 3: Glacial Life. Look for the list of organisms that survive on glaciers.' }
-  }
-};
-
-// ── Q4: correct = B
-const Q4 = {
   correct: 'B',
   feedback: {
     correct: {
@@ -658,32 +489,8 @@ const Q4 = {
   }
 };
 
-// ── Q5: correct = false
-const Q5 = {
-  correct: false,
-  feedback: {
-    correct: {
-      head: '✅ Right! It\'s wind and frozen ground, not sunlight.',
-      body: 'During Arctic summer, plants actually get TONS of sunlight — the sun doesn\'t even set for weeks! The real reasons plants stay low are: (1) strong winds would snap or dry out tall plants, and (2) permafrost just below the surface stops roots from growing deep. Staying low to the ground is an adaptation that beats the wind and the frozen soil, not the sun.'
-    },
-    wrong: { opener: '☀️ No sunlight? The tundra actually has midnight sun in summer!', why: 'The statement says plants stay low because of not enough sunlight — that\'s false. In Arctic summer, the sun can stay above the horizon for weeks! Plants stay low because of strong winds and permafrost blocking deep roots, not lack of light.', clue: '👉 Read Station 7: Low Growth. Also check the fun facts in your lesson about Arctic summer.' }
-  }
-};
-
-// ── Q6: drag & drop (reindeer)
-const Q6_ANSWERS = ['Stay warm','Walk on snow','Find food','Feed and breed'];
-const Q6 = {
-  feedback: {
-    correct: {
-      head: '✅ Perfect match — you know your reindeer!',
-      body: 'Reindeer (also called caribou) are built for the tundra from hoof to nose. Thick fur traps body heat, wide hooves act like snowshoes, and those big hooves can also dig through snow to find plants underneath. Migrating to the tundra in summer lets them take advantage of the burst of plant growth when the snow melts. Every single one of those features is an adaptation!'
-    },
-    wrong: { opener: '🦌 The reindeer are confused — let\'s try that again!', why: 'Some of your matches aren\'t quite right. Each reindeer feature connects to a specific survival purpose in the tundra\'s cold environment.', clue: '👉 Go back to Station 8: Reindeer. Read each bullet carefully and match the body part or behavior to what it helps the reindeer do.' }
-  }
-};
-
-// ── Q7: correct = true
-const Q7 = {
+// ── Q4: correct = true
+const Q4 = {
   correct: true,
   feedback: {
     correct: {
@@ -694,8 +501,8 @@ const Q7 = {
   }
 };
 
-// ── Q8: correct = C
-const Q8 = {
+// ── Q5: correct = C
+const Q5 = {
   correct: 'C',
   feedback: {
     correct: {
@@ -708,20 +515,8 @@ const Q8 = {
   }
 };
 
-// ── Q9: drag & drop (vocab)
-const Q9_ANSWERS = ['Soil frozen 2+ years','Trait that helps survival','Variety of species in an area','Actions to protect ecosystems'];
-const Q9 = {
-  feedback: {
-    correct: {
-      head: '✅ Vocab master! You nailed all four terms.',
-      body: 'These four words are the core vocabulary of the tundra unit — and of ecology in general! Permafrost shapes the whole tundra landscape. Adaptations are what let organisms survive in it. Biodiversity tells us how healthy an ecosystem is. And conservation is what we do to protect it. If you remember these four words, you basically understand tundra biology. Nice work!'
-    },
-    wrong: { opener: '📖 A few of those words got mixed up — let\'s sort it out!', why: 'Some of your matches don\'t match the definitions from the lesson. Go back and check the Key Vocabulary section at the top of your lesson reading.', clue: '👉 Open your lesson reading and find the Key Vocabulary section. Each of these four words is defined there.' }
-  }
-};
-
-// ── Q10: correct = B
-const Q10 = {
+// ── Q6: correct = B
+const Q6 = {
   correct: 'B',
   feedback: {
     correct: {
@@ -734,190 +529,7 @@ const Q10 = {
   }
 };
 
-const QData = { 1:Q1, 2:Q2, 3:Q3, 4:Q4, 5:Q5, 6:Q6, 7:Q7, 8:Q8, 9:Q9, 10:Q10 };
-
-// ══════════════════════════════════════════
-//  DRAG & DROP SETUP
-// ══════════════════════════════════════════
-let draggedTag = null;
-let draggedFrom = null; // 'bank' or drop id
-
-function shuffle(arr) {
-  let a = [...arr];
-  for (let i = a.length - 1; i > 0; i--) {
-    let j = Math.floor(Math.random() * (i + 1));
-    [a[i], a[j]] = [a[j], a[i]];
-  }
-  return a;
-}
-
-function buildWordBank(qid, answers) {
-  const bank = document.getElementById('bank-' + qid);
-  const shuffled = shuffle(answers);
-  bank.innerHTML = '';
-  shuffled.forEach(ans => {
-    const tag = document.createElement('div');
-    tag.className = 'dd-tag';
-    tag.textContent = ans;
-    tag.draggable = true;
-    tag.dataset.value = ans;
-    tag.addEventListener('dragstart', e => {
-      draggedTag = tag;
-      draggedFrom = 'bank-' + qid;
-      tag.classList.add('dragging');
-      e.dataTransfer.setData('text/plain', ans);
-    });
-    tag.addEventListener('dragend', () => tag.classList.remove('dragging'));
-    bank.appendChild(tag);
-  });
-}
-
-function ddOver(e) {
-  e.preventDefault();
-  e.currentTarget.classList.add('dragover');
-}
-function ddLeave(e) {
-  e.currentTarget.classList.remove('dragover');
-}
-function ddDrop(e, qid, idx) {
-  e.preventDefault();
-  const drop = e.currentTarget;
-  drop.classList.remove('dragover');
-  if (!draggedTag) return;
-
-  // If this drop zone already has something, return it to bank
-  const existing = drop.dataset.filled;
-  if (existing) {
-    returnToBank(qid, existing);
-  }
-
-  // If tag came from another drop zone, clear that zone
-  if (draggedFrom && draggedFrom.startsWith('drop-')) {
-    const fromDrop = document.getElementById(draggedFrom);
-    if (fromDrop) {
-      fromDrop.textContent = 'Drop here';
-      fromDrop.classList.remove('filled');
-      delete fromDrop.dataset.filled;
-    }
-  } else if (draggedFrom && draggedFrom.startsWith('bank-')) {
-    // remove from bank
-    if (draggedTag.parentNode) draggedTag.parentNode.removeChild(draggedTag);
-  }
-
-  drop.textContent = draggedTag.dataset.value;
-  drop.classList.add('filled');
-  drop.dataset.filled = draggedTag.dataset.value;
-  draggedTag.id = 'drop-tag-' + qid + '-' + idx;
-  draggedFrom = 'drop-' + qid + '-' + idx;
-  draggedTag = null;
-}
-
-function returnToBank(qid, value) {
-  const bank = document.getElementById('bank-' + qid);
-  const tag = document.createElement('div');
-  tag.className = 'dd-tag';
-  tag.textContent = value;
-  tag.draggable = true;
-  tag.dataset.value = value;
-  tag.addEventListener('dragstart', e => {
-    draggedTag = tag;
-    draggedFrom = 'bank-' + qid;
-    tag.classList.add('dragging');
-    e.dataTransfer.setData('text/plain', value);
-  });
-  tag.addEventListener('dragend', () => tag.classList.remove('dragging'));
-  bank.appendChild(tag);
-}
-
-// ══════════════════════════════════════════
-//  CHECK DRAG & DROP
-// ══════════════════════════════════════════
-function checkDD(qid) {
-  if (answered[qid]) return;
-  const q = QData[qid];
-  const correctAnswers = qid === 6 ? Q6_ANSWERS : Q9_ANSWERS;
-
-  // Check all 4 drops filled
-  let allFilled = true;
-  for (let i = 0; i < 4; i++) {
-    const drop = document.getElementById('drop-' + qid + '-' + i);
-    if (!drop.dataset.filled) { allFilled = false; break; }
-  }
-  if (!allFilled) {
-    alert('Please fill in all four boxes before checking!');
-    return;
-  }
-
-  attempts[qid]++;
-  let allCorrect = true;
-  for (let i = 0; i < 4; i++) {
-    const drop = document.getElementById('drop-' + qid + '-' + i);
-    const given = drop.dataset.filled;
-    const expected = correctAnswers[i];
-    if (given === expected) {
-      drop.classList.add('drop-correct');
-    } else {
-      drop.classList.add('drop-wrong');
-      allCorrect = false;
-    }
-  }
-
-  const fb = document.getElementById('fb-' + qid);
-  const att = document.getElementById('att-' + qid);
-  const btn = document.getElementById('check-' + qid);
-  const card = document.getElementById('qcard-' + qid);
-
-  if (allCorrect) {
-    scored(qid);
-    card.classList.add('state-correct');
-    btn.disabled = true;
-    lockDrops(qid);
-    showFeedback(fb, true, q.feedback.correct.head, q.feedback.correct.body);
-    att.textContent = '';
-  } else {
-    if (attempts[qid] >= 2) {
-      answered[qid] = true;
-      btn.disabled = true;
-      lockDrops(qid);
-      card.classList.add('state-locked');
-      showFeedback(fb, false,
-        q.feedback.wrong.opener,
-        null,
-        q.feedback.wrong.why,
-        q.feedback.wrong.clue
-      );
-      att.textContent = '🔒 No more attempts. Check the clue above!';
-    } else {
-      const left = 2 - attempts[qid];
-      att.textContent = `⚠️ Not quite! ${left} attempt${left>1?'s':''} left. Drag to fix your answers.`;
-      // reset color classes but keep values
-      for (let i = 0; i < 4; i++) {
-        const drop = document.getElementById('drop-' + qid + '-' + i);
-        drop.classList.remove('drop-correct','drop-wrong');
-      }
-      showFeedback(fb, false,
-        q.feedback.wrong.opener,
-        null,
-        q.feedback.wrong.why,
-        q.feedback.wrong.clue
-      );
-    }
-  }
-  checkAllDone();
-}
-
-function lockDrops(qid) {
-  for (let i = 0; i < 4; i++) {
-    const drop = document.getElementById('drop-' + qid + '-' + i);
-    drop.ondragover = null;
-    drop.ondrop = null;
-    drop.ondragleave = null;
-  }
-  const bank = document.getElementById('bank-' + qid);
-  if (bank) {
-    bank.querySelectorAll('.dd-tag').forEach(t => t.draggable = false);
-  }
-}
+const QData = { 1:Q1, 2:Q2, 3:Q3, 4:Q4, 5:Q5, 6:Q6 };
 
 // ══════════════════════════════════════════
 //  ANSWER HANDLERS
@@ -951,7 +563,6 @@ function answerMC(qid, choice) {
       card.classList.add('state-locked');
       showFeedback(fb, false, wf.opener, null, wf.why, wf.clue);
       att.textContent = '🔒 No more attempts. Check the clue above!';
-      // reveal correct
       btns[letters.indexOf(q.correct)].classList.add('sel-correct');
     } else {
       const left = 2 - attempts[qid];
@@ -1023,15 +634,14 @@ function checkAllDone() {
   const allAnswered = Object.values(answered).every(v => v === true);
   if (!allAnswered) return;
 
-  // Show score summary
   const summary = document.getElementById('score-summary');
   summary.style.display = 'block';
   const emoji = scoreCount >= PASS ? '🎉' : '🌨️';
   document.getElementById('summary-emoji').textContent = emoji;
   document.getElementById('summary-score').textContent = scoreCount + ' / ' + TOTAL;
   const msg = scoreCount >= PASS
-    ? `Amazing! You scored ${scoreCount}/10 and earned your exit ticket!`
-    : `You got ${scoreCount}/10. You need ${PASS} to pass — ask your teacher what to do next.`;
+    ? `Amazing! You scored ${scoreCount}/6 and earned your exit ticket!`
+    : `You got ${scoreCount}/6. You need ${PASS} to pass — ask your teacher what to do next.`;
   document.getElementById('summary-msg').textContent = msg;
 
   if (scoreCount >= PASS) {
@@ -1040,11 +650,10 @@ function checkAllDone() {
   } else {
     document.getElementById('not-yet-banner').style.display = 'block';
     document.getElementById('not-yet-msg').textContent =
-      `You got ${scoreCount}/10. You need at least ${PASS} correct to earn an exit ticket. Check the clues in your wrong answers and talk to your teacher.`;
+      `You got ${scoreCount}/6. You need at least ${PASS} correct to earn an exit ticket. Check the clues in your wrong answers and talk to your teacher.`;
     document.getElementById('exit-ticket-section').style.display = 'none';
   }
 
-  // Scroll to summary
   setTimeout(() => summary.scrollIntoView({ behavior: 'smooth', block: 'start' }), 200);
 }
 
@@ -1080,7 +689,6 @@ function confirmTicket() {
   }
   err.style.display = 'none';
 
-  // Generate passcode based on score + name initials + timestamp
   const initials = name.split(' ').map(w => w[0] ? w[0].toUpperCase() : '').join('');
   const now = new Date();
   const mins = String(now.getMinutes()).padStart(2,'0');
@@ -1101,14 +709,6 @@ function confirmTicket() {
   document.getElementById('confirmed-ticket').style.display = 'block';
   document.getElementById('confirmed-ticket').scrollIntoView({ behavior:'smooth', block:'center' });
 }
-
-// ══════════════════════════════════════════
-//  INIT — build word banks on load
-// ══════════════════════════════════════════
-window.addEventListener('DOMContentLoaded', () => {
-  buildWordBank(6, Q6_ANSWERS);
-  buildWordBank(9, Q9_ANSWERS);
-});
 </script>
 </body>
 </html>
