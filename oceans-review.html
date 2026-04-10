@@ -666,25 +666,25 @@
     <div class="progress-bar-bg">
       <div class="progress-bar-fill" id="progressFill"></div>
     </div>
-    <span class="progress-count" id="progressCount">0 / 18</span>
+    <span class="progress-count" id="progressCount">0 / 6</span>
   </div>
 </div>
 
 <main>
   <div class="intro-card">
-    <p>Answer each question below. You have <strong>2 tries</strong> per question. You need <strong>14 out of 18 correct</strong> to earn your exit ticket. Use your scavenger hunt to help you! 🐠</p>
+    <p>Answer each question below. You have <strong>2 tries</strong> per question. You need <strong>5 out of 6 correct</strong> to earn your exit ticket. Use your scavenger hunt to help you! 🐠</p>
   </div>
 
   <div id="questions-container"></div>
 
   <div class="score-banner" id="scoreBanner">
     <span class="score-text">Your score:</span>
-    <span class="score-text score-num" id="finalScoreDisplay">0/18</span>
+    <span class="score-text score-num" id="finalScoreDisplay">0/6</span>
   </div>
 
   <div class="try-more-msg" id="tryMoreMsg">
     <h3>🌊 Not quite there yet!</h3>
-    <p>You need <strong>14 out of 18</strong> correct for your exit ticket. You still have unanswered questions — keep going! Check your Scavenger Hunt link earlier in today's Classkick for help.</p>
+    <p>You need <strong>5 out of 6</strong> correct for your exit ticket. You still have unanswered questions — keep going! Check your Scavenger Hunt link earlier in today's Classkick for help.</p>
   </div>
 
   <div id="exit-ticket-section">
@@ -765,41 +765,8 @@ const questions = [
     ],
     correctFact: "🐚 Fun fact: Fiddler crabs have one huge claw and one tiny claw. The big claw is used for waving at other crabs — it's basically their way of saying 'This is MY beach!' They even use it to fight rivals. Nature invented the dramatic hand gesture long before humans did."
   },
-  {
-    station: "Station 1: Coast and Beach",
-    stationNum: 1,
-    type: "tf",
-    question: "True or False: Sunlight reaches all the way to the bottom of the ocean. That's why life is found everywhere in the sea.",
-    choices: ["True", "False"],
-    correct: 1,
-    wrongFeedback: [
-      { opener: "Oh no, the current just swept you off course! 🌊", why: "Sunlight only travels about 200 meters deep — that's the photic zone. Below that, it gets dark fast. Life is mostly near the coast because THAT is where light supports photosynthesis.", clue: "Check Station 1: Coast and Beach → 'Intertidal Zone' in your scavenger hunt." },
-      null
-    ],
-    correctFact: "🌞 Fun fact: The 'photic zone' (the sunlit layer) is only about 200 meters deep — but the ocean averages 3,700 meters deep! That means most of the ocean is in total darkness. The creatures that live down there are like aliens: some make their own light, some are transparent, and some have jaws bigger than their bodies."
-  },
 
   // Station 2: Tide Pools
-  {
-    station: "Station 2: Tide Pools",
-    stationNum: 2,
-    type: "mc",
-    question: "Rock-boring sea urchins have strong spines and tube feet. What is the MAIN reason their spines are such an important adaptation in tide pools?",
-    choices: [
-      "Spines help them swim faster to catch food.",
-      "Spines let them change color to hide from predators.",
-      "Spines help them grip rocks and protect against crashing waves and predators.",
-      "Spines help them stay warm in cold water."
-    ],
-    correct: 2,
-    wrongFeedback: [
-      { opener: "Oops — you got tangled in the kelp! 🌊", why: "Sea urchins are actually slow movers — they crawl on tube feet. Their spines aren't for swimming at all.", clue: "Check Station 2: Tide Pools → 'Sea Urchin' in your scavenger hunt." },
-      { opener: "Almost, but the wave pulled you back! 🌊", why: "That's camouflage — that's what the chiton does! Sea urchins don't change color. Their spines are physical tools for gripping and defense.", clue: "Check Station 2: Tide Pools → 'Sea Urchin' in your scavenger hunt." },
-      null,
-      { opener: "Brrr, close but cold! 🌊", why: "Spines don't work like a coat or blanket. Sea urchins are cold-blooded and their spines are for grip and protection, not warmth.", clue: "Check Station 2: Tide Pools → 'Sea Urchin' in your scavenger hunt." }
-    ],
-    correctFact: "🦔 Fun fact: Rock-boring sea urchins literally DRILL into solid rock using their spines and teeth. Over years, they carve out little cup-shaped homes in stone. Imagine renovating your house by chewing through the walls. That's dedication."
-  },
   {
     station: "Station 2: Tide Pools",
     stationNum: 2,
@@ -812,50 +779,6 @@ const questions = [
       { opener: "Whoa, you got distracted by a shiny fish! 🌊", why: "The green IS from algae — a single-celled producer called mermaid's wineglass. Algae convert sunlight into food energy, just like grass does on land. They form the base of the ocean food web.", clue: "Check Station 2: Tide Pools → 'What's So Green?' in your scavenger hunt." }
     ],
     correctFact: "🌿 Fun fact: 'Mermaid's wineglass' is a real algae — and it actually looks like a little wine glass under a microscope. It's one single cell that can grow to a centimeter tall. Scientists use it in experiments because it's so big for a single cell. Mermaids have excellent taste in glassware."
-  },
-
-  // Station 3: Inlet
-  {
-    station: "Station 3: Inlet",
-    stationNum: 3,
-    type: "mc",
-    question: "An upside-down jellyfish rests on the seafloor with its arms pointing UP. A tiny algae called zooxanthellae lives in its arms and gives it energy. What kind of relationship is this?",
-    choices: [
-      "The jellyfish is parasiting the algae — it takes food without giving anything.",
-      "A partnership — the algae gets shelter and the jellyfish gets food from photosynthesis.",
-      "They are competing for the same food source.",
-      "The algae is a predator that is slowly eating the jellyfish."
-    ],
-    correct: 1,
-    wrongFeedback: [
-      { opener: "Flip it upside down and try again! 🌊", why: "Parasitism means one benefits and the other is harmed. But the jellyfish gives the algae a safe place to live in exchange for food energy. Both benefit — that's a mutualistic partnership!", clue: "Check Station 3: Inlet → 'Upside-Down Jellyfish' in your scavenger hunt." },
-      null,
-      { opener: "Jellyfish overboard! 🌊", why: "They're not competing — they do totally different things. The algae does photosynthesis and the jellyfish provides shelter. No competition at all.", clue: "Check Station 3: Inlet → 'Upside-Down Jellyfish' in your scavenger hunt." },
-      { opener: "Whoa, that took a dark turn! 🌊", why: "Zooxanthellae is microscopic algae — not a predator. It lives inside the jellyfish's arms to get light for photosynthesis. The jellyfish is totally fine with this arrangement.", clue: "Check Station 3: Inlet → 'Upside-Down Jellyfish' in your scavenger hunt." }
-    ],
-    correctFact: "☀️ Fun fact: The upside-down jellyfish basically farms its own food. It lies on the bottom, holds its arms up toward the sun like a tiny algae solar panel, and gets up to 90% of its energy without having to chase anything. Zooxanthellae also live inside coral — the same partnership is what makes coral reefs so colorful!"
-  },
-
-  // Station 4: Reef 1
-  {
-    station: "Station 4: Reef 1",
-    stationNum: 4,
-    type: "mc",
-    question: "The scrawled filefish can change its color and pattern to blend in with the reef. What BEST explains why this camouflage adaptation developed?",
-    choices: [
-      "The reef is so colorful that fish just randomly turned colorful too.",
-      "Fish in reefs use color to show off to other fish during mating season only.",
-      "The reef's high biodiversity means predators and prey are everywhere — so camouflage helps fish survive.",
-      "Color change helps the fish stay at the right temperature."
-    ],
-    correct: 2,
-    wrongFeedback: [
-      { opener: "Ooh, almost blended in — but not quite! 🌊", why: "Evolution doesn't work by accident. The filefish developed camouflage because fish that could blend in survived longer and had more babies. It's survival pressure, not randomness.", clue: "Check Station 4: Reef 1 → 'Scrawled Filefish' in your scavenger hunt." },
-      { opener: "Nice try, reef diver! 🌊", why: "Some fish DO use color for mating (like the Garibaldi!), but the filefish changes its whole color pattern to match rocks and coral — that's for hiding from predators, not attracting mates.", clue: "Check Station 4: Reef 1 → 'Scrawled Filefish' in your scavenger hunt." },
-      null,
-      { opener: "A cold splash of reality! 🌊", why: "Color change doesn't control temperature — fish are cold-blooded and adjust to water temp a different way. The filefish changes color to HIDE, not to warm up.", clue: "Check Station 4: Reef 1 → 'Scrawled Filefish' in your scavenger hunt." }
-    ],
-    correctFact: "🎨 Fun fact: The scrawled filefish can change its pattern so quickly that scientists have filmed it shifting colors in seconds. It can even mimic the texture of coral, making its outline basically disappear. It's like having a cheat code for hide-and-seek."
   },
 
   // Station 5: Reef 2
@@ -876,41 +799,6 @@ const questions = [
       clue: "Check Station 5: Reef 2 → 'Corals' and 'Cities of the Sea' in your scavenger hunt."
     },
     correctFact: "🪸 Fun fact: Brain coral looks exactly like a human brain — same wrinkles and folds and everything. Scientists think the folded shape helps the coral pack more surface area into a small space, so more algae can live inside it. Nature invented the brain shape twice, for totally different reasons."
-  },
-
-  // Station 6: Reef 3
-  {
-    station: "Station 6: Reef 3",
-    stationNum: 6,
-    type: "mc",
-    question: "Coral reefs act as 'carbon sinks.' What does that mean?",
-    choices: [
-      "Coral reefs sink to the bottom of the ocean and take carbon with them.",
-      "Coral reefs absorb carbon dioxide from the water, which helps regulate ocean chemistry.",
-      "Coral reefs produce carbon dioxide that fish need to breathe.",
-      "Carbon sinks are holes in the reef where fish hide."
-    ],
-    correct: 1,
-    wrongFeedback: [
-      { opener: "Coral went overboard! 🌊", why: "Reefs don't physically sink — they're attached to the seafloor. A 'carbon sink' is a biological process where carbon dioxide is absorbed from the water, not something that sinks like a rock.", clue: "Check Station 6: Reef 3 → 'The Benefits of Coral Reefs' in your scavenger hunt." },
-      null,
-      { opener: "Flipped it backwards! 🌊", why: "Fish breathe oxygen dissolved in water — not carbon dioxide. Coral reefs remove CO₂ FROM the ocean water. They're helping fix the chemistry, not adding CO₂.", clue: "Check Station 6: Reef 3 → 'The Benefits of Coral Reefs' in your scavenger hunt." },
-      { opener: "Imagination points, but no! 🌊", why: "A 'carbon sink' is a scientific term for any ecosystem that absorbs more carbon dioxide than it releases. It's about chemistry, not a physical hole in the reef.", clue: "Check Station 6: Reef 3 → 'The Benefits of Coral Reefs' in your scavenger hunt." }
-    ],
-    correctFact: "🌍 Fun fact: Ocean creatures that build calcium carbonate shells — like corals and mollusks — are basically turning dissolved carbon into solid rock and storing it on the seafloor. When those animals die, their shells pile up and eventually become limestone. The White Cliffs of Dover in England? Mostly ancient ocean animals. You're welcome, England."
-  },
-  {
-    station: "Station 6: Reef 3",
-    stationNum: 6,
-    type: "tf",
-    question: "True or False: Coral reefs support high biodiversity because warm, stable ocean temperatures and multiple habitat types allow many species to live there year-round.",
-    choices: ["True", "False"],
-    correct: 0,
-    wrongFeedback: [
-      null,
-      { opener: "Wait — don't swim away from this one! 🌊", why: "This is actually TRUE. The Caribbean reef supports lots of fish species because warm, stable temperatures let many species thrive all year. The reef also has coral, seagrass beds, and mangroves — different habitats for different animals.", clue: "Check Station 6: Reef 3 → 'So Many Fish' in your scavenger hunt." }
-    ],
-    correctFact: "🐠 Fun fact: Coral reefs cover less than 1% of the ocean floor — but they support about 25% of all marine species. That's like if your school hallway only took up 1% of the building, but 25% of all students decided that hallway was the best place to hang out."
   },
 
   // Station 7: Sea Turtle
@@ -935,49 +823,7 @@ const questions = [
     correctFact: "🐢 Fun fact: Green sea turtles are named for the COLOR OF THEIR FAT — not their shell or skin. Their fat is greenish because they eat so much seagrass and algae. They're basically walking (swimming) proof that you are what you eat. Also: sea turtles can hold their breath for up to 7 hours while sleeping underwater."
   },
 
-  // Station 8: Shipwreck
-  {
-    station: "Station 8: Shipwreck",
-    stationNum: 8,
-    type: "mc",
-    question: "A WWII shipwreck is now covered in coral and fish. The ship was never meant to be in the ocean. What does this tell us about what living things need to survive in the ocean?",
-    choices: [
-      "Living things only survive in natural habitats — humans can't create habitat.",
-      "Physical structure is what matters most — even a human-made object can become habitat if it gives animals surfaces to attach to and places to hide.",
-      "Fish will only live near shipwrecks because they are attracted to metal.",
-      "Coral grows anywhere in the ocean, so the ship location doesn't matter."
-    ],
-    correct: 1,
-    wrongFeedback: [
-      { opener: "Man overboard on that logic! 🌊", why: "This shipwreck proves the opposite — organisms colonized a totally human-made object. What matters is whether the structure provides surfaces, shelter, and attachment points, not whether it's natural.", clue: "Check Station 8: Shipwreck → 'Shipwreck' in your scavenger hunt." },
-      null,
-      { opener: "Rusting your answer a bit! 🌊", why: "Fish aren't attracted to metal — they're attracted to the habitat the ship creates. The same fish would colonize a natural rocky reef or coral structure for the same reasons.", clue: "Check Station 8: Shipwreck → 'Shipwreck' in your scavenger hunt." },
-      { opener: "Not quite the whole ocean! 🌊", why: "Coral doesn't grow just anywhere — it needs the right conditions. The shipwreck works because it's in a location WITH those conditions, AND provides surfaces to attach to. Location and structure both matter.", clue: "Check Station 8: Shipwreck → 'Shipwreck' in your scavenger hunt." }
-    ],
-    correctFact: "⚓ Fun fact: There are an estimated 3 million shipwrecks on the ocean floor worldwide. Many have become thriving artificial reefs. The USS Oriskany — a retired aircraft carrier — was deliberately sunk off Florida in 2006 to create a reef. It's now called the 'Great Carrier Reef.' Yes, that's a real name. Scientists have a good sense of humor."
-  },
-
   // Station 9: Kelp
-  {
-    station: "Station 9: Kelp",
-    stationNum: 9,
-    type: "mc",
-    question: "Kelp is NOT a plant — it is a marine algae. It can grow over 100 feet tall. What abiotic factors make kelp forests possible in the Pacific Ocean?",
-    choices: [
-      "Warm, shallow water with lots of sand on the bottom.",
-      "Cold temperature and dissolved nutrients in the water.",
-      "Darkness and high pressure near the ocean floor.",
-      "Salt water that is mixed with freshwater from rivers."
-    ],
-    correct: 1,
-    wrongFeedback: [
-      { opener: "Kelp doesn't do hot tubs! 🌊", why: "Kelp grows in COLD water — it thrives in the chilly Pacific Ocean. Warm water doesn't support kelp growth. And kelp attaches to rocky seafloor, not sand.", clue: "Check Station 9: Kelp → 'Kelp' in your scavenger hunt." },
-      null,
-      { opener: "Too deep for kelp! 🌊", why: "Kelp actually needs SUNLIGHT to grow — it's a photosynthetic producer. The dark deep ocean would kill it. Kelp grows in relatively shallow coastal water.", clue: "Check Station 9: Kelp in your scavenger hunt." },
-      { opener: "Kelp keeps it salty! 🌊", why: "That describes an ESTUARY — where freshwater mixes with saltwater. Kelp grows in the open Pacific Ocean, which is fully salty. Fresh water would actually stress the kelp.", clue: "Check Station 9: Kelp in your scavenger hunt." }
-    ],
-    correctFact: "🌿 Fun fact: Giant kelp can grow up to TWO FEET per day — making it one of the fastest-growing organisms on Earth. Sea otters love kelp forests because they wrap themselves in kelp to keep from drifting away while they sleep on the surface. Kelp: nature's seatbelt and blanket in one."
-  },
   {
     station: "Station 9: Kelp",
     stationNum: 9,
@@ -990,70 +836,6 @@ const questions = [
       null
     ],
     correctFact: "❄️ Fun fact: Marine snow falls through the ocean constantly — like a slow-motion snow globe. Some particles take WEEKS to drift from the surface to the deep seafloor. Deep-sea creatures have evolved to catch and eat these falling bits. One deep-sea cucumber literally hoovers up marine snow like a living vacuum cleaner on the seafloor. It's called a sea pig. (Yes, really.)"
-  },
-
-  // Station 10: Garibaldi
-  {
-    station: "Station 10: Garibaldi",
-    stationNum: 10,
-    type: "mc",
-    question: "The Garibaldi fish is bright orange — the OPPOSITE of camouflage. Why is its bold coloring an adaptation?",
-    choices: [
-      "Bright orange helps the fish absorb heat from sunlight to stay warm.",
-      "The orange color warns predators that the fish is poisonous.",
-      "The bright color signals to rivals that the fish is defending its territory.",
-      "It is not an adaptation — the fish is just colorful by accident."
-    ],
-    correct: 2,
-    wrongFeedback: [
-      { opener: "Too toasty of an answer! 🌊", why: "Fish are cold-blooded — they don't absorb heat through color. The Garibaldi is in the ocean where color doesn't affect temperature at all.", clue: "Check Station 10: Garibaldi in your scavenger hunt." },
-      { opener: "Close, but flip the fish! 🌊", why: "Garibaldis aren't poisonous. The orange is a territorial signal — it tells other Garibaldis 'I live here, back off!' Not a danger warning to predators.", clue: "Check Station 10: Garibaldi in your scavenger hunt." },
-      null,
-      { opener: "Evolution doesn't do accidents! 🌊", why: "Bright coloring is very visible and can attract predators — so it's costly. If it survived through evolution, it MUST be doing something useful. In this case: defending territory.", clue: "Check Station 10: Garibaldi in your scavenger hunt." }
-    ],
-    correctFact: "🟠 Fun fact: Male Garibaldis build nests out of a specific red algae — and they're VERY picky about it. They'll spend weeks pruning and cleaning their nest to make it perfect. If a female comes to inspect and she doesn't like the nest, she leaves. The male then has to fix it before he tries again. Fish have standards."
-  },
-
-  // Station 11: Leopard Sharks
-  {
-    station: "Station 11: Leopard Sharks",
-    stationNum: 11,
-    type: "dnd",
-    question: "Match each ocean organism to the GROUP it belongs to (plankton, nekton, or benthos) — and one human threat. Drag each word to the right box.",
-    pairs: [
-      { label: "Leopard shark — actively swims through the ocean", match: "Nekton" },
-      { label: "Fiddler crab — lives between land and sea on the beach", match: "Benthos" },
-      { label: "Phytoplankton — drifts with ocean currents", match: "Plankton" },
-      { label: "Catching fish faster than they can reproduce", match: "Overfishing" }
-    ],
-    wrongFeedback: {
-      opener: "Shark got you confused! 🌊",
-      why: "Remember: Nekton actively SWIM. Benthos live on the BOTTOM or shore. Plankton DRIFT with currents. And overfishing is when we catch fish FASTER than they can reproduce.",
-      clue: "Check Station 11: Leopard Sharks in your scavenger hunt, and the key vocabulary in your lesson."
-    },
-    correctFact: "🦈 Fun fact: Leopard sharks have spotted patterns — and like human fingerprints, each shark's pattern is unique. Scientists use photos of their spots to identify individual sharks in the wild, the same way they ID humpback whales by their tails. Wildlife photography: the non-invasive way to take attendance."
-  },
-
-  // Human impact / big picture (from lesson)
-  {
-    station: "Station 6: Reef 3 + Lesson",
-    stationNum: 6,
-    type: "mc",
-    question: "Pollution, overfishing, and climate change all hurt ocean ecosystems. Which of these is a direct result of OVERFISHING?",
-    choices: [
-      "Ocean water gets warmer and coral bleaches.",
-      "Plastic trash builds up in ocean garbage patches.",
-      "Key fish species disappear, which can cause other animal populations to explode or crash.",
-      "Algae blooms grow out of control because of fertilizer runoff."
-    ],
-    correct: 2,
-    wrongFeedback: [
-      { opener: "Wrong wave, ocean expert! 🌊", why: "Warming water is caused by CLIMATE CHANGE, not overfishing. Overfishing removes specific fish species from the ecosystem — it doesn't change the water temperature.", clue: "Review the 'Impact of Human Activities' section in your lesson (Unit 6.08)." },
-      { opener: "Tangled in the wrong net! 🌊", why: "Plastic buildup is caused by POLLUTION, not overfishing. Overfishing is about removing too many fish too quickly — it doesn't directly put plastic in the ocean.", clue: "Review the 'Impact of Human Activities' section in your lesson (Unit 6.08)." },
-      null,
-      { opener: "Wrong current! 🌊", why: "Algae blooms are caused by fertilizer POLLUTION (nutrients from farms running into the water). Overfishing removes animals from the food web — it doesn't directly cause algae blooms.", clue: "Review the 'Impact of Human Activities' section in your lesson (Unit 6.08)." }
-    ],
-    correctFact: "🎣 Fun fact: When cod were overfished off the coast of Canada in the 1990s, the cod population collapsed. With cod gone, the small fish and shrimp they used to eat exploded in population. This is called a 'trophic cascade' — when one species disappears, it creates a chain reaction through the whole food web. The cod fishing industry that sustained communities for centuries shut down almost overnight."
   },
 
   // Final wrap-up question
@@ -1076,7 +858,7 @@ const questions = [
 let correctCount = 0;
 let answeredCount = 0;
 const totalQ = questions.length;
-const PASS_THRESHOLD = 14;
+const PASS_THRESHOLD = 5;
 
 // ── SHUFFLE ────────────────────────────────────────────────────
 function shuffle(arr) {
