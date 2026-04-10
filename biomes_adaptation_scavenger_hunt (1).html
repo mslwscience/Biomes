@@ -95,7 +95,6 @@
     transition: border-color 0.2s;
   }
   textarea:focus { border-color: #1D9E75; background: #fff; }
-  textarea:disabled { background: #f0f4f1; color: #557060; }
 
   button {
     cursor: pointer;
@@ -119,16 +118,6 @@
   }
   .check-btn:hover:not(:disabled) { background: #17896a; border-color: #17896a; }
 
-  .hint-btn {
-    background: none;
-    border: none;
-    color: #557060;
-    font-size: 13px;
-    cursor: pointer;
-    padding: 0;
-    text-decoration: underline;
-  }
-
   .hint-text {
     font-size: 13px;
     color: #3B6D11;
@@ -136,7 +125,6 @@
     padding: 10px 14px;
     background: #EAF3DE;
     border-radius: 8px;
-    display: none;
     line-height: 1.55;
   }
 
@@ -147,8 +135,31 @@
     border-radius: 8px;
     line-height: 1.6;
   }
-  .feedback.correct { background: #EAF3DE; color: #27500A; }
-  .feedback.incorrect { background: #FCEBEB; color: #A32D2D; }
+  .feedback.correct {
+    background: #EAF3DE;
+    color: #27500A;
+    border: 1px solid #9FE1CB;
+  }
+  .feedback.incorrect {
+    background: #fffbe6;
+    color: #5a4a00;
+    border: 1px solid #f0c040;
+  }
+
+  .try-again-btn {
+    margin-top: 10px;
+    background: #fff7e0;
+    border-color: #f0c040;
+    color: #5a4a00;
+    font-size: 13px;
+  }
+  .try-again-btn:hover { background: #fff0c0; border-color: #d4a900; }
+
+  .attempt-counter {
+    font-size: 12px;
+    color: #888;
+    margin-top: 6px;
+  }
 
   .nav-row {
     display: flex;
@@ -215,12 +226,8 @@
   .rr-answer.empty { color: #aabdb5; font-style: italic; }
   .rr-status { font-size: 11px; font-weight: 600; padding: 2px 8px; border-radius: 20px; white-space: nowrap; }
   .rr-status.correct { background: #EAF3DE; color: #3B6D11; }
-  .rr-status.incorrect { background: #FCEBEB; color: #A32D2D; }
+  .rr-status.incorrect { background: #fffbe6; color: #5a4a00; }
   .rr-status.blank { background: #f0f4f1; color: #557060; }
-  .et-response-block { margin-bottom: 1rem; }
-  .et-response-label { font-size: 13px; font-weight: 600; color: #557060; margin-bottom: 4px; }
-  .et-response-text { font-size: 14px; color: #1a1a1a; line-height: 1.6; background: #f9fbfa; border-radius: 8px; padding: 10px 14px; }
-  .et-response-text.empty { color: #aabdb5; font-style: italic; }
   .classkick-directions {
     background: #fffbe6;
     border: 2px dashed #f0c040;
@@ -269,14 +276,6 @@
   }
   .copy-btn:hover { background: #17896a; }
   .copy-btn.copied { background: #639922; border-color: #639922; }
-  .print-btn {
-    margin-top: 0.75rem;
-    width: 100%;
-    font-size: 13px;
-    padding: 8px;
-    color: #557060;
-    border-color: #c4d4ca;
-  }
   @media print {
     .nav-row, .page-header, #question-area, button, .classkick-directions { display: none !important; }
     .response-review { display: block !important; border: none; padding: 0; }
@@ -348,105 +347,160 @@ const questions = [
     biome: "Tundra", section: "Grasses",
     q: "Look at the Tundra section. Grasses survive the short growing season because of one key trait. What is it, and why does it help?",
     keywords: ["shallow","root","roots","shallow roots"],
-    hint: "Think about what part of the plant you'd find underground — and why depth matters in frozen ground.",
+    hints: [
+      "💡 Think about what part of the plant you'd find underground.",
+      "💡 The frozen ground (permafrost) below can't be dug into — so which direction do roots go instead?",
+      "💡 The answer is about roots that don't grow very deep — just into the thin top layer of soil that thaws."
+    ],
     explain: "Grasses have shallow roots, so they can grow quickly in the thin layer of soil that thaws during the brief tundra summer. Deep roots can't penetrate the permafrost below."
   },
   {
     biome: "Tundra", section: "Reindeer Moss",
     q: "Reindeer moss isn't actually a moss — it's a lichen. Find the section that explains how the two organisms inside it survive together. What does each partner contribute?",
     keywords: ["fungus","algae","moisture","photosynthesis","energy","algae provides","fungus absorbs"],
-    hint: "Look for what each organism gives the other. One provides water, the other provides food energy.",
+    hints: [
+      "💡 A lichen is made of two different organisms living together — look for what each one gives the other.",
+      "💡 One partner provides water (moisture), and the other provides food energy. Which organism does which?",
+      "💡 The fungus absorbs water and the algae uses sunlight to make energy through photosynthesis — they share the benefits."
+    ],
     explain: "The fungus absorbs and provides moisture the algae needs to photosynthesize. In return, the algae provides the fungus with energy. This is a mutualistic adaptation to harsh, dry tundra conditions."
   },
   {
     biome: "Taiga", section: "Conifers",
     q: "In the Taiga section, conifers (evergreens) keep their leaves all year. Look for the specific structural adaptation that helps them conserve water. What is it?",
     keywords: ["waxy","wax","needle","needles","waxy layer","waxy coating"],
-    hint: "It's a coating on the outside of the needle-shaped leaves.",
+    hints: [
+      "💡 Look closely at the shape and surface of conifer leaves — they're called needles.",
+      "💡 There's a special coating on those needles that stops water from escaping. What kind of coating is it?",
+      "💡 Think of a raincoat — the coating that makes water bead off is described as 'waxy.'"
+    ],
     explain: "Conifer needles are covered in a waxy layer that reduces water loss — critical in the taiga where cold temperatures limit how much liquid water is available."
   },
   {
     biome: "Temperate Forest", section: "Saplings",
     q: "In the Temperate Forest section, look at the saplings growing under the giant redwoods. What specific challenge have these smaller trees adapted to?",
     keywords: ["shade","shadow","sunlight","light","sun","shade-tolerant","shadow of"],
-    hint: "The redwood canopy above creates a very specific abiotic condition on the forest floor.",
+    hints: [
+      "💡 Think about what the giant redwood trees above the saplings are blocking.",
+      "💡 The redwood canopy is very thick and tall. What abiotic (non-living) resource becomes very scarce on the forest floor below?",
+      "💡 Plants need sunlight to grow — and these saplings have adapted to grow with very little of it."
+    ],
     explain: "The redwood canopy blocks most sunlight, so saplings below have adapted to grow in low-light (shade) conditions — a direct response to the abiotic factor of limited sunlight."
   },
   {
     biome: "Temperate Forest", section: "Ferns",
     q: "Still in the Temperate Forest section — ferns and ivies are described as tolerant of a specific abiotic condition on the forest floor. What is that condition?",
     keywords: ["shade","shadow","low light","low-light","lack of sunlight","canopy","sun"],
-    hint: "It's the same limiting abiotic factor that affects the saplings nearby.",
+    hints: [
+      "💡 This is the same challenge the saplings face nearby — look at what condition the forest floor creates.",
+      "💡 The treetops form a thick 'roof' called a canopy. What does that block out?",
+      "💡 Ferns and ivies can survive with very little direct sunlight — they're described as shade-tolerant."
+    ],
     explain: "Ferns and ivies are shade-tolerant, meaning they can photosynthesize effectively even with very little direct sunlight — a key adaptation to life beneath the forest canopy."
   },
   {
     biome: "Tropical Rainforest", section: "Epiphytes",
     q: "In the Tropical Rainforest section, find epiphytes. What problem do they solve by growing on other plants instead of the forest floor?",
     keywords: ["sunlight","light","crowded","space","floor","access to sunlight","limited","sun"],
-    hint: "Two things are scarce on the rainforest floor: space and something plants need to make food.",
+    hints: [
+      "💡 The rainforest floor is extremely crowded. Think about two things plants need that are hard to find down there.",
+      "💡 By growing up on other plants (like trees), epiphytes get higher up. What resource do they gain by being higher?",
+      "💡 Both space AND sunlight are scarce on the rainforest floor — growing on other plants solves both problems at once."
+    ],
     explain: "The rainforest floor is overcrowded and almost no sunlight reaches it. Epiphytes like orchids and vines grow on other plants to get closer to sunlight — an adaptation to competition for light and space."
   },
   {
     biome: "Savanna", section: "Trees",
     q: "In the Savanna section, look at the acacia tree. It has a physical adaptation that protects its leaves from being eaten. What is it, and does it always work?",
     keywords: ["thorn","thorns","spiny","spine","spines","ants","tree ants","giraffe","giraffes"],
-    hint: "Look for what the tree grows AND what animals are also involved in defense.",
+    hints: [
+      "💡 Look at the branches of the acacia — what sharp structures grow there to discourage animals?",
+      "💡 The thorns help, but one animal has a special body part that lets it reach past them. Which animal, and what body part?",
+      "💡 There's also a tiny animal — an insect — that helps defend the tree. Look for mention of ants biting the giraffe!"
+    ],
     explain: "Acacia trees grow spiny thorns to discourage grazing animals. However, giraffes' long tongues let them reach around the thorns — but tree ants also help by biting the giraffes! This shows layered adaptations between species."
   },
   {
     biome: "Savanna", section: "Zebra",
     q: "Zebras in the Savanna section have a striking pattern. The text gives TWO possible explanations for why stripes are an adaptation. What are they?",
     keywords: ["blend","camouflage","grass","grasses","herd","pick","predator","stripes","single"],
-    hint: "One idea is about blending in; the other is about confusing a predator when zebras are in a group.",
+    hints: [
+      "💡 One explanation is about how stripes help a single zebra hide. Where do zebras live, and what does the landscape look like?",
+      "💡 The second explanation is about what happens when many zebras are together in a herd. How do the stripes affect a predator trying to chase one?",
+      "💡 Idea 1: stripes blend with the grasses (camouflage). Idea 2: a moving herd of stripes makes it hard for a predator to pick out a single zebra."
+    ],
     explain: "Some scientists think the stripes help zebras blend with the grasses (camouflage). Others think the pattern makes it hard for predators to pick a single zebra out of a moving herd — both are adaptations that reduce predation."
   },
   {
     biome: "Desert", section: "Joshua Trees",
     q: "Look at Joshua Trees in the Desert section. What structural adaptation helps them survive in extremely dry soil where few other trees can grow?",
     keywords: ["root","roots","deep","large roots","deep root","large root","deep into"],
-    hint: "Think about where the water is in a desert — it's usually far underground.",
+    hints: [
+      "💡 In a desert, water is very scarce near the surface. So where must a tree look to find it?",
+      "💡 Think about the root system — the direction and depth of roots matters a lot when soil is dry.",
+      "💡 Joshua trees have large, deep roots that grow far down into the ground to reach water that other trees can't access."
+    ],
     explain: "Joshua trees have large roots growing deep into the ground, allowing them to reach water far below the dry desert surface — an adaptation to the abiotic factor of extremely low precipitation."
   },
   {
     biome: "Desert", section: "Dead or Alive?",
     q: "The last section describes desert plants that look dead but aren't. Find TWO survival strategies the text mentions for getting through a drought.",
     keywords: ["dormant","dormancy","photosynthesis","different strategies","photosynthesize","drought","survive"],
-    hint: "One is about changing HOW they photosynthesize; the other is about going into a kind of 'pause.'",
+    hints: [
+      "💡 One strategy is about changing WHEN or HOW the plant does photosynthesis — look for a mention of doing it at a different time of day.",
+      "💡 The other strategy is more like a 'pause button' — the plant slows everything down to almost nothing. What is that state called?",
+      "💡 Strategy 1: some desert plants photosynthesize differently (e.g. at night to avoid heat). Strategy 2: some go dormant — a kind of deep pause — until rain returns."
+    ],
     explain: "Desert plants may use different strategies for photosynthesizing (some do it at night to avoid heat) OR they may enter a dormant period — essentially pausing growth and metabolism — to survive prolonged drought."
   }
 ];
 
 let current = 0;
-let answers = Array(questions.length).fill("");
-let checked = Array(questions.length).fill(false);
+let answers  = Array(questions.length).fill("");
+let attempts = Array(questions.length).fill(0);
 let correct  = Array(questions.length).fill(false);
 
 function render() {
   const q = questions[current];
   const c = biomeColors[q.biome];
-  const isChecked = checked[current];
+  const att = attempts[current];
   const isCorrect = correct[current];
+  const hintLevel = Math.min(att - 1, q.hints.length - 1);
 
   document.getElementById("q-counter").textContent = `Question ${current+1} of ${questions.length}`;
-  document.getElementById("prog").style.width = `${Math.round((checked.filter(Boolean).length / questions.length)*100)}%`;
+  document.getElementById("prog").style.width = `${Math.round((correct.filter(Boolean).length / questions.length)*100)}%`;
+
+  let feedbackHTML = "";
+  if (att > 0) {
+    if (isCorrect) {
+      feedbackHTML = `<div class="feedback correct">✓ Nice work! ${q.explain}</div>`;
+    } else {
+      const hint = hintLevel >= 0 ? `<div class="hint-text" style="margin-top:8px;">${q.hints[hintLevel]}</div>` : "";
+      const attMsg = att === 1 ? "Not quite — take another look!" :
+                     att === 2 ? "Keep going — you're getting closer!" :
+                                 "Almost there — look really carefully at the hint below!";
+      feedbackHTML = `
+        <div class="feedback incorrect">
+          ${attMsg}
+          ${hint}
+        </div>
+        <button class="try-again-btn" onclick="tryAgain()">✏️ Try again</button>
+        <div class="attempt-counter">Attempt ${att} — keep trying, no limit!</div>
+      `;
+    }
+  }
 
   document.getElementById("question-area").innerHTML = `
     <div class="question-card">
       <span class="biome-badge" style="background:${c.bg};color:${c.text};border:1px solid ${c.border}">${q.biome} — ${q.section}</span>
       <p class="question-text">${q.q}</p>
       <p class="link-note">Open the story to find it: <a href="${LINK}" target="_blank">Google Arts &amp; Culture — Biomes ↗</a></p>
-      <textarea id="ans-input" rows="3" placeholder="Type what you found in the story…" ${isChecked ? "disabled" : ""}>${answers[current]}</textarea>
-      ${!isChecked
-        ? `<button class="check-btn" onclick="checkAnswer()">Check answer</button>
-           <button class="hint-btn" onclick="toggleHint()">Show hint</button>
-           <div class="hint-text" id="hint-box">💡 ${q.hint}</div>`
-        : `<div class="feedback ${isCorrect ? 'correct' : 'incorrect'}">
-             ${isCorrect ? '✓ Nice work! ' : '✗ Not quite. '}${q.explain}
-           </div>`
-      }
+      <textarea id="ans-input" rows="3" placeholder="Type what you found in the story…" ${isCorrect ? "disabled" : ""}>${answers[current]}</textarea>
+      ${!isCorrect ? `<button class="check-btn" onclick="checkAnswer()">Check answer</button>` : ""}
+      ${feedbackHTML}
     </div>`;
 
-  if (!isChecked) {
+  if (!isCorrect) {
     document.getElementById("ans-input").addEventListener("input", e => { answers[current] = e.target.value; });
   }
 
@@ -455,16 +509,23 @@ function render() {
 }
 
 function checkAnswer() {
-  const val = (document.getElementById("ans-input").value || "").toLowerCase();
+  const val = (document.getElementById("ans-input").value || "").trim();
+  if (!val) return;
   answers[current] = val;
-  correct[current] = questions[current].keywords.some(k => val.includes(k.toLowerCase()));
-  checked[current] = true;
+  attempts[current]++;
+  correct[current] = questions[current].keywords.some(k => val.toLowerCase().includes(k.toLowerCase()));
   render();
+  if (correct[current]) {
+    document.getElementById("ans-input") && document.getElementById("ans-input").setAttribute("disabled","true");
+  }
 }
 
-function toggleHint() {
-  const box = document.getElementById("hint-box");
-  box.style.display = box.style.display === "block" ? "none" : "block";
+function tryAgain() {
+  render();
+  setTimeout(() => {
+    const ta = document.getElementById("ans-input");
+    if (ta) { ta.focus(); ta.select(); }
+  }, 50);
 }
 
 function move(dir) {
@@ -489,8 +550,8 @@ function showComplete() {
 }
 
 function restart() {
-  answers = Array(questions.length).fill("");
-  checked = Array(questions.length).fill(false);
+  answers  = Array(questions.length).fill("");
+  attempts = Array(questions.length).fill(0);
   correct  = Array(questions.length).fill(false);
   current  = 0;
   document.getElementById("question-area").style.display = "block";
@@ -505,8 +566,8 @@ function showReview() {
 
   let huntHTML = "";
   questions.forEach((q, i) => {
-    const statusClass = !checked[i] ? "blank" : correct[i] ? "correct" : "incorrect";
-    const statusText  = !checked[i] ? "skipped" : correct[i] ? "correct" : "review";
+    const statusClass = attempts[i] === 0 ? "blank" : correct[i] ? "correct" : "incorrect";
+    const statusText  = attempts[i] === 0 ? "skipped" : correct[i] ? "correct" : "review";
     const ansText = answers[i] ? escapeHTML(answers[i]) : "";
     huntHTML += `
       <div class="rr-row">
