@@ -10,6 +10,7 @@
   --green:#2d6a4f;--lime:#52b788;--lgr:#b7e4c7;
   --yellow:#f9c74f;--red:#e63946;--blue:#457b9d;
   --cream:#f8f9e8;--dark:#1b4332;--shadow:0 4px 18px rgba(0,0,0,0.13);
+  --orange:#f4a261;--purple:#9b72cf;
 }
 *{box-sizing:border-box;margin:0;padding:0}
 body{font-family:'Nunito',sans-serif;background:linear-gradient(160deg,#1b4332 0%,#2d6a4f 50%,#1b4332 100%);min-height:100vh;padding:16px;color:#fff}
@@ -45,19 +46,31 @@ body{font-family:'Nunito',sans-serif;background:linear-gradient(160deg,#1b4332 0
 .sec-title{font-family:'Fredoka One',cursive;font-size:1rem;color:var(--dark);margin-bottom:4px}
 .sec-sub{font-size:.8rem;color:#666;margin-bottom:11px}
 .joke{background:#fffbe6;border-left:4px solid var(--yellow);border-radius:0 9px 9px 0;padding:7px 11px;font-size:.82rem;font-style:italic;margin-bottom:11px;color:#7a6200}
-.qblock{margin-bottom:18px}
-.qtext{font-size:.96rem;font-weight:800;line-height:1.45;margin-bottom:10px;color:var(--dark)}
-.choices{display:flex;flex-direction:column;gap:7px}
-.cbtn{background:var(--cream);border:2.5px solid #d0e8d8;border-radius:12px;padding:9px 13px;font-family:'Nunito',sans-serif;font-size:.91rem;font-weight:700;cursor:pointer;text-align:left;transition:all .18s;color:var(--dark)}
-.cbtn:hover:not(:disabled){background:var(--lgr);border-color:var(--lime);transform:translateX(3px)}
-.cbtn.correct{background:#d4edda;border-color:var(--lime);color:var(--green)}
-.cbtn.wrong{background:#fde2e2;border-color:var(--red);color:var(--red)}
-.cbtn.show-correct{background:#d4edda;border-color:var(--lime)}
-.qfb{margin-top:8px;padding:8px 12px;border-radius:9px;font-size:.83rem;font-weight:700;display:none}
-.qfb.show{display:block}
-.qfb.correct{background:#d4edda;color:var(--green)}
-.qfb.wrong{background:#fde2e2;color:var(--red)}
 
+/* ── PROGRESSIVE HINT BOXES ──────────────────── */
+.hint-box{border-radius:11px;padding:10px 14px;font-size:.84rem;font-weight:700;margin-top:8px;line-height:1.5;display:none;animation:popIn .25s ease}
+.hint-box.show{display:block}
+/* level 1 – gentle yellow nudge */
+.hint-box.h1{background:#fff8e1;border:2px solid #f9c74f;color:#7a5c00}
+/* level 2 – warmer orange */
+.hint-box.h2{background:#fff3e0;border:2px solid #f4a261;color:#7a3a00}
+/* level 3 – almost-there red */
+.hint-box.h3{background:#fce4ec;border:2px solid #e63946;color:#900}
+/* correct confirmation */
+.hint-box.ok{background:#d4edda;border:2px solid var(--lime);color:var(--green)}
+@keyframes popIn{from{transform:scale(.95);opacity:0}to{transform:scale(1);opacity:1}}
+
+/* MATCH */
+.match-grid{display:flex;flex-direction:column;gap:8px}
+.mrow{display:grid;grid-template-columns:1fr 16px 1fr;align-items:start;gap:7px}
+.mterm{background:var(--lgr);border-radius:9px;padding:8px 10px;font-weight:800;font-size:.84rem;text-align:center;color:var(--dark);margin-top:4px}
+.marrow{text-align:center;color:#aaa;font-size:.85rem;margin-top:10px}
+.msel{border:2px solid #d0e8d8;border-radius:9px;padding:7px 8px;font-family:'Nunito',sans-serif;font-size:.83rem;font-weight:700;background:var(--cream);color:var(--dark);width:100%}
+.msel:focus{outline:none;border-color:var(--lime)}
+.msel.correct{background:#d4edda;border-color:var(--lime);color:var(--green)}
+.msel.wrong{background:#fde2e2;border-color:var(--red);color:var(--red)}
+
+/* SORT */
 .sort-bank{background:#f4f7f4;border-radius:11px;padding:10px;margin-bottom:11px}
 .sort-bank-lbl{font-size:.72rem;font-weight:900;text-transform:uppercase;letter-spacing:.5px;color:#777;margin-bottom:7px}
 .sort-bank-items{display:flex;flex-wrap:wrap;gap:7px;min-height:36px}
@@ -75,32 +88,73 @@ body{font-family:'Nunito',sans-serif;background:linear-gradient(160deg,#1b4332 0
 .chip.dragging{opacity:.4}
 .chip.ok{background:#d4edda;border-color:var(--lime);color:var(--green);cursor:default}
 .chip.bad{background:#fde2e2;border-color:var(--red);color:var(--red)}
+.drag-hint{font-size:.75rem;color:#888;margin-bottom:8px}
 
-.match-grid{display:flex;flex-direction:column;gap:8px}
-.mrow{display:grid;grid-template-columns:1fr 16px 1fr;align-items:center;gap:7px}
-.mterm{background:var(--lgr);border-radius:9px;padding:8px 10px;font-weight:800;font-size:.84rem;text-align:center;color:var(--dark)}
-.marrow{text-align:center;color:#aaa;font-size:.85rem}
-.msel{border:2px solid #d0e8d8;border-radius:9px;padding:7px 8px;font-family:'Nunito',sans-serif;font-size:.83rem;font-weight:700;background:var(--cream);color:var(--dark);width:100%}
-.msel:focus{outline:none;border-color:var(--lime)}
-.msel.correct{background:#d4edda;border-color:var(--lime);color:var(--green)}
-.msel.wrong{background:#fde2e2;border-color:var(--red);color:var(--red)}
+/* MC */
+.qblock{margin-bottom:18px;padding-bottom:14px;border-bottom:1px solid #eee}
+.qblock:last-of-type{border-bottom:none;margin-bottom:0;padding-bottom:0}
+.qtext{font-size:.96rem;font-weight:800;line-height:1.45;margin-bottom:10px;color:var(--dark)}
+.choices{display:flex;flex-direction:column;gap:7px}
+.cbtn{background:var(--cream);border:2.5px solid #d0e8d8;border-radius:12px;padding:9px 13px;font-family:'Nunito',sans-serif;font-size:.91rem;font-weight:700;cursor:pointer;text-align:left;transition:all .18s;color:var(--dark)}
+.cbtn:hover:not(:disabled){background:var(--lgr);border-color:var(--lime);transform:translateX(3px)}
+.cbtn.correct{background:#d4edda;border-color:var(--lime);color:var(--green)}
+.cbtn.wrong{background:#fde2e2;border-color:var(--red);color:var(--red)}
+.cbtn.dimmed{background:#f3f3f3;border-color:#ddd;color:#bbb;cursor:not-allowed}
 
+/* TRUE/FALSE */
+.tf-block{margin-bottom:14px;padding:12px;background:#f8f9e8;border-radius:12px;border:2px solid #d0e8d8}
+.tf-block:last-child{margin-bottom:0}
+.tf-stmt{font-size:.94rem;font-weight:800;color:var(--dark);margin-bottom:9px;line-height:1.45}
+.tf-btns{display:flex;gap:9px}
+.tf-btn{flex:1;padding:9px;border:2.5px solid #d0e8d8;border-radius:10px;font-family:'Nunito',sans-serif;font-size:.95rem;font-weight:900;cursor:pointer;transition:all .2s;background:#fff;color:var(--dark)}
+.tf-btn:hover:not(:disabled){transform:scale(1.04)}
+.tf-btn.true-btn:hover:not(:disabled){background:#d4edda;border-color:var(--lime)}
+.tf-btn.false-btn:hover:not(:disabled){background:#fde2e2;border-color:var(--red)}
+.tf-btn.correct{background:#d4edda;border-color:var(--lime);color:var(--green)}
+.tf-btn.wrong{background:#fde2e2;border-color:var(--red);color:var(--red)}
+.tf-btn.dimmed{background:#eee;border-color:#ccc;color:#aaa;cursor:not-allowed}
+
+/* ORDERING */
+.order-list{display:flex;flex-direction:column;gap:8px;margin-bottom:10px}
+.order-item{display:flex;align-items:center;gap:9px;background:#f4f7f4;border:2px solid #d0e8d8;border-radius:11px;padding:9px 12px;cursor:grab;user-select:none;transition:all .2s;font-size:.9rem;font-weight:800;color:var(--dark)}
+.order-item:hover{border-color:var(--lime);background:var(--lgr)}
+.order-item.dragging{opacity:.35}
+.order-item.correct-pos{background:#d4edda;border-color:var(--lime);color:var(--green);cursor:default}
+.order-item.wrong-pos{background:#fde2e2;border-color:var(--red);color:var(--red)}
+.order-handle{font-size:1.1rem;opacity:.4}
+.order-num{background:var(--lime);color:var(--dark);border-radius:50%;width:24px;height:24px;display:flex;align-items:center;justify-content:center;font-size:.75rem;font-weight:900;flex-shrink:0}
+
+/* FILL IN BLANK */
+.blank-q{margin-bottom:16px;padding-bottom:14px;border-bottom:1px solid #eee}
+.blank-q:last-of-type{border-bottom:none;margin-bottom:0;padding-bottom:0}
+.blank-sentence{font-size:.96rem;font-weight:800;line-height:1.9;color:var(--dark);margin-bottom:4px}
+.blank-inp{border:none;border-bottom:3px solid var(--lime);background:transparent;font-family:'Nunito',sans-serif;font-size:.95rem;font-weight:900;color:var(--green);width:140px;text-align:center;outline:none;padding:2px 4px;cursor:pointer}
+.blank-inp.correct{border-bottom-color:var(--green);background:#d4edda;border-radius:6px;color:var(--green);cursor:default}
+.blank-inp.wrong{border-bottom-color:var(--red);background:#fde2e2;border-radius:6px;color:var(--red)}
+.blank-inp:disabled{cursor:default}
+.word-bank{display:flex;flex-wrap:wrap;gap:7px;margin-bottom:14px}
+.wb-chip{background:#e8f5e9;border:2px solid var(--lime);border-radius:20px;padding:5px 12px;font-size:.83rem;font-weight:900;color:var(--green);cursor:pointer;transition:all .18s;user-select:none}
+.wb-chip:hover:not(.used){background:var(--lgr);transform:scale(1.05)}
+.wb-chip.used{background:#eee;border-color:#ccc;color:#aaa;cursor:default;text-decoration:line-through}
+.wb-chip.selected{outline:3px solid #e63946;background:#fff3cd;border-color:#f9c74f}
+.wb-lbl{font-size:.72rem;font-weight:900;text-transform:uppercase;letter-spacing:.5px;color:#777;margin-bottom:7px}
+
+/* SCENARIO */
+.scenario-box{background:linear-gradient(135deg,#e8f5e9,#e3f2fd);border:2px solid var(--lime);border-radius:14px;padding:15px;margin-bottom:12px}
+.scenario-icon{font-size:2rem;margin-bottom:5px}
+.scenario-title{font-family:'Fredoka One',cursive;font-size:.95rem;color:var(--green);margin-bottom:5px}
+.scenario-text{font-size:.88rem;line-height:1.6;color:#2c5f3f}
+
+/* SHARED */
 .check-btn{background:var(--green);color:#fff;border:none;border-radius:10px;padding:9px 20px;font-family:'Nunito',sans-serif;font-size:.9rem;font-weight:900;cursor:pointer;transition:all .18s;margin-top:9px}
 .check-btn:hover{background:var(--dark);transform:translateY(-1px)}
-.sfb{margin-top:8px;padding:8px 12px;border-radius:9px;font-size:.83rem;font-weight:700;display:none}
-.sfb.show{display:block}
-.sfb.correct{background:#d4edda;color:var(--green)}
-.sfb.wrong{background:#fde2e2;color:var(--red)}
-.drag-hint{font-size:.75rem;color:#888;margin-bottom:8px}
 
 .retry-bar{background:#fff3cd;border:2px solid var(--yellow);border-radius:12px;padding:12px 15px;margin-bottom:13px;font-weight:800;font-size:.88rem;color:#7a5c00;display:none;text-align:center}
 .retry-bar.show{display:block}
-
 .submit-area{text-align:center;padding:8px 0 22px}
 .submit-btn{background:linear-gradient(135deg,var(--green),var(--lime));color:#fff;border:none;border-radius:16px;padding:14px 40px;font-family:'Fredoka One',cursive;font-size:1.35rem;cursor:pointer;box-shadow:0 6px 20px rgba(0,0,0,0.25);transition:all .2s}
 .submit-btn:hover{transform:translateY(-2px);box-shadow:0 8px 24px rgba(0,0,0,0.3)}
 
-/* COMPLETION PAGE */
 #done-page{display:none;background:rgba(0,0,0,0.55);border:2.5px solid var(--lime);border-radius:22px;padding:30px 22px;text-align:center;margin-top:16px}
 .done-emoji{font-size:3rem;margin-bottom:6px}
 .done-title{font-family:'Fredoka One',cursive;font-size:1.8rem;margin-bottom:4px}
@@ -119,45 +173,36 @@ body{font-family:'Nunito',sans-serif;background:linear-gradient(160deg,#1b4332 0
 <body>
 <div id="app">
 
-<!-- HEADER -->
 <div class="hq">
   <div class="hq-badge">🔍 TOP SECRET SCIENCE MISSION</div>
   <h1>Operation: Save the Ecosystem!</h1>
   <p>A villain scrambled Ohio's ecology files. Answer correctly to unlock clues and reveal who did it! 🌿</p>
 </div>
 
-<!-- STATUS -->
 <div class="status-bar">
   <div class="stat-chip"><div class="lbl">Score</div><div class="val" id="v-score">0 / 0</div></div>
-  <div class="stat-chip"><div class="lbl">Clues Found</div><div class="val" id="v-clues">0 / 5</div></div>
+  <div class="stat-chip"><div class="lbl">Clues Found</div><div class="val" id="v-clues">0 / 8</div></div>
   <div class="stat-chip"><div class="lbl">Status</div><div class="val" id="v-status" style="font-size:.85rem;color:#f9c74f">On the case…</div></div>
 </div>
 
-<!-- CLUE DOTS -->
 <div class="clue-track">
   <div class="clue-lbl">Clues:</div>
   <div class="clue-dots" id="clue-dots"></div>
 </div>
 
-<!-- MYSTERY DOSSIER -->
 <div class="mystery" id="mystery">
   <div class="m-tag">🗂️ MYSTERY DOSSIER — Answer correctly to reveal clues!</div>
   <div class="m-img" id="m-img">🔒</div>
   <div class="m-txt" id="m-txt">The eco-villain's identity is locked. Start answering to unlock the truth…</div>
 </div>
 
-<!-- RETRY BANNER -->
 <div class="retry-bar" id="retry-bar"></div>
-
-<!-- QUESTIONS -->
 <div id="q-area"></div>
 
-<!-- SUBMIT -->
 <div class="submit-area">
   <button class="submit-btn" onclick="submitAll()">🌍 Submit Mission Report!</button>
 </div>
 
-<!-- COMPLETION PAGE -->
 <div id="done-page">
   <div class="done-emoji">🎉</div>
   <div class="done-title">Mission Complete, Agent!</div>
@@ -177,180 +222,264 @@ body{font-family:'Nunito',sans-serif;background:linear-gradient(160deg,#1b4332 0
 
 </div>
 <script>
-// ══════════════════════════════════════════════════════
-// CLUES (5 total — one per section)
-// ══════════════════════════════════════════════════════
+// ═══════════════════════════════════════════════
+// CLUES
+// ═══════════════════════════════════════════════
 const CLUES = [
   { img:"🌿", txt:`<b>Clue 1 unlocked!</b> The villain was spotted near a <span class="rv">TROPICAL RAINFOREST</span> complaining about "too many living things." Suspicious.` },
-  { img:"🌡️", txt:`<b>Clue 2 unlocked!</b> Security cameras caught them messing with <span class="rv">ABIOTIC FACTORS</span> — cranking up water temperature near a coral reef. Classic villain move.` },
-  { img:"🦫", txt:`<b>Clue 3 unlocked!</b> They tried to remove a <span class="rv">KEYSTONE SPECIES</span> from a wetland. They knew removing it could collapse the food web!` },
-  { img:"🍄", txt:`<b>Clue 4 unlocked!</b> A stolen notebook read: <i>"Destroy the <span class="rv">PRODUCERS</span> and the consumers starve. Mwahaha."</i> This villain definitely paid attention in science class.` },
-  { img:"🕵️", txt:`<b>Clue 5 — VILLAIN REVEALED!</b> It was <span class="rv">DR. LOW-DIVERSITY</span> — so jealous of healthy ecosystems she tried to break them all! She's been captured. The ecosystem is safe — thanks to YOU, Agent! 🌍` },
+  { img:"🌡️", txt:`<b>Clue 2 unlocked!</b> Security cameras caught them messing with <span class="rv">ABIOTIC FACTORS</span> — cranking up water temperature near a coral reef.` },
+  { img:"🦫", txt:`<b>Clue 3 unlocked!</b> They tried to remove a <span class="rv">KEYSTONE SPECIES</span> from a wetland — they knew it would collapse the food web!` },
+  { img:"🍄", txt:`<b>Clue 4 unlocked!</b> A stolen notebook read: <i>"Destroy the <span class="rv">PRODUCERS</span> and the consumers starve. Mwahaha."</i>` },
+  { img:"🌍", txt:`<b>Clue 5 unlocked!</b> They were heard muttering about <span class="rv">CLIMATE</span> and how it controls which biomes survive. Who IS this person?` },
+  { img:"🌧️", txt:`<b>Clue 6 unlocked!</b> A witness saw them near a <span class="rv">DESERT BIOME</span>, muttering that "<span class="rv">PRECIPITATION</span> should be illegal."` },
+  { img:"🔗", txt:`<b>Clue 7 unlocked!</b> They left behind notes about triggering a <span class="rv">TROPHIC CASCADE</span> by removing a single organism.` },
+  { img:"🕵️", txt:`<b>Clue 8 — VILLAIN REVEALED!</b> It was <span class="rv">DR. LOW-DIVERSITY</span> — so jealous of healthy ecosystems she tried to break them all! Captured thanks to YOU, Agent! 🌍` },
 ];
 
-// ══════════════════════════════════════════════════════
-// SECTIONS  (5 total, ~18 items)
-// ══════════════════════════════════════════════════════
-const SECTIONS = [
+// ═══════════════════════════════════════════════
+// HINTS  (3 escalating levels per item)
+// h1 = Canvas nudge | h2 = more specific | h3 = almost the answer
+// ═══════════════════════════════════════════════
+const HINTS = {
+  match:[
+    // 0 – Biome
+    ["📖 Check the vocabulary section of your Canvas lesson for words about large geographical regions.",
+     "🌍 Think about places like the Amazon Rainforest or the Sahara. Each one covers a huge area with its own weather and wildlife. Which definition fits that?",
+     "💡 A _____ is defined by three things: its climate, its plants, AND its animals. It's a large geographical area — find that definition!"],
+    // 1 – Biotic factor
+    ["📖 Your Canvas lesson has a section on 'Biotic vs Abiotic' — go find it!",
+     "🌿 The word 'biotic' comes from 'bio,' which means life. Look for the definition that mentions living things.",
+     "💡 Biotic = LIVING. Find the definition that says something about living components or organisms like plants and animals."],
+    // 2 – Abiotic factor
+    ["📖 Look at the biotic/abiotic comparison table in your Canvas lesson.",
+     "🪨 Abiotic things are never alive — think sunlight, rocks, water, temperature. Which definition describes those?",
+     "💡 Abiotic = NON-living. The 'a-' at the start means 'without.' Find the definition about non-living parts of an environment."],
+    // 3 – Climate
+    ["📖 Flip back to the part of your Canvas lesson that explains what makes each biome different.",
+     "🌦️ This is NOT just today's weather. It's the pattern over many years — average temperatures, average rainfall across all seasons.",
+     "💡 Climate = long-term weather patterns. It includes both temperature AND precipitation over time. Find that definition!"],
+  ],
+  sort:[
+    "📖 Go back to your Canvas lesson and find the list of biotic vs abiotic examples.",
+    "🌿 Ask yourself: is it alive, or was it ever alive? Plants, animals, fungi, bacteria = biotic. Sunlight, water, temperature = abiotic.",
+    "💡 Living things (biotic) can grow and reproduce. Non-living things (abiotic) cannot. Sort based on whether each item is alive!",
+  ],
+  mc:{
+    mc1:[
+      // Q1 – ecosystem services
+      ["📖 Your Canvas lesson explains what 'ecosystem services' are — look for that definition.",
+       "🌊 Ecosystem services are real things ecosystems DO for us: clean water, oxygen, pollination. One of these answers describes something impossible.",
+       "💡 Ecosystems use abiotic factors — they can't create new ones from nothing. Which answer is physically impossible for an ecosystem to do?"],
+      // Q2 – least precipitation
+      ["📖 Check the biome comparison section in your Canvas lesson — it lists rainfall for each biome.",
+       "🌵 Picture each place: a rainforest is wet and green, a desert is dry and bare. Which one would get the least rain?",
+       "💡 Deserts get less than 10 inches of rain per year — the least of any biome. They're defined by low precipitation!"],
+    ],
+    scenario1:[
+      // Q1 – temperature is abiotic
+      ["📖 Reread the biotic vs abiotic definitions in your Canvas lesson before picking.",
+       "🌡️ Ask yourself: is 'water temperature' a living thing? Can it grow, eat, or reproduce? Remember what abiotic means.",
+       "💡 Temperature is NEVER alive — it's always abiotic. It's a physical condition of the environment, not a living factor."],
+      // Q2 – interconnected
+      ["📖 Look at the section in your Canvas lesson about how biotic and abiotic factors interact.",
+       "🔗 Read the scenario again. One change caused another, which caused another. What does that chain reaction tell you about how everything relates?",
+       "💡 Temperature changed → coral died → fish left → birds left. That chain proves biotic and abiotic factors are deeply INTERCONNECTED."],
+    ],
+  },
+  tf:[
+    // 0 – sunlight is biotic – FALSE
+    ["📖 Double-check the definition of 'biotic' in your Canvas lesson before deciding.",
+     "☀️ Sunlight comes from the sun — a massive ball of gas. Is the sun alive? Does it grow, eat, or reproduce?",
+     "💡 Biotic = living. Sunlight is pure energy — it has never been alive. That makes it ABIOTIC, not biotic. The statement is FALSE."],
+    // 1 – climate determines species – TRUE
+    ["📖 Your Canvas lesson explains what controls which organisms live in each biome.",
+     "🌍 Think about WHY polar bears live in the Arctic and NOT in the rainforest. What's different about those two places?",
+     "💡 Climate (temperature + precipitation) shapes every biome. Organisms that can't handle the climate simply cannot survive there. This is TRUE."],
+    // 2 – removing species doesn't matter – FALSE
+    ["📖 Look for the keystone species section in your Canvas lesson.",
+     "🦫 Remember the beaver example? Removing one animal changed entire habitats and affected many other species. Does 'never affects others' sound right?",
+     "💡 Removing even one species — especially a keystone species — can trigger a cascade of changes across the whole food web. This is FALSE."],
+    // 3 – decomposers are biotic – TRUE
+    ["📖 Find the section on decomposers in your Canvas lesson.",
+     "🍄 Fungi and bacteria are decomposers. Think about it — do fungi and bacteria grow, eat, and reproduce?",
+     "💡 Fungi and bacteria ARE living organisms, so they are biotic factors. They break down dead matter and recycle nutrients. This is TRUE."],
+  ],
+  order:{
+    order:[
+      "📖 Check your Canvas lesson for a food chain diagram — it shows which organism is always at the very bottom.",
+      "🌾 Energy flows from producers UP to consumers. Producers make their own food from sunlight, so they always start the chain.",
+      "💡 The order is always: Producer → Primary Consumer (eats plants) → Secondary Consumer → Tertiary Consumer → Top Predator. Grass goes first!",
+    ],
+    order2:[
+      "📖 Your Canvas lesson describes each biome — check the section that mentions how much rain each one gets.",
+      "🌵 Deserts are the driest. Rainforests are the wettest. Now think: where do grasslands and temperate forests fit between those two?",
+      "💡 Least to most: Desert → Grassland → Temperate Forest → Tropical Rainforest. Rainforests get over 100 inches of rain per year!",
+    ],
+  },
+  fitb:{
+    b1:[
+      "📖 Your Canvas lesson names the two MOST important abiotic factors — find that sentence!",
+      "🌡️ One of these factors measures how hot or cold the environment is. Which word in the Word Bank relates to heat or cold?",
+      "💡 The word starts with 'T' and describes how hot or cold something is. It's one of the two most important abiotic factors!",
+    ],
+    b2:[
+      "📖 Look for the sentence in your Canvas lesson that names both of the most important abiotic factors together.",
+      "🌧️ This factor is about water falling from the sky — rain AND snow count. Find the word in the Word Bank that means that.",
+      "💡 Rain + snow = ___cipitation. It starts with 'P' and measures how much water falls from the sky each year.",
+    ],
+    b3:[
+      "📖 Read the sentence carefully — a drought means very little water. What happens to plant growth when water is scarce?",
+      "🌵 If plants don't get enough water, do they grow MORE or LESS? Find the word that shows the amount going DOWN.",
+      "💡 Less water = less plant growth. The word means 'gets smaller' or 'goes down.' It starts with 'd' and is in the Word Bank.",
+    ],
+    b4:[
+      "📖 Your Canvas lesson defines two types of factors — one living, one not. Which one includes organisms?",
+      "🌿 Plants, animals, fungi, and bacteria are all living things. What type of factor are they — biotic or abiotic?",
+      "💡 Living organisms are ___tic factors. The word starts with 'B' and comes from the root 'bio,' meaning life.",
+    ],
+  },
+};
 
-  // ─── 1: VOCAB MATCH (5 terms) ────────────────────
+// ═══════════════════════════════════════════════
+// SECTIONS
+// ═══════════════════════════════════════════════
+const SECTIONS = [
   {
     id:"match", type:"match", clue:0,
-    tag:"📋 Part 1 of 5 — Vocab Decoder",
+    tag:"📋 Part 1 of 8 — Vocab Decoder",
     title:"Mission Briefing: Crack the Code",
     sub:"Match each word to its correct definition, then hit Check!",
     joke:"Why did the biotic factor break up with the abiotic factor? Because it was 'so cold' — literally. It was temperature. 🥶",
     items:[
-      { term:"Biotic factor",    def:"Living parts of an ecosystem like plants, animals, and fungi" },
-      { term:"Abiotic factor",   def:"Nonliving parts like temperature, water, and sunlight" },
-      { term:"Biodiversity",     def:"The variety of all living things in an area" },
-      { term:"Keystone species", def:"A species whose removal greatly changes the ecosystem" },
-      { term:"Decomposer",       def:"Breaks down dead matter and recycles nutrients" },
+      { term:"Biome",          def:"A large geographical area with distinct climate, plants, and animals" },
+      { term:"Biotic factor",  def:"Living components of an environment" },
+      { term:"Abiotic factor", def:"Non-living components of an environment" },
+      { term:"Climate",        def:"Long-term weather patterns including temperature and precipitation" },
     ]
   },
-
-  // ─── 2: SORT (8 items) ───────────────────────────
   {
     id:"sort", type:"sort", clue:1,
-    tag:"🌦️ Part 2 of 5 — Sort the Evidence",
+    tag:"🌦️ Part 2 of 8 — Sort the Evidence",
     title:"Biotic or Abiotic?",
     sub:"Drag each chip into the correct category — living or nonliving.",
     joke:"What did the sunlight say to the oak tree? 'I've got energy, but YOU'RE the biotic one here.' ☀️🌳",
     items:[
-      { label:"Oak Tree 🌳", cat:"bio"  },
-      { label:"Wolf 🐺",     cat:"bio"  },
-      { label:"Mushroom 🍄", cat:"bio"  },
-      { label:"Bacteria 🦠", cat:"bio"  },
-      { label:"Sunlight ☀️", cat:"abio" },
-      { label:"Rainfall 🌧️", cat:"abio" },
-      { label:"Soil Type 🪨", cat:"abio" },
-      { label:"Water 💧",    cat:"abio" },
+      { label:"Oak Tree 🌳",    cat:"bio"  },
+      { label:"Wolf 🐺",        cat:"bio"  },
+      { label:"Bacteria 🦠",    cat:"bio"  },
+      { label:"Sunlight ☀️",    cat:"abio" },
+      { label:"Rainfall 🌧️",    cat:"abio" },
+      { label:"Temperature 🌡️", cat:"abio" },
     ]
   },
-
-  // ─── 3: MC — Biotic/Abiotic concepts (2 Qs) ──────
   {
     id:"mc1", type:"mc", clue:2,
-    tag:"🔘 Part 3 of 5 — Field Questions",
-    title:"What Lives There, and Why?",
+    tag:"🔘 Part 3 of 8 — Field Questions",
+    title:"What Controls an Ecosystem?",
     joke:"Why did the cactus do well in the desert? It really knew how to 'stick' to the abiotic conditions. 🌵",
     qs:[
-      {
-        q:"Which of these is a BIOTIC factor in a forest?",
-        cs:["Temperature","A mushroom 🍄","Rainfall","Soil type"],
-        ok:1,
-        fb:"A mushroom is a living organism — biotic! Temperature, rainfall, and soil are all nonliving abiotic factors."
-      },
-      {
-        q:"A cactus thrives because of low rainfall and high sunlight. These conditions are called…",
-        cs:["Biotic factors","Niche factors","Abiotic factors","Keystone factors"],
-        ok:2,
-        fb:"Rainfall and sunlight are nonliving — ABIOTIC factors. They control which organisms can even survive in a place."
-      },
+      { q:"Biomes maintain biodiversity, regulate climate, and provide essential ecosystem services. Which of these is NOT an ecosystem service?",
+        cs:["Clean water filtration","Oxygen production","Creating new abiotic factors from nothing","Pollination by bees"], ok:2 },
+      { q:"Temperature and precipitation determine water availability, growing season length, and what adaptations are needed. Which biome gets the LEAST precipitation?",
+        cs:["Tropical rainforest","Temperate forest","Desert","Grassland"], ok:2 },
     ]
   },
-
-  // ─── 4: MC — Food webs & biodiversity (3 Qs) ─────
   {
-    id:"mc2", type:"mc", clue:3,
-    tag:"🔘 Part 4 of 5 — Food Web Intel",
-    title:"Follow the Energy!",
-    joke:"What's a food web's favorite dance? The Energy Flow. 🕺 (It never stops moving.)",
-    qs:[
-      {
-        q:"In a grassland food chain: grass → bison → wolves. If disease wiped out most of the GRASS, what would happen?",
-        cs:[
-          "Wolf populations would increase",
-          "Bison would have less to eat, and wolf numbers would also drop",
-          "Decomposers would disappear",
-          "Nothing — the ecosystem stays the same"
-        ],
-        ok:1,
-        fb:"Grass is the producer at the base. Less grass → less food for bison → less food for wolves. Changes ripple ALL the way up!"
-      },
-      {
-        q:"Beavers build dams that create ponds, giving homes to fish, frogs, and birds. This makes beavers a…",
-        cs:["Decomposer","Producer","Keystone species 🦫","Abiotic factor"],
-        ok:2,
-        fb:"Remove the beavers and the ponds disappear — and so do the animals living in them. That's what makes them a keystone species!"
-      },
-      {
-        q:"High biodiversity makes an ecosystem more resilient. What does that mean?",
-        cs:[
-          "It never changes no matter what",
-          "It has more abiotic factors than other ecosystems",
-          "It can recover faster from storms, disease, or other disturbances",
-          "It has fewer species competing for food"
-        ],
-        ok:2,
-        fb:"Think of biodiversity like backup players on a team — if one species is hit hard, others can fill the gap and keep things stable."
-      },
+    id:"fitb", type:"fitb", clue:3,
+    tag:"✏️ Part 4 of 8 — Complete the Intel",
+    title:"Fill in the Field Report",
+    sub:"Click a word from the Word Bank, then click the blank you want to fill.",
+    joke:"Why did the scientist bring a pencil to the ecosystem? To fill in the blanks! 📝",
+    wordBank:["Precipitation","Temperature","Biomes","decreases","Biotic","Abiotic"],
+    blanks:[
+      { sentence:"___ and ___ are the most important abiotic factors.", answers:["Temperature","Precipitation"], ids:["b1","b2"] },
+      { sentence:"During droughts (abiotic), plant growth ___, potentially reducing herbivore populations.", answers:["decreases"], ids:["b3"] },
+      { sentence:"___ factors include all living organisms in an ecosystem.", answers:["Biotic"], ids:["b4"] },
     ]
   },
-
-  // ─── 5: MC — Biomes & real world (3 Qs) ─────────
   {
-    id:"mc3", type:"mc", clue:4,
-    tag:"🔘 Part 5 of 5 — Final Boss 🏆",
-    title:"Biomes & Real-World Connections",
-    joke:"Why did the tropical rainforest win the biodiversity contest? It showed up with HALF THE WORLD'S SPECIES. Overachiever. 🌴",
-    qs:[
-      {
-        q:"Rainforests cover less than 10% of Earth's land but hold over half of all species. Why?",
-        cs:[
-          "They have extreme cold and very little sunlight",
-          "High rainfall and warm temperatures create perfect abiotic conditions for many species",
-          "They have only one type of producer",
-          "Decomposers work slower there, so nutrients build up"
-        ],
-        ok:1,
-        fb:"Warm temps + lots of rain = incredible abiotic conditions that support huge numbers of producers, consumers, and decomposers!"
-      },
-      {
-        q:"When ocean water warms too much, coral bleaches and the reef collapses. This shows…",
-        cs:[
-          "A biotic factor destroying an abiotic factor",
-          "An abiotic factor (temperature) harming biotic factors (coral and reef animals)",
-          "A decomposer removing a keystone species",
-          "Low biodiversity causing temperature to rise"
-        ],
-        ok:1,
-        fb:"Temperature is ABIOTIC. When it changes too much, it destroys living coral and all the animals that depend on the reef — a perfect example of how linked biotic and abiotic really are."
-      },
-      {
-        q:"In many biomes, bees pollinate flowering plants. If bees disappeared, what would happen?",
-        cs:[
-          "Only bee populations would be affected",
-          "Abiotic factors like sunlight would decrease",
-          "Many plants couldn't reproduce, harming animals that depend on those plants too",
-          "Decomposers would take over pollination"
-        ],
-        ok:2,
-        fb:"Bees → flowers → seeds → plants → animals that eat plants. Lose the bees and it ripples through the entire food web. Biotic factors are all connected!"
-      },
+    id:"tf", type:"tf", clue:4,
+    tag:"✅ Part 5 of 8 — True or False?",
+    title:"Fact Check the Villain's Notes",
+    sub:"Dr. Low-Diversity left behind notes. Help us fact-check them — but she might be lying!",
+    joke:"Why did the false statement go to school? Because it needed to be corrected! 📚",
+    items:[
+      { stmt:"Sunlight is a biotic factor because plants need it to survive.", answer:false },
+      { stmt:"A biome's climate determines which species can survive there.", answer:true },
+      { stmt:"Removing one species from an ecosystem never affects other species.", answer:false },
+      { stmt:"Decomposers are biotic factors that recycle nutrients back into the ecosystem.", answer:true },
     ]
   },
-
+  {
+    id:"order", type:"order", clue:5,
+    tag:"🔢 Part 6 of 8 — Put It in Order",
+    title:"Arrange the Food Chain",
+    sub:"Drag the organisms into the correct order — from producer to top predator!",
+    joke:"What did the hawk say to the mouse? 'I'm at the TOP of this food chain — no questions!' 🦅",
+    correctOrder:["🌾 Grass (Producer)","🦗 Grasshopper (Primary Consumer)","🐸 Frog (Secondary Consumer)","🐍 Snake (Tertiary Consumer)","🦅 Hawk (Top Predator)"],
+  },
+  {
+    id:"scenario1", type:"mc", clue:6,
+    tag:"🌍 Part 7 of 8 — Scenario Analysis",
+    title:"Read the Scene, Save the Ecosystem",
+    joke:"Why did the ecologist bring a notebook to the coral reef? To take notes on how temperature was being extra. 🌡️🪸",
+    scenario:{ icon:"🪸", title:"The Coral Reef Crisis",
+      text:"Ocean water near a reef warms by 3°C due to climate change. The coral bleaches and dies. Without the coral, fish lose their habitat. The fish disappear, and the seabirds that fed on them abandon the area. The reef becomes a barren wasteland." },
+    qs:[
+      { q:"In this scenario, the rising water temperature is an example of…",
+        cs:["A biotic factor harming an abiotic factor","An abiotic factor changing and harming biotic factors","A keystone species collapsing the reef","Decomposers breaking down the coral"], ok:1 },
+      { q:"This reef scenario best demonstrates that…",
+        cs:["Abiotic and biotic factors are completely independent of each other","High biodiversity always prevents ecosystem collapse","Biotic and abiotic factors are deeply interconnected","Temperature only affects abiotic factors"], ok:2 },
+    ]
+  },
+  {
+    id:"order2", type:"order", clue:7,
+    tag:"🔢 Part 8 of 8 — Final Boss 🏆",
+    title:"Rank the Biomes by Rainfall",
+    sub:"Drag to arrange from LEAST to MOST annual precipitation!",
+    joke:"Why did the rainforest win the water contest? It just kept pouring it on! 🌴💧",
+    correctOrder:["🏜️ Desert (least rainfall)","🌾 Grassland","🌲 Temperate Forest","🌴 Tropical Rainforest (most rainfall)"],
+  },
 ];
 
-// ══════════════════════════════════════════════════════
+// ═══════════════════════════════════════════════
 // STATE
-// ══════════════════════════════════════════════════════
-let results = {};   // id → { correct, total, done }
+// ═══════════════════════════════════════════════
+let results = {};
 let cluesFound = 0;
 let dragSrc = null;
-const NUM_CLUES = 5;
+let orderDragSrc = null;
+let selectedWBChip = null;
+// tracks how many wrong attempts per item key
+let wrongCounts = {};
 
-// total possible points
-const TOTAL_PTS = SECTIONS.reduce((s,sec)=>
-  s + (sec.type==='mc' ? sec.qs.length : sec.items.length), 0);
+const NUM_CLUES = 8;
+const TOTAL_PTS = SECTIONS.reduce((s,sec)=>{
+  if(sec.type==='mc') return s+sec.qs.length;
+  if(sec.type==='match') return s+sec.items.length;
+  if(sec.type==='sort') return s+sec.items.length;
+  if(sec.type==='tf') return s+sec.items.length;
+  if(sec.type==='order') return s+sec.correctOrder.length;
+  if(sec.type==='fitb') return s+sec.blanks.reduce((a,b)=>a+b.answers.length,0);
+  return s;
+},0);
 
-// ══════════════════════════════════════════════════════
-// BUILD ALL
-// ══════════════════════════════════════════════════════
-function init() {
-  // Clue dots
-  const dotsEl = document.getElementById('clue-dots');
+// ── progressive hint helper ──────────────────────
+// hintArr: array of 3 strings | wKey: unique string | el: DOM element
+function showHint(hintArr, wKey, el) {
+  wrongCounts[wKey] = (wrongCounts[wKey]||0) + 1;
+  const n = wrongCounts[wKey];
+  const lvl = Math.min(n, 3);
+  const prefix = ['💛 Hint 1 — check your Canvas lesson: ','🟠 Hint 2 — getting warmer: ','🔴 Final hint: '][lvl-1];
+  el.className = 'hint-box show h'+lvl;
+  el.textContent = prefix + hintArr[lvl-1];
+}
+
+// ═══════════════════════════════════════════════
+// INIT
+// ═══════════════════════════════════════════════
+function init(){
+  const dotsEl=document.getElementById('clue-dots');
   for(let i=0;i<NUM_CLUES;i++){
     const d=document.createElement('div');
     d.className='dot'+(i===0?' cur':'');
@@ -358,35 +487,34 @@ function init() {
     d.textContent=i+1;
     dotsEl.appendChild(d);
   }
-
-  const area = document.getElementById('q-area');
+  const area=document.getElementById('q-area');
   SECTIONS.forEach(sec=>{
-    const wrapper=document.createElement('div');
-    wrapper.id=`wrap-${sec.id}`;
-    if(sec.type==='match') buildMatch(sec,wrapper);
-    else if(sec.type==='sort') buildSort(sec,wrapper);
-    else buildMC(sec,wrapper);
-    area.appendChild(wrapper);
+    const w=document.createElement('div');
+    w.id=`wrap-${sec.id}`;
+    if(sec.type==='match') buildMatch(sec,w);
+    else if(sec.type==='sort') buildSort(sec,w);
+    else if(sec.type==='mc') buildMC(sec,w);
+    else if(sec.type==='tf') buildTF(sec,w);
+    else if(sec.type==='order') buildOrder(sec,w);
+    else if(sec.type==='fitb') buildFITB(sec,w);
+    area.appendChild(w);
   });
   refreshScore();
 }
 
-// ── shared card shell ────────────────────────────────
-function makeCard(sec) {
-  const card=document.createElement('div');
-  card.className='qcard';
-  card.innerHTML=`
-    <div class="sec-tag">${sec.tag}</div>
+function makeCard(sec){
+  const c=document.createElement('div');
+  c.className='qcard';
+  c.innerHTML=`<div class="sec-tag">${sec.tag}</div>
     <div class="sec-title">${sec.title||''}</div>
     ${sec.sub?`<div class="sec-sub">${sec.sub}</div>`:''}
-    ${sec.joke?`<div class="joke">🤣 ${sec.joke}</div>`:''}
-  `;
-  return card;
+    ${sec.joke?`<div class="joke">🤣 ${sec.joke}</div>`:''}`;
+  return c;
 }
 
-// ══════════════════════════════════════════════════════
-// MATCHING
-// ══════════════════════════════════════════════════════
+// ═══════════════════════════════════════════════
+// MATCH — wrong flashes red but stays editable; progressive hint per row
+// ═══════════════════════════════════════════════
 function buildMatch(sec,wrapper){
   results[sec.id]={correct:0,total:sec.items.length,done:false};
   const card=makeCard(sec);
@@ -394,76 +522,75 @@ function buildMatch(sec,wrapper){
   const grid=document.createElement('div');
   grid.className='match-grid';
   sec.items.forEach((item,i)=>{
-    grid.innerHTML+=`
-      <div class="mrow">
-        <div class="mterm">${item.term}</div>
-        <div class="marrow">→</div>
+    const row=document.createElement('div');
+    row.className='mrow';
+    row.innerHTML=`
+      <div class="mterm">${item.term}</div>
+      <div class="marrow">→</div>
+      <div style="display:flex;flex-direction:column;gap:4px;flex:1">
         <select class="msel" id="ms-${sec.id}-${i}">
           <option value="">— pick a definition —</option>
           ${defs.map(d=>`<option value="${d}">${d}</option>`).join('')}
         </select>
+        <div class="hint-box" id="mh-${sec.id}-${i}"></div>
       </div>`;
+    grid.appendChild(row);
   });
   card.appendChild(grid);
-
   const btn=document.createElement('button');
-  btn.className='check-btn';
-  btn.textContent='Check ✔️';
+  btn.className='check-btn';btn.textContent='Check ✔️';
   btn.onclick=()=>checkMatch(sec,btn);
   card.appendChild(btn);
   wrapper.appendChild(card);
 }
-
 function checkMatch(sec,btn){
-  let correct=0;
+  let totalOk=0;
   sec.items.forEach((item,i)=>{
     const sel=document.getElementById(`ms-${sec.id}-${i}`);
-    if(sel.className.includes('correct')) return; // already locked correct
-    if(sel.value===item.def){ sel.className='msel correct'; sel.disabled=true; correct++; }
-    else if(sel.value!=='') sel.className='msel wrong';
+    const hEl=document.getElementById(`mh-${sec.id}-${i}`);
+    if(sel.classList.contains('correct')){totalOk++;return;}
+    if(sel.value===item.def){
+      sel.classList.remove('wrong');sel.classList.add('correct');sel.disabled=true;
+      hEl.className='hint-box show ok';hEl.textContent='✅ Correct!';
+      totalOk++;
+    } else if(sel.value!==''){
+      sel.classList.add('wrong');
+      setTimeout(()=>sel.classList.remove('wrong'),900);
+      showHint(HINTS.match[i],`match-${i}`,hEl);
+    }
   });
-  // count total correct including previously locked
-  let totalCorrect=0;
-  sec.items.forEach((_,i)=>{
-    const sel=document.getElementById(`ms-${sec.id}-${i}`);
-    if(sel.className.includes('correct')) totalCorrect++;
-  });
-  results[sec.id]={correct:totalCorrect,total:sec.items.length,done:totalCorrect===sec.items.length};
-  if(totalCorrect===sec.items.length){ btn.style.display='none'; tryUnlock(sec.clue); }
+  results[sec.id]={correct:totalOk,total:sec.items.length,done:totalOk===sec.items.length};
+  if(totalOk===sec.items.length){btn.style.display='none';tryUnlock(sec.clue);}
   refreshScore();
 }
 
-// ══════════════════════════════════════════════════════
-// SORT
-// ══════════════════════════════════════════════════════
+// ═══════════════════════════════════════════════
+// SORT — wrong chips flash red then re-draggable; progressive hint
+// ═══════════════════════════════════════════════
 function buildSort(sec,wrapper){
   results[sec.id]={correct:0,total:sec.items.length,done:false};
   const card=makeCard(sec);
   const shuffled=[...sec.items].sort(()=>Math.random()-.5);
-  card.innerHTML+=`
-    <div class="drag-hint">💡 Click and drag each chip into the right box!</div>
-    <div class="sort-bank">
-      <div class="sort-bank-lbl">📦 Items to sort</div>
+  const inner=document.createElement('div');
+  inner.innerHTML=`
+    <div class="drag-hint">💡 Drag each chip into the right box!</div>
+    <div class="sort-bank"><div class="sort-bank-lbl">📦 Items to sort</div>
       <div class="sort-bank-items" id="bank-${sec.id}">
         ${shuffled.map(it=>`<div class="chip" draggable="true" data-sec="${sec.id}" data-cat="${it.cat}">${it.label}</div>`).join('')}
-      </div>
-    </div>
+      </div></div>
     <div class="sort-cols">
       <div class="scol bio"><div class="scol-title">🌿 Biotic (Living)</div><div class="scol-items" id="drop-bio-${sec.id}"></div></div>
       <div class="scol abio"><div class="scol-title">☀️ Abiotic (Nonliving)</div><div class="scol-items" id="drop-abio-${sec.id}"></div></div>
     </div>
-    <div class="sfb" id="sfb-${sec.id}"></div>`;
-
+    <div class="hint-box" id="sfb-${sec.id}"></div>`;
+  card.appendChild(inner);
   const btn=document.createElement('button');
-  btn.className='check-btn';
-  btn.textContent='Check ✔️';
+  btn.className='check-btn';btn.textContent='Check ✔️';
   btn.onclick=()=>checkSort(sec,btn);
   card.appendChild(btn);
   wrapper.appendChild(card);
-
   setTimeout(()=>wireDrag(sec),30);
 }
-
 function wireDrag(sec){
   [`bank-${sec.id}`,`drop-bio-${sec.id}`,`drop-abio-${sec.id}`].forEach(zid=>{
     const el=document.getElementById(zid);
@@ -474,172 +601,380 @@ function wireDrag(sec){
   document.querySelectorAll(`.chip[data-sec="${sec.id}"]`).forEach(chip=>{
     chip.addEventListener('dragstart',()=>{dragSrc=chip;chip.classList.add('dragging');});
     chip.addEventListener('dragend',()=>chip.classList.remove('dragging'));
-    chip.addEventListener('touchend',e=>{
-      const t=e.changedTouches[0];
-      const el=document.elementFromPoint(t.clientX,t.clientY);
-      const zone=el&&el.closest('.scol-items,.sort-bank-items');
-      if(zone)zone.appendChild(chip);
-    },{passive:true});
   });
 }
-
 function checkSort(sec,btn){
-  const placed=[...document.querySelectorAll(`#drop-bio-${sec.id} .chip, #drop-abio-${sec.id} .chip`)];
+  const placed=[...document.querySelectorAll(`#drop-bio-${sec.id} .chip,#drop-abio-${sec.id} .chip`)];
   const fb=document.getElementById(`sfb-${sec.id}`);
   if(placed.length<sec.items.length){
-    fb.className='sfb show wrong';
-    fb.textContent=`⚠️ ${sec.items.length-placed.length} item(s) still in the bank! Drag them all first.`;
+    fb.className='hint-box show h1';
+    fb.textContent=`⚠️ ${sec.items.length-placed.length} item(s) still in the bank — drag them all first, then check!`;
     return;
   }
-  let correct=0;
+  let correct=0,anyWrong=false;
   placed.forEach(chip=>{
     if(chip.classList.contains('ok')){correct++;return;}
     const zone=chip.parentElement.id;
     const exp=chip.dataset.cat==='bio'?`drop-bio-${sec.id}`:`drop-abio-${sec.id}`;
-    if(zone===exp){chip.classList.add('ok');chip.draggable=false;correct++;}
-    else chip.classList.add('bad');
+    if(zone===exp){chip.classList.remove('bad');chip.classList.add('ok');chip.draggable=false;correct++;}
+    else{chip.classList.add('bad');anyWrong=true;}
   });
-  fb.className='sfb show '+(correct===sec.items.length?'correct':'wrong');
-  fb.textContent=correct===sec.items.length
-    ?`🎉 All ${sec.items.length} sorted correctly!`
-    :`You got ${correct}/${sec.items.length}. Drag the red chips to the correct side and check again!`;
   results[sec.id]={correct,total:sec.items.length,done:correct===sec.items.length};
-  if(correct===sec.items.length){btn.style.display='none';tryUnlock(sec.clue);}
+  if(correct===sec.items.length){
+    fb.className='hint-box show ok';fb.textContent=`🎉 All ${sec.items.length} sorted correctly!`;
+    btn.style.display='none';tryUnlock(sec.clue);
+  } else {
+    showHint(HINTS.sort,`sort-${sec.id}`,fb);
+    setTimeout(()=>placed.forEach(chip=>{if(!chip.classList.contains('ok'))chip.classList.remove('bad');}),1200);
+  }
   refreshScore();
 }
 
-// ══════════════════════════════════════════════════════
-// MULTIPLE CHOICE
-// ══════════════════════════════════════════════════════
+// ═══════════════════════════════════════════════
+// MC — wrong choice flashes red, re-enabled for retry; progressive hint
+// ═══════════════════════════════════════════════
 function buildMC(sec,wrapper){
   results[sec.id]={correct:0,total:sec.qs.length,done:false,
     qDone:new Array(sec.qs.length).fill(false),
     qOk:new Array(sec.qs.length).fill(false)};
-
   const card=makeCard(sec);
+  if(sec.scenario){
+    const sb=document.createElement('div');
+    sb.className='scenario-box';
+    sb.innerHTML=`<div class="scenario-icon">${sec.scenario.icon}</div>
+      <div class="scenario-title">📋 ${sec.scenario.title}</div>
+      <div class="scenario-text">${sec.scenario.text}</div>`;
+    card.appendChild(sb);
+  }
   sec.qs.forEach((q,qi)=>{
     const qb=document.createElement('div');
     qb.className='qblock';
-    qb.innerHTML=`
-      <div class="qtext">${qi+1}. ${q.q}</div>
+    qb.innerHTML=`<div class="qtext">${qi+1}. ${q.q}</div>
       <div class="choices">
         ${q.cs.map((c,ci)=>`<button class="cbtn" id="cb-${sec.id}-${qi}-${ci}" onclick="pickMC('${sec.id}',${qi},${ci})">${c}</button>`).join('')}
       </div>
-      <div class="qfb" id="qfb-${sec.id}-${qi}"></div>`;
+      <div class="hint-box" id="qfb-${sec.id}-${qi}"></div>`;
     card.appendChild(qb);
   });
   wrapper.appendChild(card);
 }
-
 function pickMC(secId,qi,ci){
   const sec=SECTIONS.find(s=>s.id===secId);
   const res=results[secId];
   if(res.qDone[qi])return;
-
   const q=sec.qs[qi];
-  q.cs.forEach((_,i)=>{
-    const b=document.getElementById(`cb-${secId}-${qi}-${i}`);
-    b.disabled=true;
-    if(i===q.ok)b.classList.add('show-correct');
-  });
-  const chosen=document.getElementById(`cb-${secId}-${qi}-${ci}`);
   const ok=ci===q.ok;
-  chosen.classList.add(ok?'correct':'wrong');
+  const chosenBtn=document.getElementById(`cb-${secId}-${qi}-${ci}`);
   const fb=document.getElementById(`qfb-${secId}-${qi}`);
-  fb.className='qfb show '+(ok?'correct':'wrong');
-  fb.textContent=(ok?'✅ Correct! ':'❌ Not quite. ')+q.fb;
-
-  res.qDone[qi]=true;
-  res.qOk[qi]=ok;
+  if(ok){
+    q.cs.forEach((_,i)=>{
+      const b=document.getElementById(`cb-${secId}-${qi}-${i}`);
+      b.disabled=true;
+      if(i===ci) b.classList.add('correct');
+      else b.classList.add('dimmed');
+    });
+    fb.className='hint-box show ok';
+    fb.textContent='✅ Correct! Great detective work!';
+    res.qDone[qi]=true;res.qOk[qi]=true;
+  } else {
+    // flash red then restore — do NOT lock or disable the button
+    chosenBtn.classList.add('wrong');
+    setTimeout(()=>chosenBtn.classList.remove('wrong'),900);
+    const hintArr=(HINTS.mc[secId]&&HINTS.mc[secId][qi])||HINTS.sort;
+    showHint(hintArr,`${secId}-${qi}`,fb);
+  }
   res.correct=res.qOk.filter(Boolean).length;
   res.done=res.qDone.every(Boolean);
-  if(res.done && !res.clueGiven){ res.clueGiven=true; tryUnlock(sec.clue); }
+  if(res.done&&!res.clueGiven){res.clueGiven=true;tryUnlock(sec.clue);}
   refreshScore();
 }
 
-// ══════════════════════════════════════════════════════
+// ═══════════════════════════════════════════════
+// TRUE / FALSE — wrong button flashes, re-enabled; progressive hint
+// ═══════════════════════════════════════════════
+function buildTF(sec,wrapper){
+  results[sec.id]={correct:0,total:sec.items.length,done:false,
+    qDone:new Array(sec.items.length).fill(false),
+    qOk:new Array(sec.items.length).fill(false)};
+  const card=makeCard(sec);
+  sec.items.forEach((item,i)=>{
+    const blk=document.createElement('div');
+    blk.className='tf-block';
+    blk.innerHTML=`<div class="tf-stmt">${i+1}. ${item.stmt}</div>
+      <div class="tf-btns">
+        <button class="tf-btn true-btn" id="tf-t-${sec.id}-${i}" onclick="pickTF('${sec.id}',${i},true)">✅ True</button>
+        <button class="tf-btn false-btn" id="tf-f-${sec.id}-${i}" onclick="pickTF('${sec.id}',${i},false)">❌ False</button>
+      </div>
+      <div class="hint-box" id="tffb-${sec.id}-${i}"></div>`;
+    card.appendChild(blk);
+  });
+  wrapper.appendChild(card);
+}
+function pickTF(secId,i,chosen){
+  const sec=SECTIONS.find(s=>s.id===secId);
+  const res=results[secId];
+  if(res.qDone[i])return;
+  const item=sec.items[i];
+  const ok=chosen===item.answer;
+  const tb=document.getElementById(`tf-t-${secId}-${i}`);
+  const fb2=document.getElementById(`tf-f-${secId}-${i}`);
+  const fb=document.getElementById(`tffb-${secId}-${i}`);
+  const chosenBtn=chosen?tb:fb2;
+  if(ok){
+    tb.disabled=true;fb2.disabled=true;
+    chosenBtn.classList.add('correct');
+    (chosen?fb2:tb).classList.add('dimmed');
+    fb.className='hint-box show ok';
+    fb.textContent='✅ Correct! Great fact-checking!';
+    res.qDone[i]=true;res.qOk[i]=true;
+  } else {
+    chosenBtn.classList.add('wrong');
+    setTimeout(()=>chosenBtn.classList.remove('wrong'),900);
+    showHint(HINTS.tf[i],`tf-${secId}-${i}`,fb);
+  }
+  res.correct=res.qOk.filter(Boolean).length;
+  res.done=res.qDone.every(Boolean);
+  if(res.done&&!res.clueGiven){res.clueGiven=true;tryUnlock(sec.clue);}
+  refreshScore();
+}
+
+// ═══════════════════════════════════════════════
+// ORDERING — wrong items flash red then re-draggable; progressive hint
+// ═══════════════════════════════════════════════
+function buildOrder(sec,wrapper){
+  results[sec.id]={correct:0,total:sec.correctOrder.length,done:false};
+  const card=makeCard(sec);
+  const shuffled=[...sec.correctOrder].sort(()=>Math.random()-.5);
+  const list=document.createElement('div');
+  list.className='order-list';list.id=`olist-${sec.id}`;
+  shuffled.forEach((item,i)=>{
+    const div=document.createElement('div');
+    div.className='order-item';div.draggable=true;div.dataset.val=item;
+    div.innerHTML=`<span class="order-handle">⠿</span><span class="order-num">${i+1}</span><span>${item}</span>`;
+    list.appendChild(div);
+  });
+  card.appendChild(list);
+  const fb=document.createElement('div');fb.className='hint-box';fb.id=`ofb-${sec.id}`;
+  card.appendChild(fb);
+  const btn=document.createElement('button');
+  btn.className='check-btn';btn.textContent='Check Order ✔️';
+  btn.onclick=()=>checkOrder(sec,btn);
+  card.appendChild(btn);
+  wrapper.appendChild(card);
+  wireOrderDrag(sec.id);
+}
+function wireOrderDrag(secId){
+  const list=document.getElementById(`olist-${secId}`);
+  list.addEventListener('dragstart',e=>{
+    const item=e.target.closest('.order-item');
+    if(item&&!item.classList.contains('correct-pos')){orderDragSrc=item;item.classList.add('dragging');}
+  });
+  list.addEventListener('dragend',e=>{const item=e.target.closest('.order-item');if(item)item.classList.remove('dragging');});
+  list.addEventListener('dragover',e=>{
+    e.preventDefault();
+    const over=e.target.closest('.order-item');
+    if(over&&over!==orderDragSrc&&!over.classList.contains('correct-pos')){
+      const mid=over.getBoundingClientRect().top+over.getBoundingClientRect().height/2;
+      e.clientY<mid?list.insertBefore(orderDragSrc,over):list.insertBefore(orderDragSrc,over.nextSibling);
+    }
+  });
+  list.addEventListener('drop',e=>e.preventDefault());
+}
+function checkOrder(sec,btn){
+  const list=document.getElementById(`olist-${sec.id}`);
+  const items=[...list.querySelectorAll('.order-item')];
+  items.forEach((item,i)=>item.querySelector('.order-num').textContent=i+1);
+  let correct=0;
+  items.forEach((item,i)=>{
+    if(item.classList.contains('correct-pos')){correct++;return;}
+    if(item.dataset.val===sec.correctOrder[i]){
+      item.classList.remove('wrong-pos');item.classList.add('correct-pos');item.draggable=false;correct++;
+    } else item.classList.add('wrong-pos');
+  });
+  const fb=document.getElementById(`ofb-${sec.id}`);
+  results[sec.id]={correct,total:sec.correctOrder.length,done:correct===sec.correctOrder.length};
+  if(correct===sec.correctOrder.length){
+    fb.className='hint-box show ok';fb.textContent='🎉 Perfect order! Well done, Agent!';
+    btn.style.display='none';tryUnlock(sec.clue);
+  } else {
+    const hintArr=(HINTS.order[sec.id])||HINTS.sort;
+    showHint(hintArr,`order-${sec.id}`,fb);
+    setTimeout(()=>items.forEach(item=>{if(!item.classList.contains('correct-pos'))item.classList.remove('wrong-pos');}),1200);
+  }
+  refreshScore();
+}
+
+// ═══════════════════════════════════════════════
+// FILL IN THE BLANK — wrong blank flashes, clears, progressive hint per blank
+// ═══════════════════════════════════════════════
+function buildFITB(sec,wrapper){
+  const totalBlanks=sec.blanks.reduce((a,b)=>a+b.answers.length,0);
+  results[sec.id]={correct:0,total:totalBlanks,done:false};
+  const card=makeCard(sec);
+  const wbDiv=document.createElement('div');
+  wbDiv.innerHTML=`<div class="wb-lbl">📚 Word Bank — click a word, then click a blank:</div>
+    <div class="word-bank" id="wb-${sec.id}">
+      ${sec.wordBank.map(w=>`<div class="wb-chip" id="wbc-${sec.id}-${w.replace(/\s/g,'_')}" onclick="selectWord('${sec.id}','${w}')">${w}</div>`).join('')}
+    </div>`;
+  card.appendChild(wbDiv);
+  sec.blanks.forEach((blank,bi)=>{
+    const div=document.createElement('div');
+    div.className='blank-q';
+
+    // Build sentence with real input elements — no HTML string injection
+    const sentenceDiv=document.createElement('div');
+    sentenceDiv.className='blank-sentence';
+
+    // Split sentence text around ___ placeholders and interleave real inputs
+    const parts=(`${bi+1}. `+blank.sentence).split('___');
+    parts.forEach((part,pi)=>{
+      sentenceDiv.appendChild(document.createTextNode(part));
+      if(pi < blank.ids.length){
+        const id=blank.ids[pi];
+        const inp=document.createElement('input');
+        inp.className='blank-inp';
+        inp.id=`fitb-${sec.id}-${id}`;
+        inp.readOnly=true;
+        inp.placeholder='___?';
+        inp.addEventListener('click',()=>fillBlank(sec.id,id));
+        sentenceDiv.appendChild(inp);
+      }
+    });
+    div.appendChild(sentenceDiv);
+
+    // Hint boxes for each blank
+    blank.ids.forEach(id=>{
+      const hEl=document.createElement('div');
+      hEl.className='hint-box';
+      hEl.id=`fh-${sec.id}-${id}`;
+      div.appendChild(hEl);
+    });
+
+    card.appendChild(div);
+  });
+  const btn=document.createElement('button');
+  btn.className='check-btn';btn.textContent='Check Blanks ✔️';
+  btn.onclick=()=>checkFITB(sec,btn);
+  card.appendChild(btn);
+  wrapper.appendChild(card);
+}
+function selectWord(secId,word){
+  if(selectedWBChip){
+    const prev=document.getElementById(`wbc-${selectedWBChip.secId}-${selectedWBChip.word.replace(/\s/g,'_')}`);
+    if(prev&&!prev.classList.contains('used')) prev.classList.remove('selected');
+  }
+  selectedWBChip={secId,word};
+  const chip=document.getElementById(`wbc-${secId}-${word.replace(/\s/g,'_')}`);
+  if(chip&&!chip.classList.contains('used')) chip.classList.add('selected');
+}
+function fillBlank(secId,blankId){
+  if(!selectedWBChip||selectedWBChip.secId!==secId) return;
+  const inp=document.getElementById(`fitb-${secId}-${blankId}`);
+  if(inp.disabled) return;
+  inp.value=selectedWBChip.word;
+  const chip=document.getElementById(`wbc-${secId}-${selectedWBChip.word.replace(/\s/g,'_')}`);
+  if(chip) chip.classList.remove('selected');
+  selectedWBChip=null;
+}
+function checkFITB(sec,btn){
+  let correct=0,total=0;
+  sec.blanks.forEach(blank=>{
+    blank.ids.forEach((id,ii)=>{
+      const inp=document.getElementById(`fitb-${sec.id}-${id}`);
+      const hEl=document.getElementById(`fh-${sec.id}-${id}`);
+      if(inp.classList.contains('correct')){correct++;total++;return;}
+      total++;
+      const val=(inp.value||'').trim().toLowerCase();
+      const exp=blank.answers[ii].toLowerCase();
+      if(val===exp){
+        inp.classList.remove('wrong');inp.classList.add('correct');inp.disabled=true;
+        const chip=document.getElementById(`wbc-${sec.id}-${blank.answers[ii].replace(/\s/g,'_')}`);
+        if(chip){chip.classList.remove('selected');chip.classList.add('used');}
+        hEl.className='hint-box show ok';hEl.textContent='✅ Correct!';
+        correct++;
+      } else if(val!==''){
+        inp.classList.add('wrong');
+        setTimeout(()=>{inp.classList.remove('wrong');inp.value='';},900);
+        const hintArr=HINTS.fitb[id]||HINTS.sort;
+        showHint(hintArr,`fitb-${id}`,hEl);
+      } else {
+        hEl.className='hint-box show h1';
+        hEl.textContent="💛 This blank is empty! Click a word from the Word Bank, then click this blank to fill it.";
+      }
+    });
+  });
+  results[sec.id]={correct,total,done:correct===total};
+  if(correct===total){btn.style.display='none';tryUnlock(sec.clue);}
+  refreshScore();
+}
+
+// ═══════════════════════════════════════════════
 // CLUE SYSTEM
-// ══════════════════════════════════════════════════════
+// ═══════════════════════════════════════════════
 function tryUnlock(idx){
   if(idx>=CLUES.length||document.getElementById(`dot-${idx}`).classList.contains('done'))return;
   cluesFound++;
   const dot=document.getElementById(`dot-${idx}`);
   dot.classList.remove('cur');dot.classList.add('done');dot.textContent='✓';
   const next=document.getElementById(`dot-${idx+1}`);
-  if(next){next.classList.remove('cur');next.classList.add('cur');}
-
+  if(next) next.classList.add('cur');
   document.getElementById('m-img').textContent=CLUES[idx].img;
   document.getElementById('m-txt').innerHTML=CLUES[idx].txt;
   document.getElementById('v-clues').textContent=`${cluesFound} / ${NUM_CLUES}`;
   const m=document.getElementById('mystery');
-  m.classList.add('flash');
-  setTimeout(()=>m.classList.remove('flash'),1400);
+  m.classList.add('flash');setTimeout(()=>m.classList.remove('flash'),1400);
 }
 
-// ══════════════════════════════════════════════════════
+// ═══════════════════════════════════════════════
 // SCORE
-// ══════════════════════════════════════════════════════
-function earned(){ return Object.values(results).reduce((s,r)=>s+(r.correct||0),0); }
-
+// ═══════════════════════════════════════════════
+function earned(){return Object.values(results).reduce((s,r)=>s+(r.correct||0),0);}
 function refreshScore(){
-  const e=earned();
-  const pct=TOTAL_PTS?Math.round(e/TOTAL_PTS*100):0;
+  const e=earned(),pct=TOTAL_PTS?Math.round(e/TOTAL_PTS*100):0;
   document.getElementById('v-score').textContent=`${e} / ${TOTAL_PTS}`;
   document.getElementById('v-status').textContent=pct>=80?'🟢 Passing!':pct>=50?'🟡 Keep going…':'🔴 You got this!';
 }
 
-// ══════════════════════════════════════════════════════
+// ═══════════════════════════════════════════════
 // SUBMIT
-// ══════════════════════════════════════════════════════
+// ═══════════════════════════════════════════════
 function submitAll(){
-  // Auto-check any sort/match not yet submitted
   SECTIONS.forEach(sec=>{
-    if((sec.type==='match'||sec.type==='sort')&&!results[sec.id].done){
-      const btn={style:{},onclick:null};
-      if(sec.type==='match') checkMatch(sec,btn);
-      if(sec.type==='sort')  checkSort(sec,btn);
+    if((sec.type==='match'||sec.type==='sort'||sec.type==='order'||sec.type==='fitb')&&!results[sec.id].done){
+      const fb={style:{}};
+      if(sec.type==='match') checkMatch(sec,fb);
+      if(sec.type==='sort')  checkSort(sec,fb);
+      if(sec.type==='order') checkOrder(sec,fb);
+      if(sec.type==='fitb')  checkFITB(sec,fb);
     }
   });
-
-  const e=earned();
-  const pct=Math.round(e/TOTAL_PTS*100);
-
-  if(pct>=80){
-    showDone(pct,e);
-  } else {
+  const e=earned(),pct=Math.round(e/TOTAL_PTS*100);
+  if(pct>=80){showDone(pct,e);}
+  else{
     const bar=document.getElementById('retry-bar');
     bar.className='retry-bar show';
-    bar.innerHTML=`⚠️ You scored <b>${pct}%</b> (${e}/${TOTAL_PTS} pts). You need <b>80%</b> to pass! Fix the red answers above — everything you already got right stays locked in! 💪`;
+    bar.innerHTML=`⚠️ You scored <b>${pct}%</b> (${e}/${TOTAL_PTS} pts). You need <b>80%</b> to pass! Follow the hints above and try again — everything you got right stays locked in! 💪`;
     window.scrollTo({top:0,behavior:'smooth'});
   }
 }
-
-// ══════════════════════════════════════════════════════
-// COMPLETION PAGE
-// ══════════════════════════════════════════════════════
 function showDone(pct,e){
   const pg=document.getElementById('done-page');
   pg.style.display='block';
   document.getElementById('done-pct').textContent=pct+'%';
-  const msg=pct===100
-    ?'🌟 PERFECT SCORE! You are the greatest eco-detective Ohio has ever seen. Dr. Low-Diversity never stood a chance!'
-    :pct>=90
-    ?'🎉 Outstanding, Agent! You cracked the case and saved the ecosystem with flying colors!'
-    :'👏 Great work! You passed the mission and showed solid science skills. The ecosystem is safe!';
+  const msg=pct===100?'🌟 PERFECT SCORE! You are the greatest eco-detective Ohio has ever seen!'
+    :pct>=90?'🎉 Outstanding, Agent! You cracked the case with flying colors!'
+    :'👏 Great work! You passed and saved the ecosystem!';
   document.getElementById('done-msg').textContent=`${msg} Final score: ${e} out of ${TOTAL_PTS} points.`;
-
   const today=new Date().toLocaleDateString('en-US',{weekday:'long',year:'numeric',month:'long',day:'numeric'});
   document.getElementById('stamp-detail').textContent=`📅 ${today} · Score: ${pct}% (${e}/${TOTAL_PTS})`;
   updateStamp();
   pg.scrollIntoView({behavior:'smooth'});
 }
-
 function updateStamp(){
   const name=document.getElementById('agent-name').value.trim()||'_______';
   document.getElementById('stamp-box').textContent=`✅ Mission completed by: ${name}`;
 }
 
-// ── GO ────────────────────────────────────────────────
 init();
 </script>
 </body>
