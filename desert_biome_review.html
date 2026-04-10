@@ -506,13 +506,13 @@
 <!-- PROGRESS BAR -->
 <div class="progress-wrap">
   <div class="progress-label">
-    <span>🌡️ CORRECT ANSWERS: <span id="scoreCount">0</span> / 18</span>
-    <span>Need <strong>14</strong> for exit ticket</span>
+    <span>🌡️ CORRECT ANSWERS: <span id="scoreCount">0</span> / 6</span>
+    <span>Need <strong>5</strong> for exit ticket</span>
   </div>
   <div class="progress-bar-bg">
     <div class="progress-bar-fill" id="progressFill"></div>
   </div>
-  <div class="threshold-marker">📋 Exit ticket unlocks at 14/18</div>
+  <div class="threshold-marker">📋 Exit ticket unlocks at 5/6</div>
 </div>
 
 <!-- ========================= QUESTIONS ========================= -->
@@ -532,7 +532,7 @@
 
     <!-- Q1: MC -->
     <div class="q-card" id="qcard-1" data-qid="1">
-      <div class="q-num">Question 1 of 18 · Multiple Choice</div>
+      <div class="q-num">Question 1 of 6 · Multiple Choice</div>
       <div class="attempts-left" id="att-1">
         <span>Tries left:</span>
         <span class="attempt-dot" id="att-1-d1"></span>
@@ -550,7 +550,7 @@
 
     <!-- Q2: TF -->
     <div class="q-card" id="qcard-2" data-qid="2">
-      <div class="q-num">Question 2 of 18 · True or False</div>
+      <div class="q-num">Question 2 of 6 · True or False</div>
       <div class="attempts-left" id="att-2">
         <span>Tries left:</span>
         <span class="attempt-dot" id="att-2-d1"></span>
@@ -562,24 +562,6 @@
         <button class="opt-btn" onclick="checkMC(2,'B')">❌ False</button>
       </div>
       <div class="feedback" id="fb-2"></div>
-    </div>
-
-    <!-- Q3: MC -->
-    <div class="q-card" id="qcard-3" data-qid="3">
-      <div class="q-num">Question 3 of 18 · Multiple Choice</div>
-      <div class="attempts-left" id="att-3">
-        <span>Tries left:</span>
-        <span class="attempt-dot" id="att-3-d1"></span>
-        <span class="attempt-dot" id="att-3-d2"></span>
-      </div>
-      <div class="q-text">The Chain-fruit Cholla has spines with backward barbs, like a fishhook. How does this help the cactus spread its seeds?</div>
-      <div class="options" id="opts-3">
-        <button class="opt-btn" onclick="checkMC(3,'A')">A. The barbs attract birds that carry seeds</button>
-        <button class="opt-btn" onclick="checkMC(3,'B')">B. The barbs store water for the seeds</button>
-        <button class="opt-btn" onclick="checkMC(3,'C')">C. The barbs hook onto passing animals and hitch a ride to new places</button>
-        <button class="opt-btn" onclick="checkMC(3,'D')">D. The barbs block wind from blowing seeds away</button>
-      </div>
-      <div class="feedback" id="fb-3"></div>
     </div>
   </div>
 </div>
@@ -596,326 +578,91 @@
   <div class="station-body">
     <div class="cactus-row">☀️ 🌵 ☀️</div>
 
-    <!-- Q4: MC -->
+    <!-- Q3: MC -->
+    <div class="q-card" id="qcard-3" data-qid="3">
+      <div class="q-num">Question 3 of 6 · Multiple Choice</div>
+      <div class="attempts-left" id="att-3">
+        <span>Tries left:</span>
+        <span class="attempt-dot" id="att-3-d1"></span>
+        <span class="attempt-dot" id="att-3-d2"></span>
+      </div>
+      <div class="q-text">The Saguaro cactus has vertical pleats, like accordion folds. What do these pleats let the cactus do?</div>
+      <div class="options" id="opts-3">
+        <button class="opt-btn" onclick="checkMC(3,'A')">A. Grow taller to reach more sunlight</button>
+        <button class="opt-btn" onclick="checkMC(3,'B')">B. Expand and store more water after rain</button>
+        <button class="opt-btn" onclick="checkMC(3,'C')">C. Attract birds with their pattern</button>
+        <button class="opt-btn" onclick="checkMC(3,'D')">D. Cool the cactus down by moving air</button>
+      </div>
+      <div class="feedback" id="fb-3"></div>
+    </div>
+
+    <!-- Q4: TF -->
     <div class="q-card" id="qcard-4" data-qid="4">
-      <div class="q-num">Question 4 of 18 · Multiple Choice</div>
+      <div class="q-num">Question 4 of 6 · True or False</div>
       <div class="attempts-left" id="att-4">
         <span>Tries left:</span>
         <span class="attempt-dot" id="att-4-d1"></span>
         <span class="attempt-dot" id="att-4-d2"></span>
       </div>
-      <div class="q-text">The Saguaro cactus has vertical pleats, like accordion folds. What do these pleats let the cactus do?</div>
+      <div class="q-text">The Desert Tortoise burrows underground during the day to escape heat. This is an example of a behavioral adaptation.</div>
       <div class="options" id="opts-4">
-        <button class="opt-btn" onclick="checkMC(4,'A')">A. Grow taller to reach more sunlight</button>
-        <button class="opt-btn" onclick="checkMC(4,'B')">B. Expand and store more water after rain</button>
-        <button class="opt-btn" onclick="checkMC(4,'C')">C. Attract birds with their pattern</button>
-        <button class="opt-btn" onclick="checkMC(4,'D')">D. Cool the cactus down by moving air</button>
+        <button class="opt-btn" onclick="checkMC(4,'A')">✅ True</button>
+        <button class="opt-btn" onclick="checkMC(4,'B')">❌ False</button>
       </div>
       <div class="feedback" id="fb-4"></div>
     </div>
-
-    <!-- Q5: TF -->
-    <div class="q-card" id="qcard-5" data-qid="5">
-      <div class="q-num">Question 5 of 18 · True or False</div>
-      <div class="attempts-left" id="att-5">
-        <span>Tries left:</span>
-        <span class="attempt-dot" id="att-5-d1"></span>
-        <span class="attempt-dot" id="att-5-d2"></span>
-      </div>
-      <div class="q-text">The Desert Tortoise burrows underground during the day to escape heat. This is an example of a behavioral adaptation.</div>
-      <div class="options" id="opts-5">
-        <button class="opt-btn" onclick="checkMC(5,'A')">✅ True</button>
-        <button class="opt-btn" onclick="checkMC(5,'B')">❌ False</button>
-      </div>
-      <div class="feedback" id="fb-5"></div>
-    </div>
-
-    <!-- Q6: MC -->
-    <div class="q-card" id="qcard-6" data-qid="6">
-      <div class="q-num">Question 6 of 18 · Multiple Choice</div>
-      <div class="attempts-left" id="att-6">
-        <span>Tries left:</span>
-        <span class="attempt-dot" id="att-6-d1"></span>
-        <span class="attempt-dot" id="att-6-d2"></span>
-      </div>
-      <div class="q-text">The Gilded Flicker bird digs holes in Saguaro cactus trunks to make nests. Why is a cactus trunk a good place for a bird nest in the desert?</div>
-      <div class="options" id="opts-6">
-        <button class="opt-btn" onclick="checkMC(6,'A')">A. The cactus gives the bird food and water</button>
-        <button class="opt-btn" onclick="checkMC(6,'B')">B. The inside of the cactus is cool, which helps birds escape the heat</button>
-        <button class="opt-btn" onclick="checkMC(6,'C')">C. The cactus has soft wood that is easy to dig</button>
-        <button class="opt-btn" onclick="checkMC(6,'D')">D. Cactus holes face north to block wind</button>
-      </div>
-      <div class="feedback" id="fb-6"></div>
-    </div>
   </div>
 </div>
 
-<!-- =================== STATION 3: DESERT STREAM =================== -->
-<div>
-  <div class="station-header">
-    <div class="station-icon">💧</div>
-    <div>
-      <div class="station-title">Station 3: Desert Stream</div>
-      <div class="station-sub">Desert Wash · Seed germination · Water</div>
-    </div>
-  </div>
-  <div class="station-body">
-    <div class="cactus-row">💧 🌵 💧</div>
-
-    <!-- Q7: MC -->
-    <div class="q-card" id="qcard-7" data-qid="7">
-      <div class="q-num">Question 7 of 18 · Multiple Choice</div>
-      <div class="attempts-left" id="att-7">
-        <span>Tries left:</span>
-        <span class="attempt-dot" id="att-7-d1"></span>
-        <span class="attempt-dot" id="att-7-d2"></span>
-      </div>
-      <div class="q-text">A desert wash is usually dry. After a rainstorm, it fills with water fast. How are the seeds near a wash adapted to this?</div>
-      <div class="options" id="opts-7">
-        <button class="opt-btn" onclick="checkMC(7,'A')">A. They float downstream to find better soil</button>
-        <button class="opt-btn" onclick="checkMC(7,'B')">B. They germinate (sprout) and grow quickly before the water is gone</button>
-        <button class="opt-btn" onclick="checkMC(7,'C')">C. They wait underground for years until enough rain falls</button>
-        <button class="opt-btn" onclick="checkMC(7,'D')">D. They only grow in places that are always wet</button>
-      </div>
-      <div class="feedback" id="fb-7"></div>
-    </div>
-
-    <!-- Q8: TF -->
-    <div class="q-card" id="qcard-8" data-qid="8">
-      <div class="q-num">Question 8 of 18 · True or False</div>
-      <div class="attempts-left" id="att-8">
-        <span>Tries left:</span>
-        <span class="attempt-dot" id="att-8-d1"></span>
-        <span class="attempt-dot" id="att-8-d2"></span>
-      </div>
-      <div class="q-text">Desert plants called ephemerals (annual plants) grow, flower, and make seeds quickly right after rain. Then they dry out and die.</div>
-      <div class="options" id="opts-8">
-        <button class="opt-btn" onclick="checkMC(8,'A')">✅ True</button>
-        <button class="opt-btn" onclick="checkMC(8,'B')">❌ False</button>
-      </div>
-      <div class="feedback" id="fb-8"></div>
-    </div>
-
-    <!-- Q9: MC -->
-    <div class="q-card" id="qcard-9" data-qid="9">
-      <div class="q-num">Question 9 of 18 · Multiple Choice</div>
-      <div class="attempts-left" id="att-9">
-        <span>Tries left:</span>
-        <span class="attempt-dot" id="att-9-d1"></span>
-        <span class="attempt-dot" id="att-9-d2"></span>
-      </div>
-      <div class="q-text">Desert plants have two main root strategies. Which of these is a correct match?</div>
-      <div class="options" id="opts-9">
-        <button class="opt-btn" onclick="checkMC(9,'A')">A. Deep roots → catch short rain on the surface; shallow roots → reach underground water</button>
-        <button class="opt-btn" onclick="checkMC(9,'B')">B. Deep roots → reach underground water; shallow wide roots → catch brief surface rain</button>
-        <button class="opt-btn" onclick="checkMC(9,'C')">C. All desert plants have only deep roots because rain never reaches the surface</button>
-        <button class="opt-btn" onclick="checkMC(9,'D')">D. Desert plants have no roots because the soil is too sandy</button>
-      </div>
-      <div class="feedback" id="fb-9"></div>
-    </div>
-  </div>
-</div>
-
-<!-- =================== STATION 4: INSIDE THE CHOLLA CACTUS =================== -->
-<div>
-  <div class="station-header">
-    <div class="station-icon">🐦</div>
-    <div>
-      <div class="station-title">Station 4: Inside the Cholla Cactus</div>
-      <div class="station-sub">Thrasher nest · Cactus spines · Bird adaptations</div>
-    </div>
-  </div>
-  <div class="station-body">
-    <div class="cactus-row">🐦 🌵 🐦</div>
-
-    <!-- Q10: MC -->
-    <div class="q-card" id="qcard-10" data-qid="10">
-      <div class="q-num">Question 10 of 18 · Multiple Choice</div>
-      <div class="attempts-left" id="att-10">
-        <span>Tries left:</span>
-        <span class="attempt-dot" id="att-10-d1"></span>
-        <span class="attempt-dot" id="att-10-d2"></span>
-      </div>
-      <div class="q-text">The Curve-billed Thrasher is an omnivore — it eats both plants and animals. Why is being an omnivore helpful in the desert?</div>
-      <div class="options" id="opts-10">
-        <button class="opt-btn" onclick="checkMC(10,'A')">A. Omnivores taste better to predators, so they get left alone</button>
-        <button class="opt-btn" onclick="checkMC(10,'B')">B. If one food source disappears for months, the bird can switch to eating something else</button>
-        <button class="opt-btn" onclick="checkMC(10,'C')">C. Eating both plants and animals helps the bird stay cool</button>
-        <button class="opt-btn" onclick="checkMC(10,'D')">D. Omnivores do not need to drink water</button>
-      </div>
-      <div class="feedback" id="fb-10"></div>
-    </div>
-
-    <!-- Q11: TF -->
-    <div class="q-card" id="qcard-11" data-qid="11">
-      <div class="q-num">Question 11 of 18 · True or False</div>
-      <div class="attempts-left" id="att-11">
-        <span>Tries left:</span>
-        <span class="attempt-dot" id="att-11-d1"></span>
-        <span class="attempt-dot" id="att-11-d2"></span>
-      </div>
-      <div class="q-text">Cactus spines are actually modified leaves. They give shade to the cactus body and protect it from animals that want to eat it for water.</div>
-      <div class="options" id="opts-11">
-        <button class="opt-btn" onclick="checkMC(11,'A')">✅ True</button>
-        <button class="opt-btn" onclick="checkMC(11,'B')">❌ False</button>
-      </div>
-      <div class="feedback" id="fb-11"></div>
-    </div>
-
-    <!-- Q12: DRAG & DROP -->
-    <div class="q-card" id="qcard-12" data-qid="12" data-type="dnd">
-      <div class="q-num">Question 12 of 18 · Drag &amp; Drop Matching</div>
-      <div class="attempts-left" id="att-12">
-        <span>Tries left:</span>
-        <span class="attempt-dot" id="att-12-d1"></span>
-        <span class="attempt-dot" id="att-12-d2"></span>
-      </div>
-      <div class="q-text">Match each desert animal to its special adaptation.</div>
-      <div class="dnd-container" id="dnd-12">
-        <div class="dnd-wordbank">
-          <div class="dnd-wb-label">🌵 Word Bank — drag to the right box</div>
-          <div class="dnd-chips" id="bank-12"></div>
-        </div>
-        <div class="dnd-zones" id="zones-12"></div>
-        <button class="dnd-check-btn" id="dnd-check-12" onclick="checkDnD(12)">Check My Answers ✔</button>
-      </div>
-      <div class="feedback" id="fb-12"></div>
-    </div>
-  </div>
-</div>
-
-<!-- =================== STATION 5: GILA MONSTER & BIOLOGIST =================== -->
+<!-- =================== STATION 3: GILA MONSTER =================== -->
 <div>
   <div class="station-header">
     <div class="station-icon">🦎</div>
     <div>
-      <div class="station-title">Station 5: Gila Monster &amp; Biologist</div>
-      <div class="station-sub">Gila monster · Desert Spiny Lizard · Fat storage</div>
+      <div class="station-title">Station 3: Gila Monster &amp; Adaptations</div>
+      <div class="station-sub">Gila monster · Fat storage · Animal matching</div>
     </div>
   </div>
   <div class="station-body">
     <div class="cactus-row">🦎 🌵 🦎</div>
 
-    <!-- Q13: MC -->
-    <div class="q-card" id="qcard-13" data-qid="13">
-      <div class="q-num">Question 13 of 18 · Multiple Choice</div>
-      <div class="attempts-left" id="att-13">
+    <!-- Q5: MC -->
+    <div class="q-card" id="qcard-5" data-qid="5">
+      <div class="q-num">Question 5 of 6 · Multiple Choice</div>
+      <div class="attempts-left" id="att-5">
         <span>Tries left:</span>
-        <span class="attempt-dot" id="att-13-d1"></span>
-        <span class="attempt-dot" id="att-13-d2"></span>
+        <span class="attempt-dot" id="att-5-d1"></span>
+        <span class="attempt-dot" id="att-5-d2"></span>
       </div>
       <div class="q-text">The Gila monster stores fat in its tail and water in its bladder. This lets it go 80–90 days in summer without drinking. What kind of adaptation is this?</div>
-      <div class="options" id="opts-13">
-        <button class="opt-btn" onclick="checkMC(13,'A')">A. Behavioral — it changes what it does</button>
-        <button class="opt-btn" onclick="checkMC(13,'B')">B. Structural — it is built into the body</button>
-        <button class="opt-btn" onclick="checkMC(13,'C')">C. Both structural and behavioral</button>
-        <button class="opt-btn" onclick="checkMC(13,'D')">D. Neither — it is just luck</button>
+      <div class="options" id="opts-5">
+        <button class="opt-btn" onclick="checkMC(5,'A')">A. Behavioral — it changes what it does</button>
+        <button class="opt-btn" onclick="checkMC(5,'B')">B. Structural — it is built into the body</button>
+        <button class="opt-btn" onclick="checkMC(5,'C')">C. Both structural and behavioral</button>
+        <button class="opt-btn" onclick="checkMC(5,'D')">D. Neither — it is just luck</button>
       </div>
-      <div class="feedback" id="fb-13"></div>
+      <div class="feedback" id="fb-5"></div>
     </div>
 
-    <!-- Q14: MC -->
-    <div class="q-card" id="qcard-14" data-qid="14">
-      <div class="q-num">Question 14 of 18 · Multiple Choice</div>
-      <div class="attempts-left" id="att-14">
+    <!-- Q6: DRAG & DROP -->
+    <div class="q-card" id="qcard-6" data-qid="6" data-type="dnd">
+      <div class="q-num">Question 6 of 6 · Drag &amp; Drop Matching</div>
+      <div class="attempts-left" id="att-6">
         <span>Tries left:</span>
-        <span class="attempt-dot" id="att-14-d1"></span>
-        <span class="attempt-dot" id="att-14-d2"></span>
+        <span class="attempt-dot" id="att-6-d1"></span>
+        <span class="attempt-dot" id="att-6-d2"></span>
       </div>
-      <div class="q-text">The Desert Spiny Lizard can drop its own tail when a predator grabs it. The tail keeps wiggling to distract the predator. Why is this useful in the desert?</div>
-      <div class="options" id="opts-14">
-        <button class="opt-btn" onclick="checkMC(14,'A')">A. Deserts have so much food that losing a tail is not a big deal</button>
-        <button class="opt-btn" onclick="checkMC(14,'B')">B. Food is scarce in the desert, so many predators compete — escaping alive is worth losing a tail</button>
-        <button class="opt-btn" onclick="checkMC(14,'C')">C. Lizard tails store water, so dropping them helps the lizard cool down</button>
-        <button class="opt-btn" onclick="checkMC(14,'D')">D. The tail grows back instantly, so there is no cost to losing it</button>
-      </div>
-      <div class="feedback" id="fb-14"></div>
-    </div>
-
-    <!-- Q15: TF -->
-    <div class="q-card" id="qcard-15" data-qid="15">
-      <div class="q-num">Question 15 of 18 · True or False</div>
-      <div class="attempts-left" id="att-15">
-        <span>Tries left:</span>
-        <span class="attempt-dot" id="att-15-d1"></span>
-        <span class="attempt-dot" id="att-15-d2"></span>
-      </div>
-      <div class="q-text">Being nocturnal (active at night) helps desert animals avoid both the extreme heat AND reduces water loss through the day.</div>
-      <div class="options" id="opts-15">
-        <button class="opt-btn" onclick="checkMC(15,'A')">✅ True</button>
-        <button class="opt-btn" onclick="checkMC(15,'B')">❌ False</button>
-      </div>
-      <div class="feedback" id="fb-15"></div>
-    </div>
-  </div>
-</div>
-
-<!-- =================== STATION 6–8: GILA MONSTER / RATTLESNAKE / TURKEY VULTURE =================== -->
-<div>
-  <div class="station-header">
-    <div class="station-icon">🐍</div>
-    <div>
-      <div class="station-title">Stations 6–8: Prickly Pear, Rattlesnake &amp; Turkey Vulture</div>
-      <div class="station-sub">Succulents · Forked tongue · Scavengers · Lichens</div>
-    </div>
-  </div>
-  <div class="station-body">
-    <div class="cactus-row">🐍 🌵 🦅</div>
-
-    <!-- Q16: MC -->
-    <div class="q-card" id="qcard-16" data-qid="16">
-      <div class="q-num">Question 16 of 18 · Multiple Choice</div>
-      <div class="attempts-left" id="att-16">
-        <span>Tries left:</span>
-        <span class="attempt-dot" id="att-16-d1"></span>
-        <span class="attempt-dot" id="att-16-d2"></span>
-      </div>
-      <div class="q-text">A rattlesnake has a forked tongue that picks up smell from two slightly different directions at once. How does this help it survive in the desert?</div>
-      <div class="options" id="opts-16">
-        <button class="opt-btn" onclick="checkMC(16,'A')">A. It helps the snake make venom faster</button>
-        <button class="opt-btn" onclick="checkMC(16,'B')">B. It lets the snake track prey across the wide, open desert landscape</button>
-        <button class="opt-btn" onclick="checkMC(16,'C')">C. It cools the snake's mouth when panting</button>
-        <button class="opt-btn" onclick="checkMC(16,'D')">D. The forked shape scares away predators</button>
-      </div>
-      <div class="feedback" id="fb-16"></div>
-    </div>
-
-    <!-- Q17: TF -->
-    <div class="q-card" id="qcard-17" data-qid="17">
-      <div class="q-num">Question 17 of 18 · True or False</div>
-      <div class="attempts-left" id="att-17">
-        <span>Tries left:</span>
-        <span class="attempt-dot" id="att-17-d1"></span>
-        <span class="attempt-dot" id="att-17-d2"></span>
-      </div>
-      <div class="q-text">Lichens are made of a fungus and an alga living together. The alga makes food through photosynthesis and shares it with the fungus. This relationship is called mutualism.</div>
-      <div class="options" id="opts-17">
-        <button class="opt-btn" onclick="checkMC(17,'A')">✅ True</button>
-        <button class="opt-btn" onclick="checkMC(17,'B')">❌ False</button>
-      </div>
-      <div class="feedback" id="fb-17"></div>
-    </div>
-
-    <!-- Q18: DRAG & DROP -->
-    <div class="q-card" id="qcard-18" data-qid="18" data-type="dnd">
-      <div class="q-num">Question 18 of 18 · Drag &amp; Drop Matching</div>
-      <div class="attempts-left" id="att-18">
-        <span>Tries left:</span>
-        <span class="attempt-dot" id="att-18-d1"></span>
-        <span class="attempt-dot" id="att-18-d2"></span>
-      </div>
-      <div class="q-text">Match each desert plant to what makes it special.</div>
-      <div class="dnd-container" id="dnd-18">
+      <div class="q-text">Match each desert animal to its special adaptation.</div>
+      <div class="dnd-container" id="dnd-6">
         <div class="dnd-wordbank">
           <div class="dnd-wb-label">🌵 Word Bank — drag to the right box</div>
-          <div class="dnd-chips" id="bank-18"></div>
+          <div class="dnd-chips" id="bank-6"></div>
         </div>
-        <div class="dnd-zones" id="zones-18"></div>
-        <button class="dnd-check-btn" id="dnd-check-18" onclick="checkDnD(18)">Check My Answers ✔</button>
+        <div class="dnd-zones" id="zones-6"></div>
+        <button class="dnd-check-btn" id="dnd-check-6" onclick="checkDnD(6)">Check My Answers ✔</button>
       </div>
-      <div class="feedback" id="fb-18"></div>
+      <div class="feedback" id="fb-6"></div>
     </div>
-
   </div>
 </div>
 
@@ -976,16 +723,7 @@ const questions = {
     },
     clue:"🔍 Station 1: Desert Cholla — the Brittlebush checklist item talks about the waxy cuticle." },
 
-  3: { correct:'C', type:'mc',
-    funfact:"🌵 Fun fact: Cholla segments can attach to hikers, dogs, and animals so effectively that people joke the cactus 'jumps' at you. It's not moving — but those barbs grip FAST. One botanist described pulling a cholla segment off as needing two sticks and a prayer.",
-    wrongs:{
-      A:"The barbs don't attract birds — they do the opposite and stab things! Seed dispersal here is all about physical attachment to animals.",
-      B:"Barbs are solid and made of the same material as the spine — they don't store water. Stems and fleshy pads do that job.",
-      D:"Barbs point BACKWARD, which would actually HELP wind carry the seed along — but that's not their main job here. They hook onto fur and skin!"
-    },
-    clue:"🔍 Station 1: Desert Cholla — Question 1 of the scavenger hunt asks about the fishhook barbs and seed spreading." },
-
-  4: { correct:'B', type:'mc',
+  3: { correct:'B', type:'mc',
     funfact:"🌵 Fun fact: A Saguaro can absorb 200 gallons of water in a single rainstorm and store it in those pleated stems. That's enough water to fill a bathtub four times — carried in a cactus!",
     wrongs:{
       A:"Pleats run top to bottom — they're for expanding sideways, not stretching upward. A Saguaro grows about 1 inch per year regardless of pleats.",
@@ -994,75 +732,14 @@ const questions = {
     },
     clue:"🔍 Station 2: Saguaro Cacti — the Saguaro checklist item asks exactly about the vertical pleats and water storage." },
 
-  5: { correct:'A', type:'tf',
+  4: { correct:'A', type:'tf',
     funfact:"🐢 Fun fact: Desert tortoises can spend up to 95% of their lives underground! They burrow not just to escape heat, but also to hibernate through cold desert winters and estivate (summer-sleep) through the hottest months. Underground is basically their apartment.",
     wrongs:{
       B:"This is TRUE! Burrowing is a behavior — the tortoise CHOOSES to dig or seek shade. Behavioral adaptations are actions organisms take, and burrowing is a classic example."
     },
     clue:"🔍 Station 2: Saguaro Cacti — the Desert Tortoise checklist item asks why burrowing is a behavioral strategy." },
 
-  6: { correct:'B', type:'mc',
-    funfact:"🐦 Fun fact: After the Gilded Flicker digs a nest hole and moves on, the old holes are used by owls, snakes, and even bats. Saguaro nest holes get 'recycled' for generations — it's the desert's version of a housing market!",
-    wrongs:{
-      A:"The bird makes the nest inside the cactus, but doesn't eat the cactus itself. Gilded Flickers eat insects and fruit — they're not sipping cactus water.",
-      C:"Saguaro wood (called saguaro 'boots') is actually quite tough and fibrous — that's why the holes last for decades after the bird leaves!",
-      D:"Cactus holes face whatever direction the bird found convenient. Temperature control comes from the insulating walls of the cactus, not compass direction."
-    },
-    clue:"🔍 Station 2: Saguaro Cacti — the Gilded Flicker checklist item explains cactus nests as 'cool microhabitats.'" },
-
-  7: { correct:'B', type:'mc',
-    funfact:"🌊 Fun fact: A desert wash can go from completely dry to a raging flash flood in minutes — even if it isn't raining WHERE you're standing! Rain miles upstream rushes through the wash. Desert washes are genuinely dangerous for hikers who don't know this.",
-    wrongs:{
-      A:"Floating downstream would carry seeds OUT of the area — not helpful! Seeds need to stay near the wash where conditions are best for growth.",
-      C:"Waiting for enough rain is actually what some seeds DO — but the wash seeds are adapted to spring into action FAST after just a little rain, not wait for a lot.",
-      D:"If desert plants only grew where it was always wet, there would be almost no desert plants! The whole point is surviving with very little water."
-    },
-    clue:"🔍 Station 3: Desert Stream — the Desert Wash checklist item explains how seeds are adapted to germinate quickly." },
-
-  8: { correct:'A', type:'tf',
-    funfact:"🌼 Fun fact: Some desert annual plant seeds can stay dormant for over 100 years and still germinate when rain finally arrives. Scientists have sprouted seeds from ancient desert sediment layers — talk about patience!",
-    wrongs:{
-      B:"This is TRUE! Ephemerals (annual plants) are the sprinters of the plant world — full life cycle in a few weeks after rain, then gone until next time."
-    },
-    clue:"🔍 The lesson's section on plant adaptations covers 'seasonal life cycles' and ephemeral plants." },
-
-  9: { correct:'B', type:'mc',
-    funfact:"🌱 Fun fact: The Saguaro cactus has both! Its main taproot goes down several feet, AND it has shallow roots that spread out up to 30 feet from the cactus — almost as wide as the cactus is tall. It catches rain no matter where it falls.",
-    wrongs:{
-      A:"You've got them backwards! Deep taproots go DOWN to reach groundwater — they can't catch surface rain. Shallow roots spread OUT to catch rain that hasn't soaked in yet.",
-      C:"Many desert plants DO have surface roots because brief rain showers are common. Deep roots are for areas with underground water sources.",
-      D:"Sandy soil actually grows plants fine — it drains fast, which is WHY roots need to be shallow and wide to catch water quickly!"
-    },
-    clue:"🔍 The lesson covers root strategies under 'Plant adaptations (flora).' Two different strategies for two different water sources." },
-
-  10: { correct:'B', type:'mc',
-    funfact:"🐦 Fun fact: The Curve-billed Thrasher uses that long curved bill like a shovel — it can dig up a bug hiding under a rock or reach into a flower for nectar without touching the petals. Same bill, totally different jobs. That's versatility!",
-    wrongs:{
-      A:"Predators hunt by smell, sound, and movement — not by flavor preference. And being tasty or not doesn't relate to being an omnivore!",
-      C:"Diet and body temperature are separate systems. Eating both plants and animals doesn't affect how the bird regulates its temperature.",
-      D:"Omnivores still need water. Eating plants can provide some moisture, but no diet completely removes the need for water."
-    },
-    clue:"🔍 Station 4: Inside the Cholla Cactus — the Curve-billed Thrasher checklist item asks exactly why being an omnivore helps in the desert." },
-
-  11: { correct:'A', type:'tf',
-    funfact:"🌵 Fun fact: Some cactus spines are so specialized they act like tiny solar panels — they reflect sunlight at an angle that shades the cactus skin directly below. Nature engineered tiny air-conditioning units from what used to be leaves!",
-    wrongs:{
-      B:"This is TRUE! Spines are structurally modified leaves — they've evolved from leaf tissue over millions of years. The lesson specifically says so, and it was at Station 4!"
-    },
-    clue:"🔍 Station 4: Inside the Cholla Cactus — the 'Fortress of Spines' checklist item explains this directly." },
-
-  12: { type:'dnd',
-    pairs:[
-      { zone:"Fennec fox", chip:"Large ears help release heat from the body" },
-      { zone:"Kangaroo rat", chip:"Kidneys make very concentrated urine to save water" },
-      { zone:"Desert tortoise", chip:"Burrows underground during the hottest part of the day" },
-      { zone:"Gila monster", chip:"Stores fat in tail and water in bladder for 80–90 days" }
-    ],
-    funfact:"🦊 Fun fact: The Fennec Fox's ears are so large relative to its body that they can hear prey moving underground. So those giant ears are doing double duty: heating AND hearing!",
-    wrongfb:"🌵 Look at the lesson section on Animal Adaptations and the Gila Monster checklist items. Each animal has ONE main featured adaptation — re-read the descriptions and try again!",
-    clue:"🔍 Station 2 (Saguaro), Station 5 (Gila Monster), and the lesson's 'Animal Adaptations' section all have clues." },
-
-  13: { correct:'B', type:'mc',
+  5: { correct:'B', type:'mc',
     funfact:"🦎 Fun fact: The Gila monster's tail can shrink noticeably when it uses up its fat reserves over a long summer. Scientists can estimate how recently the lizard ate just by looking at the tail. It's basically a built-in fuel gauge!",
     wrongs:{
       A:"Storing fat and water are physical body features — they're part of the body's structure, not a choice the lizard makes about what to do. That makes them structural.",
@@ -1071,53 +748,21 @@ const questions = {
     },
     clue:"🔍 Station 5: Gila Monster & Biologist — the 'Gila Monster Research' checklist item explains fat storage as a structural adaptation." },
 
-  14: { correct:'B', type:'mc',
-    funfact:"🦎 Fun fact: The dropped tail CAN grow back — but the new one is made of cartilage instead of bone, and it's not exactly the same. Lizards can only drop each tail once. So it's definitely a one-time emergency button!",
-    wrongs:{
-      A:"Deserts have SCARCE food — that's the whole point. Many predators compete for the same limited prey, which is why losing a tail to escape is worth it.",
-      C:"Lizard tails don't store water — the Gila monster stores water in its BLADDER. The tail drop is purely a predator-escape trick.",
-      D:"The tail does grow back, but it takes months and uses a lot of energy. It's a last resort, not a zero-cost move."
-    },
-    clue:"🔍 Station 5: Gila Monster & Biologist — the 'Desert Lizard Lane' item explains why food scarcity drives this adaptation." },
-
-  15: { correct:'A', type:'tf',
-    funfact:"🌙 Fun fact: At night, desert temperatures can drop 40–50°F from the daytime high. The kangaroo rat, one of the most nocturnal desert animals, never drinks water at all — it gets all its moisture from the seeds it eats at night!",
-    wrongs:{
-      B:"This is TRUE! The lesson lists both temperature AND water loss as reasons for nocturnality. Cooler air means less evaporation AND less overheating — two benefits for the price of one night shift!"
-    },
-    clue:"🔍 The lesson's 'Animal Adaptations' section lists nocturnality and mentions both heat AND water-related benefits." },
-
-  16: { correct:'B', type:'mc',
-    funfact:"🐍 Fun fact: The two forks of the tongue create a kind of 'stereo smell.' The snake's brain compares the signals from each fork to figure out which direction a smell is coming from — basically a biological GPS powered by stink!",
-    wrongs:{
-      A:"Venom is made in glands in the snake's head — the tongue has nothing to do with it. The tongue is purely a sensory organ.",
-      C:"Snakes don't pant to cool down — they're cold-blooded and regulate temperature by moving between sun and shade. The tongue is for smelling, not cooling.",
-      D:"The forked shape is not visible as a threat signal — predators can't really see it clearly. The tongue is used for finding food, not defense."
-    },
-    clue:"🔍 Station 7: Rattlesnake — the 'Watch Your Step' checklist item explains exactly how the forked tongue works as a tracking tool." },
-
-  17: { correct:'A', type:'tf',
-    funfact:"🪨 Fun fact: Lichens are SLOW — some only grow 1 millimeter per year. Some lichen colonies on rock surfaces have been estimated at over 8,000 years old. They were already ancient when the pyramids were being built!",
-    wrongs:{
-      B:"This is TRUE! The lesson and Station 8 both describe lichens as a mutualistic partnership: the fungus provides structure, the alga provides food through photosynthesis. Both species benefit — that's the definition of mutualism."
-    },
-    clue:"🔍 Station 8: Turkey Vulture — the 'Lichens' checklist item explains the fungus-alga partnership directly." },
-
-  18: { type:'dnd',
+  6: { type:'dnd',
     pairs:[
-      { zone:"Saguaro cactus", chip:"Has accordion-like pleats that let the stem expand and store water after rain" },
-      { zone:"Prickly pear cactus", chip:"Thick waxy skin and fleshy pads store water during long dry stretches" },
-      { zone:"Brittlebush", chip:"Waxy cuticle on grey-green leaves prevents water loss" },
-      { zone:"Ephemeral (annual) plant", chip:"Desert poppies and lupines that sprout fast after rain, bloom, then die" }
+      { zone:"Fennec fox", chip:"Large ears help release heat from the body" },
+      { zone:"Kangaroo rat", chip:"Kidneys make very concentrated urine to save water" },
+      { zone:"Desert tortoise", chip:"Burrows underground during the hottest part of the day" },
+      { zone:"Gila monster", chip:"Stores fat in tail and water in bladder for 80–90 days" }
     ],
-    funfact:"🌵 Fun fact: The Saguaro's accordion pleats are so effective that a fully hydrated cactus can weigh several tons — almost all of it water. After a monsoon, hikers report the cacti look noticeably 'fatter' than in dry season. Nature's own expandable water bottle!",
-    wrongfb:"🌿 Review the lesson's Plant Adaptations section and Stations 1, 2, and 6. Think about what makes each plant LOOK different — the saguaro's shape, the prickly pear's pads, the brittlebush's leaves, and how fast annuals grow after rain.",
-    clue:"🔍 The lesson's 'Plant Adaptations' section and Stations 1, 2, and 6 describe these plants in detail." }
+    funfact:"🦊 Fun fact: The Fennec Fox's ears are so large relative to its body that they can hear prey moving underground. So those giant ears are doing double duty: heating AND hearing!",
+    wrongfb:"🌵 Look at the lesson section on Animal Adaptations and the Gila Monster checklist items. Each animal has ONE main featured adaptation — re-read the descriptions and try again!",
+    clue:"🔍 Station 2 (Saguaro), Station 5 (Gila Monster), and the lesson's 'Animal Adaptations' section all have clues." }
 };
 
 // ─── STATE ────────────────────────────────────────────────────────
 const state = {};
-for(let i=1;i<=18;i++){
+for(let i=1;i<=6;i++){
   state[i] = { attemptsLeft:2, answered:false, correct:false };
 }
 let score = 0;
@@ -1125,7 +770,7 @@ let score = 0;
 // ─── PROGRESS UPDATE ─────────────────────────────────────────────
 function updateProgress(){
   document.getElementById('scoreCount').textContent = score;
-  document.getElementById('progressFill').style.width = (score/18*100)+'%';
+  document.getElementById('progressFill').style.width = (score/6*100)+'%';
   checkExitEligibility();
 }
 
@@ -1157,10 +802,7 @@ function checkMC(qid, chosen){
       s.answered = true;
       btns.forEach(b=>{
         b.disabled=true;
-        if(b.textContent.startsWith(['A.','B.','C.','D.'][['A','B','C','D'].indexOf(q.correct)]) ||
-           (q.correct==='A' && b.textContent.startsWith('✅')) ||
-           (q.correct==='A' && b===btns[0]) ||
-           b === btns[['A','B','C','D'].indexOf(q.correct)]){
+        if(b === btns[['A','B','C','D'].indexOf(q.correct)]){
           b.classList.add('reveal-correct');
         }
       });
@@ -1261,7 +903,6 @@ function handleDrop(e){
   if(!draggedChip) return;
   const slot = zone.querySelector('.dnd-zone-slot');
   const qid = draggedChip.dataset.qid;
-  // If slot already has a chip, send it back to bank
   if(slot.children.length>0){
     const old = slot.children[0];
     old.classList.remove('placed');
@@ -1388,17 +1029,16 @@ function checkExitEligibility(){
   const allAnswered=Object.values(state).every(s=>s.answered);
   if(!allAnswered) return;
 
-  document.getElementById('exitScoreDisplay').textContent=`${score} / 18`;
+  document.getElementById('exitScoreDisplay').textContent=`${score} / 6`;
 
-  if(score>=14){
+  if(score>=5){
     exit.classList.add('show');
     notYet.classList.remove('show');
   } else {
     notYet.classList.add('show');
-    const missed=18-score;
     document.getElementById('notYetText').innerHTML=
-      `You got <strong>${score}/18</strong> correct. You need <strong>14</strong> to earn your exit ticket.<br>
-      You're ${14-score} answer${14-score===1?'':'s'} away! Go back and re-read the scavenger hunt stations you struggled with.<br>
+      `You got <strong>${score}/6</strong> correct. You need <strong>5</strong> to earn your exit ticket.<br>
+      You're ${5-score} answer${5-score===1?'':'s'} away! Go back and re-read the scavenger hunt stations you struggled with.<br>
       📱 The Scavenger Hunt link is earlier on today's Classkick slide!`;
   }
 }
@@ -1413,7 +1053,6 @@ function generateTicket(){
   const ts=now.toLocaleDateString('en-US',{month:'short',day:'numeric',year:'numeric'})+
     ' at '+now.toLocaleTimeString('en-US',{hour:'2-digit',minute:'2-digit'});
 
-  // Passcode based on score + name initials + period number
   const initials=name.split(' ').map(w=>w[0]||'').join('').toUpperCase().slice(0,3);
   const periodNum=period.replace(/\D/g,'');
   const codeNums=(score*7+parseInt(periodNum||1)*3+name.length*11)%1000;
@@ -1421,7 +1060,7 @@ function generateTicket(){
 
   document.getElementById('t-name').textContent=name;
   document.getElementById('t-period').textContent=period;
-  document.getElementById('t-score').textContent=`${score}/18 (${Math.round(score/18*100)}%)`;
+  document.getElementById('t-score').textContent=`${score}/6 (${Math.round(score/6*100)}%)`;
   document.getElementById('t-time').textContent=ts;
   document.getElementById('t-passcode').textContent=passcode;
   document.getElementById('ticketDisplay').classList.add('show');
@@ -1429,8 +1068,7 @@ function generateTicket(){
 }
 
 // ─── INIT ─────────────────────────────────────────────────────────
-setupDnD(12);
-setupDnD(18);
+setupDnD(6);
 </script>
 </body>
 </html>
