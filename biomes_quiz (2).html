@@ -1,0 +1,284 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Biomes Review Quiz</title>
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: Arial, sans-serif; background: #f5f5f0; color: #222; padding: 1rem; }
+  .quiz-wrap { max-width: 720px; margin: 0 auto; padding: 1rem 0.5rem; }
+  h1.qtitle { font-size: 20px; font-weight: 600; color: #222; margin-bottom: 0.25rem; }
+  .subtitle { font-size: 14px; color: #666; margin-bottom: 1.5rem; }
+  .progress-bar-bg { background: #e0e0d8; border-radius: 8px; height: 10px; margin-bottom: 1.5rem; border: 0.5px solid #ccc; }
+  .progress-bar-fill { background: #1D9E75; height: 100%; border-radius: 8px; transition: width 0.4s; }
+  .q-card { background: #fff; border: 1px solid #ddd; border-radius: 12px; padding: 1.25rem; margin-bottom: 1rem; }
+  .q-num { font-size: 11px; color: #999; font-weight: 600; letter-spacing: 0.05em; margin-bottom: 0.5rem; text-transform: uppercase; }
+  .q-text { font-size: 16px; color: #222; margin-bottom: 1rem; line-height: 1.6; }
+  .mc-option { display: flex; align-items: center; gap: 10px; padding: 10px 14px; border-radius: 8px; border: 1px solid #ddd; margin-bottom: 8px; cursor: pointer; font-size: 15px; color: #222; background: #f9f9f6; transition: border 0.15s, background 0.15s; user-select: none; }
+  .mc-option:hover:not(.locked) { border-color: #aaa; background: #fff; }
+  .mc-option.selected { border: 2px solid #378ADD; background: #E6F1FB; color: #0C447C; }
+  .mc-option.correct { border: 2px solid #1D9E75; background: #E1F5EE; color: #085041; }
+  .mc-option.wrong { border: 2px solid #E24B4A; background: #FCEBEB; color: #501313; }
+  .mc-option.locked { cursor: default; }
+  .feedback { padding: 10px 14px; border-radius: 8px; font-size: 14px; margin-top: 8px; line-height: 1.5; }
+  .feedback.right { background: #E1F5EE; color: #085041; border: 1px solid #5DCAA5; }
+  .feedback.wrong { background: #FCEBEB; color: #501313; border: 1px solid #F0997B; }
+  .check-btn { background: #1D9E75; color: #fff; border: none; border-radius: 8px; padding: 12px 28px; font-size: 15px; cursor: pointer; margin-top: 1rem; font-weight: 600; }
+  .check-btn:hover { background: #0F6E56; }
+  .drag-zone { display: flex; flex-wrap: wrap; gap: 8px; min-height: 44px; padding: 10px; border-radius: 8px; border: 2px dashed #aaa; background: #f5f5f0; margin-bottom: 8px; }
+  .drag-chip { padding: 7px 14px; border-radius: 20px; background: #B5D4F4; color: #0C447C; font-size: 14px; cursor: grab; user-select: none; border: 1px solid #378ADD; }
+  .drag-chip:active { cursor: grabbing; opacity: 0.7; }
+  .drag-chip.placed { background: #CED0F6; color: #26215C; border-color: #534AB7; }
+  .match-row { display: flex; align-items: center; gap: 10px; margin-bottom: 10px; }
+  .match-label { font-size: 14px; color: #222; background: #f5f5f0; border: 1px solid #ddd; border-radius: 8px; padding: 8px 12px; min-width: 180px; flex-shrink: 0; }
+  .match-drop { flex: 1; min-height: 40px; border-radius: 8px; border: 2px dashed #aaa; background: #f5f5f0; display: flex; align-items: center; padding: 4px 10px; }
+  .match-drop.over { border-color: #378ADD; background: #E6F1FB; }
+  .match-drop.correct { border-color: #1D9E75; background: #E1F5EE; }
+  .match-drop.wrong { border-color: #E24B4A; background: #FCEBEB; }
+  .congrats-graphic { background: linear-gradient(135deg, #1D9E75 0%, #534AB7 100%); border-radius: 16px; padding: 2rem; color: #fff; text-align: center; margin-bottom: 1rem; }
+  .congrats-graphic h2 { font-size: 28px; font-weight: 700; margin-bottom: 0.5rem; }
+  .badge-row { display: flex; justify-content: center; gap: 12px; flex-wrap: wrap; margin: 1rem 0; }
+  .badge { background: rgba(255,255,255,0.2); border-radius: 12px; padding: 0.6rem 1rem; font-size: 14px; color: #fff; }
+  .dl-hint { background: #f5f5f0; border-radius: 8px; padding: 1rem; font-size: 14px; color: #555; line-height: 1.6; border: 1px solid #ddd; margin-bottom: 1rem; }
+  .dl-btn { background: #534AB7; color: #fff; border: none; border-radius: 8px; padding: 11px 24px; font-size: 15px; cursor: pointer; font-weight: 600; display: block; margin: 0 auto; }
+  .dl-btn:hover { background: #3C3489; }
+</style>
+</head>
+<body>
+<div class="quiz-wrap" id="app"></div>
+<script>
+const QUESTIONS = [
+  {
+    id: 1,
+    type: 'mc',
+    text: 'What is a BIOME? Pick the best answer!',
+    options: [
+      'A type of weather pattern found near the equator',
+      'A type of environment defined by the kinds of organisms that live there',
+      'A map that shows where animals migrate each year',
+      'Another word for a country or continent'
+    ],
+    correct: 1,
+    rightFeedback: '🎉 Nailed it! A biome = a "life zone" (bio = life). It groups areas by the plants and animals that live there — even if those areas are on totally different continents!',
+    wrongFeedback: '🤔 Not quite! Think about what "bio" means (hint: LIFE). Re-read the paragraph that starts "A biome is a type of environment..." You\'ve got this!'
+  },
+  {
+    id: 2,
+    type: 'mc',
+    text: 'Why are warm rainforests and deserts found near the MIDDLE of the world map?',
+    options: [
+      'Because most people live there and built cities',
+      'Because rivers flow through the middle of every continent',
+      'Because those areas get the most sunlight',
+      'Because it rains more in the middle of the map'
+    ],
+    correct: 2,
+    rightFeedback: '☀️ Boom! The middle of Earth (the equator) gets the most direct sunlight, which creates the warmth needed for rainforests and deserts. Science is just spicy geography!',
+    wrongFeedback: '🌞 Hint: Think about where the SUN hits Earth the hardest. Re-read the paragraph that starts "You may notice that many of the habitat types..." The answer is literally glowing at you!'
+  },
+  {
+    id: 3,
+    type: 'match',
+    text: 'MATCH each biome type to its correct category! Drag each chip to the right row.',
+    pairs: [
+      { term: 'Tropical Rain Forest', match: 'Land (Terrestrial)' },
+      { term: 'Marine', match: 'Water (Aquatic)' },
+      { term: 'Tundra', match: 'Land (Terrestrial)' },
+      { term: 'Freshwater', match: 'Water (Aquatic)' }
+    ],
+    rightFeedback: '🌊🌲 Perfect matching! The biome map shows 7 land habitats and 2 water habitats. You matched them like a pro scientist!',
+    wrongFeedback: '🗺️ Check the map legend in the reading! Marine and Freshwater are water (aquatic) habitats. Everything else — forests, deserts, tundra — are land (terrestrial). Try again!'
+  },
+  {
+    id: 4,
+    type: 'mc',
+    text: 'Why might you see TUNDRA inside a temperate forest area on a biome map?',
+    options: [
+      'Because scientists made a mistake on the map',
+      'Because mountain areas get colder at higher elevations, changing the biome',
+      'Because tundra animals migrated and changed the forest',
+      'Because it snows in forests sometimes'
+    ],
+    correct: 1,
+    rightFeedback: '🏔️ Excellent! As you climb a mountain, it gets colder — just like moving toward the North or South Pole. So a forested mountain can have tundra near the top. Mountains are basically just really tall adventures!',
+    wrongFeedback: '⛰️ Think UP! Mountains change everything. Re-read the paragraph that starts "In some areas, like near the western coast..." What happens to temperature as you go higher up a mountain?'
+  }
+];
+
+let state = { answers: {}, feedback: {}, checked: {}, dragState: {} };
+let draggingChip = null;
+
+function init() { renderAll(); }
+
+function renderAll() {
+  const app = document.getElementById('app');
+  const allCorrect = QUESTIONS.every(q => state.checked[q.id] && state.feedback[q.id] === 'right');
+  if (allCorrect) { renderCongrats(app); return; }
+
+  const done = Object.values(state.checked).filter(Boolean).length;
+  const pct = Math.round((done / QUESTIONS.length) * 100);
+
+  let html = `<h1 class="qtitle">🌍 Biomes Review Quiz</h1>
+    <p class="subtitle">Answer all 4 questions. Fix any wrong ones — you can do it!</p>
+    <div class="progress-bar-bg"><div class="progress-bar-fill" style="width:${pct}%"></div></div>`;
+
+  QUESTIONS.forEach(q => { html += renderQuestion(q); });
+  html += `<button class="check-btn" id="checkAll">Check My Answers!</button>`;
+  app.innerHTML = html;
+  attachListeners();
+}
+
+function renderQuestion(q) {
+  const isLocked = state.checked[q.id] && state.feedback[q.id] === 'right';
+  let inner = '';
+
+  if (q.type === 'mc') {
+    inner = q.options.map((opt, i) => {
+      let cls = 'mc-option';
+      if (isLocked) cls += ' locked';
+      if (state.answers[q.id] === i) {
+        if (isLocked) cls += ' correct';
+        else if (state.checked[q.id]) cls += (i === q.correct ? ' correct' : ' wrong');
+        else cls += ' selected';
+      }
+      if (state.checked[q.id] && i === q.correct && state.answers[q.id] !== i) cls += ' correct';
+      return `<div class="${cls}" onclick="pickMC(${q.id},${i})">${opt}</div>`;
+    }).join('');
+  }
+
+  if (q.type === 'match') {
+    if (!state.dragState[q.id]) state.dragState[q.id] = { placed: {}, pool: q.pairs.map(p => p.match) };
+    const ds = state.dragState[q.id];
+    const poolChips = ds.pool.map(c => `<div class="drag-chip" draggable="true" data-chip="${c}" data-qid="${q.id}" data-src="pool">${c}</div>`).join('');
+    inner = `<div style="margin-bottom:10px;">
+      <div class="drag-zone" id="pool-${q.id}" data-qid="${q.id}" data-zone="pool">${poolChips}</div>
+      <p style="font-size:12px;color:#999;margin-top:4px;">Categories — drag these to match</p>
+    </div>`;
+    q.pairs.forEach((pair, i) => {
+      const placed = ds.placed[i];
+      let dropCls = 'match-drop';
+      if (state.checked[q.id]) { if (placed === pair.match) dropCls += ' correct'; else if (placed) dropCls += ' wrong'; }
+      const chip = placed ? `<div class="drag-chip placed" draggable="true" data-chip="${placed}" data-qid="${q.id}" data-src="match-${i}">${placed}</div>` : '';
+      inner += `<div class="match-row"><div class="match-label">${pair.term}</div><div class="${dropCls}" id="drop-${q.id}-${i}" data-qid="${q.id}" data-zone="match-${i}">${chip}</div></div>`;
+    });
+  }
+
+  let feedbackHtml = '';
+  if (state.checked[q.id]) {
+    const fb = state.feedback[q.id];
+    const msg = fb === 'right' ? QUESTIONS.find(x=>x.id===q.id).rightFeedback : QUESTIONS.find(x=>x.id===q.id).wrongFeedback;
+    feedbackHtml = `<div class="feedback ${fb === 'right' ? 'right' : 'wrong'}">${msg}</div>`;
+  }
+
+  const lockStyle = isLocked ? 'opacity:0.85;pointer-events:none;' : '';
+  return `<div class="q-card" style="${lockStyle}">
+    <div class="q-num">Question ${q.id} of ${QUESTIONS.length} ${isLocked ? '✅' : ''}</div>
+    <div class="q-text">${q.text}</div>
+    ${inner}
+    ${feedbackHtml}
+  </div>`;
+}
+
+function pickMC(qid, idx) {
+  if (state.checked[qid] && state.feedback[qid] === 'right') return;
+  state.answers[qid] = idx;
+  if (state.checked[qid]) state.checked[qid] = false;
+  renderAll();
+}
+
+function attachListeners() {
+  document.getElementById('checkAll').onclick = checkAll;
+  document.querySelectorAll('[draggable=true]').forEach(el => {
+    el.addEventListener('dragstart', onDragStart);
+    el.addEventListener('dragend', onDragEnd);
+  });
+  document.querySelectorAll('.drag-zone, .match-drop').forEach(el => {
+    el.addEventListener('dragover', onDragOver);
+    el.addEventListener('dragleave', onDragLeave);
+    el.addEventListener('drop', onDrop);
+  });
+}
+
+function onDragStart(e) {
+  draggingChip = { chip: e.target.dataset.chip, qid: parseInt(e.target.dataset.qid), src: e.target.dataset.src };
+  e.dataTransfer.effectAllowed = 'move';
+}
+function onDragEnd() { draggingChip = null; }
+function onDragOver(e) { e.preventDefault(); e.currentTarget.classList.add('over'); }
+function onDragLeave(e) { e.currentTarget.classList.remove('over'); }
+
+function onDrop(e) {
+  e.preventDefault();
+  e.currentTarget.classList.remove('over');
+  if (!draggingChip) return;
+  const { chip, qid, src } = draggingChip;
+  const targetZone = e.currentTarget.dataset.zone;
+  const targetQid = parseInt(e.currentTarget.dataset.qid);
+  if (targetQid !== qid) return;
+  const ds = state.dragState[qid];
+
+  if (src === 'pool') {
+    if (targetZone === 'pool') return;
+    const tgtIdx = parseInt(targetZone.replace('match-',''));
+    const prev = ds.placed[tgtIdx];
+    if (prev) ds.pool.push(prev);
+    ds.pool = ds.pool.filter(c => c !== chip);
+    ds.placed[tgtIdx] = chip;
+  } else {
+    const srcIdx = parseInt(src.replace('match-',''));
+    if (targetZone === 'pool') { ds.placed[srcIdx] = undefined; ds.pool.push(chip); }
+    else {
+      const tgtIdx = parseInt(targetZone.replace('match-',''));
+      const prev = ds.placed[tgtIdx];
+      ds.placed[tgtIdx] = chip;
+      if (prev) ds.placed[srcIdx] = prev; else ds.placed[srcIdx] = undefined;
+    }
+  }
+
+  if (state.checked[qid]) state.checked[qid] = false;
+  renderAll();
+}
+
+function checkAll() {
+  QUESTIONS.forEach(q => {
+    if (state.checked[q.id] && state.feedback[q.id] === 'right') return;
+    let correct = false;
+    if (q.type === 'mc') correct = state.answers[q.id] === q.correct;
+    if (q.type === 'match') { const ds = state.dragState[q.id]; if (ds) correct = q.pairs.every((p, i) => ds.placed[i] === p.match); }
+    state.checked[q.id] = true;
+    state.feedback[q.id] = correct ? 'right' : 'wrong';
+  });
+  renderAll();
+}
+
+function renderCongrats(app) {
+  const now = new Date();
+  const dateStr = now.toLocaleDateString('en-US', { weekday:'long', year:'numeric', month:'long', day:'numeric' });
+  app.innerHTML = `<div>
+    <div class="congrats-graphic">
+      <div style="font-size:48px;margin-bottom:0.5rem;">🏆</div>
+      <h2>BIOME BOSS!</h2>
+      <p style="font-size:16px;opacity:0.9;">You answered all 4 questions correctly. You're basically a scientist now.</p>
+      <div class="badge-row">
+        <div class="badge">🌍 Biome Explorer</div>
+        <div class="badge">🌿 Life Zone Legend</div>
+        <div class="badge">☀️ Equator Expert</div>
+        <div class="badge">🏔️ Mountain Master</div>
+      </div>
+      <p style="font-size:13px;opacity:0.8;">${dateStr}</p>
+      <p style="font-size:13px;margin-top:6px;opacity:0.8;">Unit 6 — Biomes &nbsp;|&nbsp; 4/4 Correct</p>
+    </div>
+    <div class="dl-hint">
+      <strong>📸 How to save your trophy:</strong><br>
+      Press <strong>Windows + Shift + S</strong> to open the Snipping Tool and drag to select your trophy above.<br>
+      Then paste it into Classkick using <strong>Ctrl + V</strong>! Easy peasy!
+    </div>
+    <button class="dl-btn" onclick="alert('Use Windows + Shift + S to snip your trophy, then Ctrl+V to paste in Classkick! 🎉')">📸 Screenshot Reminder</button>
+  </div>`;
+}
+
+init();
+</script>
+</body>
+</html>
