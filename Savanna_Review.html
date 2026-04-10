@@ -467,7 +467,7 @@
 <div id="progress-bar-wrap">
   <span class="pb-label">🦁 Progress</span>
   <div id="progress-track"><div id="progress-fill"></div></div>
-  <span id="progress-count">0 / 18</span>
+  <span id="progress-count">0 / 6</span>
 </div>
 
 <!-- HERO -->
@@ -475,7 +475,7 @@
   <span class="hero-emoji">🌾</span>
   <h1>Savanna Scavenger Hunt Review</h1>
   <p>Answer questions about what you explored in the virtual savanna. Use what you found in the scavenger hunt and what you read in the lesson!</p>
-  <span class="threshold-note">🎟️ Get 14 out of 18 correct to earn your exit ticket</span>
+  <span class="threshold-note">🎟️ Get 5 out of 6 correct to earn your exit ticket</span>
 </div>
 
 <div class="content-wrap">
@@ -501,72 +501,25 @@
   <div class="attempts-left" id="att-1">2 attempts remaining</div>
 </div>
 
-<!-- Q2 -->
-<div class="q-card" id="qcard-2">
-  <div class="q-num">Question 2 · True or False</div>
-  <div class="q-text">Scientists drill small holes in savanna trees to study the sugar stored inside. Trees store this sugar so they can grow back after being damaged.</div>
-  <div class="q-location">📍 <span>Find it at:</span> Station 1 → Study Site 1 → <strong>Tree Coring</strong> icon</div>
-  <div class="options">
-    <button class="opt-btn" onclick="checkMC(2, this, true)">True</button>
-    <button class="opt-btn" onclick="checkMC(2, this, false, 'It actually IS true! Tree coring lets scientists study how trees store energy — especially after big herbivores like elephants chew them up. Trees are basically carrying snacks for emergencies.', 'Station 1 → Tree Coring icon')">False</button>
-  </div>
-  <div class="feedback" id="fb-2"></div>
-  <div class="attempts-left" id="att-2">2 attempts remaining</div>
-</div>
-
-<!-- ===== STATION 2: Study Site 2 – The Electric Fence ===== -->
-<div class="station-header">
-  <h2>⚡ Station 2: Study Site 2 – The Electric Fence</h2>
-  <div class="station-line"></div>
-</div>
-
-<!-- Q3 -->
-<div class="q-card" id="qcard-3">
-  <div class="q-num">Question 3 · Multiple Choice</div>
-  <div class="q-text">Scientists built a special fence to keep out large animals like elephants and giraffes. Why did they do this?</div>
-  <div class="q-location">📍 <span>Find it at:</span> Station 2 → Study Site 2 → <strong>Megaherbivore Exclosure</strong> icon</div>
-  <div class="options">
-    <button class="opt-btn" onclick="checkMC(3, this, false, 'The fence wasn\'t about keeping animals safe from each other — it was about REMOVING grazers to see what happens to plants. Elephants and lions aren\'t really sharing snacks anyway.', 'Station 2 → Megaherbivore Exclosure icon')">To stop lions from eating the elephants inside.</button>
-    <button class="opt-btn" onclick="checkMC(3, this, false, 'Irrigation wasn\'t the goal here. The fence was about studying plant growth WITHOUT large grazers, not about watering anything.', 'Station 2 → Megaherbivore Exclosure icon')">To keep water inside so plants could be irrigated.</button>
-    <button class="opt-btn" onclick="checkMC(3, this, true)">To study what plants look like when big grazers aren\'t eating them.</button>
-    <button class="opt-btn" onclick="checkMC(3, this, false, 'The fence had nothing to do with hiding animals. It was set up to test what happens to vegetation when large herbivores are removed.', 'Station 2 → Megaherbivore Exclosure icon')">To give small animals a safe place to hide from predators.</button>
-  </div>
-  <div class="feedback" id="fb-3"></div>
-  <div class="attempts-left" id="att-3">2 attempts remaining</div>
-</div>
-
 <!-- ===== STATION 3: Study Site 3 – The Ant Tree ===== -->
 <div class="station-header">
   <h2>🐜 Station 3: Study Site 3 – The Ant Tree</h2>
   <div class="station-line"></div>
 </div>
 
-<!-- Q4 -->
-<div class="q-card" id="qcard-4">
-  <div class="q-num">Question 4 · Multiple Choice</div>
+<!-- Q2 -->
+<div class="q-card" id="qcard-2">
+  <div class="q-num">Question 2 · Multiple Choice</div>
   <div class="q-text">Tiny ants live inside the tree's thorns and attack animals that try to eat the tree. The tree gives the ants food and shelter. What is this called?</div>
   <div class="q-location">📍 <span>Find it at:</span> Station 3 → Study Site 3 → <strong>Ants on Tree Trunk</strong> icon</div>
   <div class="options">
-    <button class="opt-btn" onclick="checkMC(4, this, false, 'Predation is when one organism eats another. Here, neither the tree nor the ants are eating each other — they\'re helping each other. That\'s a very different relationship!', 'Station 3 → Ants on Tree Trunk icon')">Predation</button>
-    <button class="opt-btn" onclick="checkMC(4, this, true)">Mutualism</button>
-    <button class="opt-btn" onclick="checkMC(4, this, false, 'Competition is when two species fight over the same resources. The ants and tree aren\'t competing — they\'re literally helping each other out. Total team players.', 'Station 3 → Ants on Tree Trunk icon')">Competition</button>
-    <button class="opt-btn" onclick="checkMC(4, this, false, 'Parasitism is when one organism benefits and the other is harmed. BOTH the tree and the ants benefit here — so this isn\'t parasitism. No one is getting hurt.', 'Station 3 → Ants on Tree Trunk icon')">Parasitism</button>
+    <button class="opt-btn" onclick="checkMC(2, this, false, 'Predation is when one organism eats another. Here, neither the tree nor the ants are eating each other — they\'re helping each other. That\'s a very different relationship!', 'Station 3 → Ants on Tree Trunk icon')">Predation</button>
+    <button class="opt-btn" onclick="checkMC(2, this, true)">Mutualism</button>
+    <button class="opt-btn" onclick="checkMC(2, this, false, 'Competition is when two species fight over the same resources. The ants and tree aren\'t competing — they\'re literally helping each other out. Total team players.', 'Station 3 → Ants on Tree Trunk icon')">Competition</button>
+    <button class="opt-btn" onclick="checkMC(2, this, false, 'Parasitism is when one organism benefits and the other is harmed. BOTH the tree and the ants benefit here — so this isn\'t parasitism. No one is getting hurt.', 'Station 3 → Ants on Tree Trunk icon')">Parasitism</button>
   </div>
-  <div class="feedback" id="fb-4"></div>
-  <div class="attempts-left" id="att-4">2 attempts remaining</div>
-</div>
-
-<!-- Q5 -->
-<div class="q-card" id="qcard-5">
-  <div class="q-num">Question 5 · True or False</div>
-  <div class="q-text">When ants trim away new tree growth, it actually helps the tree grow bigger thorns and survive better.</div>
-  <div class="q-location">📍 <span>Find it at:</span> Station 3 → Study Site 3 → <strong>Thorns Everywhere</strong> icon</div>
-  <div class="options">
-    <button class="opt-btn" onclick="checkMC(5, this, true)">True</button>
-    <button class="opt-btn" onclick="checkMC(5, this, false, 'It IS true! This is a surprising one — ants pruning the tree triggers it to grow denser, bigger thorns. Those thorns then protect it from elephants and fire. Ants are basically the tree\'s personal bodyguards.', 'Station 3 → Thorns Everywhere icon')">False</button>
-  </div>
-  <div class="feedback" id="fb-5"></div>
-  <div class="attempts-left" id="att-5">2 attempts remaining</div>
+  <div class="feedback" id="fb-2"></div>
+  <div class="attempts-left" id="att-2">2 attempts remaining</div>
 </div>
 
 <!-- ===== STATION 4–5: Animal Stops – Ostrich & Zebras ===== -->
@@ -575,34 +528,19 @@
   <div class="station-line"></div>
 </div>
 
-<!-- Q6 -->
-<div class="q-card" id="qcard-6">
-  <div class="q-num">Question 6 · Multiple Choice</div>
-  <div class="q-text">Ostriches can't fly. How do they escape from predators like lions?</div>
-  <div class="q-location">📍 <span>Find it at:</span> Station 4 → Animal Stop 1 → <strong>Common Ostrich</strong> icon</div>
-  <div class="options">
-    <button class="opt-btn" onclick="checkMC(6, this, false, 'Ostriches don\'t dig tunnels — that\'s meerkats! Ostriches use their powerful legs in a totally different way to deal with danger.', 'Station 4 → Common Ostrich icon')">They dig tunnels and hide underground.</button>
-    <button class="opt-btn" onclick="checkMC(6, this, false, 'Ostriches don\'t camouflage well — they\'re huge birds that are hard to miss! Their survival strategy is about speed and kicking, not blending in.', 'Station 4 → Common Ostrich icon')">They camouflage themselves in tall grass.</button>
-    <button class="opt-btn" onclick="checkMC(6, this, true)">They run up to 40 mph and can kick predators hard.</button>
-    <button class="opt-btn" onclick="checkMC(6, this, false, 'Ostriches aren\'t known for teamwork defense. They rely on their own speed and powerful legs — not group protection strategies.', 'Station 4 → Common Ostrich icon')">They call other animals to help protect them.</button>
-  </div>
-  <div class="feedback" id="fb-6"></div>
-  <div class="attempts-left" id="att-6">2 attempts remaining</div>
-</div>
-
-<!-- Q7 -->
-<div class="q-card" id="qcard-7">
-  <div class="q-num">Question 7 · Multiple Choice</div>
+<!-- Q3 -->
+<div class="q-card" id="qcard-3">
+  <div class="q-num">Question 3 · Multiple Choice</div>
   <div class="q-text">A long drought hits the savanna. Zebras start dying from lack of water. Who ELSE is affected — and why?</div>
   <div class="q-location">📍 <span>Find it at:</span> Station 5 → Animal Stop 2 → <strong>Beth Talking</strong> scientist icon</div>
   <div class="options">
-    <button class="opt-btn" onclick="checkMC(7, this, false, 'Fish live in water, not the savanna — and they wouldn\'t eat zebras anyway. Think about what animals in the savanna depend on zebras for food or share their habitat.', 'Station 5 → Beth Talking icon')">Fish in the nearby river, because they drink the same water.</button>
-    <button class="opt-btn" onclick="checkMC(7, this, true)">Predators like lions and hyenas, because they lose a food source.</button>
-    <button class="opt-btn" onclick="checkMC(7, this, false, 'Trees don\'t eat zebras! Trees are affected by drought through lack of water, not through the food web. The bigger concern is the animals that depend on zebras as prey.', 'Station 5 → Beth Talking icon')">Savanna trees, because they ate the zebras\' nutrients.</button>
-    <button class="opt-btn" onclick="checkMC(7, this, false, 'The drought affects many species, not just zebras. Predators that eat zebras lose a key food source — which ripples through the entire food web.', 'Station 5 → Beth Talking icon')">Only the zebras are affected; other animals find different food.</button>
+    <button class="opt-btn" onclick="checkMC(3, this, false, 'Fish live in water, not the savanna — and they wouldn\'t eat zebras anyway. Think about what animals in the savanna depend on zebras for food or share their habitat.', 'Station 5 → Beth Talking icon')">Fish in the nearby river, because they drink the same water.</button>
+    <button class="opt-btn" onclick="checkMC(3, this, true)">Predators like lions and hyenas, because they lose a food source.</button>
+    <button class="opt-btn" onclick="checkMC(3, this, false, 'Trees don\'t eat zebras! Trees are affected by drought through lack of water, not through the food web. The bigger concern is the animals that depend on zebras as prey.', 'Station 5 → Beth Talking icon')">Savanna trees, because they ate the zebras\' nutrients.</button>
+    <button class="opt-btn" onclick="checkMC(3, this, false, 'The drought affects many species, not just zebras. Predators that eat zebras lose a key food source — which ripples through the entire food web.', 'Station 5 → Beth Talking icon')">Only the zebras are affected; other animals find different food.</button>
   </div>
-  <div class="feedback" id="fb-7"></div>
-  <div class="attempts-left" id="att-7">2 attempts remaining</div>
+  <div class="feedback" id="fb-3"></div>
+  <div class="attempts-left" id="att-3">2 attempts remaining</div>
 </div>
 
 <!-- ===== STATION 6: Animal Stop 3 – Giraffes ===== -->
@@ -611,173 +549,37 @@
   <div class="station-line"></div>
 </div>
 
-<!-- Q8 DRAG AND DROP -->
-<div class="q-card" id="qcard-8">
-  <div class="q-num">Question 8 · Drag-and-Drop Matching</div>
+<!-- Q4 DRAG AND DROP -->
+<div class="q-card" id="qcard-4">
+  <div class="q-num">Question 4 · Drag-and-Drop Matching</div>
   <div class="q-text">Match each description to the correct term. Drag the words into the right boxes!</div>
   <div class="q-location">📍 <span>Find it at:</span> Station 6 → Animal Stop 3 → <strong>Grasses</strong> icon &amp; <strong>Time of Year – Weather</strong> icon</div>
   <div class="drag-container">
     <div class="word-bank-label">Word Bank — drag these:</div>
-    <div class="word-bank" id="wb-8"></div>
+    <div class="word-bank" id="wb-4"></div>
     <div class="drop-zones-label">Drop zones:</div>
-    <div class="drop-zones" id="dz-8">
+    <div class="drop-zones" id="dz-4">
       <div class="drop-row">
         <div class="drop-label">Non-living things like rainfall, soil, and fire that control savanna plant life</div>
-        <div class="drop-zone" id="dz-8-0" data-answer="Abiotic factors" ondragover="dzOver(event)" ondrop="dzDrop(event,'8',0)" ondragleave="dzLeave(event)"><span class="drop-placeholder">Drop here</span></div>
+        <div class="drop-zone" id="dz-4-0" data-answer="Abiotic factors" ondragover="dzOver(event)" ondrop="dzDrop(event,'4',0)" ondragleave="dzLeave(event)"><span class="drop-placeholder">Drop here</span></div>
       </div>
       <div class="drop-row">
         <div class="drop-label">Living things like grazing animals that affect what plants grow in the savanna</div>
-        <div class="drop-zone" id="dz-8-1" data-answer="Biotic factors" ondragover="dzOver(event)" ondrop="dzDrop(event,'8',1)" ondragleave="dzLeave(event)"><span class="drop-placeholder">Drop here</span></div>
+        <div class="drop-zone" id="dz-4-1" data-answer="Biotic factors" ondragover="dzOver(event)" ondrop="dzDrop(event,'4',1)" ondragleave="dzLeave(event)"><span class="drop-placeholder">Drop here</span></div>
       </div>
       <div class="drop-row">
         <div class="drop-label">The animals that graze on savanna grasses and keep them from getting too tall</div>
-        <div class="drop-zone" id="dz-8-2" data-answer="Herbivores" ondragover="dzOver(event)" ondrop="dzDrop(event,'8',2)" ondragleave="dzLeave(event)"><span class="drop-placeholder">Drop here</span></div>
+        <div class="drop-zone" id="dz-4-2" data-answer="Herbivores" ondragover="dzOver(event)" ondrop="dzDrop(event,'4',2)" ondragleave="dzLeave(event)"><span class="drop-placeholder">Drop here</span></div>
       </div>
       <div class="drop-row">
         <div class="drop-label">After April and May rains, grasses turn green and animals breed — rain acts as this</div>
-        <div class="drop-zone" id="dz-8-3" data-answer="Abiotic trigger" ondragover="dzOver(event)" ondrop="dzDrop(event,'8',3)" ondragleave="dzLeave(event)"><span class="drop-placeholder">Drop here</span></div>
+        <div class="drop-zone" id="dz-4-3" data-answer="Abiotic trigger" ondragover="dzOver(event)" ondrop="dzDrop(event,'4',3)" ondragleave="dzLeave(event)"><span class="drop-placeholder">Drop here</span></div>
       </div>
     </div>
-    <button class="check-match-btn" id="check-8" onclick="checkDrag('8')">Check My Answers</button>
+    <button class="check-match-btn" id="check-4" onclick="checkDrag('4')">Check My Answers</button>
   </div>
-  <div class="feedback" id="fb-8"></div>
-  <div class="attempts-left" id="att-8">2 attempts remaining</div>
-</div>
-
-<!-- ===== STATION 7: Animal Stop 4 – Hyena ===== -->
-<div class="station-header">
-  <h2>🌙 Station 7: Animal Stop 4 – Hyena</h2>
-  <div class="station-line"></div>
-</div>
-
-<!-- Q9 -->
-<div class="q-card" id="qcard-9">
-  <div class="q-num">Question 9 · Multiple Choice</div>
-  <div class="q-text">Spotted hyenas hunt mostly at night. What abiotic factor causes this behavior?</div>
-  <div class="q-location">📍 <span>Find it at:</span> Station 7 → Animal Stop 4 → <strong>Hyena</strong> icon</div>
-  <div class="options">
-    <button class="opt-btn" onclick="checkMC(9, this, false, 'The moon doesn\'t directly cause the behavior — it\'s actually the TEMPERATURE change at night that matters. Cooler air makes hunting easier for hyenas.', 'Station 7 → Hyena icon')">The light from the moon helps them see better.</button>
-    <button class="opt-btn" onclick="checkMC(9, this, true)">Temperature — it\'s cooler at night, making it easier to be active.</button>
-    <button class="opt-btn" onclick="checkMC(9, this, false, 'Rain isn\'t the trigger here. Hyenas hunt at night because of temperature, not precipitation. The savanna doesn\'t even get much rain during the dry season when hunting is hardest.', 'Station 7 → Hyena icon')">Rain — it rains more at night in the savanna.</button>
-    <button class="opt-btn" onclick="checkMC(9, this, false, 'Soil doesn\'t influence when hyenas hunt. Temperature is the abiotic factor that makes nighttime better for staying active — the savanna is scorching during the day!', 'Station 7 → Hyena icon')">Soil — certain soils are softer at night for running.</button>
-  </div>
-  <div class="feedback" id="fb-9"></div>
-  <div class="attempts-left" id="att-9">2 attempts remaining</div>
-</div>
-
-<!-- ===== STATION 8: Animal Stop 5 – Elephant Mother and Baby ===== -->
-<div class="station-header">
-  <h2>👶🐘 Station 8: Elephant Mother and Baby</h2>
-  <div class="station-line"></div>
-</div>
-
-<!-- Q10 -->
-<div class="q-card" id="qcard-10">
-  <div class="q-num">Question 10 · True or False</div>
-  <div class="q-text">Elephant calves are raised by the whole social group for many years. Living and communicating in groups is a behavioral adaptation.</div>
-  <div class="q-location">📍 <span>Find it at:</span> Station 8 → Animal Stop 5 → <strong>Elephant Mother and Baby</strong> icon</div>
-  <div class="options">
-    <button class="opt-btn" onclick="checkMC(10, this, true)">True</button>
-    <button class="opt-btn" onclick="checkMC(10, this, false, 'It IS true! Elephant moms are pregnant for almost 2 years, and then the whole herd helps raise the baby. That group behavior — including communication through rumbles and calls — is what makes elephants such great survivors.', 'Station 8 → Elephant Mother and Baby icon')">False</button>
-  </div>
-  <div class="feedback" id="fb-10"></div>
-  <div class="attempts-left" id="att-10">2 attempts remaining</div>
-</div>
-
-<!-- ===== STATION 9: Animal Stop 6 – Watering Hole ===== -->
-<div class="station-header">
-  <h2>💧 Station 9: Animal Stop 6 – Watering Hole</h2>
-  <div class="station-line"></div>
-</div>
-
-<!-- Q11 -->
-<div class="q-card" id="qcard-11">
-  <div class="q-num">Question 11 · Multiple Choice</div>
-  <div class="q-text">The savanna's red soil has very few nutrients. But in spots where livestock were kept overnight, plants grow much thicker today. Why?</div>
-  <div class="q-location">📍 <span>Find it at:</span> Station 9 → Animal Stop 6 → <strong>Red Soil</strong> icon</div>
-  <div class="options">
-    <button class="opt-btn" onclick="checkMC(11, this, false, 'The livestock didn\'t water the plants — they changed the SOIL. Their waste left behind nutrients that fertilized the ground, making it richer and supporting more plant growth.', 'Station 9 → Red Soil icon')">The livestock watered the plants every day.</button>
-    <button class="opt-btn" onclick="checkMC(11, this, false, 'The livestock actually left the area — but their waste stayed behind and fertilized the soil. The thicker plant growth is a long-lasting effect of that nutrient boost.', 'Station 9 → Red Soil icon')">The livestock ate all the plants so new ones grew faster.</button>
-    <button class="opt-btn" onclick="checkMC(11, this, true)">Their waste added nutrients to the soil, making it richer for plants.</button>
-    <button class="opt-btn" onclick="checkMC(11, this, false, 'Livestock hooves would actually compact soil, not loosen it. The real reason is the nutrient boost from their waste — turning poor red soil into a plant paradise.', 'Station 9 → Red Soil icon')">Their hooves loosened the soil so roots could grow deeper.</button>
-  </div>
-  <div class="feedback" id="fb-11"></div>
-  <div class="attempts-left" id="att-11">2 attempts remaining</div>
-</div>
-
-<!-- ===== STATION 10: Weaver Bird Tree ===== -->
-<div class="station-header">
-  <h2>🐦 Station 10: Animal Stop 7 – Weaver Bird Tree</h2>
-  <div class="station-line"></div>
-</div>
-
-<!-- Q12 -->
-<div class="q-card" id="qcard-12">
-  <div class="q-num">Question 12 · Multiple Choice</div>
-  <div class="q-text">Weaver birds build their nests together in one tree. How does living in a colony help their eggs survive?</div>
-  <div class="q-location">📍 <span>Find it at:</span> Station 10 → Animal Stop 7 → <strong>Weaver Bird Nests</strong> icon</div>
-  <div class="options">
-    <button class="opt-btn" onclick="checkMC(12, this, true)">More birds guard the eggs, and predators get overwhelmed by the large number of nests.</button>
-    <button class="opt-btn" onclick="checkMC(12, this, false, 'The tree\'s thorns protect the tree itself from herbivores, but the BIRDS benefit from being in large numbers — overwhelming predators with sheer volume of nests and guards.', 'Station 10 → Weaver Bird Nests icon')">The tree\'s thorns keep all predators away from the nests.</button>
-    <button class="opt-btn" onclick="checkMC(12, this, false, 'Weaver birds don\'t share warmth this way. The survival advantage is about safety in numbers — more guards, more nests, and predators can\'t catch them all.', 'Station 10 → Weaver Bird Nests icon')">The birds share body warmth, keeping eggs from getting cold.</button>
-    <button class="opt-btn" onclick="checkMC(12, this, false, 'Weaver birds in colonies actually draw MORE attention, not less. But that\'s the strategy — with so many nests, predators can\'t possibly get all the eggs, so each individual egg is safer.', 'Station 10 → Weaver Bird Nests icon')">They hide the nests so predators can\'t find them at all.</button>
-  </div>
-  <div class="feedback" id="fb-12"></div>
-  <div class="attempts-left" id="att-12">2 attempts remaining</div>
-</div>
-
-<!-- ===== STATION 11–13: Research Stations ===== -->
-<div class="station-header">
-  <h2>🔬 Station 11–13: Research Stations</h2>
-  <div class="station-line"></div>
-</div>
-
-<!-- Q13 -->
-<div class="q-card" id="qcard-13">
-  <div class="q-num">Question 13 · Multiple Choice</div>
-  <div class="q-text">The leopard tortoise eats grass AND hyena poop. Why does it eat the hyena poop?</div>
-  <div class="q-location">📍 <span>Find it at:</span> Station 11 → Research Station 1 → <strong>Leopard Tortoise</strong> icon</div>
-  <div class="options">
-    <button class="opt-btn" onclick="checkMC(13, this, false, 'Hyenas and tortoises don\'t really hang out together that way. The tortoise eats the poop because of what\'s INSIDE it — bone fragments from the hyena\'s meals give the tortoise calcium for its shell.', 'Station 11 → Leopard Tortoise icon')">To scare away hyenas by eating their poop.</button>
-    <button class="opt-btn" onclick="checkMC(13, this, true)">The poop has bone fragments that give the tortoise calcium for its shell.</button>
-    <button class="opt-btn" onclick="checkMC(13, this, false, 'Hyena poop isn\'t fertile — the tortoise isn\'t using it as fertilizer. It\'s eating it for the bone fragments that give it the calcium needed to build and maintain its shell.', 'Station 11 → Leopard Tortoise icon')">To fertilize the soil so more grass grows for it to eat.</button>
-    <button class="opt-btn" onclick="checkMC(13, this, false, 'This isn\'t about hiding from predators. The poop contains bone fragments from the hyena\'s prey — and the tortoise needs those bones for the calcium that keeps its shell strong.', 'Station 11 → Leopard Tortoise icon')">To mark its territory so predators know to stay away.</button>
-  </div>
-  <div class="feedback" id="fb-13"></div>
-  <div class="attempts-left" id="att-13">2 attempts remaining</div>
-</div>
-
-<!-- Q14 DRAG AND DROP -->
-<div class="q-card" id="qcard-14">
-  <div class="q-num">Question 14 · Drag-and-Drop Matching</div>
-  <div class="q-text">Match each animal to its key survival adaptation from the scavenger hunt.</div>
-  <div class="q-location">📍 <span>Find it at:</span> Stations 12 &amp; 13 → <strong>Vulturine Guineafowl</strong>, <strong>Vervet Monkey</strong>, <strong>Acacia Etbaica Tree</strong> icons · Station 8 → <strong>Elephant Mother and Baby</strong> icon</div>
-  <div class="drag-container">
-    <div class="word-bank-label">Word Bank — drag these:</div>
-    <div class="word-bank" id="wb-14"></div>
-    <div class="drop-zones-label">Drop zones:</div>
-    <div class="drop-zones" id="dz-14">
-      <div class="drop-row">
-        <div class="drop-label">Vervet Monkey — uses up to 33 different calls, each one warning about a specific predator</div>
-        <div class="drop-zone" id="dz-14-0" data-answer="Alarm calls" ondragover="dzOver(event)" ondrop="dzDrop(event,'14',0)" ondragleave="dzLeave(event)"><span class="drop-placeholder">Drop here</span></div>
-      </div>
-      <div class="drop-row">
-        <div class="drop-label">Vulturine Guineafowl — uses different sounds to signal "predator spotted" or "food here"</div>
-        <div class="drop-zone" id="dz-14-1" data-answer="Vocal signals" ondragover="dzOver(event)" ondrop="dzDrop(event,'14',1)" ondragleave="dzLeave(event)"><span class="drop-placeholder">Drop here</span></div>
-      </div>
-      <div class="drop-row">
-        <div class="drop-label">Acacia Tree — grows long, sharp spines to stop large herbivores from eating its leaves</div>
-        <div class="drop-zone" id="dz-14-2" data-answer="Physical spines" ondragover="dzOver(event)" ondrop="dzDrop(event,'14',2)" ondragleave="dzLeave(event)"><span class="drop-placeholder">Drop here</span></div>
-      </div>
-      <div class="drop-row">
-        <div class="drop-label">Elephant — lives and communicates in social groups to survive and raise young</div>
-        <div class="drop-zone" id="dz-14-3" data-answer="Social behavior" ondragover="dzOver(event)" ondrop="dzDrop(event,'14',3)" ondragleave="dzLeave(event)"><span class="drop-placeholder">Drop here</span></div>
-      </div>
-    </div>
-    <button class="check-match-btn" id="check-14" onclick="checkDrag('14')">Check My Answers</button>
-  </div>
-  <div class="feedback" id="fb-14"></div>
-  <div class="attempts-left" id="att-14">2 attempts remaining</div>
+  <div class="feedback" id="fb-4"></div>
+  <div class="attempts-left" id="att-4">2 attempts remaining</div>
 </div>
 
 <!-- ===== BIG PICTURE QUESTIONS from Lesson ===== -->
@@ -786,87 +588,41 @@
   <div class="station-line"></div>
 </div>
 
-<!-- Q15 -->
-<div class="q-card" id="qcard-15">
-  <div class="q-num">Question 15 · Multiple Choice</div>
+<!-- Q5 -->
+<div class="q-card" id="qcard-5">
+  <div class="q-num">Question 5 · Multiple Choice</div>
   <div class="q-text">What is the main job of fire in a savanna ecosystem?</div>
   <div class="q-location">📍 <span>Find it at:</span> Lesson text → <strong>Fire Ecology</strong> section &amp; Biodiversity and Ecological Roles</div>
   <div class="options">
-    <button class="opt-btn" onclick="checkMC(15, this, false, 'Fire actually does the opposite — it CLEARS old growth and opens up the area. It doesn\'t help trees take over. If fire was suppressed, trees would actually start to crowd out the grasses!', 'Lesson → Fire Ecology section')">Fire helps trees grow taller and take over the grassland.</button>
-    <button class="opt-btn" onclick="checkMC(15, this, false, 'Fire is actually important for savanna health — it\'s not purely harmful. When used correctly, it returns nutrients to the soil and helps fire-adapted plants regrow.', 'Lesson → Fire Ecology section')">Fire only destroys things and is always bad for the savanna.</button>
-    <button class="opt-btn" onclick="checkMC(15, this, true)">Fire clears old growth, returns nutrients to the soil, and helps new plants grow.</button>
-    <button class="opt-btn" onclick="checkMC(15, this, false, 'Fire doesn\'t create water — it removes old dead material and releases nutrients. Rain is what refills water sources, not fire!', 'Lesson → Fire Ecology section')">Fire creates new water sources for animals to drink from.</button>
+    <button class="opt-btn" onclick="checkMC(5, this, false, 'Fire actually does the opposite — it CLEARS old growth and opens up the area. It doesn\'t help trees take over. If fire was suppressed, trees would actually start to crowd out the grasses!', 'Lesson → Fire Ecology section')">Fire helps trees grow taller and take over the grassland.</button>
+    <button class="opt-btn" onclick="checkMC(5, this, false, 'Fire is actually important for savanna health — it\'s not purely harmful. When used correctly, it returns nutrients to the soil and helps fire-adapted plants regrow.', 'Lesson → Fire Ecology section')">Fire only destroys things and is always bad for the savanna.</button>
+    <button class="opt-btn" onclick="checkMC(5, this, true)">Fire clears old growth, returns nutrients to the soil, and helps new plants grow.</button>
+    <button class="opt-btn" onclick="checkMC(5, this, false, 'Fire doesn\'t create water — it removes old dead material and releases nutrients. Rain is what refills water sources, not fire!', 'Lesson → Fire Ecology section')">Fire creates new water sources for animals to drink from.</button>
   </div>
-  <div class="feedback" id="fb-15"></div>
-  <div class="attempts-left" id="att-15">2 attempts remaining</div>
+  <div class="feedback" id="fb-5"></div>
+  <div class="attempts-left" id="att-5">2 attempts remaining</div>
 </div>
 
-<!-- Q16 -->
-<div class="q-card" id="qcard-16">
-  <div class="q-num">Question 16 · True or False</div>
-  <div class="q-text">Savannas get more rainfall than deserts, which is why they can support large herds of animals and continuous grass cover.</div>
-  <div class="q-location">📍 <span>Find it at:</span> Lesson text → <strong>Key Differences</strong> section (Savanna vs. Desert)</div>
-  <div class="options">
-    <button class="opt-btn" onclick="checkMC(16, this, true)">True</button>
-    <button class="opt-btn" onclick="checkMC(16, this, false, 'This IS true! Savannas receive significantly more rain than deserts — that\'s what makes the difference. More rain = grass can grow all season = food for huge herds of herbivores. Deserts can\'t support that.', 'Lesson → Key Differences section')">False</button>
-  </div>
-  <div class="feedback" id="fb-16"></div>
-  <div class="attempts-left" id="att-16">2 attempts remaining</div>
-</div>
-
-<!-- Q17 DRAG AND DROP -->
-<div class="q-card" id="qcard-17">
-  <div class="q-num">Question 17 · Drag-and-Drop Matching</div>
-  <div class="q-text">Match each savanna organism to the role it plays in the ecosystem.</div>
-  <div class="q-location">📍 <span>Find it at:</span> Lesson text → <strong>Biodiversity and Ecological Roles</strong> section</div>
-  <div class="drag-container">
-    <div class="word-bank-label">Word Bank — drag these:</div>
-    <div class="word-bank" id="wb-17"></div>
-    <div class="drop-zones-label">Drop zones:</div>
-    <div class="drop-zones" id="dz-17">
-      <div class="drop-row">
-        <div class="drop-label">Grasses — stabilize soil, store carbon, and provide food for plant-eaters</div>
-        <div class="drop-zone" id="dz-17-0" data-answer="Producers" ondragover="dzOver(event)" ondrop="dzDrop(event,'17',0)" ondragleave="dzLeave(event)"><span class="drop-placeholder">Drop here</span></div>
-      </div>
-      <div class="drop-row">
-        <div class="drop-label">Lions and hyenas — keep herbivore populations balanced so there's no overgrazing</div>
-        <div class="drop-zone" id="dz-17-1" data-answer="Predators" ondragover="dzOver(event)" ondrop="dzDrop(event,'17',1)" ondragleave="dzLeave(event)"><span class="drop-placeholder">Drop here</span></div>
-      </div>
-      <div class="drop-row">
-        <div class="drop-label">Bacteria and fungi — break down dead material and return nutrients to the soil</div>
-        <div class="drop-zone" id="dz-17-2" data-answer="Decomposers" ondragover="dzOver(event)" ondrop="dzDrop(event,'17',2)" ondragleave="dzLeave(event)"><span class="drop-placeholder">Drop here</span></div>
-      </div>
-      <div class="drop-row">
-        <div class="drop-label">Elephants and zebras — influence plant growth through grazing and seed dispersal</div>
-        <div class="drop-zone" id="dz-17-3" data-answer="Herbivores" ondragover="dzOver(event)" ondrop="dzDrop(event,'17',3)" ondragleave="dzLeave(event)"><span class="drop-placeholder">Drop here</span></div>
-      </div>
-    </div>
-    <button class="check-match-btn" id="check-17" onclick="checkDrag('17')">Check My Answers</button>
-  </div>
-  <div class="feedback" id="fb-17"></div>
-  <div class="attempts-left" id="att-17">2 attempts remaining</div>
-</div>
-
-<!-- Q18 -->
-<div class="q-card" id="qcard-18">
-  <div class="q-num">Question 18 · Multiple Choice</div>
+<!-- Q6 -->
+<div class="q-card" id="qcard-6">
+  <div class="q-num">Question 6 · Multiple Choice</div>
   <div class="q-text">Which of these is an example of a POSITIVE conservation action for savannas?</div>
   <div class="q-location">📍 <span>Find it at:</span> Lesson text → <strong>Human Impact and Conservation</strong> section (Positive Actions)</div>
   <div class="options">
-    <button class="opt-btn" onclick="checkMC(18, this, false, 'Banning ALL fire in savannas is actually harmful — fire is a natural and important part of the ecosystem. What helps is CONTROLLED burns that mimic natural fire patterns.', 'Lesson → Conservation section')">Banning all fires so plants are never burned.</button>
-    <button class="opt-btn" onclick="checkMC(18, this, false, 'Removing predators from protected areas would actually cause herbivore populations to explode, leading to overgrazing and ecosystem damage. Predators are essential!', 'Lesson → Conservation section')">Removing all predators from national parks so herbivores are safe.</button>
-    <button class="opt-btn" onclick="checkMC(18, this, false, 'Farming more land in savannas means habitat loss — one of the biggest THREATS to savannas. Conservation is about protecting habitat, not replacing it with farms.', 'Lesson → Conservation section')">Farming more land in savanna areas so people have food.</button>
-    <button class="opt-btn" onclick="checkMC(18, this, true)">Using controlled burns to mimic natural fire and protect native species.</button>
+    <button class="opt-btn" onclick="checkMC(6, this, false, 'Banning ALL fire in savannas is actually harmful — fire is a natural and important part of the ecosystem. What helps is CONTROLLED burns that mimic natural fire patterns.', 'Lesson → Conservation section')">Banning all fires so plants are never burned.</button>
+    <button class="opt-btn" onclick="checkMC(6, this, false, 'Removing predators from protected areas would actually cause herbivore populations to explode, leading to overgrazing and ecosystem damage. Predators are essential!', 'Lesson → Conservation section')">Removing all predators from national parks so herbivores are safe.</button>
+    <button class="opt-btn" onclick="checkMC(6, this, false, 'Farming more land in savannas means habitat loss — one of the biggest THREATS to savannas. Conservation is about protecting habitat, not replacing it with farms.', 'Lesson → Conservation section')">Farming more land in savanna areas so people have food.</button>
+    <button class="opt-btn" onclick="checkMC(6, this, true)">Using controlled burns to mimic natural fire and protect native species.</button>
   </div>
-  <div class="feedback" id="fb-18"></div>
-  <div class="attempts-left" id="att-18">2 attempts remaining</div>
+  <div class="feedback" id="fb-6"></div>
+  <div class="attempts-left" id="att-6">2 attempts remaining</div>
 </div>
 
 <!-- NOT YET -->
 <div id="not-yet-section">
   <div class="not-yet-card">
     <h2>🦁 Not Quite There Yet!</h2>
-    <p>You got <strong id="not-yet-score"></strong> out of 18. You need at least 14 to earn an exit ticket. Review your answers, go back to the Scavenger Hunt link earlier in Classkick, and try to improve your score!</p>
+    <p>You got <strong id="not-yet-score"></strong> out of 6. You need at least 5 to earn an exit ticket. Review your answers, go back to the Scavenger Hunt link earlier in Classkick, and try to improve your score!</p>
   </div>
 </div>
 
@@ -905,22 +661,20 @@
 
 <script>
 // ===================== STATE =====================
-const totalQ = 18;
-const threshold = 14;
+const totalQ = 6;
+const threshold = 5;
 let correctCount = 0;
-let attempts = {}; // qId -> attemptsUsed
-let answered = {}; // qId -> true/false (correct?)
+let attempts = {};
+let answered = {};
 let selectedPeriod = '';
 
 // Drag state
 let draggedChip = null;
-let draggedFrom = null; // 'wb' or dzId
+let draggedFrom = null;
 
 // ===================== DRAG SETUP =====================
 const dragData = {
-  '8': ['Abiotic factors', 'Biotic factors', 'Herbivores', 'Abiotic trigger'],
-  '14': ['Alarm calls', 'Vocal signals', 'Physical spines', 'Social behavior'],
-  '17': ['Producers', 'Predators', 'Decomposers', 'Herbivores']
+  '4': ['Abiotic factors', 'Biotic factors', 'Herbivores', 'Abiotic trigger']
 };
 
 function shuffle(arr) {
@@ -949,7 +703,6 @@ function buildWordBank(qId) {
       e.dataTransfer.effectAllowed = 'move';
     });
     chip.addEventListener('dragend', () => chip.classList.remove('dragging'));
-    // Touch support
     addTouchDrag(chip, qId);
     wb.appendChild(chip);
   });
@@ -995,7 +748,6 @@ function dzDrop(e, qId, idx) {
 
 function performDrop(qId, idx, dz) {
   if (!draggedChip) return;
-  // If zone already has a chip, return it to word bank
   const existing = dz.querySelector('.drag-chip');
   if (existing) {
     document.getElementById('wb-' + qId).appendChild(existing);
@@ -1013,15 +765,12 @@ function performDrop(qId, idx, dz) {
   });
   placed.addEventListener('dragend', e => {
     placed.classList.remove('dragging');
-    // If dropped outside a zone, send back to wb
     setTimeout(() => {
       if (placed.parentElement && placed.parentElement.classList.contains('drop-zone')) return;
-      // already moved somewhere
     }, 50);
   });
   addTouchDrag(placed, qId);
   dz.appendChild(placed);
-  // Remove from source
   draggedChip.remove();
   draggedChip = null;
 }
@@ -1050,7 +799,6 @@ function checkDrag(qId) {
     checkFinished();
   } else {
     if (attempts[qId] >= 2) {
-      // Reveal correct
       zones.forEach(dz => {
         const placed = dz.querySelector('.drag-chip');
         if (placed && placed.dataset.word === dz.dataset.answer) {
@@ -1121,44 +869,20 @@ function disableBtns(qId) {
 // ===================== FEEDBACK =====================
 const correctFunFacts = {
   1: "🐞 Dung beetles are nature's recyclers — they roll elephant dung into balls and bury it, feeding their larvae AND fertilizing the soil at the same time!",
-  2: "🌳 Some savanna trees store so much sugar that indigenous communities have actually tapped them as a food source during famines!",
-  3: "🧪 The fenced area (called an 'exclosure') showed scientists that without elephants, shrubs and small trees take over — proving how important megaherbivores are to keeping savannas open!",
-  4: "🐜 This ant-acacia mutualism is one of the most well-studied relationships in ecology. Remove the ants, and herbivores mow the tree down within months — it can't survive without its tiny bodyguards!",
-  5: "✂️ Some scientists call ants 'ecosystem engineers' because they change the physical structure of their environment — in this case, making trees grow thornier and tougher!",
-  6: "👟 An ostrich's kick is powerful enough to kill a lion. Their two-toed feet can also cover 10–16 feet in a single stride. They're basically running on stilts!",
-  7: "🔗 This is called a 'trophic cascade' — when one species is removed or reduced, the effects ripple all the way up and down the food chain. Zebras are a keystone link!",
-  8: "🌧️ The rain in the Serengeti is so predictable that wildebeest have evolved to give birth within days of each other at the start of the wet season — flooding the predators with more calves than they can eat!",
-  9: "🌡️ Hyenas are actually more successful hunters than lions — they win more food through hunting, but lions often steal it from them! Temperature drives when both species are most active.",
-  10: "📢 Elephants communicate through infrasound — low-frequency rumbles that travel through the ground for miles. Other elephants feel these vibrations through their feet before they even hear them!",
-  11: "🌱 Scientists actually use old livestock pen sites to study soil improvement — the nutrient boost from animal waste can last centuries, permanently changing plant communities!",
-  12: "🪹 Some weaver bird colonies have hundreds of nests in one tree. Predators can't possibly raid them all, so statistically each egg is much safer — it's strength in numbers!",
-  13: "🐢 The leopard tortoise is one of the world's largest tortoise species and can live over 100 years. Its shell grows throughout its life — which means it needs calcium continuously!",
-  14: "🐒 Vervet monkeys were the first animals discovered to have predator-specific alarm calls — this was a groundbreaking discovery in animal behavior science in the 1980s!",
-  15: "🔥 Indigenous communities in Africa and Australia have practiced controlled burning for thousands of years — long before Western conservation science 'discovered' it as a management tool!",
-  16: "☔ The Serengeti gets about 24 inches of rain per year — a desert gets less than 10 inches. That 14-inch difference supports over 1 million wildebeest!",
-  17: "🌍 Savannas cover about 20% of Earth's land surface and store enormous amounts of carbon in their root systems underground — making them crucial in fighting climate change!",
-  18: "🔥 Controlled burns, or prescribed fires, are now used in many U.S. national parks too! Land managers carefully plan and set fires to keep ecosystems healthy — it's fire used as a tool, not a disaster!"
+  2: "🐜 This ant-acacia mutualism is one of the most well-studied relationships in ecology. Remove the ants, and herbivores mow the tree down within months — it can't survive without its tiny bodyguards!",
+  3: "🔗 This is called a 'trophic cascade' — when one species is removed or reduced, the effects ripple all the way up and down the food chain. Zebras are a keystone link!",
+  4: "🌧️ The rain in the Serengeti is so predictable that wildebeest have evolved to give birth within days of each other at the start of the wet season — flooding the predators with more calves than they can eat!",
+  5: "🔥 Indigenous communities in Africa and Australia have practiced controlled burning for thousands of years — long before Western conservation science 'discovered' it as a management tool!",
+  6: "🔥 Controlled burns, or prescribed fires, are now used in many U.S. national parks too! Land managers carefully plan and set fires to keep ecosystems healthy — it's fire used as a tool, not a disaster!"
 };
 
 const wrongOpeners = {
   1: "🦏 Yikes! Even the dung beetles are looking confused right now...",
-  2: "🌳 Hmm! Even baobab trees store more than that!",
-  3: "⚡ Bzzt! That's not quite electrifying enough!",
-  4: "🐜 Uh oh — the ants are shaking their tiny heads!",
-  5: "🌵 Not quite! The thorns disagree with you!",
-  6: "🦁 Whoa! Even the lions are laughing at that one!",
-  7: "💧 The whole food web is feeling that one...",
-  8: "🗺️ Some of those don't match — check the map again!",
-  9: "🌙 The hyenas are hunting in the dark AND you missed this one!",
-  10: "🐘 The elephant herd didn't get that memo!",
-  11: "🌱 The red soil would like a word with you!",
-  12: "🐦 The weaver birds are huddling together in disappointment!",
-  13: "🐢 The tortoise is retreating into its shell...",
-  14: "🐒 The vervet monkey is making its 'wrong answer' call right now!",
-  15: "🔥 The fire ecology section is feeling burned!",
-  16: "🌧️ The rain data doesn't match your answer!",
-  17: "🌍 The food web has some holes in it!",
-  18: "♻️ Conservation headquarters is reviewing your answer..."
+  2: "🐜 Uh oh — the ants are shaking their tiny heads!",
+  3: "💧 The whole food web is feeling that one...",
+  4: "🗺️ Some of those don't match — check the map again!",
+  5: "🔥 The fire ecology section is feeling burned!",
+  6: "♻️ Conservation headquarters is reviewing your answer..."
 };
 
 function showFeedback(qId, isCorrect, wrongReason, wrongStation) {
@@ -1218,7 +942,6 @@ function submitTicket() {
   const now = new Date();
   const timeStr = now.toLocaleDateString('en-US', {weekday:'short', month:'short', day:'numeric', year:'numeric'}) +
     ' · ' + now.toLocaleTimeString('en-US', {hour:'2-digit', minute:'2-digit'});
-  // Passcode: biome-based + score hash
   const code = 'SVN-' + correctCount + '-' + (name.split(' ').map(w => w[0]).join('').toUpperCase()) + '-' + (now.getMonth()+1) + '' + now.getDate();
 
   document.getElementById('t-name').textContent = name;
@@ -1232,30 +955,24 @@ function submitTicket() {
 
 // ===================== INIT DRAG AND DROP =====================
 window.addEventListener('DOMContentLoaded', () => {
-  buildWordBank('8');
-  buildWordBank('14');
-  buildWordBank('17');
+  buildWordBank('4');
   updateProgress();
 
-  // Allow dropping back on word banks
-  ['wb-8','wb-14','wb-17'].forEach(wbId => {
-    const wb = document.getElementById(wbId);
-    wb.addEventListener('dragover', e => e.preventDefault());
-    wb.addEventListener('drop', e => {
-      e.preventDefault();
-      if (draggedChip) {
-        const clone = draggedChip.cloneNode(true);
-        clone.draggable = true;
-        clone.dataset.word = draggedChip.dataset.word;
-        const qId = wbId.split('-')[1];
-        clone.addEventListener('dragstart', ev => { draggedChip = clone; draggedFrom = 'wb'; clone.classList.add('dragging'); ev.dataTransfer.effectAllowed = 'move'; });
-        clone.addEventListener('dragend', () => clone.classList.remove('dragging'));
-        addTouchDrag(clone, qId);
-        wb.appendChild(clone);
-        draggedChip.remove();
-        draggedChip = null;
-      }
-    });
+  document.getElementById('wb-4').addEventListener('dragover', e => e.preventDefault());
+  document.getElementById('wb-4').addEventListener('drop', e => {
+    e.preventDefault();
+    if (draggedChip) {
+      const clone = draggedChip.cloneNode(true);
+      clone.draggable = true;
+      clone.dataset.word = draggedChip.dataset.word;
+      const qId = '4';
+      clone.addEventListener('dragstart', ev => { draggedChip = clone; draggedFrom = 'wb'; clone.classList.add('dragging'); ev.dataTransfer.effectAllowed = 'move'; });
+      clone.addEventListener('dragend', () => clone.classList.remove('dragging'));
+      addTouchDrag(clone, qId);
+      document.getElementById('wb-4').appendChild(clone);
+      draggedChip.remove();
+      draggedChip = null;
+    }
   });
 });
 </script>
