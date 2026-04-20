@@ -13,6 +13,7 @@
   .progress-bar-bg { background: #e0e0d8; border-radius: 8px; height: 10px; margin-bottom: 1.5rem; border: 0.5px solid #ccc; }
   .progress-bar-fill { background: #1D9E75; height: 100%; border-radius: 8px; transition: width 0.4s; }
   .q-card { background: #fff; border: 1px solid #ddd; border-radius: 12px; padding: 1.25rem; margin-bottom: 1rem; }
+  .q-card.correct-locked { border-color: #1D9E75; background: #f7fdf9; }
   .q-num { font-size: 11px; color: #999; font-weight: 600; letter-spacing: 0.05em; margin-bottom: 0.5rem; text-transform: uppercase; }
   .q-text { font-size: 16px; color: #222; margin-bottom: 1rem; line-height: 1.6; }
   .mc-option { display: flex; align-items: center; gap: 10px; padding: 10px 14px; border-radius: 8px; border: 1px solid #ddd; margin-bottom: 8px; cursor: pointer; font-size: 15px; color: #222; background: #f9f9f6; transition: border 0.15s, background 0.15s; user-select: none; }
@@ -24,18 +25,20 @@
   .feedback { padding: 10px 14px; border-radius: 8px; font-size: 14px; margin-top: 8px; line-height: 1.5; }
   .feedback.right { background: #E1F5EE; color: #085041; border: 1px solid #5DCAA5; }
   .feedback.wrong { background: #FCEBEB; color: #501313; border: 1px solid #F0997B; }
+  .clue-box { background: #FFF9E6; border: 1px solid #F5CC5A; border-radius: 8px; padding: 10px 14px; font-size: 14px; color: #5C4200; margin-top: 8px; line-height: 1.5; }
   .check-btn { background: #1D9E75; color: #fff; border: none; border-radius: 8px; padding: 12px 28px; font-size: 15px; cursor: pointer; margin-top: 1rem; font-weight: 600; }
   .check-btn:hover { background: #0F6E56; }
   .drag-zone { display: flex; flex-wrap: wrap; gap: 8px; min-height: 44px; padding: 10px; border-radius: 8px; border: 2px dashed #aaa; background: #f5f5f0; margin-bottom: 8px; }
   .drag-chip { padding: 7px 14px; border-radius: 20px; background: #B5D4F4; color: #0C447C; font-size: 14px; cursor: grab; user-select: none; border: 1px solid #378ADD; }
   .drag-chip:active { cursor: grabbing; opacity: 0.7; }
   .drag-chip.placed { background: #CED0F6; color: #26215C; border-color: #534AB7; }
+  .drag-chip.locked-correct { background: #E1F5EE; color: #085041; border-color: #1D9E75; cursor: default; }
   .match-row { display: flex; align-items: center; gap: 10px; margin-bottom: 10px; }
   .match-label { font-size: 14px; color: #222; background: #f5f5f0; border: 1px solid #ddd; border-radius: 8px; padding: 8px 12px; min-width: 180px; flex-shrink: 0; }
   .match-drop { flex: 1; min-height: 40px; border-radius: 8px; border: 2px dashed #aaa; background: #f5f5f0; display: flex; align-items: center; padding: 4px 10px; }
   .match-drop.over { border-color: #378ADD; background: #E6F1FB; }
-  .match-drop.correct { border-color: #1D9E75; background: #E1F5EE; }
-  .match-drop.wrong { border-color: #E24B4A; background: #FCEBEB; }
+  .match-drop.correct-locked { border-color: #1D9E75; background: #E1F5EE; pointer-events: none; }
+  .match-drop.wrong-checked { border-color: #E24B4A; background: #FCEBEB; }
   .congrats-graphic { background: linear-gradient(135deg, #1D9E75 0%, #534AB7 100%); border-radius: 16px; padding: 2rem; color: #fff; text-align: center; margin-bottom: 1rem; }
   .congrats-graphic h2 { font-size: 28px; font-weight: 700; margin-bottom: 0.5rem; }
   .badge-row { display: flex; justify-content: center; gap: 12px; flex-wrap: wrap; margin: 1rem 0; }
@@ -50,64 +53,79 @@
 <script>
 const QUESTIONS = [
   {
-    id: 1,
-    type: 'mc',
+    id: 1, type: 'mc',
     text: 'What is a BIOME? Pick the best answer!',
-    options: [
-      'A type of weather pattern found near the equator',
-      'A type of environment defined by the kinds of organisms that live there',
-      'A map that shows where animals migrate each year',
-      'Another word for a country or continent'
-    ],
+    options: ['A type of weather pattern found near the equator','A type of environment defined by the kinds of organisms that live there','A map that shows where animals migrate each year','Another word for a country or continent'],
     correct: 1,
     rightFeedback: '🎉 Nailed it! A biome = a "life zone" (bio = life). It groups areas by the plants and animals that live there — even if those areas are on totally different continents!',
-    wrongFeedback: '🤔 Not quite! Think about what "bio" means (hint: LIFE). Re-read the paragraph that starts "A biome is a type of environment..." You\'ve got this!'
+    clues: [
+      '💡 Clue: The word "biome" starts with "bio" — what does bio mean? (Hint: think biology!)',
+      '💡 Clue: A biome is about LIVING things — plants and animals — not weather or maps.',
+      '💡 Clue: Re-read the very first sentence of the passage. It tells you exactly what a biome is!'
+    ]
   },
   {
-    id: 2,
-    type: 'mc',
+    id: 2, type: 'mc',
     text: 'Why are warm rainforests and deserts found near the MIDDLE of the world map?',
-    options: [
-      'Because most people live there and built cities',
-      'Because rivers flow through the middle of every continent',
-      'Because those areas get the most sunlight',
-      'Because it rains more in the middle of the map'
-    ],
+    options: ['Because most people live there and built cities','Because rivers flow through the middle of every continent','Because those areas get the most sunlight','Because it rains more in the middle of the map'],
     correct: 2,
     rightFeedback: '☀️ Boom! The middle of Earth (the equator) gets the most direct sunlight, which creates the warmth needed for rainforests and deserts. Science is just spicy geography!',
-    wrongFeedback: '🌞 Hint: Think about where the SUN hits Earth the hardest. Re-read the paragraph that starts "You may notice that many of the habitat types..." The answer is literally glowing at you!'
+    clues: [
+      '💡 Clue: Think about the SUN — where does it hit the Earth most directly?',
+      '💡 Clue: The middle of Earth is called the equator. What\'s special about it?',
+      '💡 Clue: Rainforests and deserts are both very WARM. What causes warmth on Earth?'
+    ]
   },
   {
-    id: 3,
-    type: 'match',
+    id: 3, type: 'match',
     text: 'MATCH each biome type to its correct category! Drag each chip to the right row.',
     pairs: [
       { term: 'Tropical Rain Forest', match: 'Land (Terrestrial)' },
-      { term: 'Marine', match: 'Water (Aquatic)' },
-      { term: 'Tundra', match: 'Land (Terrestrial)' },
-      { term: 'Freshwater', match: 'Water (Aquatic)' }
+      { term: 'Marine',               match: 'Water (Aquatic)' },
+      { term: 'Tundra',               match: 'Land (Terrestrial)' },
+      { term: 'Freshwater',           match: 'Water (Aquatic)' }
     ],
     rightFeedback: '🌊🌲 Perfect matching! The biome map shows 7 land habitats and 2 water habitats. You matched them like a pro scientist!',
-    wrongFeedback: '🗺️ Check the map legend in the reading! Marine and Freshwater are water (aquatic) habitats. Everything else — forests, deserts, tundra — are land (terrestrial). Try again!'
+    clues: [
+      '💡 Clue: Think about each word — "Marine" means ocean. "Freshwater" means lakes and rivers. Where are those?',
+      '💡 Clue: Tundra and Rain Forests are places you walk on. Marine and Freshwater are places you swim in!',
+      '💡 Clue: Check the biome map legend — it groups biomes into LAND and WATER. Which ones are you unsure about?'
+    ]
   },
   {
-    id: 4,
-    type: 'mc',
+    id: 4, type: 'mc',
     text: 'Why might you see TUNDRA inside a temperate forest area on a biome map?',
-    options: [
-      'Because scientists made a mistake on the map',
-      'Because mountain areas get colder at higher elevations, changing the biome',
-      'Because tundra animals migrated and changed the forest',
-      'Because it snows in forests sometimes'
-    ],
+    options: ['Because scientists made a mistake on the map','Because mountain areas get colder at higher elevations, changing the biome','Because tundra animals migrated and changed the forest','Because it snows in forests sometimes'],
     correct: 1,
     rightFeedback: '🏔️ Excellent! As you climb a mountain, it gets colder — just like moving toward the North or South Pole. So a forested mountain can have tundra near the top. Mountains are basically just really tall adventures!',
-    wrongFeedback: '⛰️ Think UP! Mountains change everything. Re-read the paragraph that starts "In some areas, like near the western coast..." What happens to temperature as you go higher up a mountain?'
+    clues: [
+      '💡 Clue: Have you ever noticed it\'s colder at the top of a mountain than at the bottom?',
+      '💡 Clue: The reading mentions mountains changing the biome. What happens to temperature as you go UP?',
+      '💡 Clue: Tundra is a cold, icy biome. How could a cold place exist inside a forest? Think: elevation!'
+    ]
   }
 ];
 
-let state = { answers: {}, feedback: {}, checked: {}, dragState: {} };
+let state = { answers: {}, feedback: {}, checked: {}, dragState: {}, attempts: {} };
 let draggingChip = null;
+
+function initMatchState(q) {
+  const chips = q.pairs.map((p, i) => ({ id: i, label: p.match }));
+  return { chips, placed: new Array(q.pairs.length).fill(null) };
+}
+
+function getChipById(ds, id) { return ds.chips.find(c => c.id === id); }
+
+function poolChips(ds) {
+  const placedIds = new Set(ds.placed.filter(x => x !== null));
+  return ds.chips.filter(c => !placedIds.has(c.id));
+}
+
+function getClue(q) {
+  const attempts = state.attempts[q.id] || 0;
+  const idx = Math.min(attempts - 1, q.clues.length - 1);
+  return q.clues[idx];
+}
 
 function init() { renderAll(); }
 
@@ -116,7 +134,7 @@ function renderAll() {
   const allCorrect = QUESTIONS.every(q => state.checked[q.id] && state.feedback[q.id] === 'right');
   if (allCorrect) { renderCongrats(app); return; }
 
-  const done = Object.values(state.checked).filter(Boolean).length;
+  const done = QUESTIONS.filter(q => state.checked[q.id] && state.feedback[q.id] === 'right').length;
   const pct = Math.round((done / QUESTIONS.length) * 100);
 
   let html = `<h1 class="qtitle">🌍 Biomes Review Quiz</h1>
@@ -130,50 +148,90 @@ function renderAll() {
 }
 
 function renderQuestion(q) {
-  const isLocked = state.checked[q.id] && state.feedback[q.id] === 'right';
+  const isCorrectLocked = state.checked[q.id] && state.feedback[q.id] === 'right';
+  const wasCheckedWrong = state.checked[q.id] && state.feedback[q.id] === 'wrong';
   let inner = '';
 
   if (q.type === 'mc') {
     inner = q.options.map((opt, i) => {
       let cls = 'mc-option';
-      if (isLocked) cls += ' locked';
-      if (state.answers[q.id] === i) {
-        if (isLocked) cls += ' correct';
-        else if (state.checked[q.id]) cls += (i === q.correct ? ' correct' : ' wrong');
-        else cls += ' selected';
+      const isSelected = state.answers[q.id] === i;
+      if (isCorrectLocked) {
+        cls += ' locked';
+        if (i === q.correct) cls += ' correct';
+      } else if (wasCheckedWrong) {
+        if (i === q.correct) { cls += ' correct locked'; }
+        else if (isSelected) { cls += ' wrong locked'; }
+      } else {
+        if (isSelected) cls += ' selected';
       }
-      if (state.checked[q.id] && i === q.correct && state.answers[q.id] !== i) cls += ' correct';
-      return `<div class="${cls}" onclick="pickMC(${q.id},${i})">${opt}</div>`;
+      const clickable = !isCorrectLocked && !(wasCheckedWrong && (i === q.correct || isSelected));
+      return `<div class="${cls}" ${clickable ? `onclick="pickMC(${q.id},${i})"` : ''}>${opt}</div>`;
     }).join('');
   }
 
   if (q.type === 'match') {
-    if (!state.dragState[q.id]) state.dragState[q.id] = { placed: {}, pool: q.pairs.map(p => p.match) };
+    if (!state.dragState[q.id]) state.dragState[q.id] = initMatchState(q);
     const ds = state.dragState[q.id];
-    const poolChips = ds.pool.map(c => `<div class="drag-chip" draggable="true" data-chip="${c}" data-qid="${q.id}" data-src="pool">${c}</div>`).join('');
+
+    const correctSlots = new Set();
+    if (wasCheckedWrong || isCorrectLocked) {
+      q.pairs.forEach((pair, i) => {
+        const placedId = ds.placed[i];
+        const chip = placedId !== null ? getChipById(ds, placedId) : null;
+        if (chip && chip.label === pair.match) correctSlots.add(i);
+      });
+    }
+
+    const available = poolChips(ds).filter(c => {
+      if (wasCheckedWrong || isCorrectLocked) {
+        return !Array.from(correctSlots).some(i => ds.placed[i] === c.id);
+      }
+      return true;
+    });
+
+    const poolHtml = available.map(c =>
+      `<div class="drag-chip" draggable="true" data-chipid="${c.id}" data-qid="${q.id}" data-src="pool">${c.label}</div>`
+    ).join('');
+
     inner = `<div style="margin-bottom:10px;">
-      <div class="drag-zone" id="pool-${q.id}" data-qid="${q.id}" data-zone="pool">${poolChips}</div>
+      <div class="drag-zone" id="pool-${q.id}" data-qid="${q.id}" data-zone="pool">${poolHtml}</div>
       <p style="font-size:12px;color:#999;margin-top:4px;">Categories — drag these to match</p>
     </div>`;
+
     q.pairs.forEach((pair, i) => {
-      const placed = ds.placed[i];
+      const placedId = ds.placed[i];
+      const placedChip = placedId !== null ? getChipById(ds, placedId) : null;
+      const isSlotCorrect = correctSlots.has(i);
       let dropCls = 'match-drop';
-      if (state.checked[q.id]) { if (placed === pair.match) dropCls += ' correct'; else if (placed) dropCls += ' wrong'; }
-      const chip = placed ? `<div class="drag-chip placed" draggable="true" data-chip="${placed}" data-qid="${q.id}" data-src="match-${i}">${placed}</div>` : '';
-      inner += `<div class="match-row"><div class="match-label">${pair.term}</div><div class="${dropCls}" id="drop-${q.id}-${i}" data-qid="${q.id}" data-zone="match-${i}">${chip}</div></div>`;
+      if (isSlotCorrect) dropCls += ' correct-locked';
+      else if (wasCheckedWrong && placedChip) dropCls += ' wrong-checked';
+
+      let chipHtml = '';
+      if (placedChip) {
+        const chipCls = isSlotCorrect ? 'drag-chip locked-correct' : 'drag-chip placed';
+        const draggable = isSlotCorrect ? 'false' : 'true';
+        chipHtml = `<div class="${chipCls}" draggable="${draggable}" data-chipid="${placedChip.id}" data-qid="${q.id}" data-src="match-${i}">${placedChip.label}</div>`;
+      }
+      inner += `<div class="match-row">
+        <div class="match-label">${pair.term}</div>
+        <div class="${dropCls}" id="drop-${q.id}-${i}" data-qid="${q.id}" data-zone="match-${i}">${chipHtml}</div>
+      </div>`;
     });
   }
 
   let feedbackHtml = '';
-  if (state.checked[q.id]) {
-    const fb = state.feedback[q.id];
-    const msg = fb === 'right' ? QUESTIONS.find(x=>x.id===q.id).rightFeedback : QUESTIONS.find(x=>x.id===q.id).wrongFeedback;
-    feedbackHtml = `<div class="feedback ${fb === 'right' ? 'right' : 'wrong'}">${msg}</div>`;
+  if (isCorrectLocked) {
+    feedbackHtml = `<div class="feedback right">${q.rightFeedback}</div>`;
+  } else if (wasCheckedWrong) {
+    feedbackHtml = `<div class="feedback wrong">❌ Not quite! Keep the green ones — fix the rest.</div>
+      <div class="clue-box">${getClue(q)}</div>`;
   }
 
-  const lockStyle = isLocked ? 'opacity:0.85;pointer-events:none;' : '';
-  return `<div class="q-card" style="${lockStyle}">
-    <div class="q-num">Question ${q.id} of ${QUESTIONS.length} ${isLocked ? '✅' : ''}</div>
+  const cardCls = isCorrectLocked ? 'q-card correct-locked' : 'q-card';
+  const lockStyle = isCorrectLocked ? 'opacity:0.9;pointer-events:none;' : '';
+  return `<div class="${cardCls}" style="${lockStyle}">
+    <div class="q-num">Question ${q.id} of ${QUESTIONS.length} ${isCorrectLocked ? '✅' : ''}</div>
     <div class="q-text">${q.text}</div>
     ${inner}
     ${feedbackHtml}
@@ -183,7 +241,7 @@ function renderQuestion(q) {
 function pickMC(qid, idx) {
   if (state.checked[qid] && state.feedback[qid] === 'right') return;
   state.answers[qid] = idx;
-  if (state.checked[qid]) state.checked[qid] = false;
+  state.checked[qid] = false;
   renderAll();
 }
 
@@ -201,7 +259,7 @@ function attachListeners() {
 }
 
 function onDragStart(e) {
-  draggingChip = { chip: e.target.dataset.chip, qid: parseInt(e.target.dataset.qid), src: e.target.dataset.src };
+  draggingChip = { chipId: parseInt(e.target.dataset.chipid), qid: parseInt(e.target.dataset.qid), src: e.target.dataset.src };
   e.dataTransfer.effectAllowed = 'move';
 }
 function onDragEnd() { draggingChip = null; }
@@ -212,31 +270,43 @@ function onDrop(e) {
   e.preventDefault();
   e.currentTarget.classList.remove('over');
   if (!draggingChip) return;
-  const { chip, qid, src } = draggingChip;
+  const { chipId, qid, src } = draggingChip;
   const targetZone = e.currentTarget.dataset.zone;
   const targetQid = parseInt(e.currentTarget.dataset.qid);
   if (targetQid !== qid) return;
-  const ds = state.dragState[qid];
+  if (src === targetZone) return;
 
-  if (src === 'pool') {
-    if (targetZone === 'pool') return;
-    const tgtIdx = parseInt(targetZone.replace('match-',''));
-    const prev = ds.placed[tgtIdx];
-    if (prev) ds.pool.push(prev);
-    ds.pool = ds.pool.filter(c => c !== chip);
-    ds.placed[tgtIdx] = chip;
-  } else {
-    const srcIdx = parseInt(src.replace('match-',''));
-    if (targetZone === 'pool') { ds.placed[srcIdx] = undefined; ds.pool.push(chip); }
-    else {
-      const tgtIdx = parseInt(targetZone.replace('match-',''));
-      const prev = ds.placed[tgtIdx];
-      ds.placed[tgtIdx] = chip;
-      if (prev) ds.placed[srcIdx] = prev; else ds.placed[srcIdx] = undefined;
+  const ds = state.dragState[qid];
+  const q = QUESTIONS.find(x => x.id === qid);
+
+  if (targetZone !== 'pool') {
+    const tgtIdx = parseInt(targetZone.replace('match-', ''));
+    const wasCheckedWrong = state.checked[qid] && state.feedback[qid] === 'wrong';
+    if (wasCheckedWrong) {
+      const existingId = ds.placed[tgtIdx];
+      const existingChip = existingId !== null ? getChipById(ds, existingId) : null;
+      if (existingChip && existingChip.label === q.pairs[tgtIdx].match) return;
     }
   }
 
-  if (state.checked[qid]) state.checked[qid] = false;
+  if (targetZone === 'pool') {
+    const srcIdx = parseInt(src.replace('match-', ''));
+    ds.placed[srcIdx] = null;
+  } else {
+    const tgtIdx = parseInt(targetZone.replace('match-', ''));
+    const evictedId = ds.placed[tgtIdx];
+    if (src === 'pool') {
+      ds.placed[tgtIdx] = chipId;
+    } else {
+      const srcIdx = parseInt(src.replace('match-', ''));
+      ds.placed[tgtIdx] = chipId;
+      ds.placed[srcIdx] = evictedId;
+    }
+  }
+
+  if (state.checked[qid]) {
+    state.checked[qid] = false;
+  }
   renderAll();
 }
 
@@ -245,9 +315,20 @@ function checkAll() {
     if (state.checked[q.id] && state.feedback[q.id] === 'right') return;
     let correct = false;
     if (q.type === 'mc') correct = state.answers[q.id] === q.correct;
-    if (q.type === 'match') { const ds = state.dragState[q.id]; if (ds) correct = q.pairs.every((p, i) => ds.placed[i] === p.match); }
+    if (q.type === 'match') {
+      const ds = state.dragState[q.id];
+      if (ds) correct = q.pairs.every((p, i) => {
+        const chip = ds.placed[i] !== null ? getChipById(ds, ds.placed[i]) : null;
+        return chip && chip.label === p.match;
+      });
+    }
     state.checked[q.id] = true;
-    state.feedback[q.id] = correct ? 'right' : 'wrong';
+    if (correct) {
+      state.feedback[q.id] = 'right';
+    } else {
+      state.feedback[q.id] = 'wrong';
+      state.attempts[q.id] = (state.attempts[q.id] || 0) + 1;
+    }
   });
   renderAll();
 }
