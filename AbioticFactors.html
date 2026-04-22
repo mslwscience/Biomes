@@ -121,12 +121,15 @@ main{max-width:880px;margin:0 auto;padding:24px 16px 70px;}
 .qh{font-size:.8rem;color:#888;font-style:italic;margin-bottom:8px;}
 .mc{display:flex;flex-direction:column;gap:7px;}
 .mo{border:2px solid var(--border);border-radius:8px;padding:9px 13px;cursor:pointer;font-size:.92rem;background:#fff;transition:all .15s;display:flex;align-items:center;gap:9px;}
-.mo:hover{background:var(--blue-lt);border-color:var(--blue);}
+.mo:hover:not(.locked){background:var(--blue-lt);border-color:var(--blue);}
 .mo.ok{background:var(--green-lt);border-color:var(--green);color:var(--green);font-weight:700;}
 .mo.no{background:var(--fire-lt);border-color:var(--fire);color:var(--fire);}
 .mo .lt{width:26px;height:26px;border-radius:50%;background:var(--border);display:flex;align-items:center;justify-content:center;font-weight:800;font-size:.82rem;flex-shrink:0;}
 .mo.ok .lt{background:var(--green);color:#fff;}
 .mo.no .lt{background:var(--fire);color:#fff;}
+/* Change-answer button */
+.change-btn{display:inline-flex;align-items:center;gap:5px;margin-top:8px;padding:5px 12px;border-radius:7px;border:1.5px solid var(--blue);background:var(--blue-lt);color:var(--blue);font-family:'Quicksand',sans-serif;font-weight:800;font-size:.75rem;cursor:pointer;transition:all .15s;}
+.change-btn:hover{background:var(--blue);color:#fff;}
 .fb{display:inline-block;border-radius:99px;padding:3px 14px;font-size:.8rem;font-weight:800;margin-top:7px;opacity:0;transition:opacity .3s;}
 .fb.show{opacity:1;}
 .fb.ok{background:var(--green-lt);color:var(--green);}
@@ -250,21 +253,6 @@ hr.rule{border:none;border-top:2px dashed var(--border);margin:14px 0;}
   word-break:break-word;
 }
 .sa-value.empty{color:#bbb;font-style:italic;}
-/* Next-up banner */
-.cc-next{
-  background:linear-gradient(135deg,#5b3a8a,#7b52b8);
-  color:#fff;padding:12px 18px;
-  display:flex;align-items:center;justify-content:space-between;gap:10px;flex-wrap:wrap;
-}
-.cc-next p{font-size:.83rem;opacity:.9;flex:1;}
-.cc-next strong{font-family:'Baloo 2',cursive;font-size:.95rem;}
-.btn-next-lab{
-  background:#fff;color:#5b3a8a;border:none;border-radius:8px;
-  padding:8px 16px;font-family:'Quicksand',sans-serif;
-  font-weight:800;font-size:.85rem;cursor:pointer;
-  white-space:nowrap;transition:all .18s;flex-shrink:0;
-}
-.btn-next-lab:hover{background:#f0eafc;transform:translateY(-1px);}
 /* Screenshot hint */
 .snip-hint{
   background:var(--sun-lt);border-top:2px solid var(--sun);
@@ -272,8 +260,19 @@ hr.rule{border:none;border-top:2px dashed var(--border);margin:14px 0;}
   display:flex;align-items:center;gap:8px;
 }
 
+/* Save indicator */
+#autoSaveIndicator{
+  position:fixed;bottom:16px;right:16px;
+  background:var(--dark);color:#fff;
+  border-radius:99px;padding:6px 16px;
+  font-size:.75rem;font-weight:700;
+  opacity:0;transition:opacity .4s;
+  z-index:999;pointer-events:none;
+}
+#autoSaveIndicator.show{opacity:1;}
+
 @media print{
-  .topbar,.nav-dots,.btn-row,.factor-grid,#completionCard .cc-next,#completionCard .snip-hint{display:none!important;}
+  .topbar,.nav-dots,.btn-row,.factor-grid,#autoSaveIndicator{display:none!important;}
   .sec{display:block!important;}
   .vc .def{display:block!important;}
   .card{break-inside:avoid;box-shadow:none;}
@@ -283,6 +282,8 @@ hr.rule{border:none;border-top:2px dashed var(--border);margin:14px 0;}
 </style>
 </head>
 <body>
+
+<div id="autoSaveIndicator">✓ Progress saved</div>
 
 <header>
   <h1>🌍 Abiotic Factors</h1>
@@ -357,11 +358,12 @@ hr.rule{border:none;border-top:2px dashed var(--border);margin:14px 0;}
       <div class="qt">Which of the following is an ABIOTIC factor?</div>
       <div class="qh">Remember: abiotic = non-living. Ask yourself — is it alive?</div>
       <div class="mc" id="q1grp">
-        <div class="mo" data-q="q1" data-r="no"><div class="lt">A</div>A deer eating grass in a meadow</div>
-        <div class="mo" data-q="q1" data-r="no"><div class="lt">B</div>Bacteria living in the soil</div>
-        <div class="mo" data-q="q1" data-r="ok"><div class="lt">C</div>The amount of rainfall each month</div>
-        <div class="mo" data-q="q1" data-r="no"><div class="lt">D</div>Oak trees shading the forest floor</div>
+        <div class="mo" data-q="q1" data-r="no" data-letter="A"><div class="lt">A</div>A deer eating grass in a meadow</div>
+        <div class="mo" data-q="q1" data-r="no" data-letter="B"><div class="lt">B</div>Bacteria living in the soil</div>
+        <div class="mo" data-q="q1" data-r="ok" data-letter="C"><div class="lt">C</div>The amount of rainfall each month</div>
+        <div class="mo" data-q="q1" data-r="no" data-letter="D"><div class="lt">D</div>Oak trees shading the forest floor</div>
       </div>
+      <div id="q1change"></div>
       <div class="fb" id="q1fb"></div>
     </div>
 
@@ -369,11 +371,12 @@ hr.rule{border:none;border-top:2px dashed var(--border);margin:14px 0;}
       <div class="ql">&#128208; Question 2</div>
       <div class="qt">Why are abiotic factors important for ecosystems?</div>
       <div class="mc" id="q2grp">
-        <div class="mo" data-q="q2" data-r="no"><div class="lt">A</div>They eat other organisms to get energy</div>
-        <div class="mo" data-q="q2" data-r="ok"><div class="lt">B</div>They determine which plants and animals can survive in a region</div>
-        <div class="mo" data-q="q2" data-r="no"><div class="lt">C</div>They only affect animals, not plants</div>
-        <div class="mo" data-q="q2" data-r="no"><div class="lt">D</div>They are only found in aquatic ecosystems</div>
+        <div class="mo" data-q="q2" data-r="no" data-letter="A"><div class="lt">A</div>They eat other organisms to get energy</div>
+        <div class="mo" data-q="q2" data-r="ok" data-letter="B"><div class="lt">B</div>They determine which plants and animals can survive in a region</div>
+        <div class="mo" data-q="q2" data-r="no" data-letter="C"><div class="lt">C</div>They only affect animals, not plants</div>
+        <div class="mo" data-q="q2" data-r="no" data-letter="D"><div class="lt">D</div>They are only found in aquatic ecosystems</div>
       </div>
+      <div id="q2change"></div>
       <div class="fb" id="q2fb"></div>
     </div>
 
@@ -425,11 +428,12 @@ hr.rule{border:none;border-top:2px dashed var(--border);margin:14px 0;}
       <div class="ql">&#128208; Question 4</div>
       <div class="qt">Why do deserts have very few large plants compared to rainforests?</div>
       <div class="mc" id="q4grp">
-        <div class="mo" data-q="q4" data-r="no"><div class="lt">A</div>Deserts have too much sunlight, which burns all plants</div>
-        <div class="mo" data-q="q4" data-r="ok"><div class="lt">B</div>Deserts receive very little precipitation, so water is scarce for plant growth</div>
-        <div class="mo" data-q="q4" data-r="no"><div class="lt">C</div>Desert soil contains too many nutrients</div>
-        <div class="mo" data-q="q4" data-r="no"><div class="lt">D</div>Deserts are too cold for plants to survive</div>
+        <div class="mo" data-q="q4" data-r="no" data-letter="A"><div class="lt">A</div>Deserts have too much sunlight, which burns all plants</div>
+        <div class="mo" data-q="q4" data-r="ok" data-letter="B"><div class="lt">B</div>Deserts receive very little precipitation, so water is scarce for plant growth</div>
+        <div class="mo" data-q="q4" data-r="no" data-letter="C"><div class="lt">C</div>Desert soil contains too many nutrients</div>
+        <div class="mo" data-q="q4" data-r="no" data-letter="D"><div class="lt">D</div>Deserts are too cold for plants to survive</div>
       </div>
+      <div id="q4change"></div>
       <div class="fb" id="q4fb"></div>
     </div>
 
@@ -437,11 +441,12 @@ hr.rule{border:none;border-top:2px dashed var(--border);margin:14px 0;}
       <div class="ql">&#128208; Question 5</div>
       <div class="qt">A mountain has two slopes. The north-facing slope is cooler and shadier than the south-facing slope. Which TWO abiotic factors best explain this difference?</div>
       <div class="mc" id="q5grp">
-        <div class="mo" data-q="q5" data-r="no"><div class="lt">A</div>Salinity and pH</div>
-        <div class="mo" data-q="q5" data-r="ok"><div class="lt">B</div>Topography and sunlight angle</div>
-        <div class="mo" data-q="q5" data-r="no"><div class="lt">C</div>Precipitation and soil nutrients</div>
-        <div class="mo" data-q="q5" data-r="no"><div class="lt">D</div>Disturbance and salinity</div>
+        <div class="mo" data-q="q5" data-r="no" data-letter="A"><div class="lt">A</div>Salinity and pH</div>
+        <div class="mo" data-q="q5" data-r="ok" data-letter="B"><div class="lt">B</div>Topography and sunlight angle</div>
+        <div class="mo" data-q="q5" data-r="no" data-letter="C"><div class="lt">C</div>Precipitation and soil nutrients</div>
+        <div class="mo" data-q="q5" data-r="no" data-letter="D"><div class="lt">D</div>Disturbance and salinity</div>
       </div>
+      <div id="q5change"></div>
       <div class="fb" id="q5fb"></div>
     </div>
 
@@ -623,11 +628,12 @@ hr.rule{border:none;border-top:2px dashed var(--border);margin:14px 0;}
       <div class="ql">&#128208; Question 7</div>
       <div class="qt">A place has hot temperatures year-round AND receives 250 cm of rain per year. Which biome would most likely form there?</div>
       <div class="mc" id="q7grp">
-        <div class="mo" data-q="q7" data-r="no"><div class="lt">A</div>Tundra</div>
-        <div class="mo" data-q="q7" data-r="ok"><div class="lt">B</div>Tropical Rainforest</div>
-        <div class="mo" data-q="q7" data-r="no"><div class="lt">C</div>Hot Desert</div>
-        <div class="mo" data-q="q7" data-r="no"><div class="lt">D</div>Boreal Forest</div>
+        <div class="mo" data-q="q7" data-r="no" data-letter="A"><div class="lt">A</div>Tundra</div>
+        <div class="mo" data-q="q7" data-r="ok" data-letter="B"><div class="lt">B</div>Tropical Rainforest</div>
+        <div class="mo" data-q="q7" data-r="no" data-letter="C"><div class="lt">C</div>Hot Desert</div>
+        <div class="mo" data-q="q7" data-r="no" data-letter="D"><div class="lt">D</div>Boreal Forest</div>
       </div>
+      <div id="q7change"></div>
       <div class="fb" id="q7fb"></div>
     </div>
 
@@ -635,11 +641,12 @@ hr.rule{border:none;border-top:2px dashed var(--border);margin:14px 0;}
       <div class="ql">&#128208; Question 8</div>
       <div class="qt">A region is warm but receives very little precipitation all year. Which biome would most likely form?</div>
       <div class="mc" id="q8grp">
-        <div class="mo" data-q="q8" data-r="no"><div class="lt">A</div>Tropical Rainforest</div>
-        <div class="mo" data-q="q8" data-r="no"><div class="lt">B</div>Temperate Deciduous Forest</div>
-        <div class="mo" data-q="q8" data-r="ok"><div class="lt">C</div>Hot Desert</div>
-        <div class="mo" data-q="q8" data-r="no"><div class="lt">D</div>Tundra</div>
+        <div class="mo" data-q="q8" data-r="no" data-letter="A"><div class="lt">A</div>Tropical Rainforest</div>
+        <div class="mo" data-q="q8" data-r="no" data-letter="B"><div class="lt">B</div>Temperate Deciduous Forest</div>
+        <div class="mo" data-q="q8" data-r="ok" data-letter="C"><div class="lt">C</div>Hot Desert</div>
+        <div class="mo" data-q="q8" data-r="no" data-letter="D"><div class="lt">D</div>Tundra</div>
       </div>
+      <div id="q8change"></div>
       <div class="fb" id="q8fb"></div>
     </div>
 
@@ -710,11 +717,12 @@ hr.rule{border:none;border-top:2px dashed var(--border);margin:14px 0;}
       <div class="ql">&#128208; Question 10</div>
       <div class="qt">Which TWO abiotic factors are most responsible for the Amazon rainforest having the highest biodiversity on Earth?</div>
       <div class="mc" id="q10grp">
-        <div class="mo" data-q="q10" data-r="no"><div class="lt">A</div>Low pH and high salinity</div>
-        <div class="mo" data-q="q10" data-r="ok"><div class="lt">B</div>High year-round temperature and very high precipitation</div>
-        <div class="mo" data-q="q10" data-r="no"><div class="lt">C</div>Nutrient-rich soil and cold temperatures</div>
-        <div class="mo" data-q="q10" data-r="no"><div class="lt">D</div>Low precipitation and frequent disturbances</div>
+        <div class="mo" data-q="q10" data-r="no" data-letter="A"><div class="lt">A</div>Low pH and high salinity</div>
+        <div class="mo" data-q="q10" data-r="ok" data-letter="B"><div class="lt">B</div>High year-round temperature and very high precipitation</div>
+        <div class="mo" data-q="q10" data-r="no" data-letter="C"><div class="lt">C</div>Nutrient-rich soil and cold temperatures</div>
+        <div class="mo" data-q="q10" data-r="no" data-letter="D"><div class="lt">D</div>Low precipitation and frequent disturbances</div>
       </div>
+      <div id="q10change"></div>
       <div class="fb" id="q10fb"></div>
     </div>
 
@@ -722,11 +730,12 @@ hr.rule{border:none;border-top:2px dashed var(--border);margin:14px 0;}
       <div class="ql">&#128208; Question 11</div>
       <div class="qt">In the Rocky Mountains, why does the type of forest change as you go higher up the mountain?</div>
       <div class="mc" id="q11grp">
-        <div class="mo" data-q="q11" data-r="no"><div class="lt">A</div>The soil becomes more fertile at higher elevations</div>
-        <div class="mo" data-q="q11" data-r="ok"><div class="lt">B</div>Temperature drops and precipitation patterns change with elevation, creating different climate conditions</div>
-        <div class="mo" data-q="q11" data-r="no"><div class="lt">C</div>Animals eat all the plants at lower elevations</div>
-        <div class="mo" data-q="q11" data-r="no"><div class="lt">D</div>The pH of the soil changes dramatically with altitude</div>
+        <div class="mo" data-q="q11" data-r="no" data-letter="A"><div class="lt">A</div>The soil becomes more fertile at higher elevations</div>
+        <div class="mo" data-q="q11" data-r="ok" data-letter="B"><div class="lt">B</div>Temperature drops and precipitation patterns change with elevation, creating different climate conditions</div>
+        <div class="mo" data-q="q11" data-r="no" data-letter="C"><div class="lt">C</div>Animals eat all the plants at lower elevations</div>
+        <div class="mo" data-q="q11" data-r="no" data-letter="D"><div class="lt">D</div>The pH of the soil changes dramatically with altitude</div>
       </div>
+      <div id="q11change"></div>
       <div class="fb" id="q11fb"></div>
     </div>
 
@@ -761,15 +770,15 @@ hr.rule{border:none;border-top:2px dashed var(--border);margin:14px 0;}
 
     <hr class="rule">
     <p style="font-weight:800;margin-bottom:8px;">&#10003; I Can Now...</p>
-    <ul class="cl">
-      <li><input type="checkbox"> Define abiotic factor and give 3 examples.</li>
-      <li><input type="checkbox"> Explain the difference between biotic and abiotic factors.</li>
-      <li><input type="checkbox"> Name all 8 major abiotic factors and describe what each one affects.</li>
-      <li><input type="checkbox"> Explain why temperature and precipitation are the most important abiotic factors for biomes.</li>
-      <li><input type="checkbox"> Use temperature + precipitation data to predict which biome would form.</li>
-      <li><input type="checkbox"> Compare two biomes (like desert vs. rainforest) using abiotic factors.</li>
-      <li><input type="checkbox"> Explain how topography/elevation can change the biome on a single mountain.</li>
-      <li><input type="checkbox"> Predict how a change in one abiotic factor could affect a biome.</li>
+    <ul class="cl" id="checklistUl">
+      <li><input type="checkbox" id="chk0"> Define abiotic factor and give 3 examples.</li>
+      <li><input type="checkbox" id="chk1"> Explain the difference between biotic and abiotic factors.</li>
+      <li><input type="checkbox" id="chk2"> Name all 8 major abiotic factors and describe what each one affects.</li>
+      <li><input type="checkbox" id="chk3"> Explain why temperature and precipitation are the most important abiotic factors for biomes.</li>
+      <li><input type="checkbox" id="chk4"> Use temperature + precipitation data to predict which biome would form.</li>
+      <li><input type="checkbox" id="chk5"> Compare two biomes (like desert vs. rainforest) using abiotic factors.</li>
+      <li><input type="checkbox" id="chk6"> Explain how topography/elevation can change the biome on a single mountain.</li>
+      <li><input type="checkbox" id="chk7"> Predict how a change in one abiotic factor could affect a biome.</li>
     </ul>
 
     <div class="ff" style="margin-top:18px;">
@@ -822,13 +831,10 @@ hr.rule{border:none;border-top:2px dashed var(--border);margin:14px 0;}
       <div class="mc-summary" id="ccMcSummary">
         <div class="mc-chip skip">Q1: not yet answered</div>
         <div class="mc-chip skip">Q2: not yet answered</div>
-        <div class="mc-chip skip">Q3: not yet answered</div>
         <div class="mc-chip skip">Q4: not yet answered</div>
         <div class="mc-chip skip">Q5: not yet answered</div>
-        <div class="mc-chip skip">Q6: not yet answered</div>
         <div class="mc-chip skip">Q7: not yet answered</div>
         <div class="mc-chip skip">Q8: not yet answered</div>
-        <div class="mc-chip skip">Q9: not yet answered</div>
         <div class="mc-chip skip">Q10: not yet answered</div>
         <div class="mc-chip skip">Q11: not yet answered</div>
       </div>
@@ -863,12 +869,6 @@ hr.rule{border:none;border-top:2px dashed var(--border);margin:14px 0;}
     &#9989; Complete the lesson, then <strong>screenshot this card</strong> to submit. &nbsp;|&nbsp; &#128247; Windows: Win+Shift+S &nbsp;|&nbsp; Mac: Cmd+Shift+4 &nbsp;|&nbsp; Chromebook: Ctrl+Shift+Show Windows
   </div>
 
-  <!-- Next up -->
-  <div class="cc-next">
-    <p><strong>&#128202; Next Up: Climatogram Lab!</strong><br>Now you will use temperature &amp; precipitation data — the two biggest abiotic factors — to read real climate graphs and identify biomes.</p>
-    <button class="btn-next-lab" onclick="window.open('climatogram-lesson.html','_blank')">Open Lab &#x27A1;</button>
-  </div>
-
 </div><!-- /#completionCard -->
 
 <div class="btn-row" style="justify-content:center;">
@@ -879,20 +879,124 @@ hr.rule{border:none;border-top:2px dashed var(--border);margin:14px 0;}
 </div><!-- /s5 -->
 
 <script>
-// ── TIMER ─────────────────────────────────────────────────────────
-var tLeft = 45 * 60;
+// ═══════════════════════════════════════════════════════════════════
+// CONSTANTS
+// ═══════════════════════════════════════════════════════════════════
+var TOTAL_MC = 8; // q1, q2, q4, q5, q7, q8, q10, q11
+var MC_IDS   = ['q1','q2','q4','q5','q7','q8','q10','q11'];
+var SA_IDS   = ['q3t','q6t','q9t','q12t'];
+var STORAGE_KEY = 'abioticFactors_v1';
+
+// ═══════════════════════════════════════════════════════════════════
+// STATE — single source of truth, persisted to localStorage
+// ═══════════════════════════════════════════════════════════════════
+var state = {
+  mcResults: {},      // { q1: { letter:'C', ok:true }, ... }
+  saAnswers: {},      // { q3t: 'student text...', ... }
+  checkboxes: {},     // { chk0: true, ... }
+  ccName: '',
+  ccPeriod: '',
+  ccDate: '',
+  timerLeft: 45 * 60
+};
+
+// ─── Load from localStorage ───────────────────────────────────────
+function loadState() {
+  try {
+    var raw = localStorage.getItem(STORAGE_KEY);
+    if (raw) {
+      var saved = JSON.parse(raw);
+      Object.assign(state, saved);
+    }
+  } catch(e) {}
+}
+
+// ─── Save to localStorage ─────────────────────────────────────────
+var saveTimer = null;
+function persistState() {
+  try {
+    localStorage.setItem(STORAGE_KEY, JSON.stringify(state));
+    showSaveFlash();
+  } catch(e) {}
+}
+function debounceSave() {
+  clearTimeout(saveTimer);
+  saveTimer = setTimeout(persistState, 600);
+}
+
+var flashTimer = null;
+function showSaveFlash() {
+  var ind = document.getElementById('autoSaveIndicator');
+  if (!ind) return;
+  ind.classList.add('show');
+  clearTimeout(flashTimer);
+  flashTimer = setTimeout(function(){ ind.classList.remove('show'); }, 1800);
+}
+
+// ─── Apply loaded state to the DOM ───────────────────────────────
+function applyStateToDOM() {
+  // Short answers
+  SA_IDS.forEach(function(id) {
+    var el = document.getElementById(id);
+    if (!el) return;
+    if (state.saAnswers[id]) {
+      el.value = state.saAnswers[id];
+      el.classList.add('saved');
+      var fbId = id.replace('t','fb');
+      var fb = document.getElementById(fbId);
+      if (fb) { fb.className = 'fb show sv'; fb.textContent = '\u2705 Answer saved!'; }
+    }
+  });
+
+  // MC answers
+  MC_IDS.forEach(function(qid) {
+    var res = state.mcResults[qid];
+    if (!res) return;
+    applyMCResult(qid, res.letter, res.ok);
+  });
+
+  // Checkboxes
+  for (var i = 0; i < 8; i++) {
+    var cb = document.getElementById('chk' + i);
+    if (cb && state.checkboxes['chk' + i]) {
+      cb.checked = true;
+    }
+  }
+
+  // Name/period/date on completion card
+  var ccN = document.getElementById('ccName');
+  var ccP = document.getElementById('ccPeriod');
+  var ccD = document.getElementById('ccDate');
+  if (ccN && state.ccName) ccN.value = state.ccName;
+  if (ccP && state.ccPeriod) ccP.value = state.ccPeriod;
+  if (ccD && state.ccDate) ccD.value = state.ccDate;
+}
+
+// ═══════════════════════════════════════════════════════════════════
+// TIMER
+// ═══════════════════════════════════════════════════════════════════
 var timerEl = document.getElementById('timerTxt');
 var fillEl  = document.getElementById('progFill');
-setInterval(function() {
-  if (tLeft <= 0) { timerEl.textContent = 'Time Up!'; return; }
-  tLeft--;
-  var m = Math.floor(tLeft / 60);
-  var s = tLeft % 60;
-  timerEl.textContent = '\u23F1 ' + m + ':' + (s < 10 ? '0' : '') + s;
-  fillEl.style.width = ((45 * 60 - tLeft) / (45 * 60) * 100) + '%';
-}, 1000);
+var tLeft;
 
-// ── NAVIGATION ────────────────────────────────────────────────────
+function startTimer() {
+  tLeft = state.timerLeft || 45 * 60;
+  setInterval(function() {
+    if (tLeft <= 0) { timerEl.textContent = 'Time Up!'; return; }
+    tLeft--;
+    state.timerLeft = tLeft;
+    // Save timer every 30 sec to avoid too many writes
+    if (tLeft % 30 === 0) debounceSave();
+    var m = Math.floor(tLeft / 60);
+    var s = tLeft % 60;
+    timerEl.textContent = '\u23F1 ' + m + ':' + (s < 10 ? '0' : '') + s;
+    fillEl.style.width = ((45 * 60 - tLeft) / (45 * 60) * 100) + '%';
+  }, 1000);
+}
+
+// ═══════════════════════════════════════════════════════════════════
+// NAVIGATION
+// ═══════════════════════════════════════════════════════════════════
 var cur = 0;
 var LABELS = [
   'Part 1 of 5 \u2014 Abiotic Factors',
@@ -915,7 +1019,9 @@ function goTo(n) {
   if (n === 5) buildCompletionCard();
 }
 
-// ── VOCAB FLIP ────────────────────────────────────────────────────
+// ═══════════════════════════════════════════════════════════════════
+// VOCAB FLIP
+// ═══════════════════════════════════════════════════════════════════
 for (var vi = 0; vi < 8; vi++) {
   (function(i) {
     var el = document.getElementById('vc' + i);
@@ -928,7 +1034,9 @@ for (var vi = 0; vi < 8; vi++) {
   })(vi);
 }
 
-// ── FACTOR TILES ──────────────────────────────────────────────────
+// ═══════════════════════════════════════════════════════════════════
+// FACTOR TILES
+// ═══════════════════════════════════════════════════════════════════
 var factorData = {
   temp: {
     cls: 'fir',
@@ -1012,51 +1120,119 @@ document.getElementById('factorGrid').addEventListener('click', function(e) {
   box.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
 });
 
-// ── MULTIPLE CHOICE ───────────────────────────────────────────────
-var mcRight = 0, mcDone = 0;
-var mcAnswered = {};
+// ═══════════════════════════════════════════════════════════════════
+// MULTIPLE CHOICE — supports re-answering
+// ═══════════════════════════════════════════════════════════════════
+var mcRight = 0;
 
-document.addEventListener('click', function(e) {
-  var mo = e.target.closest('.mo');
-  if (!mo) return;
-  var q = mo.dataset.q;
-  var r = mo.dataset.r;
-  if (!q || !r || mcAnswered[q]) return;
-  mcAnswered[q] = true;
-  mcDone++;
-
-  var grp = document.getElementById(q + 'grp');
+// Apply a MC result to the DOM (used both on click and on restore)
+function applyMCResult(qid, chosenLetter, isOk) {
+  var grp = document.getElementById(qid + 'grp');
   if (!grp) return;
   var opts = grp.querySelectorAll('.mo');
-  opts.forEach(function(o) { o.style.pointerEvents = 'none'; });
 
-  var fb = document.getElementById(q + 'fb');
-  if (!fb) return;
-  fb.classList.add('show');
+  // Reset all options first
+  opts.forEach(function(o) {
+    o.classList.remove('ok','no','locked');
+    o.style.pointerEvents = '';
+    var lt = o.querySelector('.lt');
+    if (lt) lt.textContent = o.dataset.letter || lt.textContent;
+  });
 
-  if (r === 'ok') {
-    mo.classList.add('ok');
-    mo.querySelector('.lt').textContent = '\u2713';
-    mcRight++;
-    fb.className = 'fb show ok';
-    fb.textContent = '\u2705 Correct! Great thinking!';
-  } else {
-    mo.classList.add('no');
-    mo.querySelector('.lt').textContent = '\u2717';
-    fb.className = 'fb show no';
-    fb.textContent = '\u274C Not quite \u2014 look for the correct answer highlighted below.';
-    opts.forEach(function(o) {
-      if (o.dataset.r === 'ok') {
+  // Apply chosen result
+  opts.forEach(function(o) {
+    o.classList.add('locked');
+    o.style.pointerEvents = 'none';
+    var lt = o.querySelector('.lt');
+    if (o.dataset.letter === chosenLetter) {
+      if (isOk) {
         o.classList.add('ok');
-        o.querySelector('.lt').textContent = '\u2713';
+        if (lt) lt.textContent = '\u2713';
+      } else {
+        o.classList.add('no');
+        if (lt) lt.textContent = '\u2717';
       }
-    });
+    }
+    if (!isOk && o.dataset.r === 'ok') {
+      o.classList.add('ok');
+      if (lt) lt.textContent = '\u2713';
+    }
+  });
+
+  // Feedback
+  var fb = document.getElementById(qid + 'fb');
+  if (fb) {
+    fb.classList.add('show');
+    if (isOk) {
+      fb.className = 'fb show ok';
+      fb.textContent = '\u2705 Correct! Great thinking!';
+    } else {
+      fb.className = 'fb show no';
+      fb.textContent = '\u274C Not quite \u2014 look for the correct answer highlighted below.';
+    }
   }
+
+  // Show change-answer button
+  var changeDiv = document.getElementById(qid + 'change');
+  if (changeDiv) {
+    changeDiv.innerHTML = '<button class="change-btn" onclick="resetMC(\'' + qid + '\')">&#9998; Change Answer</button>';
+  }
+}
+
+function resetMC(qid) {
+  var grp = document.getElementById(qid + 'grp');
+  if (!grp) return;
+  var opts = grp.querySelectorAll('.mo');
+  opts.forEach(function(o) {
+    o.classList.remove('ok','no','locked');
+    o.style.pointerEvents = '';
+    var lt = o.querySelector('.lt');
+    if (lt) lt.textContent = o.dataset.letter || lt.textContent;
+  });
+  var fb = document.getElementById(qid + 'fb');
+  if (fb) { fb.className = 'fb'; fb.textContent = ''; }
+  var changeDiv = document.getElementById(qid + 'change');
+  if (changeDiv) changeDiv.innerHTML = '';
+
+  // Remove from state
+  delete state.mcResults[qid];
+  recalcMCRight();
+  debounceSave();
+}
+
+function recalcMCRight() {
+  mcRight = 0;
+  MC_IDS.forEach(function(qid) {
+    if (state.mcResults[qid] && state.mcResults[qid].ok) mcRight++;
+  });
+}
+
+// Main MC click handler
+document.addEventListener('click', function(e) {
+  var mo = e.target.closest('.mo');
+  if (!mo || mo.classList.contains('locked')) return;
+  var qid = mo.dataset.q;
+  var r   = mo.dataset.r;
+  var letter = mo.dataset.letter;
+  if (!qid || !r || !letter) return;
+  // Only allow clicking if not currently answered
+  if (state.mcResults[qid]) return;
+
+  var isOk = (r === 'ok');
+
+  // Store in state
+  state.mcResults[qid] = { letter: letter, ok: isOk };
+  recalcMCRight();
+  debounceSave();
+
+  applyMCResult(qid, letter, isOk);
 });
 
-// ── SHORT ANSWER SAVE ─────────────────────────────────────────────
+// ═══════════════════════════════════════════════════════════════════
+// SHORT ANSWER SAVE
+// ═══════════════════════════════════════════════════════════════════
 function saveAns(tid, fid) {
-  var t = document.getElementById(tid);
+  var t  = document.getElementById(tid);
   var fb = document.getElementById(fid);
   if (!t || !fb) return;
   if (t.value.trim().length < 5) {
@@ -1067,13 +1243,52 @@ function saveAns(tid, fid) {
   t.classList.add('saved');
   fb.className = 'fb show sv';
   fb.textContent = '\u2705 Answer saved!';
+
+  // Persist
+  state.saAnswers[tid] = t.value;
+  debounceSave();
 }
 
-// ── SCORE ─────────────────────────────────────────────────────────
+// Auto-save textarea on input (debounced)
+SA_IDS.forEach(function(id) {
+  var el = document.getElementById(id);
+  if (!el) return;
+  el.addEventListener('input', function() {
+    state.saAnswers[id] = el.value;
+    debounceSave();
+  });
+});
+
+// ═══════════════════════════════════════════════════════════════════
+// CHECKBOXES — persist
+// ═══════════════════════════════════════════════════════════════════
+document.getElementById('checklistUl').addEventListener('change', function(e) {
+  if (e.target && e.target.type === 'checkbox') {
+    state.checkboxes[e.target.id] = e.target.checked;
+    debounceSave();
+  }
+});
+
+// ═══════════════════════════════════════════════════════════════════
+// COMPLETION CARD NAME/PERIOD/DATE — persist
+// ═══════════════════════════════════════════════════════════════════
+['ccName','ccPeriod','ccDate'].forEach(function(id) {
+  var el = document.getElementById(id);
+  if (!el) return;
+  el.addEventListener('input', function() {
+    state[id] = el.value;
+    debounceSave();
+  });
+});
+
+// ═══════════════════════════════════════════════════════════════════
+// SCORE — out of TOTAL_MC (8), not just answered
+// ═══════════════════════════════════════════════════════════════════
 function calcScore() {
-  var pct = mcDone > 0 ? Math.round(mcRight / mcDone * 100) : 0;
+  recalcMCRight();
+  var pct = Math.round(mcRight / TOTAL_MC * 100);
   var scoreEl = document.getElementById('scoreNum');
-  if (scoreEl) scoreEl.textContent = mcRight + '/' + mcDone;
+  if (scoreEl) scoreEl.textContent = mcRight + '/' + TOTAL_MC;
   var box = document.getElementById('scoreBox');
   var msg = '';
   if (pct >= 80) {
@@ -1090,69 +1305,41 @@ function calcScore() {
   if (lbl) lbl.textContent = msg;
 }
 
-// ── COMPLETION CARD ───────────────────────────────────────────────
-// Maps question IDs to friendly labels for the MC chips
-var mcLabels = {
-  q1: 'Q1', q2: 'Q2', q3: 'Q3', q4: 'Q4', q5: 'Q5',
-  q6: 'Q6', q7: 'Q7', q8: 'Q8', q9: 'Q9', q10: 'Q10', q11: 'Q11'
-};
-// Stores which answer each MC question got and whether it was right
-var mcResults = {};
-
-// Patch the MC handler to also record results for completion card
-var _origMcDone = mcDone;
-document.addEventListener('click', function(e) {
-  var mo = e.target.closest('.mo');
-  if (!mo) return;
-  var q = mo.dataset.q;
-  var r = mo.dataset.r;
-  if (q && r && mcResults[q] === undefined) {
-    // Record the label text and result
-    var labelEl = mo.querySelector('.lt');
-    var letter = labelEl ? labelEl.textContent : '?';
-    // get the text content minus the letter bubble
-    var full = mo.textContent.replace(letter, '').trim();
-    mcResults[q] = { letter: letter, text: full, ok: (r === 'ok') };
-  }
-}, true); // capture phase so we record before the main handler
-
-function getVal(id) {
-  var el = document.getElementById(id);
-  if (!el) return '';
-  return (el.value || '').trim();
-}
-
+// ═══════════════════════════════════════════════════════════════════
+// COMPLETION CARD BUILD
+// ═══════════════════════════════════════════════════════════════════
 function buildCompletionCard() {
+  recalcMCRight();
+
   // Score badge
-  var pct = mcDone > 0 ? Math.round(mcRight / mcDone * 100) : 0;
+  var pct = Math.round(mcRight / TOTAL_MC * 100);
   var badge = document.getElementById('ccScoreBadge');
   if (badge) {
-    badge.innerHTML = mcRight + '/' + mcDone + '<span>MC Score</span>';
-    if (pct >= 80) badge.style.background = 'rgba(45,138,78,.5)';
+    badge.innerHTML = mcRight + '/' + TOTAL_MC + '<span>MC Score</span>';
+    if (pct >= 80)      badge.style.background = 'rgba(45,138,78,.5)';
     else if (pct >= 55) badge.style.background = 'rgba(192,120,24,.5)';
-    else badge.style.background = 'rgba(217,79,43,.4)';
+    else                badge.style.background = 'rgba(217,79,43,.4)';
   }
 
-  // MC chips
+  // MC chips — only the 8 actual MC questions
   var chipWrap = document.getElementById('ccMcSummary');
   if (chipWrap) {
     var html = '';
-    var qList = ['q1','q2','q3','q4','q5','q6','q7','q8','q9','q10','q11'];
-    qList.forEach(function(qid, idx) {
-      var res = mcResults[qid];
-      var label = 'Q' + (idx + 1);
+    MC_IDS.forEach(function(qid) {
+      var num = qid.replace('q','Q');
+      var res = state.mcResults[qid];
       if (!res) {
-        html += '<div class="mc-chip skip">' + label + ': skipped</div>';
+        html += '<div class="mc-chip skip">' + num + ': skipped</div>';
       } else if (res.ok) {
-        html += '<div class="mc-chip ok">\u2713 ' + label + ' correct</div>';
+        html += '<div class="mc-chip ok">\u2713 ' + num + ' correct</div>';
       } else {
-        html += '<div class="mc-chip no">\u2717 ' + label + ' incorrect</div>';
+        html += '<div class="mc-chip no">\u2717 ' + num + ' incorrect</div>';
       }
     });
     chipWrap.innerHTML = html;
   }
 
-  // Short answers — map textarea IDs to completion card display IDs
+  // Short answers — read directly from textareas
   var saMap = [
     { src: 'q3t',  dst: 'cc-q3'  },
     { src: 'q6t',  dst: 'cc-q6'  },
@@ -1160,8 +1347,9 @@ function buildCompletionCard() {
     { src: 'q12t', dst: 'cc-q12' }
   ];
   saMap.forEach(function(m) {
-    var val = getVal(m.src);
-    var el = document.getElementById(m.dst);
+    var srcEl = document.getElementById(m.src);
+    var val   = srcEl ? srcEl.value.trim() : (state.saAnswers[m.src] || '');
+    var el    = document.getElementById(m.dst);
     if (!el) return;
     if (val.length > 0) {
       el.textContent = val;
@@ -1175,15 +1363,25 @@ function buildCompletionCard() {
   // Auto-fill date if empty
   var dateEl = document.getElementById('ccDate');
   if (dateEl && !dateEl.value) {
-    var d = new Date();
+    var d  = new Date();
     var mo = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
-    dateEl.value = mo[d.getMonth()] + ' ' + d.getDate() + ', ' + d.getFullYear();
+    var dateStr = mo[d.getMonth()] + ' ' + d.getDate() + ', ' + d.getFullYear();
+    dateEl.value = dateStr;
+    state.ccDate = dateStr;
   }
 }
 
 function refreshCard() {
   buildCompletionCard();
 }
+
+// ═══════════════════════════════════════════════════════════════════
+// INIT
+// ═══════════════════════════════════════════════════════════════════
+loadState();
+applyStateToDOM();
+recalcMCRight();
+startTimer();
 </script>
 </body>
 </html>
