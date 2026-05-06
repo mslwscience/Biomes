@@ -1412,73 +1412,7 @@ const UNLOCK_GAMES = ['wordsearch','crossword','matching','dragdrop','quiz','scr
 const MM1_THRESHOLD = 4;  // need 4 games with 2+ stars
 const MM2_THRESHOLD = 7;  // need 7 games with 2+ stars
 let mm1Unlocked = false, mm2Unlocked = false;
-// =============================================
-// SAVE / LOAD PROGRESS
-// =============================================
-const SAVE_KEY = 'biomesExplorerSave_v2';
 
-function saveProgress() {
-  const saveData = {
-    scores,
-    mm1Unlocked,
-    mm2Unlocked// =============================================
-// SAVE / LOAD PROGRESS
-// =============================================
-const SAVE_KEY = 'biomesExplorerSave_v2';
-
-function saveProgress() {
-  const saveData = {
-    scores,
-    mm1Unlocked,
-    mm2Unlocked
-  };
-
-  localStorage.setItem(SAVE_KEY, JSON.stringify(saveData));
-}
-
-function loadProgress() {
-  const raw = localStorage.getItem(SAVE_KEY);
-
-  if (!raw) return;
-
-  try {
-    const saveData = JSON.parse(raw);
-
-    if (saveData.scores) {
-      Object.assign(scores, saveData.scores);
-    }
-
-    mm1Unlocked = !!saveData.mm1Unlocked;
-    mm2Unlocked = !!saveData.mm2Unlocked;
-
-  } catch (err) {
-    console.error('Failed to load save data:', err);
-  }
-}
-  };
-
-  localStorage.setItem(SAVE_KEY, JSON.stringify(saveData));
-}
-
-function loadProgress() {
-  const raw = localStorage.getItem(SAVE_KEY);
-
-  if (!raw) return;
-
-  try {
-    const saveData = JSON.parse(raw);
-
-    if (saveData.scores) {
-      Object.assign(scores, saveData.scores);
-    }
-
-    mm1Unlocked = !!saveData.mm1Unlocked;
-    mm2Unlocked = !!saveData.mm2Unlocked;
-
-  } catch (err) {
-    console.error('Failed to load save data:', err);
-  }
-}
 function getStarCount(game) {
   const pts = scores[game], max = maxScores[game];
   if (!max || pts === undefined) return 0;
