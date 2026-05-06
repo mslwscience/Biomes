@@ -1126,7 +1126,8 @@ body {
   <div class="progress-bar-wrap">
     <div class="progress-bar"><div class="progress-fill" id="ws-progress" style="width:0%"></div></div>
   </div>
-  <div class="game-body" id="tow-body"></div>
+  <div class="game-body" id="tow-body">
+    <div class="section-label" id="star-help-wordsearch"></div></div>
 </div>
 
 <!-- ============================================================ -->
@@ -1142,6 +1143,7 @@ body {
     <div class="progress-bar"><div class="progress-fill" id="cw-progress" style="width:0%"></div></div>
   </div>
   <div class="game-body">
+    <div class="section-label" id="star-help-crossword"></div>
     <div class="section-label">Click a cell to type — use the clues below to fill the grid</div>
     <div style="overflow-x:auto;margin-bottom:20px;">
       <div id="cw-visual-grid"></div>
@@ -1173,6 +1175,7 @@ body {
     <div class="progress-bar"><div class="progress-fill" id="match-progress" style="width:0%"></div></div>
   </div>
   <div class="game-body">
+    <div class="section-label" id="star-help-matching"></div>
     <div class="section-label">Click a word, then click its definition</div>
     <div class="match-grid">
       <div class="match-col" id="match-words"></div>
@@ -1194,6 +1197,7 @@ body {
     <div class="progress-bar"><div class="progress-fill" id="dnd-progress" style="width:0%"></div></div>
   </div>
   <div class="game-body">
+    <div class="section-label" id="star-help-dragdrop"></div>
     <div class="section-label">Drag each word from the bank into the correct blank</div>
     <div id="dnd-questions"></div>
     <div class="word-bank-dnd" id="dnd-bank"></div>
@@ -1218,6 +1222,7 @@ body {
     <div id="ff-status" style="text-align:center;font-size:12px;color:var(--text3);margin-top:6px;letter-spacing:1px;"></div>
   </div>
   <div class="game-body" style="padding:8px 16px 12px; flex:1;">
+    <div class="section-label" id="star-help-quiz"></div>
     <div id="quiz-body" style="height:100%;">
       <canvas id="ff-canvas" style="display:block;border-radius:12px;border:1px solid var(--green2);background:var(--bg2);touch-action:none;cursor:pointer;width:100%;"></canvas>
     </div>
@@ -1237,6 +1242,7 @@ body {
     <div class="progress-bar"><div class="progress-fill" id="scr-progress" style="width:0%"></div></div>
   </div>
   <div class="game-body">
+    <div class="section-label" id="star-help-scramble"></div>
     <div class="section-label">Unscramble the letters to spell the vocabulary word</div>
     <div id="scr-content"></div>
   </div>
@@ -1254,7 +1260,8 @@ body {
   <div class="progress-bar-wrap">
     <div class="progress-bar"><div class="progress-fill" id="ooo-progress" style="width:0%"></div></div>
   </div>
-  <div class="game-body" id="ooo-body"></div>
+  <div class="game-body" id="ooo-body">
+    <div class="section-label" id="star-help-oddoneout"></div></div>
 </div>
 
 <!-- ============================================================ -->
@@ -1270,6 +1277,7 @@ body {
     <div class="progress-bar"><div class="progress-fill" id="mem-progress" style="width:0%"></div></div>
   </div>
   <div class="game-body">
+    <div class="section-label" id="star-help-memorymatch"></div>
     <div class="section-label">Flip cards to match each word with its definition!</div>
     <div id="mem-grid" class="mem-grid"></div>
     <div id="mem-complete" style="display:none;" class="mt-24" style="text-align:center;">
@@ -1291,7 +1299,8 @@ body {
   <div class="progress-bar-wrap">
     <div class="progress-bar"><div class="progress-fill" id="spd-progress" style="width:0%"></div></div>
   </div>
-  <div class="game-body" id="spd-body"></div>
+  <div class="game-body" id="spd-body">
+    <div class="section-label" id="star-help-speedround"></div></div>
 </div>
 
 <!-- ============================================================ -->
@@ -1306,7 +1315,8 @@ body {
   <div class="progress-bar-wrap">
     <div class="progress-bar"><div class="progress-fill" id="sb-progress" style="width:0%"></div></div>
   </div>
-  <div class="game-body" id="sb-body"></div>
+  <div class="game-body" id="sb-body">
+    <div class="section-label" id="star-help-sentencebuilder"></div></div>
 </div>
 
 <!-- ============================================================ -->
@@ -1501,9 +1511,34 @@ const maxScores = { wordsearch: 10, crossword: 10, matching: 10, dragdrop: 10, q
 loadProgress();
 refreshStarDisplay();
 updateUnlockUI();
+setupStarHelp();
   jokeIdx = Math.floor(Math.random() * GECKO_JOKES.length); // start on a random joke
   showJoke();
 })();
+
+
+function scoreToStars(score, max) {
+  if (score >= max) return '★★★';
+  if (score >= Math.ceil(max * 0.6)) return '★★☆';
+  if (score > 0) return '★☆☆';
+  return '☆☆☆';
+}
+
+function getStarRequirementText(game) {
+  const max = maxScores[game] || 1;
+  const twoStar = Math.ceil(max * 0.6);
+
+  return `⭐ 1 Star = Get at least 1 correct • ⭐⭐ 2 Stars = Get ${twoStar}/${max} correct • ⭐⭐⭐ 3 Stars = Get all ${max}/${max} correct!`;
+}
+
+function setupStarHelp() {
+  Object.keys(maxScores).forEach(game => {
+    const el = document.getElementById(`star-help-${game}`);
+    if (el) {
+      el.textContent = getStarRequirementText(game);
+    }
+  });
+}
 
 function getStarCount(game) {
   const pts = scores[game], max = maxScores[game];
