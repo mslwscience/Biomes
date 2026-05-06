@@ -1676,7 +1676,11 @@ function showToast(msg, type='correct') {
 function storeScore(game, pts, max) {
   // Keep the BEST score — never overwrite a higher score with a lower one
   const prev = scores[game] || 0;
-  if (pts > prev) scores[game] = pts;
+  if (pts > prev) {
+    scores[game] = pts;
+    saveProgress();
+  }
+
   refreshStarDisplay();
   if (UNLOCK_GAMES.includes(game)) updateUnlockUI();
 }
