@@ -1412,84 +1412,6 @@ const UNLOCK_GAMES = ['wordsearch','crossword','matching','dragdrop','quiz','scr
 const MM1_THRESHOLD = 4;  // need 4 games with 2+ stars
 const MM2_THRESHOLD = 7;  // need 7 games with 2+ stars
 let mm1Unlocked = false, mm2Unlocked = false;
-  // =============================================
-// SAVE / LOAD PROGRESS
-// =============================================
-const SAVE_KEY = 'biomesExplorerSave_v2';
-
-function saveProgress() {
-  const saveData = {
-    scores,
-    mm1Unlocked,
-    mm2Unlocked
-  };
-
-  localStorage.setItem(SAVE_KEY, JSON.stringify(saveData));
-}
-
-function loadProgress() {
-  const raw = localStorage.getItem(SAVE_KEY);
-
-  if (!raw) return;
-
-  try {
-    const saveData = JSON.parse(raw);
-
-    if (saveData.scores) {
-      Object.assign(scores, saveData.scores);
-    }
-
-    mm1Unlocked = !!saveData.mm1Unlocked;
-    mm2Unlocked = !!saveData.mm2Unlocked;
-
-    // Restore Mission Map 1 UI
-    if (mm1Unlocked) {
-      const card = document.getElementById('card-missionmap1');
-
-      card.classList.remove('is-locked');
-      card.classList.add('is-unlocked');
-
-      document.getElementById('mm1-icon').textContent = '📋';
-      document.getElementById('mm1-desc').innerHTML =
-        'The original worksheet (Q1–10) — drag answers from the word bank!';
-
-      document.getElementById('mm1-unlock-bar').style.display = 'none';
-
-      document.getElementById('mm1-unlock-label').textContent =
-        '✅ Unlocked!';
-
-      document.getElementById('mm1-unlock-label').style.color =
-        'var(--correct)';
-    }
-
-    // Restore Mission Map 2 UI
-    if (mm2Unlocked) {
-      const card = document.getElementById('card-missionmap2');
-
-      card.classList.remove('is-locked');
-      card.classList.add('is-unlocked');
-
-      document.getElementById('mm2-icon').textContent = '📋';
-      document.getElementById('mm2-desc').innerHTML =
-        'The original worksheet (Q11–20) — drag answers from the word bank!';
-
-      document.getElementById('mm2-unlock-bar').style.display = 'none';
-
-      document.getElementById('mm2-unlock-label').textContent =
-        '✅ Unlocked!';
-
-      document.getElementById('mm2-unlock-label').style.color =
-        'var(--correct)';
-    }
-
-  } catch (err) {
-    console.error('Failed to load save data:', err);
-  }
-}
-// =============================================
-// SAVE / LOAD PROGRESS
-// =============================================
-
 
 function getStarCount(game) {
   const pts = scores[game], max = maxScores[game];
@@ -1627,9 +1549,7 @@ const maxScores = { wordsearch: 10, crossword: 10, matching: 10, dragdrop: 10, q
 (function initLockState() {
   document.getElementById('card-missionmap1').classList.add('is-locked');
   document.getElementById('card-missionmap2').classList.add('is-locked');
-loadProgress();
-updateStarDisplays();
-updateUnlockUI();
+  updateUnlockUI();
   jokeIdx = Math.floor(Math.random() * GECKO_JOKES.length); // start on a random joke
   showJoke();
 })();
