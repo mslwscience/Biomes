@@ -1594,11 +1594,24 @@ function showToast(msg, type='correct') {
 }
 
 function storeScore(game, pts, max) {
-  scores[game] = pts;
-  const stars = pts >= max ? '★★★' : pts >= max*0.6 ? '★★☆' : pts > 0 ? '★☆☆' : '☆☆☆';
-  const el = document.getElementById('stars-' + game);
-  if (el) el.textContent = stars;
+  // Keep the BEST score — never overwrite a higher score with a lower one
+  const prev = scores[game] || 0;
+  if (pts > prev) scores[game] = pts;
+  refreshStarDisplay();
   if (UNLOCK_GAMES.includes(game)) updateUnlockUI();
+}
+
+function refreshStarDisplay() {
+  // Re-paint every star element from the scores object
+  // Called on storeScore AND on goHome so stars always reflect saved scores
+  Object.keys(scores).forEach(game => {
+    const pts = scores[game];
+    const max = maxScores[game];
+    if (!max) return;
+    const stars = pts >= max ? '★★★' : pts >= max * 0.6 ? '★★☆' : pts > 0 ? '★☆☆' : '☆☆☆';
+    const el = document.getElementById('stars-' + game);
+    if (el) el.textContent = stars;
+  });
 }
 
 // =============================================
@@ -1611,10 +1624,12 @@ function goHome() {
   ffKeys = {}; ffDpad = {up:false,down:false,left:false,right:false};
   document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
   document.getElementById('screen-home').classList.add('active');
+  refreshStarDisplay(); // always repaint stars from saved scores
   nextJoke();
 }
 
 function startGame(name) {
+  refreshStarDisplay(); // snapshot current stars before leaving home
   document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
   document.getElementById('screen-' + name).classList.add('active');
   const builders = {
