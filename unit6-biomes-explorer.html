@@ -987,11 +987,11 @@ body {
 <body>
 
 <!-- Ambient fireflies -->
-<div class="jungle-bg"></div>
-<div id="fireflies"></div>
+<div class="jungle-bg"></diviv>
+<div id="fireflies"></diviv>
 
 <!-- Toast feedback -->
-<div class="toast" id="toast"></div>
+<div class="toast" id="toast"></diviv>
 
 <!-- ============================================================ -->
 <!-- HOME SCREEN -->
@@ -1014,8 +1014,8 @@ body {
     <div id="joke-panel" style="background:var(--panel2);border:1px solid var(--green3);border-radius:12px;padding:12px 18px;margin-bottom:16px;display:flex;gap:12px;align-items:center;cursor:pointer;" onclick="nextJoke()" title="Click for another joke!">
       <span style="font-size:26px;flex-shrink:0;">😂</span>
       <div style="flex:1;">
-        <div style="font-size:10px;color:var(--text3);letter-spacing:2px;text-transform:uppercase;margin-bottom:4px;">Professor Gecko's Science Corner <span style="color:var(--text3);font-size:9px;">— tap for next joke →</span></div>
-        <div id="joke-text" style="font-family:'Special Elite',serif;font-size:14px;color:var(--accent2);line-height:1.5;"></div>
+        <div style="font-size:10px;color:var(--text3);letter-spacing:2px;text-transform:uppercase;margin-bottom:4px;">Professor Gecko's Science Corner <span style="color:var(--text3);font-size:9px;">— tap for next joke →</span></diviv>
+        <div id="joke-text" style="font-family:'Special Elite',serif;font-size:14px;color:var(--accent2);line-height:1.5;"></diviv>
       </div>
     </div>
 
@@ -1096,7 +1096,7 @@ body {
         <div class="mission-title" style="color:var(--gold2);">Mission Map — Page 1</div>
         <div class="mission-desc" id="mm1-desc">Complete <strong style="color:var(--gold);">4 games with ★★☆ or better</strong> to unlock the original worksheet!</div>
         <div class="unlock-progress" id="mm1-unlock-bar">
-          <div class="unlock-fill" id="mm1-unlock-fill" style="width:0%"></div>
+          <div class="unlock-fill" id="mm1-unlock-fill" style="width:0%"></diviv>
         </div>
         <div class="unlock-label" id="mm1-unlock-label">0 / 4 games unlocked</div>
       </div>
@@ -1106,7 +1106,7 @@ body {
         <div class="mission-title" style="color:var(--gold2);">Mission Map — Page 2</div>
         <div class="mission-desc" id="mm2-desc">Complete <strong style="color:var(--gold);">7 games with ★★☆ or better</strong> to unlock the second worksheet!</div>
         <div class="unlock-progress" id="mm2-unlock-bar">
-          <div class="unlock-fill" id="mm2-unlock-fill" style="width:0%"></div>
+          <div class="unlock-fill" id="mm2-unlock-fill" style="width:0%"></diviv>
         </div>
         <div class="unlock-label" id="mm2-unlock-label">0 / 7 games unlocked</div>
       </div>
@@ -1121,14 +1121,15 @@ body {
   <div class="game-header">
     <button class="btn-back" onclick="goHome()">← Back</button>
     <div class="game-header-title">🌳 Tree of Wisdom</div>
-    <div class="score-badge">⭐ <span id="ws-score">0</span></div>
+    <div class="score-badge">⭐ <span id="ws-score">0</span></diviv>
   </div>
   <div class="progress-bar-wrap">
-    <div class="progress-bar"><div class="progress-fill" id="ws-progress" style="width:0%"></div></div>
+    <div class="progress-bar"><div class="progress-fill" id="ws-progress" style="width:0%"></diviv></diviv>
   </div>
-  <div class="game-body" id="tow-body">
-    <div class="section-label" id="star-help-wordsearch"></div>>
-</div>
+  <div class="game-body">
+    <div class="section-label" id="star-help-wordsearch"></diviv>
+    <div id="tow-body"></diviv>
+</diviv>
 
 <!-- ============================================================ -->
 <!-- CROSSWORD -->
@@ -1137,25 +1138,25 @@ body {
   <div class="game-header">
     <button class="btn-back" onclick="goHome()">← Back</button>
     <div class="game-header-title">📜 Crossword Canopy</div>
-    <div class="score-badge">⭐ <span id="cw-score">0</span></div>
+    <div class="score-badge">⭐ <span id="cw-score">0</span></diviv>
   </div>
   <div class="progress-bar-wrap">
-    <div class="progress-bar"><div class="progress-fill" id="cw-progress" style="width:0%"></div></div>
+    <div class="progress-bar"><div class="progress-fill" id="cw-progress" style="width:0%"></diviv></diviv>
   </div>
   <div class="game-body">
-    <div class="section-label" id="star-help-crossword"></div>
+    <div class="section-label" id="star-help-crossword"></diviv>
     <div class="section-label">Click a cell to type — use the clues below to fill the grid</div>
     <div style="overflow-x:auto;margin-bottom:20px;">
-      <div id="cw-visual-grid"></div>
+      <div id="cw-visual-grid"></diviv>
     </div>
     <div class="cw-clue-grid">
       <div>
         <div class="cw-section-title">🌱 Across</div>
-        <div id="cw-across"></div>
+        <div id="cw-across"></diviv>
       </div>
       <div>
         <div class="cw-section-title">🌿 Down</div>
-        <div id="cw-down"></div>
+        <div id="cw-down"></diviv>
       </div>
     </div>
     <button class="btn btn-primary" onclick="checkCrossword()">Check Answers</button>
@@ -1169,17 +1170,17 @@ body {
   <div class="game-header">
     <button class="btn-back" onclick="goHome()">← Back</button>
     <div class="game-header-title">🍃 Leaf Match</div>
-    <div class="score-badge">⭐ <span id="match-score">0</span></div>
+    <div class="score-badge">⭐ <span id="match-score">0</span></diviv>
   </div>
   <div class="progress-bar-wrap">
-    <div class="progress-bar"><div class="progress-fill" id="match-progress" style="width:0%"></div></div>
+    <div class="progress-bar"><div class="progress-fill" id="match-progress" style="width:0%"></diviv></diviv>
   </div>
   <div class="game-body">
-    <div class="section-label" id="star-help-matching"></div>
+    <div class="section-label" id="star-help-matching"></diviv>
     <div class="section-label">Click a word, then click its definition</div>
     <div class="match-grid">
-      <div class="match-col" id="match-words"></div>
-      <div class="match-col" id="match-defs"></div>
+      <div class="match-col" id="match-words"></diviv>
+      <div class="match-col" id="match-defs"></diviv>
     </div>
   </div>
 </div>
@@ -1191,16 +1192,16 @@ body {
   <div class="game-header">
     <button class="btn-back" onclick="goHome()">← Back</button>
     <div class="game-header-title">🌿 Vine Drop</div>
-    <div class="score-badge">⭐ <span id="dnd-score">0</span></div>
+    <div class="score-badge">⭐ <span id="dnd-score">0</span></diviv>
   </div>
   <div class="progress-bar-wrap">
-    <div class="progress-bar"><div class="progress-fill" id="dnd-progress" style="width:0%"></div></div>
+    <div class="progress-bar"><div class="progress-fill" id="dnd-progress" style="width:0%"></diviv></diviv>
   </div>
   <div class="game-body">
-    <div class="section-label" id="star-help-dragdrop"></div>
+    <div class="section-label" id="star-help-dragdrop"></diviv>
     <div class="section-label">Drag each word from the bank into the correct blank</div>
-    <div id="dnd-questions"></div>
-    <div class="word-bank-dnd" id="dnd-bank"></div>
+    <div id="dnd-questions"></diviv>
+    <div class="word-bank-dnd" id="dnd-bank"></diviv>
     <button class="btn btn-primary mt-16" onclick="checkDND()">Check Answers</button>
   </div>
 </div>
@@ -1212,17 +1213,17 @@ body {
   <div class="game-header">
     <button class="btn-back" onclick="goHome()">← Back</button>
     <div class="game-header-title" id="quiz-header-title">🍽️ Feeding Frenzy</div>
-    <div class="score-badge">⭐ <span id="quiz-score">0</span></div>
+    <div class="score-badge">⭐ <span id="quiz-score">0</span></diviv>
   </div>
   <div class="progress-bar-wrap">
-    <div class="progress-bar"><div class="progress-fill" id="quiz-progress" style="width:0%"></div></div>
+    <div class="progress-bar"><div class="progress-fill" id="quiz-progress" style="width:0%"></diviv></diviv>
   </div>
   <div style="padding:10px 16px 0; width:100%; max-width:900px;">
-    <div id="ff-question" style="background:var(--panel2);border:1px solid var(--green3);border-radius:10px;padding:14px 18px;font-size:18px;font-family:'Special Elite',serif;color:var(--text);line-height:1.5;text-align:center;min-height:60px;"></div>
-    <div id="ff-status" style="text-align:center;font-size:12px;color:var(--text3);margin-top:6px;letter-spacing:1px;"></div>
+    <div id="ff-question" style="background:var(--panel2);border:1px solid var(--green3);border-radius:10px;padding:14px 18px;font-size:18px;font-family:'Special Elite',serif;color:var(--text);line-height:1.5;text-align:center;min-height:60px;"></diviv>
+    <div id="ff-status" style="text-align:center;font-size:12px;color:var(--text3);margin-top:6px;letter-spacing:1px;"></diviv>
   </div>
   <div class="game-body" style="padding:8px 16px 12px; flex:1;">
-    <div class="section-label" id="star-help-quiz"></div>
+    <div class="section-label" id="star-help-quiz"></diviv>
     <div id="quiz-body" style="height:100%;">
       <canvas id="ff-canvas" style="display:block;border-radius:12px;border:1px solid var(--green2);background:var(--bg2);touch-action:none;cursor:pointer;width:100%;"></canvas>
     </div>
@@ -1236,15 +1237,15 @@ body {
   <div class="game-header">
     <button class="btn-back" onclick="goHome()">← Back</button>
     <div class="game-header-title">🐛 Scrambled Jungle</div>
-    <div class="score-badge">⭐ <span id="scr-score">0</span></div>
+    <div class="score-badge">⭐ <span id="scr-score">0</span></diviv>
   </div>
   <div class="progress-bar-wrap">
-    <div class="progress-bar"><div class="progress-fill" id="scr-progress" style="width:0%"></div></div>
+    <div class="progress-bar"><div class="progress-fill" id="scr-progress" style="width:0%"></diviv></diviv>
   </div>
   <div class="game-body">
-    <div class="section-label" id="star-help-scramble"></div>
+    <div class="section-label" id="star-help-scramble"></diviv>
     <div class="section-label">Unscramble the letters to spell the vocabulary word</div>
-    <div id="scr-content"></div>
+    <div id="scr-content"></diviv>
   </div>
 </div>
 
@@ -1255,13 +1256,13 @@ body {
   <div class="game-header">
     <button class="btn-back" onclick="goHome()">← Back</button>
     <div class="game-header-title">🦜 Odd One Out</div>
-    <div class="score-badge">⭐ <span id="ooo-score">0</span></div>
+    <div class="score-badge">⭐ <span id="ooo-score">0</span></diviv>
   </div>
   <div class="progress-bar-wrap">
-    <div class="progress-bar"><div class="progress-fill" id="ooo-progress" style="width:0%"></div></div>
+    <div class="progress-bar"><div class="progress-fill" id="ooo-progress" style="width:0%"></diviv></diviv>
   </div>
   <div class="game-body" id="ooo-body">
-    <div class="section-label" id="star-help-oddoneout"></div></div>
+    <div class="section-label" id="star-help-oddoneout"></diviv></diviv>
 </div>
 
 <!-- ============================================================ -->
@@ -1271,18 +1272,18 @@ body {
   <div class="game-header">
     <button class="btn-back" onclick="goHome()">← Back</button>
     <div class="game-header-title">🃏 Memory Canopy</div>
-    <div class="score-badge">⭐ <span id="mem-score">0</span></div>
+    <div class="score-badge">⭐ <span id="mem-score">0</span></diviv>
   </div>
   <div class="progress-bar-wrap">
-    <div class="progress-bar"><div class="progress-fill" id="mem-progress" style="width:0%"></div></div>
+    <div class="progress-bar"><div class="progress-fill" id="mem-progress" style="width:0%"></diviv></diviv>
   </div>
   <div class="game-body">
-    <div class="section-label" id="star-help-memorymatch"></div>
+    <div class="section-label" id="star-help-memorymatch"></diviv>
     <div class="section-label">Flip cards to match each word with its definition!</div>
-    <div id="mem-grid" class="mem-grid"></div>
+    <div id="mem-grid" class="mem-grid"></diviv>
     <div id="mem-complete" style="display:none;" class="mt-24" style="text-align:center;">
       <div style="color:var(--accent);font-family:'Special Elite',serif;font-size:20px;text-align:center;">🃏 All Pairs Found!</div>
-      <div style="text-align:center;margin-top:12px;"><button class="btn btn-gold" onclick="goHome()">Back to Missions</button></div>
+      <div style="text-align:center;margin-top:12px;"><button class="btn btn-gold" onclick="goHome()">Back to Missions</button></diviv>
     </div>
   </div>
 </div>
@@ -1294,13 +1295,13 @@ body {
   <div class="game-header">
     <button class="btn-back" onclick="goHome()">← Back</button>
     <div class="game-header-title">⚡ Speed Round</div>
-    <div class="score-badge">⭐ <span id="spd-score">0</span></div>
+    <div class="score-badge">⭐ <span id="spd-score">0</span></diviv>
   </div>
   <div class="progress-bar-wrap">
-    <div class="progress-bar"><div class="progress-fill" id="spd-progress" style="width:0%"></div></div>
+    <div class="progress-bar"><div class="progress-fill" id="spd-progress" style="width:0%"></diviv></diviv>
   </div>
   <div class="game-body" id="spd-body">
-    <div class="section-label" id="star-help-speedround"></div></div>
+    <div class="section-label" id="star-help-speedround"></diviv></diviv>
 </div>
 
 <!-- ============================================================ -->
@@ -1310,13 +1311,13 @@ body {
   <div class="game-header">
     <button class="btn-back" onclick="goHome()">← Back</button>
     <div class="game-header-title">🌱 Sentence Builder</div>
-    <div class="score-badge">⭐ <span id="sb-score">0</span></div>
+    <div class="score-badge">⭐ <span id="sb-score">0</span></diviv>
   </div>
   <div class="progress-bar-wrap">
-    <div class="progress-bar"><div class="progress-fill" id="sb-progress" style="width:0%"></div></div>
+    <div class="progress-bar"><div class="progress-fill" id="sb-progress" style="width:0%"></diviv></diviv>
   </div>
   <div class="game-body" id="sb-body">
-    <div class="section-label" id="star-help-sentencebuilder"></div></div>
+    <div class="section-label" id="star-help-sentencebuilder"></diviv></diviv>
 </div>
 
 <!-- ============================================================ -->
@@ -1329,22 +1330,22 @@ body {
     <div class="score-badge">⭐ <span id="mm1-score">0</span>/10</div>
   </div>
   <div class="progress-bar-wrap">
-    <div class="progress-bar"><div class="progress-fill" id="mm1-progress" style="width:0%"></div></div>
+    <div class="progress-bar"><div class="progress-fill" id="mm1-progress" style="width:0%"></diviv></diviv>
   </div>
   <div class="game-body">
     <div style="background:rgba(240,192,64,0.07);border:1px solid rgba(240,192,64,0.3);border-radius:10px;padding:12px 16px;margin-bottom:18px;font-size:13px;color:var(--text2);line-height:1.6;">
       🦎 <strong style="color:var(--gold);">Professor Gecko says:</strong> Drag each word from the bank into the correct blank. Click <em>Check Answers</em> to see how you did — wrong answers will get a hint to help you fix them. When every answer is green, you're done! 🌿
     </div>
-    <div id="mm1-questions"></div>
+    <div id="mm1-questions"></diviv>
     <div style="background:var(--panel2);border:1px solid var(--gold);border-radius:12px;padding:14px 16px;margin-bottom:16px;">
       <div style="font-family:'Special Elite',serif;color:var(--gold);font-size:13px;letter-spacing:2px;text-transform:uppercase;margin-bottom:10px;">📚 Word Bank</div>
-      <div class="word-bank-dnd" id="mm1-bank" style="background:transparent;border:none;margin:0;padding:0;"></div>
+      <div class="word-bank-dnd" id="mm1-bank" style="background:transparent;border:none;margin:0;padding:0;"></diviv>
     </div>
     <div style="display:flex;gap:10px;flex-wrap:wrap;margin-bottom:16px;">
       <button class="btn btn-primary" onclick="checkMissionMap(1)">Check Answers ✓</button>
       <button class="btn" style="background:var(--panel2);border:1px solid var(--green2);color:var(--text3);" onclick="resetMissionMap(1)">Reset</button>
     </div>
-    <div id="mm1-complete-banner" style="display:none;"></div>
+    <div id="mm1-complete-banner" style="display:none;"></diviv>
   </div>
 </div>
 
@@ -1358,22 +1359,22 @@ body {
     <div class="score-badge">⭐ <span id="mm2-score">0</span>/10</div>
   </div>
   <div class="progress-bar-wrap">
-    <div class="progress-bar"><div class="progress-fill" id="mm2-progress" style="width:0%"></div></div>
+    <div class="progress-bar"><div class="progress-fill" id="mm2-progress" style="width:0%"></diviv></diviv>
   </div>
   <div class="game-body">
     <div style="background:rgba(240,192,64,0.07);border:1px solid rgba(240,192,64,0.3);border-radius:10px;padding:12px 16px;margin-bottom:18px;font-size:13px;color:var(--text2);line-height:1.6;">
       🦎 <strong style="color:var(--gold);">Professor Gecko says:</strong> Drag each word from the bank into the correct blank. Click <em>Check Answers</em> to see how you did — wrong answers will get a hint to help you fix them. When every answer is green, you're done! 🌿
     </div>
-    <div id="mm2-questions"></div>
+    <div id="mm2-questions"></diviv>
     <div style="background:var(--panel2);border:1px solid var(--gold);border-radius:12px;padding:14px 16px;margin-bottom:16px;">
       <div style="font-family:'Special Elite',serif;color:var(--gold);font-size:13px;letter-spacing:2px;text-transform:uppercase;margin-bottom:10px;">📚 Word Bank</div>
-      <div class="word-bank-dnd" id="mm2-bank" style="background:transparent;border:none;margin:0;padding:0;"></div>
+      <div class="word-bank-dnd" id="mm2-bank" style="background:transparent;border:none;margin:0;padding:0;"></diviv>
     </div>
     <div style="display:flex;gap:10px;flex-wrap:wrap;margin-bottom:16px;">
       <button class="btn btn-primary" onclick="checkMissionMap(2)">Check Answers ✓</button>
       <button class="btn" style="background:var(--panel2);border:1px solid var(--green2);color:var(--text3);" onclick="resetMissionMap(2)">Reset</button>
     </div>
-    <div id="mm2-complete-banner" style="display:none;"></div>
+    <div id="mm2-complete-banner" style="display:none;"></diviv>
   </div>
 </div>
 
@@ -1907,7 +1908,7 @@ function towGuess(letter) {
         <div class="tow-q-num">Word ${towIdx + 1} of ${TOW_ITEMS.length}</div>
         <div class="tow-tree-wrap">${towTreeSVG(TOW_MAX_WRONG)}</div>
         <div class="tow-def">${item.def}</div>
-        <div style="text-align:center;font-family:'Special Elite',serif;font-size:18px;color:var(--wrong);margin:12px 0;">The word was: <span style="color:var(--gold)">${towWord.toUpperCase()}</span></div>
+        <div style="text-align:center;font-family:'Special Elite',serif;font-size:18px;color:var(--wrong);margin:12px 0;">The word was: <span style="color:var(--gold)">${towWord.toUpperCase()}</span></diviv>
       `;
       return;
     }
@@ -2019,7 +2020,7 @@ function buildCrossword() {
       <div class="cw-num">${entry.num}.</div>
       <div style="flex:1">
         <div class="cw-clue-text">${entry.clue}</div>
-        <div id="cw-hint-${entry.num}" class="quiz-hint" style="display:none"></div>
+        <div id="cw-hint-${entry.num}" class="quiz-hint" style="display:none"></diviv>
       </div>`;
     (entry.dir === 'across' ? acrossEl : downEl).appendChild(div);
   });
@@ -2892,9 +2893,9 @@ function renderScramble() {
       </div>
       <div class="section-label">Your answer:</div>
       <div class="answer-slots" id="scr-slots">
-        ${item.word.split('').map((_,i) => `<div class="answer-slot" id="scr-slot-${i}" onclick="scrRemoveLetter(${i})"></div>`).join('')}
+        ${item.word.split('').map((_,i) => `<div class="answer-slot" id="scr-slot-${i}" onclick="scrRemoveLetter(${i})"></diviv>`).join('')}
       </div>
-      <div id="scr-hint" class="quiz-hint" style="display:none"></div>
+      <div id="scr-hint" class="quiz-hint" style="display:none"></diviv>
       <div class="scramble-btns">
         <button class="btn btn-primary" onclick="scrCheck()">Check</button>
         <button class="btn" style="background:var(--panel2);border:1px solid var(--green2);color:var(--text2);" onclick="scrClear()">Clear</button>
@@ -3185,7 +3186,7 @@ function renderSpeed() {
       <input class="speed-input" id="spd-input" placeholder="type the word..." autocomplete="off" spellcheck="false"
         oninput="spdCheckInput(this,'${item.word}')">
     </div>
-    <div id="spd-hint" class="quiz-hint" style="display:none"></div>
+    <div id="spd-hint" class="quiz-hint" style="display:none"></diviv>
     <div style="text-align:center;margin-top:12px;">
       <button class="btn" style="background:var(--panel2);border:1px solid var(--green2);color:var(--text3);font-size:12px;"
         onclick="spdSkip()">Skip →</button>
@@ -3299,12 +3300,12 @@ function renderSB() {
       <div class="sb-vocab-word">${item.word}</div>
       <div class="sb-hint-def">${V.find(v=>v.word===item.word)?.def || ''}</div>
       <div class="sb-section-label">Build the sentence — click words to add them:</div>
-      <div class="sb-drop-area" id="sb-droparea"></div>
+      <div class="sb-drop-area" id="sb-droparea"></diviv>
       <div class="sb-section-label">Word bank:</div>
       <div class="sb-bank" id="sb-bank">
         ${words.map((w,i) => `<div class="sb-tile" id="sb-tile-${i}" data-idx="${i}" data-word="${w}" onclick="sbPick(${i},'${w.replace(/'/g,"\\'")}' )">${w}</div>`).join('')}
       </div>
-      <div id="sb-hint" class="quiz-hint" style="display:none"></div>
+      <div id="sb-hint" class="quiz-hint" style="display:none"></diviv>
       <div style="display:flex;gap:10px;flex-wrap:wrap;">
         <button class="btn btn-primary" onclick="sbCheck()">Check ✓</button>
         <button class="btn" style="background:var(--panel2);border:1px solid var(--green2);color:var(--text3);" onclick="sbClear()">Clear</button>
