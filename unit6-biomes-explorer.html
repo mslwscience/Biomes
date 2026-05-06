@@ -1491,6 +1491,20 @@ function loadProgress() {
 // =============================================
 
 
+const scores = { wordsearch: 0, crossword: 0, matching: 0, dragdrop: 0, quiz: 0, scramble: 0, oddoneout: 0, memorymatch: 0, speedround: 0, sentencebuilder: 0, missionmap1: 0, missionmap2: 0 };
+const maxScores = { wordsearch: 10, crossword: 10, matching: 10, dragdrop: 10, quiz: 10, scramble: 10, oddoneout: 10, memorymatch: 8, speedround: 10, sentencebuilder: 8, missionmap1: 10, missionmap2: 10 };
+
+// Initialize locked state on page load — must be after scores/maxScores
+(function initLockState() {
+  document.getElementById('card-missionmap1').classList.add('is-locked');
+  document.getElementById('card-missionmap2').classList.add('is-locked');
+loadProgress();
+refreshStarDisplay();
+updateUnlockUI();
+  jokeIdx = Math.floor(Math.random() * GECKO_JOKES.length); // start on a random joke
+  showJoke();
+})();
+
 function getStarCount(game) {
   const pts = scores[game], max = maxScores[game];
   if (!max || pts === undefined) return 0;
@@ -1620,19 +1634,9 @@ function nextJoke() {
 // =============================================
 // SCORES
 // =============================================
-const scores = { wordsearch: 0, crossword: 0, matching: 0, dragdrop: 0, quiz: 0, scramble: 0, oddoneout: 0, memorymatch: 0, speedround: 0, sentencebuilder: 0, missionmap1: 0, missionmap2: 0 };
-const maxScores = { wordsearch: 10, crossword: 10, matching: 10, dragdrop: 10, quiz: 10, scramble: 10, oddoneout: 10, memorymatch: 8, speedround: 10, sentencebuilder: 8, missionmap1: 10, missionmap2: 10 };
 
-// Initialize locked state on page load — must be after scores/maxScores
-(function initLockState() {
-  document.getElementById('card-missionmap1').classList.add('is-locked');
-  document.getElementById('card-missionmap2').classList.add('is-locked');
-loadProgress();
-refreshStarDisplay();
-updateUnlockUI();
-  jokeIdx = Math.floor(Math.random() * GECKO_JOKES.length); // start on a random joke
-  showJoke();
-})();
+
+
 
 // =============================================
 // FIREFLIES
