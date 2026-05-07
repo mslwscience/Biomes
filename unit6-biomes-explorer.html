@@ -40,7 +40,6 @@ body {
   cursor: default;
 }
 
-/* ===== AMBIENT BACKGROUND ===== */
 .jungle-bg {
   position: fixed; inset: 0; pointer-events: none; z-index: 0;
   background:
@@ -62,11 +61,9 @@ body {
   100% { transform: translate(var(--dx2), var(--dy2)) scale(0.8); opacity: 0; }
 }
 
-/* ===== SCREENS ===== */
 .screen { display: none; position: relative; z-index: 10; min-height: 100vh; }
 .screen.active { display: flex; flex-direction: column; align-items: center; }
 
-/* ===== MISSION SELECT ===== */
 #screen-home {
   justify-content: flex-start;
   padding: 20px;
@@ -209,7 +206,6 @@ body {
   letter-spacing: 1px;
 }
 
-/* ===== GAME HEADER ===== */
 .game-header {
   display: flex; align-items: center; gap: 12px;
   width: 100%; max-width: 900px;
@@ -274,7 +270,35 @@ body {
   flex: 1;
 }
 
-/* ===== BUTTONS ===== */
+/* Star info bar */
+.star-info-bar {
+  background: rgba(240,192,64,0.07);
+  border: 1px solid rgba(240,192,64,0.25);
+  border-radius: 10px;
+  padding: 10px 14px;
+  margin-bottom: 16px;
+  font-size: 13px;
+  color: var(--text2);
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  align-items: center;
+}
+.star-info-bar .star-item {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
+.star-info-bar .star-item span.stars-disp {
+  color: var(--gold);
+  font-size: 14px;
+  letter-spacing: 1px;
+}
+.star-info-bar .star-item span.label {
+  color: var(--text3);
+  font-size: 12px;
+}
+
 .btn {
   font-family: 'Josefin Sans', sans-serif;
   font-size: 14px;
@@ -301,7 +325,6 @@ body {
 }
 .btn-gold:hover { transform: translateY(-2px); box-shadow: 0 6px 20px rgba(240,192,64,0.4); }
 
-/* ===== FEEDBACK TOAST ===== */
 .toast {
   position: fixed; top: 80px; left: 50%; transform: translateX(-50%) translateY(-20px);
   background: var(--panel); border-radius: 10px; padding: 12px 24px;
@@ -314,7 +337,7 @@ body {
 .toast.wrong   { border-color: var(--wrong); color: var(--wrong); }
 .toast.hint    { border-color: var(--hint); color: var(--hint); }
 
-/* ===== WORD SEARCH ===== */
+/* WORD SEARCH / TREE OF WISDOM */
 .ws-grid {
   display: inline-grid;
   gap: 2px;
@@ -357,7 +380,7 @@ body {
   text-decoration: line-through;
 }
 
-/* ===== CROSSWORD ===== */
+/* CROSSWORD */
 .cw-clue-grid {
   display: grid;
   grid-template-columns: 1fr 1fr;
@@ -404,7 +427,7 @@ body {
 .cw-input.correct-ans { border-color: var(--correct); background: rgba(68,255,136,0.08); }
 .cw-input.wrong-ans   { border-color: var(--wrong); }
 
-/* ===== MATCHING / FLASHCARDS ===== */
+/* MATCHING */
 .match-grid {
   display: grid;
   grid-template-columns: 1fr 1fr;
@@ -436,7 +459,7 @@ body {
 .match-card.matched { border-color: var(--correct); background: rgba(68,255,136,0.08); opacity: 0.6; pointer-events: none; }
 .match-card.wrong-flash { border-color: var(--wrong); background: rgba(255,68,68,0.1); }
 
-/* ===== DRAG & DROP ===== */
+/* DRAG & DROP */
 .dnd-question {
   background: var(--panel2);
   border: 1px solid var(--green2);
@@ -490,7 +513,7 @@ body {
 .drag-word.dragging { opacity: 0.5; cursor: grabbing; }
 .drag-word.used { opacity: 0.25; pointer-events: none; }
 
-/* ===== FILL IN THE BLANK QUIZ ===== */
+/* QUIZ */
 .quiz-question {
   background: var(--panel2);
   border: 1px solid var(--green2);
@@ -530,7 +553,7 @@ body {
 .quiz-option.disabled { pointer-events: none; }
 .quiz-hint { font-size: 12px; color: var(--hint); margin-top: 10px; padding: 8px 12px; background: rgba(255,204,68,0.08); border-radius: 6px; border-left: 3px solid var(--hint); }
 
-/* ===== SCRAMBLE ===== */
+/* SCRAMBLE */
 .scramble-card {
   background: var(--panel2);
   border: 1px solid var(--green2);
@@ -581,7 +604,7 @@ body {
 .answer-slot.correct-slot { border-color: var(--correct); color: var(--correct); }
 .scramble-btns { display: flex; gap: 10px; justify-content: center; }
 
-/* ===== COMPLETE SCREEN ===== */
+/* COMPLETE */
 .complete-screen {
   text-align: center;
   padding: 40px 20px;
@@ -589,7 +612,7 @@ body {
 .big-star { font-size: 80px; animation: pulse 1.5s ease-in-out infinite; }
 @keyframes pulse { 0%,100%{ transform: scale(1); } 50%{ transform: scale(1.1); } }
 
-/* ===== ODD ONE OUT ===== */
+/* ODD ONE OUT */
 .ooo-round {
   background: var(--panel2);
   border: 1px solid var(--green2);
@@ -629,7 +652,7 @@ body {
   display: none;
 }
 
-/* ===== MEMORY MATCH ===== */
+/* MEMORY MATCH */
 .mem-grid {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
@@ -690,7 +713,7 @@ body {
 }
 .mem-card.wrong-flash .mem-card-back { border-color: var(--wrong); }
 
-/* ===== SPEED ROUND ===== */
+/* SPEED ROUND */
 .speed-timer-ring {
   position: relative; width: 80px; height: 80px; margin: 0 auto 16px;
 }
@@ -741,7 +764,7 @@ body {
   letter-spacing: 2px; margin-bottom: 8px;
 }
 
-/* ===== SENTENCE BUILDER ===== */
+/* SENTENCE BUILDER */
 .sb-card {
   background: var(--panel2);
   border: 1px solid var(--green2);
@@ -791,7 +814,7 @@ body {
 .sb-bank { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 14px; }
 .sb-section-label { font-size: 11px; color: var(--text3); letter-spacing: 2px; text-transform: uppercase; margin-bottom: 8px; }
 
-/* ===== FEEDING FRENZY D-PAD ===== */
+/* FEEDING FRENZY D-PAD */
 .ff-dpad-btn {
   width: 48px; height: 48px;
   background: var(--green1);
@@ -812,7 +835,7 @@ body {
   border-color: var(--accent);
 }
 
-/* ===== LOCKED CARDS ===== */
+/* LOCKED CARDS */
 .locked-card { position: relative; }
 .locked-card.is-locked {
   opacity: 0.65;
@@ -860,7 +883,7 @@ body {
   text-transform: uppercase;
 }
 
-/* ===== UNLOCK CELEBRATION OVERLAY ===== */
+/* UNLOCK OVERLAY */
 .unlock-overlay {
   position: fixed; inset: 0; z-index: 200;
   display: flex; flex-direction: column;
@@ -899,7 +922,7 @@ body {
 }
 .unlock-msg { font-size: 14px; color: var(--text2); line-height: 1.6; margin-bottom: 24px; }
 
-/* ===== TREE OF WISDOM ===== */
+/* TREE OF WISDOM */
 .tow-tree-wrap {
   display: flex; justify-content: center; margin-bottom: 16px;
 }
@@ -941,7 +964,7 @@ body {
 .tow-wrong-count { text-align: center; font-size: 13px; color: var(--text3); margin-bottom: 8px; letter-spacing: 1px; }
 .tow-q-num { text-align: center; font-size: 11px; color: var(--text3); letter-spacing: 3px; text-transform: uppercase; margin-bottom: 8px; }
 
-/* ===== CROSSWORD VISUAL GRID ===== */
+/* CROSSWORD VISUAL GRID */
 .cw-grid-visual {
   display: inline-grid; gap: 2px;
   background: var(--bg); padding: 4px;
@@ -956,6 +979,9 @@ body {
   border-radius: 3px;
 }
 .cw-cell.active-cell { border-color: var(--accent) !important; background: rgba(125,255,107,0.12) !important; }
+/* FIX: separate highlighting for across vs down to make it clear */
+.cw-cell.active-across { border-color: var(--accent) !important; background: rgba(125,255,107,0.12) !important; }
+.cw-cell.active-down   { border-color: var(--gold) !important; background: rgba(240,192,64,0.1) !important; }
 .cw-cell.correct-cell { border-color: var(--correct) !important; background: rgba(68,255,136,0.1) !important; }
 .cw-cell-num {
   position: absolute; top: 1px; left: 2px;
@@ -969,7 +995,22 @@ body {
   padding: 0; padding-top: 6px;
 }
 
-/* ===== UTILITIES ===== */
+/* Direction indicator for crossword */
+.cw-dir-indicator {
+  display: inline-flex; align-items: center; gap: 8px;
+  padding: 6px 12px;
+  background: var(--panel2);
+  border: 1px solid var(--green2);
+  border-radius: 20px;
+  font-size: 12px;
+  color: var(--text3);
+  margin-bottom: 10px;
+  letter-spacing: 1px;
+}
+.cw-dir-indicator .dir-across { color: var(--accent); }
+.cw-dir-indicator .dir-down   { color: var(--gold); }
+
+/* UTILITIES */
 .section-label {
   font-family: 'Special Elite', serif;
   font-size: 13px;
@@ -986,16 +1027,11 @@ body {
 </head>
 <body>
 
-<!-- Ambient fireflies -->
 <div class="jungle-bg"></div>
 <div id="fireflies"></div>
-
-<!-- Toast feedback -->
 <div class="toast" id="toast"></div>
 
-<!-- ============================================================ -->
 <!-- HOME SCREEN -->
-<!-- ============================================================ -->
 <div class="screen active" id="screen-home">
   <div style="width:100%;max-width:860px;padding:28px 20px 0;">
     <div class="home-header">
@@ -1008,7 +1044,7 @@ body {
     </div>
 
     <div class="speech-bubble" id="gecko-speech">
-      "Welcome, Explorer! I'm Professor Gecko 🦎 — complete missions to master Unit 6 vocabulary. Earn <strong style="color:var(--gold)">★★☆ or better on 4 games</strong> to unlock Mission Map Page 1, and ★★☆ on <strong style="color:var(--gold)">7 games</strong> to unlock Page 2. The maps are hidden until you prove you're ready!"
+      "Welcome, Explorer! I'm Professor Gecko 🦎 — play any game to practice Unit 6 vocabulary! Get <strong style="color:var(--gold)">★★☆ or better on 3 games</strong> to unlock Mission Map Page 1, then <strong style="color:var(--gold)">3 more games</strong> to unlock Page 2. <strong style="color:var(--accent2)">Your progress saves automatically</strong> — even if you close the browser! 🌿"
     </div>
 
     <div id="joke-panel" style="background:var(--panel2);border:1px solid var(--green3);border-radius:12px;padding:12px 18px;margin-bottom:16px;display:flex;gap:12px;align-items:center;cursor:pointer;" onclick="nextJoke()" title="Click for another joke!">
@@ -1022,7 +1058,7 @@ body {
     <div style="background:linear-gradient(135deg,#1a3000,#0e2a00);border:1px solid var(--gold);border-radius:12px;padding:14px 18px;margin-bottom:20px;display:flex;gap:14px;align-items:flex-start;">
       <span style="font-size:28px;flex-shrink:0;">📌</span>
       <div>
-        <div style="font-family:'Special Elite',serif;color:var(--gold);font-size:13px;letter-spacing:2px;text-transform:uppercase;margin-bottom:6px;">Why This Matters</div>
+        <div style="font-family:'Special Elite',serif;color:var(--gold);font-size:13px;letter-spacing:2px;text-transform:uppercase;margin-bottom:6px;">Why This Matters 💾 Progress Saves Automatically!</div>
         <div style="font-size:13px;color:var(--text2);line-height:1.6;">
           When you unlock the <strong style="color:var(--gold2);">Mission Maps</strong>, you'll get to complete the same fill-in-the-blank worksheet that's on your <strong style="color:var(--accent2);">Classkick assignment</strong> — with the word bank right here to help! The answers match your Classkick Mission Map exactly, and these vocabulary words will appear closely on your <strong style="color:var(--accent2);">unit test</strong>. Finish the maps here, then copy your completed answers over to Classkick. 🌿
         </div>
@@ -1034,67 +1070,67 @@ body {
         <span class="mission-stars" id="stars-wordsearch">☆☆☆</span>
         <span class="mission-icon">🌳</span>
         <div class="mission-title">Tree of Wisdom</div>
-        <div class="mission-desc">Read the definition and guess the word — letter by letter!</div>
+        <div class="mission-desc">Read the definition and guess the word — letter by letter! Click a letter to guess it.</div>
       </div>
       <div class="mission-card" onclick="startGame('crossword')">
         <span class="mission-stars" id="stars-crossword">☆☆☆</span>
         <span class="mission-icon">📜</span>
         <div class="mission-title">Crossword Canopy</div>
-        <div class="mission-desc">Use clues to crack the ancient jungle crossword</div>
+        <div class="mission-desc">Click a cell to type — tap the same cell again to switch between Across and Down!</div>
       </div>
       <div class="mission-card" onclick="startGame('matching')">
         <span class="mission-stars" id="stars-matching">☆☆☆</span>
         <span class="mission-icon">🍃</span>
         <div class="mission-title">Leaf Match</div>
-        <div class="mission-desc">Match each vocabulary word to its definition</div>
+        <div class="mission-desc">Click a word, then click its matching definition. Find all 10 pairs!</div>
       </div>
       <div class="mission-card" onclick="startGame('dragdrop')">
         <span class="mission-stars" id="stars-dragdrop">☆☆☆</span>
         <span class="mission-icon">🌿</span>
         <div class="mission-title">Vine Drop</div>
-        <div class="mission-desc">Drag the right word into each sentence</div>
+        <div class="mission-desc">Click a word from the bank, then click a blank to place it — or drag and drop!</div>
       </div>
       <div class="mission-card" onclick="startGame('quiz')">
         <span class="mission-stars" id="stars-quiz">☆☆☆</span>
         <span class="mission-icon">🍽️</span>
         <div class="mission-title">Feeding Frenzy</div>
-        <div class="mission-desc">Feed your critter the right answers — grow big or go hungry!</div>
+        <div class="mission-desc">Walk your critter into the bubble with the correct answer! Use arrow keys or the D-pad.</div>
       </div>
       <div class="mission-card" onclick="startGame('scramble')">
         <span class="mission-stars" id="stars-scramble">☆☆☆</span>
         <span class="mission-icon">🐛</span>
         <div class="mission-title">Scrambled Jungle</div>
-        <div class="mission-desc">Unscramble tangled letters to reveal the word</div>
+        <div class="mission-desc">Click letters in order to spell the vocabulary word — click a placed letter to remove it!</div>
       </div>
       <div class="mission-card" onclick="startGame('oddoneout')">
         <span class="mission-stars" id="stars-oddoneout">☆☆☆</span>
         <span class="mission-icon">🦜</span>
         <div class="mission-title">Odd One Out</div>
-        <div class="mission-desc">Spot the word that doesn't belong with the others</div>
+        <div class="mission-desc">Spot the word that doesn't belong! You get 2 tries per question.</div>
       </div>
       <div class="mission-card" onclick="startGame('memorymatch')">
         <span class="mission-stars" id="stars-memorymatch">☆☆☆</span>
         <span class="mission-icon">🃏</span>
         <div class="mission-title">Memory Canopy</div>
-        <div class="mission-desc">Flip cards to match every word with its definition</div>
+        <div class="mission-desc">Click cards to flip them — match each word with its definition! Find all 8 pairs.</div>
       </div>
       <div class="mission-card" onclick="startGame('speedround')">
         <span class="mission-stars" id="stars-speedround">☆☆☆</span>
         <span class="mission-icon">⚡</span>
         <div class="mission-title">Speed Round</div>
-        <div class="mission-desc">Read the definition and type the word before time runs out!</div>
+        <div class="mission-desc">Read the definition and type the vocabulary word — you have 12 seconds each!</div>
       </div>
       <div class="mission-card" onclick="startGame('sentencebuilder')">
         <span class="mission-stars" id="stars-sentencebuilder">☆☆☆</span>
         <span class="mission-icon">🌱</span>
         <div class="mission-title">Sentence Builder</div>
-        <div class="mission-desc">Arrange word tiles to build a correct sentence using the vocab word</div>
+        <div class="mission-desc">Click words in the right order to build a correct sentence — click placed words to remove them!</div>
       </div>
       <div class="mission-card locked-card" id="card-missionmap1" onclick="mmCardClick(1)" style="border-color:var(--gold);background:linear-gradient(135deg,#1a2e0a,#1f3810);">
         <span class="mission-stars" id="stars-missionmap1">☆☆☆</span>
         <span class="mission-icon" id="mm1-icon">🔒</span>
         <div class="mission-title" style="color:var(--gold2);">Mission Map — Page 1</div>
-        <div class="mission-desc" id="mm1-desc">Complete <strong style="color:var(--gold);">4 games with ★★☆ or better</strong> to unlock the original worksheet!</div>
+        <div class="mission-desc" id="mm1-desc">Complete <strong style="color:var(--gold);">3 games with ★★☆ or better</strong> to unlock the original worksheet!</div>
         <div class="unlock-progress" id="mm1-unlock-bar">
           <div class="unlock-fill" id="mm1-unlock-fill" style="width:0%"></div>
         </div>
@@ -1104,7 +1140,7 @@ body {
         <span class="mission-stars" id="stars-missionmap2">☆☆☆</span>
         <span class="mission-icon" id="mm2-icon">🔒</span>
         <div class="mission-title" style="color:var(--gold2);">Mission Map — Page 2</div>
-        <div class="mission-desc" id="mm2-desc">Complete <strong style="color:var(--gold);">7 games with ★★☆ or better</strong> to unlock the second worksheet!</div>
+        <div class="mission-desc" id="mm2-desc">Complete <strong style="color:var(--gold);">any 3 more games with ★★☆ or better</strong> to unlock the second worksheet!</div>
         <div class="unlock-progress" id="mm2-unlock-bar">
           <div class="unlock-fill" id="mm2-unlock-fill" style="width:0%"></div>
         </div>
@@ -1114,35 +1150,46 @@ body {
   </div>
 </div>
 
-<!-- ============================================================ -->
 <!-- TREE OF WISDOM -->
-<!-- ============================================================ -->
 <div class="screen" id="screen-wordsearch">
   <div class="game-header">
     <button class="btn-back" onclick="goHome()">← Back</button>
     <div class="game-header-title">🌳 Tree of Wisdom</div>
-    <div class="score-badge">⭐ <span id="ws-score">0</span></div>
+    <div class="score-badge" id="ws-score-badge"><span id="ws-score">0</span>/10 &nbsp;<span id="ws-score-stars" style="letter-spacing:1px;"></span></div>
   </div>
   <div class="progress-bar-wrap">
     <div class="progress-bar"><div class="progress-fill" id="ws-progress" style="width:0%"></div></div>
   </div>
-  <div class="game-body"><div class="section-label" style="margin-bottom:10px;">⭐ 1 Star = Get at least 1 correct • ⭐⭐ 2 Stars = Get 6/10 correct • ⭐⭐⭐ 3 Stars = Get all 10/10 correct!</div><div id="tow-body"></div></div>
+  <div class="game-body">
+    <div class="star-info-bar">
+      <div class="star-item"><span class="stars-disp">⭐</span><span class="label">1 Star = 2+ correct</span></div>
+      <div class="star-item"><span class="stars-disp">⭐⭐</span><span class="label">2 Stars = 6/10 correct</span></div>
+      <div class="star-item"><span class="stars-disp">⭐⭐⭐</span><span class="label">3 Stars = 10/10 correct</span></div>
+    </div>
+    <div id="tow-body"></div>
+  </div>
 </div>
 
-<!-- ============================================================ -->
 <!-- CROSSWORD -->
-<!-- ============================================================ -->
 <div class="screen" id="screen-crossword">
   <div class="game-header">
     <button class="btn-back" onclick="goHome()">← Back</button>
     <div class="game-header-title">📜 Crossword Canopy</div>
-    <div class="score-badge">⭐ <span id="cw-score">0</span></div>
+    <div class="score-badge" id="cw-score-badge"><span id="cw-score">0</span>/10 &nbsp;<span id="cw-score-stars" style="letter-spacing:1px;"></span></div>
   </div>
   <div class="progress-bar-wrap">
     <div class="progress-bar"><div class="progress-fill" id="cw-progress" style="width:0%"></div></div>
   </div>
   <div class="game-body">
-    <div class="section-label">⭐ 1 Star = Get at least 1 correct • ⭐⭐ 2 Stars = Get 6/10 correct • ⭐⭐⭐ 3 Stars = Get all 10/10 correct!</div><div class="section-label">Click a cell to type — use the clues below to fill the grid</div>
+    <div class="star-info-bar">
+      <div class="star-item"><span class="stars-disp">⭐</span><span class="label">1 Star = 2+ correct</span></div>
+      <div class="star-item"><span class="stars-disp">⭐⭐</span><span class="label">2 Stars = 6/10 correct</span></div>
+      <div class="star-item"><span class="stars-disp">⭐⭐⭐</span><span class="label">3 Stars = 10/10 correct</span></div>
+    </div>
+    <div id="cw-dir-display" class="cw-dir-indicator" style="display:none;">
+      Direction: <span id="cw-dir-text" class="dir-across">→ ACROSS</span>
+      <span style="color:var(--text3);font-size:11px;">· tap same cell to switch</span>
+    </div>
     <div style="overflow-x:auto;margin-bottom:20px;">
       <div id="cw-visual-grid"></div>
     </div>
@@ -1160,20 +1207,23 @@ body {
   </div>
 </div>
 
-<!-- ============================================================ -->
 <!-- MATCHING -->
-<!-- ============================================================ -->
 <div class="screen" id="screen-matching">
   <div class="game-header">
     <button class="btn-back" onclick="goHome()">← Back</button>
     <div class="game-header-title">🍃 Leaf Match</div>
-    <div class="score-badge">⭐ <span id="match-score">0</span></div>
+    <div class="score-badge" id="match-score-badge"><span id="match-score">0</span>/10 &nbsp;<span id="match-score-stars" style="letter-spacing:1px;"></span></div>
   </div>
   <div class="progress-bar-wrap">
     <div class="progress-bar"><div class="progress-fill" id="match-progress" style="width:0%"></div></div>
   </div>
   <div class="game-body">
-    <div class="section-label">⭐ 1 Star = Get at least 1 correct • ⭐⭐ 2 Stars = Get 6/10 correct • ⭐⭐⭐ 3 Stars = Get all 10/10 correct!</div><div class="section-label">Click a word, then click its definition</div>
+    <div class="star-info-bar">
+      <div class="star-item"><span class="stars-disp">⭐</span><span class="label">1 Star = 2+ correct</span></div>
+      <div class="star-item"><span class="stars-disp">⭐⭐</span><span class="label">2 Stars = 6/10 correct</span></div>
+      <div class="star-item"><span class="stars-disp">⭐⭐⭐</span><span class="label">3 Stars = 10/10 correct</span></div>
+    </div>
+    <div class="section-label" style="margin-top:4px;">Click a word, then click its definition</div>
     <div class="match-grid">
       <div class="match-col" id="match-words"></div>
       <div class="match-col" id="match-defs"></div>
@@ -1181,39 +1231,45 @@ body {
   </div>
 </div>
 
-<!-- ============================================================ -->
 <!-- DRAG & DROP -->
-<!-- ============================================================ -->
 <div class="screen" id="screen-dragdrop">
   <div class="game-header">
     <button class="btn-back" onclick="goHome()">← Back</button>
     <div class="game-header-title">🌿 Vine Drop</div>
-    <div class="score-badge">⭐ <span id="dnd-score">0</span></div>
+    <div class="score-badge" id="dnd-score-badge"><span id="dnd-score">0</span>/10 &nbsp;<span id="dnd-score-stars" style="letter-spacing:1px;"></span></div>
   </div>
   <div class="progress-bar-wrap">
     <div class="progress-bar"><div class="progress-fill" id="dnd-progress" style="width:0%"></div></div>
   </div>
   <div class="game-body">
-    <div class="section-label">⭐ 1 Star = Get at least 1 correct • ⭐⭐ 2 Stars = Get 6/10 correct • ⭐⭐⭐ 3 Stars = Get all 10/10 correct!</div><div class="section-label">Drag each word from the bank into the correct blank</div>
+    <div class="star-info-bar">
+      <div class="star-item"><span class="stars-disp">⭐</span><span class="label">1 Star = 2+ correct</span></div>
+      <div class="star-item"><span class="stars-disp">⭐⭐</span><span class="label">2 Stars = 6/10 correct</span></div>
+      <div class="star-item"><span class="stars-disp">⭐⭐⭐</span><span class="label">3 Stars = 10/10 correct</span></div>
+    </div>
+    <div class="section-label" style="margin-top:4px;">Drag each word from the bank into the correct blank</div>
     <div id="dnd-questions"></div>
     <div class="word-bank-dnd" id="dnd-bank"></div>
     <button class="btn btn-primary mt-16" onclick="checkDND()">Check Answers</button>
   </div>
 </div>
 
-<!-- ============================================================ -->
 <!-- FEEDING FRENZY -->
-<!-- ============================================================ -->
 <div class="screen" id="screen-quiz">
   <div class="game-header">
     <button class="btn-back" onclick="goHome()">← Back</button>
     <div class="game-header-title" id="quiz-header-title">🍽️ Feeding Frenzy</div>
-    <div class="score-badge">⭐ <span id="quiz-score">0</span></div>
+    <div class="score-badge" id="quiz-score-badge"><span id="quiz-score">0</span>/15 &nbsp;<span id="quiz-score-stars" style="letter-spacing:1px;"></span></div>
   </div>
   <div class="progress-bar-wrap">
     <div class="progress-bar"><div class="progress-fill" id="quiz-progress" style="width:0%"></div></div>
   </div>
-  <div style="padding:10px 16px 0; width:100%; max-width:900px;">
+  <div style="padding:6px 16px 0; width:100%; max-width:900px;">
+    <div class="star-info-bar" style="margin-bottom:6px;">
+      <div class="star-item"><span class="stars-disp">⭐</span><span class="label">1 Star = 3+ correct</span></div>
+      <div class="star-item"><span class="stars-disp">⭐⭐</span><span class="label">2 Stars = 9/15 correct</span></div>
+      <div class="star-item"><span class="stars-disp">⭐⭐⭐</span><span class="label">3 Stars = 15/15 correct</span></div>
+    </div>
     <div id="ff-question" style="background:var(--panel2);border:1px solid var(--green3);border-radius:10px;padding:14px 18px;font-size:18px;font-family:'Special Elite',serif;color:var(--text);line-height:1.5;text-align:center;min-height:60px;"></div>
     <div id="ff-status" style="text-align:center;font-size:12px;color:var(--text3);margin-top:6px;letter-spacing:1px;"></div>
   </div>
@@ -1224,94 +1280,113 @@ body {
   </div>
 </div>
 
-<!-- ============================================================ -->
 <!-- SCRAMBLE -->
-<!-- ============================================================ -->
 <div class="screen" id="screen-scramble">
   <div class="game-header">
     <button class="btn-back" onclick="goHome()">← Back</button>
     <div class="game-header-title">🐛 Scrambled Jungle</div>
-    <div class="score-badge">⭐ <span id="scr-score">0</span></div>
+    <div class="score-badge" id="scr-score-badge"><span id="scr-score">0</span>/10 &nbsp;<span id="scr-score-stars" style="letter-spacing:1px;"></span></div>
   </div>
   <div class="progress-bar-wrap">
     <div class="progress-bar"><div class="progress-fill" id="scr-progress" style="width:0%"></div></div>
   </div>
   <div class="game-body">
-    <div class="section-label">⭐ 1 Star = Get at least 1 correct • ⭐⭐ 2 Stars = Get 6/10 correct • ⭐⭐⭐ 3 Stars = Get all 10/10 correct!</div><div class="section-label">Unscramble the letters to spell the vocabulary word</div>
+    <div class="star-info-bar">
+      <div class="star-item"><span class="stars-disp">⭐</span><span class="label">1 Star = 2+ correct</span></div>
+      <div class="star-item"><span class="stars-disp">⭐⭐</span><span class="label">2 Stars = 6/10 correct</span></div>
+      <div class="star-item"><span class="stars-disp">⭐⭐⭐</span><span class="label">3 Stars = 10/10 correct</span></div>
+    </div>
+    <div class="section-label" style="margin-top:4px;">Unscramble the letters to spell the vocabulary word</div>
     <div id="scr-content"></div>
   </div>
 </div>
 
-<!-- ============================================================ -->
 <!-- ODD ONE OUT -->
-<!-- ============================================================ -->
 <div class="screen" id="screen-oddoneout">
   <div class="game-header">
     <button class="btn-back" onclick="goHome()">← Back</button>
     <div class="game-header-title">🦜 Odd One Out</div>
-    <div class="score-badge">⭐ <span id="ooo-score">0</span></div>
+    <div class="score-badge" id="ooo-score-badge"><span id="ooo-score">0</span>/10 &nbsp;<span id="ooo-score-stars" style="letter-spacing:1px;"></span></div>
   </div>
   <div class="progress-bar-wrap">
     <div class="progress-bar"><div class="progress-fill" id="ooo-progress" style="width:0%"></div></div>
   </div>
-  <div class="game-body" id="ooo-body"></div>
+  <div class="game-body">
+    <div class="star-info-bar">
+      <div class="star-item"><span class="stars-disp">⭐</span><span class="label">1 Star = 2+ correct</span></div>
+      <div class="star-item"><span class="stars-disp">⭐⭐</span><span class="label">2 Stars = 6/10 correct</span></div>
+      <div class="star-item"><span class="stars-disp">⭐⭐⭐</span><span class="label">3 Stars = 10/10 correct</span></div>
+    </div>
+    <div id="ooo-body"></div>
+  </div>
 </div>
 
-<!-- ============================================================ -->
 <!-- MEMORY MATCH -->
-<!-- ============================================================ -->
 <div class="screen" id="screen-memorymatch">
   <div class="game-header">
     <button class="btn-back" onclick="goHome()">← Back</button>
     <div class="game-header-title">🃏 Memory Canopy</div>
-    <div class="score-badge">⭐ <span id="mem-score">0</span></div>
+    <div class="score-badge" id="mem-score-badge"><span id="mem-score">0</span>/8 &nbsp;<span id="mem-score-stars" style="letter-spacing:1px;"></span></div>
   </div>
   <div class="progress-bar-wrap">
     <div class="progress-bar"><div class="progress-fill" id="mem-progress" style="width:0%"></div></div>
   </div>
   <div class="game-body">
-    <div class="section-label">⭐ 1 Star = Get at least 1 correct • ⭐⭐ 2 Stars = Get 6/10 correct • ⭐⭐⭐ 3 Stars = Get all 10/10 correct!</div><div class="section-label">Flip cards to match each word with its definition!</div>
+    <div class="star-info-bar">
+      <div class="star-item"><span class="stars-disp">⭐</span><span class="label">1 Star = 2+ matched</span></div>
+      <div class="star-item"><span class="stars-disp">⭐⭐</span><span class="label">2 Stars = 5/8 matched</span></div>
+      <div class="star-item"><span class="stars-disp">⭐⭐⭐</span><span class="label">3 Stars = 8/8 matched</span></div>
+    </div>
+    <div class="section-label" style="margin-top:4px;">Flip cards to match each word with its definition!</div>
     <div id="mem-grid" class="mem-grid"></div>
-    <div id="mem-complete" style="display:none;" class="mt-24" style="text-align:center;">
+    <div id="mem-complete" style="display:none;" class="mt-24">
       <div style="color:var(--accent);font-family:'Special Elite',serif;font-size:20px;text-align:center;">🃏 All Pairs Found!</div>
       <div style="text-align:center;margin-top:12px;"><button class="btn btn-gold" onclick="goHome()">Back to Missions</button></div>
     </div>
   </div>
 </div>
 
-<!-- ============================================================ -->
 <!-- SPEED ROUND -->
-<!-- ============================================================ -->
 <div class="screen" id="screen-speedround">
   <div class="game-header">
     <button class="btn-back" onclick="goHome()">← Back</button>
     <div class="game-header-title">⚡ Speed Round</div>
-    <div class="score-badge">⭐ <span id="spd-score">0</span></div>
+    <div class="score-badge" id="spd-score-badge"><span id="spd-score">0</span>/10 &nbsp;<span id="spd-score-stars" style="letter-spacing:1px;"></span></div>
   </div>
   <div class="progress-bar-wrap">
     <div class="progress-bar"><div class="progress-fill" id="spd-progress" style="width:0%"></div></div>
   </div>
-  <div class="game-body" id="spd-body"></div>
+  <div class="game-body">
+    <div class="star-info-bar">
+      <div class="star-item"><span class="stars-disp">⭐</span><span class="label">1 Star = 2+ correct</span></div>
+      <div class="star-item"><span class="stars-disp">⭐⭐</span><span class="label">2 Stars = 6/10 correct</span></div>
+      <div class="star-item"><span class="stars-disp">⭐⭐⭐</span><span class="label">3 Stars = 10/10 correct</span></div>
+    </div>
+    <div id="spd-body"></div>
+  </div>
 </div>
 
-<!-- ============================================================ -->
 <!-- SENTENCE BUILDER -->
-<!-- ============================================================ -->
 <div class="screen" id="screen-sentencebuilder">
   <div class="game-header">
     <button class="btn-back" onclick="goHome()">← Back</button>
     <div class="game-header-title">🌱 Sentence Builder</div>
-    <div class="score-badge">⭐ <span id="sb-score">0</span></div>
+    <div class="score-badge" id="sb-score-badge"><span id="sb-score">0</span>/8 &nbsp;<span id="sb-score-stars" style="letter-spacing:1px;"></span></div>
   </div>
   <div class="progress-bar-wrap">
     <div class="progress-bar"><div class="progress-fill" id="sb-progress" style="width:0%"></div></div>
   </div>
-  <div class="game-body" id="sb-body"></div>
+  <div class="game-body">
+    <div class="star-info-bar">
+      <div class="star-item"><span class="stars-disp">⭐</span><span class="label">1 Star = 2+ correct</span></div>
+      <div class="star-item"><span class="stars-disp">⭐⭐</span><span class="label">2 Stars = 5/8 correct</span></div>
+      <div class="star-item"><span class="stars-disp">⭐⭐⭐</span><span class="label">3 Stars = 8/8 correct</span></div>
+    </div>
+    <div id="sb-body"></div>
+  </div>
 </div>
 
-<!-- ============================================================ -->
-<!-- MISSION MAP PAGE 1 (Q1-10) -->
-<!-- ============================================================ -->
+<!-- MISSION MAP PAGE 1 -->
 <div class="screen" id="screen-missionmap1">
   <div class="game-header">
     <button class="btn-back" onclick="goHome()">← Back</button>
@@ -1338,9 +1413,7 @@ body {
   </div>
 </div>
 
-<!-- ============================================================ -->
-<!-- MISSION MAP PAGE 2 (Q11-20) -->
-<!-- ============================================================ -->
+<!-- MISSION MAP PAGE 2 -->
 <div class="screen" id="screen-missionmap2">
   <div class="game-header">
     <button class="btn-back" onclick="goHome()">← Back</button>
@@ -1367,7 +1440,7 @@ body {
   </div>
 </div>
 
-<!-- Unlock Celebration Overlay -->
+<!-- Unlock Overlay -->
 <div class="unlock-overlay" id="unlock-overlay" style="display:none;">
   <div class="unlock-box">
     <div class="unlock-trophy" id="unlock-trophy">🗺️</div>
@@ -1378,6 +1451,9 @@ body {
 </div>
 
 <script>
+// =============================================
+// VOCAB DATA
+// =============================================
 const VOCAB = [
   { word: "biome",         def: "A large geographical area with specific climate, plants & animals" },
   { word: "abiotic",       def: "Non-living parts of an environment (sunlight, water)" },
@@ -1399,50 +1475,36 @@ const VOCAB = [
   { word: "savanna",       def: "Biome with vast grasslands and only a few scattered trees" },
   { word: "grazing",       def: "What savanna animals do to eat young trees, preventing thick forests" },
   { word: "fragmentation", def: "Breaking large continuous habitats into smaller isolated patches" },
-  // Note: stewardship also included
 ];
 const VOCAB_ALL = [...VOCAB, { word: "stewardship", def: "Taking responsible care of natural resources to ensure biomes keep providing clean air and water" }];
-// Use first 20 for most games
 const V = VOCAB_ALL.slice(0, 20);
 
 // =============================================
 // UNLOCK STATE
 // =============================================
 const UNLOCK_GAMES = ['wordsearch','crossword','matching','dragdrop','quiz','scramble','oddoneout','memorymatch','speedround','sentencebuilder'];
-const MM1_THRESHOLD = 4;  // need 4 games with 2+ stars
-const MM2_THRESHOLD = 7;  // need 7 games with 2+ stars
+const MM1_THRESHOLD = 3;
+const MM2_THRESHOLD = 3;
 let mm1Unlocked = false, mm2Unlocked = false;
 
 // =============================================
-// SAVE / LOAD PROGRESS
+// SAVE / LOAD
 // =============================================
 const SAVE_KEY = 'biomesExplorerSave_v2';
 
 function saveProgress() {
-  const saveData = {
-    scores,
-    mm1Unlocked,
-    mm2Unlocked
-  };
-  localStorage.setItem(SAVE_KEY, JSON.stringify(saveData));
+  localStorage.setItem(SAVE_KEY, JSON.stringify({ scores, mm1Unlocked, mm2Unlocked }));
 }
 
 function loadProgress() {
   try {
     const raw = localStorage.getItem(SAVE_KEY);
     if (!raw) return;
-
-    const saveData = JSON.parse(raw);
-
-    if (saveData.scores) {
-      Object.assign(scores, saveData.scores);
-    }
-
-    mm1Unlocked = !!saveData.mm1Unlocked;
-    mm2Unlocked = !!saveData.mm2Unlocked;
-  } catch(err) {
-    console.error(err);
-  }
+    const d = JSON.parse(raw);
+    if (d.scores) Object.assign(scores, d.scores);
+    mm1Unlocked = !!d.mm1Unlocked;
+    mm2Unlocked = !!d.mm2Unlocked;
+  } catch(e) { console.error(e); }
 }
 
 function scoreToStars(score, max) {
@@ -1452,19 +1514,11 @@ function scoreToStars(score, max) {
   return '☆☆☆';
 }
 
-function getStarRequirementText(game) {
-  const max = maxScores[game] || 1;
-  const twoStar = Math.ceil(max * 0.6);
-
-  return `⭐ 1 Star = Get at least 1 correct • ⭐⭐ 2 Stars = Get ${twoStar}/${max} correct • ⭐⭐⭐ 3 Stars = Get all ${max}/${max} correct!`;
-}
-
-
-
 function getStarCount(game) {
   const pts = scores[game], max = maxScores[game];
   if (!max || pts === undefined) return 0;
-  return pts >= max ? 3 : pts >= max * 0.6 ? 2 : pts > 0 ? 1 : 0;
+  // 3★ = all correct, 2★ = 60%+, 1★ = 2+ correct (lowered so kids feel early progress)
+  return pts >= max ? 3 : pts >= Math.ceil(max * 0.6) ? 2 : pts >= 2 ? 1 : 0;
 }
 
 function countQualifying() {
@@ -1473,44 +1527,36 @@ function countQualifying() {
 
 function updateUnlockUI() {
   const q = countQualifying();
-
-  // Page 1 bar
   const pct1 = Math.min(q / MM1_THRESHOLD * 100, 100);
   document.getElementById('mm1-unlock-fill').style.width = pct1 + '%';
-  document.getElementById('mm1-unlock-label').textContent = `${Math.min(q, MM1_THRESHOLD)} / ${MM1_THRESHOLD} games completed`;
-
-  // Page 2 bar
+  document.getElementById('mm1-unlock-label').textContent = `${Math.min(q, MM1_THRESHOLD)} / ${MM1_THRESHOLD} games with ★★☆+`;
   const pct2 = Math.min(q / MM2_THRESHOLD * 100, 100);
   document.getElementById('mm2-unlock-fill').style.width = pct2 + '%';
-  document.getElementById('mm2-unlock-label').textContent = `${Math.min(q, MM2_THRESHOLD)} / ${MM2_THRESHOLD} games completed`;
+  document.getElementById('mm2-unlock-label').textContent = `${Math.min(q, MM2_THRESHOLD)} / ${MM2_THRESHOLD} games with ★★☆+`;
 
-  // Check Page 1 unlock
   if (!mm1Unlocked && q >= MM1_THRESHOLD) {
     mm1Unlocked = true;
     const card = document.getElementById('card-missionmap1');
-    card.classList.remove('is-locked');
-    card.classList.add('is-unlocked');
+    card.classList.remove('is-locked'); card.classList.add('is-unlocked');
     document.getElementById('mm1-icon').textContent = '📋';
     document.getElementById('mm1-desc').innerHTML = 'The original worksheet (Q1–10) — drag answers from the word bank!';
     document.getElementById('mm1-unlock-bar').style.display = 'none';
     document.getElementById('mm1-unlock-label').textContent = '✅ Unlocked!';
     document.getElementById('mm1-unlock-label').style.color = 'var(--correct)';
     showUnlockOverlay(1);
+    saveProgress();
   }
-
-  // Check Page 2 unlock
   if (!mm2Unlocked && q >= MM2_THRESHOLD) {
     mm2Unlocked = true;
     const card = document.getElementById('card-missionmap2');
-    card.classList.remove('is-locked');
-    card.classList.add('is-unlocked');
+    card.classList.remove('is-locked'); card.classList.add('is-unlocked');
     document.getElementById('mm2-icon').textContent = '📋';
     document.getElementById('mm2-desc').innerHTML = 'The original worksheet (Q11–20) — drag answers from the word bank!';
     document.getElementById('mm2-unlock-bar').style.display = 'none';
     document.getElementById('mm2-unlock-label').textContent = '✅ Unlocked!';
     document.getElementById('mm2-unlock-label').style.color = 'var(--correct)';
-    // Only show overlay if page 1 was already celebrated (not both at same time)
     if (mm1Unlocked) showUnlockOverlay(2);
+    saveProgress();
   }
 }
 
@@ -1530,12 +1576,10 @@ function closeUnlockOverlay() {
 
 function mmCardClick(page) {
   const unlocked = page === 1 ? mm1Unlocked : mm2Unlocked;
-  if (unlocked) {
-    startGame('missionmap' + page);
-  } else {
+  if (unlocked) { startGame('missionmap' + page); }
+  else {
     const needed = page === 1 ? MM1_THRESHOLD : MM2_THRESHOLD;
-    const q = countQualifying();
-    const left = needed - q;
+    const left = needed - countQualifying();
     showToast(`🔒 Complete ${left} more game${left !== 1 ? 's' : ''} with ★★☆+ to unlock!`, 'hint');
   }
 }
@@ -1565,42 +1609,52 @@ const GECKO_JOKES = [
   "What's a scientist's favorite season?\nRe-search! 🔍",
   "Why did the ecosystem feel so balanced?\nBecause everyone had their niche! 🦋",
 ];
-
 let jokeIdx = 0;
-
-function showJoke() {
-  const el = document.getElementById('joke-text');
-  if (el) el.textContent = GECKO_JOKES[jokeIdx];
-}
-
+function showJoke() { const el = document.getElementById('joke-text'); if (el) el.textContent = GECKO_JOKES[jokeIdx]; }
 function nextJoke() {
   jokeIdx = (jokeIdx + 1) % GECKO_JOKES.length;
   const el = document.getElementById('joke-text');
   if (!el) return;
-  el.style.opacity = '0';
-  el.style.transform = 'translateY(4px)';
+  el.style.opacity = '0'; el.style.transform = 'translateY(4px)';
   setTimeout(() => {
     el.textContent = GECKO_JOKES[jokeIdx];
     el.style.transition = 'opacity 0.3s ease, transform 0.3s ease';
-    el.style.opacity = '1';
-    el.style.transform = 'translateY(0)';
+    el.style.opacity = '1'; el.style.transform = 'translateY(0)';
   }, 200);
 }
 
 // =============================================
 // SCORES
 // =============================================
-const scores = { wordsearch: 0, crossword: 0, matching: 0, dragdrop: 0, quiz: 0, scramble: 0, oddoneout: 0, memorymatch: 0, speedround: 0, sentencebuilder: 0, missionmap1: 0, missionmap2: 0 };
-const maxScores = { wordsearch: 10, crossword: 10, matching: 10, dragdrop: 10, quiz: 10, scramble: 10, oddoneout: 10, memorymatch: 8, speedround: 10, sentencebuilder: 8, missionmap1: 10, missionmap2: 10 };
+const scores = { wordsearch:0, crossword:0, matching:0, dragdrop:0, quiz:0, scramble:0, oddoneout:0, memorymatch:0, speedround:0, sentencebuilder:0, missionmap1:0, missionmap2:0 };
+const maxScores = { wordsearch:10, crossword:10, matching:10, dragdrop:10, quiz:15, scramble:10, oddoneout:10, memorymatch:8, speedround:10, sentencebuilder:8, missionmap1:10, missionmap2:10 };
 
-// Initialize locked state on page load — must be after scores/maxScores
 (function initLockState() {
   document.getElementById('card-missionmap1').classList.add('is-locked');
   document.getElementById('card-missionmap2').classList.add('is-locked');
   loadProgress();
-refreshStarDisplay();
-updateUnlockUI();
-  jokeIdx = Math.floor(Math.random() * GECKO_JOKES.length); // start on a random joke
+  refreshStarDisplay();
+  updateUnlockUI();
+  // Restore unlock UI if already unlocked
+  if (mm1Unlocked) {
+    const card1 = document.getElementById('card-missionmap1');
+    card1.classList.remove('is-locked');
+    document.getElementById('mm1-icon').textContent = '📋';
+    document.getElementById('mm1-desc').innerHTML = 'The original worksheet (Q1–10) — drag answers from the word bank!';
+    document.getElementById('mm1-unlock-bar').style.display = 'none';
+    document.getElementById('mm1-unlock-label').textContent = '✅ Unlocked!';
+    document.getElementById('mm1-unlock-label').style.color = 'var(--correct)';
+  }
+  if (mm2Unlocked) {
+    const card2 = document.getElementById('card-missionmap2');
+    card2.classList.remove('is-locked');
+    document.getElementById('mm2-icon').textContent = '📋';
+    document.getElementById('mm2-desc').innerHTML = 'The original worksheet (Q11–20) — drag answers from the word bank!';
+    document.getElementById('mm2-unlock-bar').style.display = 'none';
+    document.getElementById('mm2-unlock-label').textContent = '✅ Unlocked!';
+    document.getElementById('mm2-unlock-label').style.color = 'var(--correct)';
+  }
+  jokeIdx = Math.floor(Math.random() * GECKO_JOKES.length);
   showJoke();
 })();
 
@@ -1614,19 +1668,7 @@ updateUnlockUI();
     ff.className = 'firefly';
     const size = Math.random() * 4 + 2;
     const hue = Math.random() > 0.5 ? '#b8ff8a' : '#ffe070';
-    ff.style.cssText = `
-      width:${size}px;height:${size}px;
-      background:${hue};
-      box-shadow:0 0 ${size*2}px ${hue};
-      left:${Math.random()*100}vw;
-      top:${Math.random()*100}vh;
-      --dx:${(Math.random()-0.5)*200}px;
-      --dy:${(Math.random()-0.5)*200}px;
-      --dx2:${(Math.random()-0.5)*300}px;
-      --dy2:${(Math.random()-0.5)*300}px;
-      animation-duration:${Math.random()*8+6}s;
-      animation-delay:${Math.random()*8}s;
-    `;
+    ff.style.cssText = `width:${size}px;height:${size}px;background:${hue};box-shadow:0 0 ${size*2}px ${hue};left:${Math.random()*100}vw;top:${Math.random()*100}vh;--dx:${(Math.random()-0.5)*200}px;--dy:${(Math.random()-0.5)*200}px;--dx2:${(Math.random()-0.5)*300}px;--dy2:${(Math.random()-0.5)*300}px;animation-duration:${Math.random()*8+6}s;animation-delay:${Math.random()*8}s;`;
     container.appendChild(ff);
   }
 })();
@@ -1637,28 +1679,34 @@ updateUnlockUI();
 let toastTimer;
 function showToast(msg, type='correct') {
   const t = document.getElementById('toast');
-  t.textContent = msg;
-  t.className = 'toast show ' + type;
+  t.textContent = msg; t.className = 'toast show ' + type;
   clearTimeout(toastTimer);
   toastTimer = setTimeout(() => { t.className = 'toast'; }, 2200);
 }
 
+function updateLiveBadge(scoreId, pts, max) {
+  // Update the live score-badge stars during gameplay
+  const starsEl = document.getElementById(scoreId + '-stars');
+  if (!starsEl) return;
+  if (pts === 0) { starsEl.textContent = ''; return; }  // no stars shown until first point
+  const s = pts >= max ? '★★★' : pts >= Math.ceil(max * 0.6) ? '★★☆' : pts >= 2 ? '★☆☆' : '★';
+  starsEl.textContent = s;
+  starsEl.style.color = pts >= max ? 'var(--gold)' : pts >= Math.ceil(max * 0.6) ? 'var(--gold2)' : pts >= 2 ? 'var(--accent)' : 'var(--text3)';
+}
+
 function storeScore(game, pts, max) {
-  // Keep the BEST score — never overwrite a higher score with a lower one
   const prev = scores[game] || 0;
   if (pts > prev) scores[game] = pts;
+  saveProgress();
   refreshStarDisplay();
   if (UNLOCK_GAMES.includes(game)) updateUnlockUI();
 }
 
 function refreshStarDisplay() {
-  // Re-paint every star element from the scores object
-  // Called on storeScore AND on goHome so stars always reflect saved scores
   Object.keys(scores).forEach(game => {
-    const pts = scores[game];
-    const max = maxScores[game];
+    const pts = scores[game], max = maxScores[game];
     if (!max) return;
-    const stars = pts >= max ? '★★★' : pts >= max * 0.6 ? '★★☆' : pts > 0 ? '★☆☆' : '☆☆☆';
+    const stars = pts >= max ? '★★★' : pts >= Math.ceil(max * 0.6) ? '★★☆' : pts >= 2 ? '★☆☆' : '☆☆☆';
     const el = document.getElementById('stars-' + game);
     if (el) el.textContent = stars;
   });
@@ -1668,26 +1716,29 @@ function refreshStarDisplay() {
 // NAVIGATION
 // =============================================
 function goHome() {
-  if (ffAnimFrame)   { cancelAnimationFrame(ffAnimFrame); ffAnimFrame = null; }
-  if (ffKeyHandler)  { document.removeEventListener('keydown', ffKeyHandler);  ffKeyHandler  = null; }
-  if (ffKeyUpHandler){ document.removeEventListener('keyup',   ffKeyUpHandler); ffKeyUpHandler = null; }
+  // ===== BUG 1 FIX: Cancel ALL timers and animation frames =====
+  if (ffAnimFrame)    { cancelAnimationFrame(ffAnimFrame); ffAnimFrame = null; }
+  if (ffKeyHandler)   { document.removeEventListener('keydown', ffKeyHandler);  ffKeyHandler  = null; }
+  if (ffKeyUpHandler) { document.removeEventListener('keyup',   ffKeyUpHandler); ffKeyUpHandler = null; }
+  clearInterval(spdTimer);   // <-- FIX: was missing, caused timer to keep running on home screen
+  spdTicks = 0;              // <-- FIX: reset tick counter so fresh start next time
   ffKeys = {}; ffDpad = {up:false,down:false,left:false,right:false};
   document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
   document.getElementById('screen-home').classList.add('active');
-  refreshStarDisplay(); // always repaint stars from saved scores
+  refreshStarDisplay();
   nextJoke();
 }
 
 function startGame(name) {
-  refreshStarDisplay(); // snapshot current stars before leaving home
+  refreshStarDisplay();
   document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
   document.getElementById('screen-' + name).classList.add('active');
   const builders = {
-    wordsearch: buildWordSearch,
-    crossword:  buildCrossword,
-    matching:   buildMatching,
-    dragdrop:   buildDragDrop,
-    quiz:       buildQuiz,
+    wordsearch:      buildWordSearch,
+    crossword:       buildCrossword,
+    matching:        buildMatching,
+    dragdrop:        buildDragDrop,
+    quiz:            buildQuiz,
     scramble:        buildScramble,
     oddoneout:       buildOddOneOut,
     memorymatch:     buildMemoryMatch,
@@ -1700,61 +1751,41 @@ function startGame(name) {
 }
 
 // =============================================
-// TREE OF WISDOM (replaces Word Search)
+// TREE OF WISDOM
 // =============================================
-const TOW_ITEMS = shuffle([...V]).slice(0, 10);
+let TOW_ITEMS = [];
 let towIdx = 0, towScore = 0, towWrongCount = 0, towGuessed = new Set(), towWord = '';
-const TOW_MAX_WRONG = 7; // 7 stages: full tree → bare
+const TOW_MAX_WRONG = 7;
 
-// SVG stages: each array entry is what's VISIBLE at that wrong-count
-// We draw progressively: trunk always, then branches, then leaves disappear
 function towTreeSVG(wrongCount) {
-  const pct = wrongCount / TOW_MAX_WRONG; // 0 = full tree, 1 = bare
-  // Leaves: 6 clusters, disappear as wrong increases
+  const pct = wrongCount / TOW_MAX_WRONG;
   const leafClusters = [
-    {cx:100,cy:55,r:32}, {cx:65,cy:75,r:24}, {cx:135,cy:75,r:24},
-    {cx:80,cy:100,r:20}, {cx:120,cy:100,r:20}, {cx:100,cy:40,r:20},
+    {cx:100,cy:55,r:32},{cx:65,cy:75,r:24},{cx:135,cy:75,r:24},
+    {cx:80,cy:100,r:20},{cx:120,cy:100,r:20},{cx:100,cy:40,r:20},
   ];
   const showLeaves = leafClusters.slice(0, Math.max(0, leafClusters.length - Math.round(pct * leafClusters.length)));
   const branchOpacity = Math.max(0.1, 1 - pct * 0.8);
   const trunkColor = wrongCount >= TOW_MAX_WRONG ? '#5a3010' : '#7a4820';
-
-  const leavesHTML = showLeaves.map(l =>
-    `<circle cx="${l.cx}" cy="${l.cy}" r="${l.r}" fill="#2d6e38" opacity="0.85"/>`
-  ).join('');
-
-  const birds = wrongCount === 0
-    ? `<text x="148" y="52" font-size="14">🦜</text><text x="22" y="68" font-size="12">🦋</text>`
-    : '';
-
-  const sadFace = wrongCount >= TOW_MAX_WRONG
-    ? `<text x="86" y="175" font-size="18">😢</text>` : '';
-
+  const leavesHTML = showLeaves.map(l => `<circle cx="${l.cx}" cy="${l.cy}" r="${l.r}" fill="#2d6e38" opacity="0.85"/>`).join('');
+  const birds = wrongCount === 0 ? `<text x="148" y="52" font-size="14">🦜</text><text x="22" y="68" font-size="12">🦋</text>` : '';
+  const sadFace = wrongCount >= TOW_MAX_WRONG ? `<text x="86" y="175" font-size="18">😢</text>` : '';
   return `<svg viewBox="0 0 200 220" class="tow-tree-svg" xmlns="http://www.w3.org/2000/svg">
-    <!-- Ground -->
     <ellipse cx="100" cy="205" rx="55" ry="8" fill="#1a4a22" opacity="0.5"/>
-    <!-- Trunk -->
     <rect x="88" y="145" width="24" height="58" rx="6" fill="${trunkColor}"/>
-    <!-- Roots -->
     <path d="M88 198 Q75 208 62 205" stroke="${trunkColor}" stroke-width="5" fill="none" opacity="${branchOpacity}"/>
     <path d="M112 198 Q125 208 138 205" stroke="${trunkColor}" stroke-width="5" fill="none" opacity="${branchOpacity}"/>
-    <!-- Main branches -->
     <path d="M100 148 Q85 120 65 108" stroke="${trunkColor}" stroke-width="6" fill="none" opacity="${branchOpacity}"/>
     <path d="M100 148 Q115 120 135 108" stroke="${trunkColor}" stroke-width="6" fill="none" opacity="${branchOpacity}"/>
     <path d="M100 148 Q100 115 100 90" stroke="${trunkColor}" stroke-width="5" fill="none" opacity="${branchOpacity}"/>
-    <!-- Sub-branches -->
     <path d="M80 120 Q68 108 60 100" stroke="${trunkColor}" stroke-width="4" fill="none" opacity="${branchOpacity * 0.8}"/>
     <path d="M120 120 Q132 108 140 100" stroke="${trunkColor}" stroke-width="4" fill="none" opacity="${branchOpacity * 0.8}"/>
-    <!-- Leaves -->
-    ${leavesHTML}
-    ${birds}
-    ${sadFace}
-    <!-- Wrong count indicator -->
+    ${leavesHTML}${birds}${sadFace}
     ${wrongCount > 0 ? `<text x="8" y="18" font-size="10" fill="#ff6b6b" font-family="monospace">${'💔'.repeat(wrongCount)}</text>` : ''}
   </svg>`;
 }
 
 function buildWordSearch() {
+  TOW_ITEMS = shuffle([...V]).slice(0, 10);  // reshuffle each game
   towIdx = 0; towScore = 0;
   document.getElementById('ws-score').textContent = '0';
   document.getElementById('ws-progress').style.width = '0%';
@@ -1773,51 +1804,42 @@ function renderTOW() {
     storeScore('wordsearch', towScore, TOW_ITEMS.length);
     return;
   }
-
   document.getElementById('ws-progress').style.width = (towIdx / TOW_ITEMS.length * 100) + '%';
   const item = TOW_ITEMS[towIdx];
   towWord = item.word.toLowerCase();
   towGuessed = new Set();
   towWrongCount = 0;
-
   renderTOWState(item);
 }
 
 function renderTOWState(item) {
-  const blanks = towWord.split('').map((l, i) => {
+  const blanks = towWord.split('').map((l) => {
     const revealed = towGuessed.has(l);
     return `<div class="tow-blank ${revealed ? 'revealed-correct' : ''}">${revealed ? l.toUpperCase() : ''}</div>`;
   }).join('');
-
   const keyboard = 'abcdefghijklmnopqrstuvwxyz'.split('').map(l => {
-    const cls = towGuessed.has(l)
-      ? (towWord.includes(l) ? 'used-correct' : 'used-wrong')
-      : '';
+    const cls = towGuessed.has(l) ? (towWord.includes(l) ? 'used-correct' : 'used-wrong') : '';
     return `<div class="tow-key ${cls}" onclick="towGuess('${l}')">${l.toUpperCase()}</div>`;
   }).join('');
-
   const wrongLeft = TOW_MAX_WRONG - towWrongCount;
-
   document.getElementById('tow-body').innerHTML = `
     <div class="tow-q-num">Word ${towIdx + 1} of ${TOW_ITEMS.length}</div>
     <div class="tow-tree-wrap">${towTreeSVG(towWrongCount)}</div>
     <div class="tow-wrong-count">${towWrongCount > 0 ? `${towWrongCount} wrong guess${towWrongCount>1?'es':''} — ${wrongLeft} left before the tree loses its leaves!` : '🌳 Full tree — no wrong guesses yet!'}</div>
     <div class="tow-def">${item.def}</div>
     <div class="tow-blanks" id="tow-blanks">${blanks}</div>
-    <div class="tow-keyboard" id="tow-keyboard">${keyboard}</div>
-  `;
+    <div class="tow-keyboard" id="tow-keyboard">${keyboard}</div>`;
 }
 
 function towGuess(letter) {
   if (towGuessed.has(letter)) return;
   towGuessed.add(letter);
-
   if (towWord.includes(letter)) {
-    // Check if word complete
     const allRevealed = towWord.split('').every(l => towGuessed.has(l));
     if (allRevealed) {
       towScore++;
       document.getElementById('ws-score').textContent = towScore;
+      updateLiveBadge('ws-score', towScore, TOW_ITEMS.length);
       showToast('🌳 ' + towWord.toUpperCase() + '! Tree flourishes!', 'correct');
       setTimeout(() => { towIdx++; renderTOW(); }, 1400);
       return;
@@ -1827,15 +1849,12 @@ function towGuess(letter) {
     towWrongCount++;
     if (towWrongCount >= TOW_MAX_WRONG) {
       showToast('🍂 The tree lost all its leaves! Answer: ' + towWord.toUpperCase(), 'wrong');
-      setTimeout(() => { towIdx++; renderTOW(); }, 2200);
-      // Render final sad state then return
-      const item = TOW_ITEMS[towIdx];
       document.getElementById('tow-body').innerHTML = `
         <div class="tow-q-num">Word ${towIdx + 1} of ${TOW_ITEMS.length}</div>
         <div class="tow-tree-wrap">${towTreeSVG(TOW_MAX_WRONG)}</div>
-        <div class="tow-def">${item.def}</div>
-        <div style="text-align:center;font-family:'Special Elite',serif;font-size:18px;color:var(--wrong);margin:12px 0;">The word was: <span style="color:var(--gold)">${towWord.toUpperCase()}</span></div>
-      `;
+        <div class="tow-def">${TOW_ITEMS[towIdx].def}</div>
+        <div style="text-align:center;font-family:'Special Elite',serif;font-size:18px;color:var(--wrong);margin:12px 0;">The word was: <span style="color:var(--gold)">${towWord.toUpperCase()}</span></div>`;
+      setTimeout(() => { towIdx++; renderTOW(); }, 2200);
       return;
     }
     showToast('❌ No ' + letter.toUpperCase() + ' in this word', 'wrong');
@@ -1844,9 +1863,8 @@ function towGuess(letter) {
 }
 
 // =============================================
-// CROSSWORD (with visual grid)
+// CROSSWORD — BUG 2 FIX: Direction toggle
 // =============================================
-// Layout: place words on a grid. Each entry has row, col, dir, word, num, clue.
 const CW_ENTRIES = [
   { num:1,  dir:'across', word:'biome',        row:0, col:0,  clue:'Large region defined by climate, plants & animals' },
   { num:2,  dir:'across', word:'abiotic',      row:2, col:0,  clue:'Sunlight and water are examples of ___ factors' },
@@ -1859,24 +1877,21 @@ const CW_ENTRIES = [
   { num:9,  dir:'down',   word:'carbon',       row:4, col:3,  clue:'Gas released from thawing permafrost' },
   { num:10, dir:'down',   word:'stewardship',  row:0, col:9,  clue:'Responsible care for natural resources' },
 ];
-
-// Build a grid map
 const CW_ROWS = 14, CW_COLS = 14;
-let cwGrid = []; // {letter, num?, entries:[]}
-let cwActiveEntry = null;
+let cwGrid = [];
 let cwInputValues = {};
+let cwWrongCounts = {};
+// FIX: track active cell and direction separately
+let cwActiveCell = null;   // {r, c}
+let cwActiveDir  = 'across'; // 'across' or 'down'
 
 function buildCrossword() {
-  cwWrongCounts = {};
-  cwInputValues = {};
-  cwActiveEntry = null;
+  cwWrongCounts = {}; cwInputValues = {}; cwActiveCell = null; cwActiveDir = 'across';
   document.getElementById('cw-score').textContent = '0';
   document.getElementById('cw-progress').style.width = '0%';
+  document.getElementById('cw-dir-display').style.display = 'none';
 
-  // Init grid
   cwGrid = Array.from({length: CW_ROWS}, () => Array.from({length: CW_COLS}, () => null));
-
-  // Place entries
   CW_ENTRIES.forEach(entry => {
     cwWrongCounts[entry.num] = 0;
     for (let i = 0; i < entry.word.length; i++) {
@@ -1888,13 +1903,12 @@ function buildCrossword() {
     }
   });
 
-  // Render visual grid
   const gridEl = document.getElementById('cw-visual-grid');
   gridEl.innerHTML = '';
   const table = document.createElement('div');
   table.className = 'cw-grid-visual';
   table.style.gridTemplateColumns = `repeat(${CW_COLS}, 28px)`;
-  table.style.gridTemplateRows = `repeat(${CW_ROWS}, 28px)`;
+  table.style.gridTemplateRows    = `repeat(${CW_ROWS}, 28px)`;
 
   for (let r = 0; r < CW_ROWS; r++) {
     for (let c = 0; c < CW_COLS; c++) {
@@ -1902,8 +1916,7 @@ function buildCrossword() {
       cell.dataset.r = r; cell.dataset.c = c;
       if (cwGrid[r][c]) {
         cell.className = 'cw-cell white';
-        const cellId = `cwcell-${r}-${c}`;
-        cell.id = cellId;
+        cell.id = `cwcell-${r}-${c}`;
         if (cwGrid[r][c].nums.length > 0) {
           const numEl = document.createElement('div');
           numEl.className = 'cw-cell-num';
@@ -1914,11 +1927,10 @@ function buildCrossword() {
         inp.className = 'cw-cell-input';
         inp.maxLength = 1;
         inp.id = `cwinp-${r}-${c}`;
-        inp.autocomplete = 'off';
-        inp.spellcheck = false;
+        inp.autocomplete = 'off'; inp.spellcheck = false;
         inp.dataset.r = r; inp.dataset.c = c;
         inp.addEventListener('input', cwOnInput);
-        inp.addEventListener('focus', () => cwHighlightEntry(r, c));
+        inp.addEventListener('focus', (e) => cwOnFocus(r, c, e));
         inp.addEventListener('keydown', cwOnKeydown);
         cell.appendChild(inp);
       } else {
@@ -1929,7 +1941,6 @@ function buildCrossword() {
   }
   gridEl.appendChild(table);
 
-  // Render clue lists
   const acrossEl = document.getElementById('cw-across');
   const downEl   = document.getElementById('cw-down');
   acrossEl.innerHTML = ''; downEl.innerHTML = '';
@@ -1939,8 +1950,10 @@ function buildCrossword() {
     div.id = `cwclue-${entry.num}`;
     div.style.cursor = 'pointer';
     div.onclick = () => {
+      // FIX: clicking a clue sets direction to that clue's direction
+      cwActiveDir = entry.dir;
       const inp = document.getElementById(`cwinp-${entry.row}-${entry.col}`);
-      if (inp) { inp.focus(); cwHighlightEntry(entry.row, entry.col); }
+      if (inp) { inp.focus(); }
     };
     div.innerHTML = `
       <div class="cw-num">${entry.num}.</div>
@@ -1952,23 +1965,77 @@ function buildCrossword() {
   });
 }
 
-function cwHighlightEntry(r, c) {
-  // Find all entries that pass through this cell
-  document.querySelectorAll('.cw-cell.active-cell').forEach(el => el.classList.remove('active-cell'));
+// FIX: cwOnFocus replaces cwHighlightEntry — handles direction toggling
+function cwOnFocus(r, c) {
   if (!cwGrid[r]?.[c]) return;
   const cell = cwGrid[r][c];
-  // Toggle direction if clicking same cell
-  const entryNum = cell.entries[0]?.entryNum;
-  if (entryNum) {
-    const entry = CW_ENTRIES.find(e => e.num === entryNum);
-    if (entry) {
-      for (let i = 0; i < entry.word.length; i++) {
-        const er = entry.dir === 'across' ? entry.row : entry.row + i;
-        const ec = entry.dir === 'across' ? entry.col + i : entry.col;
-        const el = document.getElementById(`cwcell-${er}-${ec}`);
-        if (el) el.classList.add('active-cell');
-      }
+
+  // Determine which directions are available at this cell
+  const entryNums = cell.entries.map(e => e.entryNum);
+  const availDirs = [...new Set(entryNums.map(n => CW_ENTRIES.find(e => e.num === n)?.dir).filter(Boolean))];
+
+  if (availDirs.length === 0) return;
+
+  // FIX: if clicking the SAME cell again, toggle direction
+  if (cwActiveCell && cwActiveCell.r === r && cwActiveCell.c === c) {
+    if (availDirs.length > 1) {
+      cwActiveDir = cwActiveDir === 'across' ? 'down' : 'across';
+      // If toggled direction isn't available here, stay on current
+      if (!availDirs.includes(cwActiveDir)) cwActiveDir = availDirs[0];
     }
+  } else {
+    // New cell: prefer current direction if available, else switch
+    if (!availDirs.includes(cwActiveDir)) {
+      cwActiveDir = availDirs[0];
+    }
+  }
+  cwActiveCell = {r, c};
+
+  // Update direction indicator
+  const dirDisplay = document.getElementById('cw-dir-display');
+  const dirText    = document.getElementById('cw-dir-text');
+  if (dirDisplay && dirText) {
+    dirDisplay.style.display = 'inline-flex';
+    dirText.textContent = cwActiveDir === 'across' ? '→ ACROSS' : '↓ DOWN';
+    dirText.className   = cwActiveDir === 'across' ? 'dir-across' : 'dir-down';
+  }
+
+  cwHighlightActiveEntry(r, c);
+}
+
+function cwHighlightActiveEntry(r, c) {
+  // Clear all highlights
+  document.querySelectorAll('.cw-cell').forEach(el => {
+    el.classList.remove('active-cell', 'active-across', 'active-down');
+  });
+
+  if (!cwGrid[r]?.[c]) return;
+
+  // Find the entry in cwActiveDir that passes through (r,c)
+  const entry = CW_ENTRIES.find(en => {
+    if (en.dir !== cwActiveDir) return false;
+    return cwGrid[r][c].entries.some(e => e.entryNum === en.num);
+  });
+
+  if (!entry) {
+    // Fallback: highlight any entry through this cell
+    const anyEntry = CW_ENTRIES.find(en => cwGrid[r][c].entries.some(e => e.entryNum === en.num));
+    if (!anyEntry) return;
+    for (let i = 0; i < anyEntry.word.length; i++) {
+      const er = anyEntry.dir === 'across' ? anyEntry.row : anyEntry.row + i;
+      const ec = anyEntry.dir === 'across' ? anyEntry.col + i : anyEntry.col;
+      const el = document.getElementById(`cwcell-${er}-${ec}`);
+      if (el) el.classList.add('active-cell');
+    }
+    return;
+  }
+
+  const cls = cwActiveDir === 'across' ? 'active-across' : 'active-down';
+  for (let i = 0; i < entry.word.length; i++) {
+    const er = entry.dir === 'across' ? entry.row : entry.row + i;
+    const ec = entry.dir === 'across' ? entry.col + i : entry.col;
+    const el = document.getElementById(`cwcell-${er}-${ec}`);
+    if (el) el.classList.add(cls);
   }
 }
 
@@ -1977,32 +2044,40 @@ function cwOnInput(e) {
   const r = +inp.dataset.r, c = +inp.dataset.c;
   inp.value = inp.value.slice(-1).toUpperCase();
   cwInputValues[`${r}-${c}`] = inp.value;
-  // Auto-advance
-  if (inp.value && cwGrid[r]?.[c]) {
-    const entry = CW_ENTRIES.find(en => cwGrid[r][c].entries.some(e => e.entryNum === en.num));
-    if (entry) {
-      const nr = entry.dir === 'across' ? r : r + 1;
-      const nc = entry.dir === 'across' ? c + 1 : c;
-      const next = document.getElementById(`cwinp-${nr}-${nc}`);
-      if (next) next.focus();
-    }
+  if (!inp.value) return;
+
+  // FIX: advance in cwActiveDir direction, not just entries[0]
+  const nr = cwActiveDir === 'across' ? r     : r + 1;
+  const nc = cwActiveDir === 'across' ? c + 1 : c;
+  const next = document.getElementById(`cwinp-${nr}-${nc}`);
+  if (next && cwGrid[nr]?.[nc]) {
+    next.focus();
   }
 }
 
 function cwOnKeydown(e) {
+  const inp = e.target;
+  const r = +inp.dataset.r, c = +inp.dataset.c;
+
   if (e.key === 'Backspace') {
-    const inp = e.target;
     if (!inp.value) {
-      const r = +inp.dataset.r, c = +inp.dataset.c;
-      if (cwGrid[r]?.[c]) {
-        const entry = CW_ENTRIES.find(en => cwGrid[r][c].entries.some(e => e.entryNum === en.num));
-        if (entry) {
-          const pr = entry.dir === 'across' ? r : r - 1;
-          const pc = entry.dir === 'across' ? c - 1 : c;
-          const prev = document.getElementById(`cwinp-${pr}-${pc}`);
-          if (prev) { prev.value = ''; prev.focus(); }
-        }
-      }
+      // Move backward in active direction
+      const pr = cwActiveDir === 'across' ? r     : r - 1;
+      const pc = cwActiveDir === 'across' ? c - 1 : c;
+      const prev = document.getElementById(`cwinp-${pr}-${pc}`);
+      if (prev && cwGrid[pr]?.[pc]) { prev.value = ''; cwInputValues[`${pr}-${pc}`] = ''; prev.focus(); }
+    }
+  } else if (e.key === 'Tab') {
+    e.preventDefault();
+    // Tab cycles to next entry
+    const curEntryNums = cwGrid[r]?.[c]?.entries.map(x => x.entryNum) || [];
+    const curEntry = CW_ENTRIES.find(en => curEntryNums.includes(en.num) && en.dir === cwActiveDir);
+    if (curEntry) {
+      const idx = CW_ENTRIES.indexOf(curEntry);
+      const nextEntry = CW_ENTRIES[(idx + 1) % CW_ENTRIES.length];
+      cwActiveDir = nextEntry.dir;
+      const ni = document.getElementById(`cwinp-${nextEntry.row}-${nextEntry.col}`);
+      if (ni) ni.focus();
     }
   }
 }
@@ -2021,7 +2096,6 @@ function checkCrossword() {
     }
     if (wordCorrect) {
       correct++;
-      // Mark cells green
       for (let i = 0; i < entry.word.length; i++) {
         const r = entry.dir === 'across' ? entry.row : entry.row + i;
         const c = entry.dir === 'across' ? entry.col + i : entry.col;
@@ -2036,14 +2110,12 @@ function checkCrossword() {
       cwWrongCounts[entry.num] = (cwWrongCounts[entry.num] || 0) + 1;
       if (cwWrongCounts[entry.num] >= 2) {
         const hint = document.getElementById('cw-hint-' + entry.num);
-        if (hint) {
-          hint.style.display = 'block';
-          hint.textContent = `🦎 Hint: Starts with "${entry.word[0].toUpperCase()}" — ${entry.word.length} letters`;
-        }
+        if (hint) { hint.style.display = 'block'; hint.textContent = `🦎 Hint: Starts with "${entry.word[0].toUpperCase()}" — ${entry.word.length} letters`; }
       }
     }
   });
   document.getElementById('cw-score').textContent = correct;
+  updateLiveBadge('cw-score', correct, CW_ENTRIES.length);
   document.getElementById('cw-progress').style.width = (correct/CW_ENTRIES.length*100) + '%';
   storeScore('crossword', correct, CW_ENTRIES.length);
   if (correct === CW_ENTRIES.length) showToast('🏆 Crossword Complete!', 'correct');
@@ -2054,34 +2126,29 @@ function checkCrossword() {
 // MATCHING
 // =============================================
 let matchSelected = null, matchCorrect = 0, matchWrongCounts = {};
-const MATCH_SET = shuffle([...V]).slice(0, 10);
+let MATCH_SET = [];
 
 function buildMatching() {
+  MATCH_SET = shuffle([...V]).slice(0, 10);  // reshuffle each game
   matchSelected = null; matchCorrect = 0; matchWrongCounts = {};
   document.getElementById('match-score').textContent = '0';
   document.getElementById('match-progress').style.width = '0%';
-
   const words = shuffle(MATCH_SET.map((v,i) => ({...v, idx:i})));
   const defs  = shuffle(MATCH_SET.map((v,i) => ({...v, idx:i})));
-
   const wordsEl = document.getElementById('match-words');
   const defsEl  = document.getElementById('match-defs');
   wordsEl.innerHTML = ''; defsEl.innerHTML = '';
-
   words.forEach(v => {
     const card = document.createElement('div');
     card.className = 'match-card word-card';
-    card.textContent = v.word;
-    card.dataset.idx = v.idx; card.dataset.type = 'word';
+    card.textContent = v.word; card.dataset.idx = v.idx; card.dataset.type = 'word';
     card.onclick = () => matchClick(card);
     wordsEl.appendChild(card);
   });
-
   defs.forEach(v => {
     const card = document.createElement('div');
     card.className = 'match-card def-card';
-    card.textContent = v.def;
-    card.dataset.idx = v.idx; card.dataset.type = 'def';
+    card.textContent = v.def; card.dataset.idx = v.idx; card.dataset.type = 'def';
     card.onclick = () => matchClick(card);
     defsEl.appendChild(card);
   });
@@ -2089,21 +2156,10 @@ function buildMatching() {
 
 function matchClick(card) {
   if (card.classList.contains('matched')) return;
-  if (!matchSelected) {
-    matchSelected = card;
-    card.classList.add('selected');
-    return;
-  }
-  if (matchSelected === card) {
-    card.classList.remove('selected');
-    matchSelected = null;
-    return;
-  }
+  if (!matchSelected) { matchSelected = card; card.classList.add('selected'); return; }
+  if (matchSelected === card) { card.classList.remove('selected'); matchSelected = null; return; }
   if (matchSelected.dataset.type === card.dataset.type) {
-    matchSelected.classList.remove('selected');
-    matchSelected = card;
-    card.classList.add('selected');
-    return;
+    matchSelected.classList.remove('selected'); matchSelected = card; card.classList.add('selected'); return;
   }
   const a = matchSelected, b = card;
   if (a.dataset.idx === b.dataset.idx) {
@@ -2111,6 +2167,7 @@ function matchClick(card) {
     a.classList.add('matched'); b.classList.add('matched');
     matchCorrect++;
     document.getElementById('match-score').textContent = matchCorrect;
+    updateLiveBadge('match-score', matchCorrect, MATCH_SET.length);
     document.getElementById('match-progress').style.width = (matchCorrect/MATCH_SET.length*100)+'%';
     showToast('✅ Match!', 'correct');
     storeScore('matching', matchCorrect, MATCH_SET.length);
@@ -2121,17 +2178,13 @@ function matchClick(card) {
     matchWrongCounts[key] = (matchWrongCounts[key] || 0) + 1;
     if (matchWrongCounts[key] >= 2) showToast('🦎 Hint: Think about the definition carefully!', 'hint');
     else showToast('❌ Not a match — try again!', 'wrong');
-    setTimeout(() => {
-      a.classList.remove('wrong-flash', 'selected');
-      b.classList.remove('wrong-flash', 'selected');
-    }, 700);
+    setTimeout(() => { a.classList.remove('wrong-flash', 'selected'); b.classList.remove('wrong-flash', 'selected'); }, 700);
   }
   matchSelected = null;
 }
 
 // =============================================
-// DRAG & DROP (Vine Drop) — single blank per sentence
-// Sentences are intentionally different from the Mission Map worksheet sentences
+// DRAG & DROP
 // =============================================
 const DND_SENTENCES = [
   { word: 'biome',         sentence: 'Scientists classify the Amazon rainforest as a tropical ___ because of its warm, wet climate and unique community of organisms.' },
@@ -2145,58 +2198,41 @@ const DND_SENTENCES = [
   { word: 'fragmentation', sentence: 'When a highway is built through a forest, the resulting habitat ___ isolates animal populations from one another.' },
   { word: 'stewardship',   sentence: 'Students who clean up local parks and plant native species are practicing ___ of their community\'s natural environment.' },
 ];
-
-// Distractor words that sound plausible but are wrong answers
 const DND_DISTRACTORS = ['ecosystem', 'climate', 'erosion', 'migration'];
-
-const DND_SET = shuffle([...DND_SENTENCES]);
-let dndAnswers = {}, dndWrongCounts = {}, dndDragWord = null;
+let DND_SET = [];
+let dndAnswers = {}, dndWrongCounts = {}, dndDragWord = null, dndSelectedWord = null;
 
 function buildDragDrop() {
-  dndAnswers = {}; dndWrongCounts = {};
+  DND_SET = shuffle([...DND_SENTENCES]);  // reshuffle each game
+  dndAnswers = {}; dndWrongCounts = {}; dndSelectedWord = null;
   document.getElementById('dnd-score').textContent = '0';
   document.getElementById('dnd-progress').style.width = '0%';
-
   const qEl = document.getElementById('dnd-questions');
   qEl.innerHTML = '';
-
   DND_SET.forEach((v, i) => {
-    const sentenceHTML = v.sentence.replace('___', `<span class="drop-zone" id="dz-${i}" data-idx="${i}"
-      ondragover="event.preventDefault();this.classList.add('drag-over')"
-      ondragleave="this.classList.remove('drag-over')"
-      ondrop="dndDrop(event,${i})"
-      onclick="dndClickDrop(${i})"
-      >drop here</span>`);
+    const sentenceHTML = v.sentence.replace('___', `<span class="drop-zone" id="dz-${i}" data-idx="${i}" ondragover="event.preventDefault();this.classList.add('drag-over')" ondragleave="this.classList.remove('drag-over')" ondrop="dndDrop(event,${i})" onclick="dndClickDrop(${i})">drop here</span>`);
     const div = document.createElement('div');
     div.className = 'dnd-question';
     div.innerHTML = `<strong style="color:var(--text3);font-size:11px;letter-spacing:2px;text-transform:uppercase;">Q${i+1}</strong><br>${sentenceHTML}`;
     qEl.appendChild(div);
   });
-
-  // Build bank — answer words + distractors, all shuffled
   const bankEl = document.getElementById('dnd-bank');
   bankEl.innerHTML = '';
   const bankWords = shuffle([
     ...DND_SET.map(v => ({ word: v.word, isDistractor: false })),
     ...DND_DISTRACTORS.map(w => ({ word: w, isDistractor: true })),
   ]);
-
-  bankWords.forEach(({ word, isDistractor }) => {
+  bankWords.forEach(({ word }) => {
     const chip = document.createElement('div');
-    chip.className = 'drag-word';
-    if (isDistractor) chip.style.opacity = '0.85'; // subtle — distractors look the same
-    chip.textContent = word;
-    chip.dataset.word = word;
-    chip.draggable = true;
-    chip.id = 'dw-' + word;
-    chip.ondragstart = e => { dndDragWord = word; chip.classList.add('dragging'); };
+    chip.className = 'drag-word'; chip.textContent = word; chip.dataset.word = word;
+    chip.draggable = true; chip.id = 'dw-' + word;
+    chip.ondragstart = () => { dndDragWord = word; chip.classList.add('dragging'); };
     chip.ondragend = () => chip.classList.remove('dragging');
     chip.onclick = () => dndSelectWord(word);
     bankEl.appendChild(chip);
   });
 }
 
-let dndSelectedWord = null;
 function dndSelectWord(word) {
   dndSelectedWord = word;
   document.querySelectorAll('.drag-word').forEach(el => el.style.outline = '');
@@ -2222,10 +2258,7 @@ function dndDrop(e, idx) {
 function placeDND(word, idx) {
   const dz = document.getElementById('dz-' + idx);
   if (!dz || dz.classList.contains('correct-fill')) return;
-  dz.textContent = word;
-  dz.classList.add('filled');
-  dndAnswers[idx] = word;
-  // mark used
+  dz.textContent = word; dz.classList.add('filled'); dndAnswers[idx] = word;
   const chip = document.getElementById('dw-' + word);
   if (chip) chip.classList.add('used');
 }
@@ -2238,28 +2271,21 @@ function checkDND() {
     if (dz.classList.contains('correct-fill')) { correct++; return; }
     const ans = dndAnswers[i];
     if (ans && ans.toLowerCase() === v.word.toLowerCase()) {
-      dz.classList.add('correct-fill');
-      correct++;
+      dz.classList.add('correct-fill'); correct++;
     } else {
       dz.classList.add('wrong-fill');
       dndWrongCounts[i] = (dndWrongCounts[i] || 0) + 1;
-      if (dndWrongCounts[i] >= 2) {
-        showToast(`🦎 Hint for Q${i+1}: "${v.word[0].toUpperCase()}..."`, 'hint');
-      }
+      if (dndWrongCounts[i] >= 2) showToast(`🦎 Hint for Q${i+1}: "${v.word[0].toUpperCase()}..."`, 'hint');
       setTimeout(() => {
         dz.classList.remove('wrong-fill');
-        // unmark used if wrong
-        if (ans) {
-          const chip = document.getElementById('dw-' + ans);
-          if (chip) chip.classList.remove('used');
-        }
-        dz.textContent = 'drop here';
-        dz.classList.remove('filled');
+        if (ans) { const chip = document.getElementById('dw-' + ans); if (chip) chip.classList.remove('used'); }
+        dz.textContent = 'drop here'; dz.classList.remove('filled');
         delete dndAnswers[i];
       }, 800);
     }
   });
   document.getElementById('dnd-score').textContent = correct;
+  updateLiveBadge('dnd-score', correct, DND_SET.length);
   document.getElementById('dnd-progress').style.width = (correct/DND_SET.length*100)+'%';
   storeScore('dragdrop', correct, DND_SET.length);
   if (correct === DND_SET.length) showToast('🌴 All correct! Amazing explorer!', 'correct');
@@ -2267,140 +2293,91 @@ function checkDND() {
 }
 
 // =============================================
-// FEEDING FRENZY — Critter Game
+// FEEDING FRENZY — BUG 3 FIX
 // =============================================
-
-// ---------- CRITTERS ----------
 const FF_CRITTERS = [
-  { name:'Froglet',    emoji:'🐸', baby:'🥚', win:'🐸✨', lose:'🏃',
-    growStages:['🥚','🐛','🐟','🐸','🐸✨'],
-    color:'#3d8f47', label:'Tadpole → Frog' },
-  { name:'Caterpillar',emoji:'🦋', baby:'🥚', win:'🦋',  lose:'🍃',
-    growStages:['🥚','🐛','🐛','🐌','🦋'],
-    color:'#c08800', label:'Egg → Butterfly' },
-  { name:'Baby Gecko', emoji:'🦎', baby:'🥚', win:'🦎✨', lose:'🏃',
-    growStages:['🥚','🦎','🦎','🦎','🦎✨'],
-    color:'#7dff6b', label:'Hatchling → Gecko' },
-  { name:'Venus Trap', emoji:'🌱', baby:'🌱', win:'🌺',  lose:'🥀',
-    growStages:['🌱','🌿','🌿','🪴','🌺'],
-    color:'#44ff88', label:'Seedling → Bloom' },
+  { name:'Froglet',    emoji:'🐸', baby:'🥚', win:'🐸✨', lose:'🏃', growStages:['🥚','🐛','🐟','🐸','🐸✨'], color:'#3d8f47', label:'Tadpole → Frog' },
+  { name:'Caterpillar',emoji:'🦋', baby:'🥚', win:'🦋',  lose:'🍃', growStages:['🥚','🐛','🐛','🐌','🦋'],  color:'#c08800', label:'Egg → Butterfly' },
+  { name:'Baby Gecko', emoji:'🦎', baby:'🥚', win:'🦎✨', lose:'🏃', growStages:['🥚','🦎','🦎','🦎','🦎✨'], color:'#7dff6b', label:'Hatchling → Gecko' },
+  { name:'Venus Trap', emoji:'🌱', baby:'🌱', win:'🌺',  lose:'🥀', growStages:['🌱','🌿','🌿','🪴','🌺'],   color:'#44ff88', label:'Seedling → Bloom' },
 ];
 
-// ---------- QUESTION BANK (60+ questions, same concepts reworded multiple times) ----------
 const FF_QUESTIONS = [
-  // BIOME
   {q:'What do we call a large geographical area defined by its climate, plants, and animals?', a:'biome', opts:['biome','habitat','ecosystem','climate']},
   {q:'A tropical rainforest is an example of which type of large ecological region?', a:'biome', opts:['biome','biotic factor','latitude zone','population']},
   {q:'Which term describes a region like the tundra or desert that has its own distinct climate and community of organisms?', a:'biome', opts:['biome','niche','permafrost','biodiversity']},
-  // ABIOTIC
   {q:'Sunlight, temperature, and water are examples of which type of environmental factor?', a:'abiotic', opts:['abiotic','biotic','living','nocturnal']},
   {q:'Non-living parts of an ecosystem — like wind and soil minerals — are called what?', a:'abiotic', opts:['abiotic','biotic','plankton','habitat']},
   {q:'Which factor type includes things like rainfall, pH of water, and air temperature?', a:'abiotic', opts:['abiotic','biotic','grazing','fragmentation']},
-  // BIOTIC
   {q:'Bacteria, fungi, and all animals in an ecosystem are examples of which kind of factor?', a:'biotic', opts:['biotic','abiotic','latitude','CAM']},
   {q:'Living components of an environment — like plants and insects — are called what?', a:'biotic', opts:['biotic','abiotic','permafrost','climate']},
   {q:'Which term describes the living parts of an ecosystem?', a:'biotic', opts:['biotic','abiotic','nocturnal','plankton']},
-  // TEMPERATURE
   {q:'Along with precipitation, which climate factor most determines what biome forms in a region?', a:'temperature', opts:['temperature','latitude','biodiversity','stewardship']},
   {q:'Which factor describes how hot or cold an environment is and directly shapes biome type?', a:'temperature', opts:['temperature','precipitation','biome','carbon']},
-  // PRECIPITATION
   {q:'Rainfall and snowfall together are called what, and help determine biome type alongside temperature?', a:'precipitation', opts:['precipitation','temperature','latitude','fragmentation']},
   {q:'The Sahara is dry because it receives very little ___. What is the missing word?', a:'precipitation', opts:['precipitation','biodiversity','stewardship','permafrost']},
-  // LIVING
-  {q:'All the ___ organisms in an ecosystem, including microorganisms, are considered biotic factors. What fills the blank?', a:'living', opts:['living','abiotic','nocturnal','reduced']},
-  {q:'Microorganisms, plants, and animals are all examples of ___ things in an ecosystem.', a:'living', opts:['living','abiotic','reduced','carbon']},
-  // BIODIVERSITY
+  {q:'All the ___ organisms in an ecosystem, including microorganisms, are considered biotic factors.', a:'living', opts:['living','abiotic','nocturnal','reduced']},
   {q:'A coral reef that supports thousands of species has very high what?', a:'biodiversity', opts:['biodiversity','latitude','stewardship','fragmentation']},
   {q:'The variety of different species living in a habitat is called its what?', a:'biodiversity', opts:['biodiversity','biome','permafrost','decline']},
-  {q:'High ___ helps an ecosystem recover after a disaster like a wildfire. What is the missing word?', a:'biodiversity', opts:['biodiversity','abiotic','plastic','grazing']},
   {q:'Scientists count many species in a rainforest — this is a measure of the area\'s high what?', a:'biodiversity', opts:['biodiversity','latitude','carbon','living']},
-  // LATITUDE
   {q:'The distance north or south of the equator that affects temperature zones is called what?', a:'latitude', opts:['latitude','longitude','altitude','biodiversity']},
-  {q:'As ___ increases from the equator to the poles, temperatures generally drop. What is the word?', a:'latitude', opts:['latitude','precipitation','stewardship','biome']},
-  {q:'Which term describes your position relative to the equator and determines your climate zone?', a:'latitude', opts:['latitude','temperature','carbon','CAM']},
-  // DECLINE
-  {q:'Climate change can cause a population ___ when organisms lose their food sources. What is the word?', a:'decline', opts:['decline','increase','migrate','biome']},
-  {q:'Leaf-cutter ants may experience a population ___ if vegetation they rely on disappears.', a:'decline', opts:['decline','biodiversity','fragmentation','stewardship']},
-  // HABITATS
+  {q:'As ___ increases from the equator to the poles, temperatures generally drop.', a:'latitude', opts:['latitude','precipitation','stewardship','biome']},
+  {q:'Climate change can cause a population ___ when organisms lose their food sources.', a:'decline', opts:['decline','increase','migrate','biome']},
   {q:'When wildfires destroy rainforest, unique ___ for rare species are permanently lost.', a:'habitats', opts:['habitats','biomes','plankton','latitudes']},
-  {q:'Many animals are endangered because human development destroys their natural ___.', a:'habitats', opts:['habitats','carbon','abiotic','living']},
-  // REDUCED
   {q:'Rising desert temperatures may cause Saguaro cactus populations to face ___ growth.', a:'reduced', opts:['reduced','increased','biotic','living']},
-  {q:'When resources run low, animal populations often show ___ birth rates. What is the word?', a:'reduced', opts:['reduced','biotic','abiotic','latitude']},
-  // CAM
   {q:'Some desert plants open their stomata only at night to save water. This is called ___ photosynthesis.', a:'CAM', opts:['CAM','biotic','abiotic','grazing']},
   {q:'Which special type of photosynthesis do cacti use to conserve water?', a:'CAM', opts:['CAM','PLM','DOM','RAM']},
-  {q:'Desert plants that photosynthesize at night instead of during the day use which type?', a:'CAM', opts:['CAM','nocturnal','biome','stewardship']},
-  // NOCTURNAL
   {q:'An animal that sleeps during the day and is active at night is called what?', a:'nocturnal', opts:['nocturnal','diurnal','biotic','migratory']},
   {q:'Owls and bats hunt at night — they are examples of ___ animals.', a:'nocturnal', opts:['nocturnal','abiotic','CAM','plankton']},
-  {q:'Desert scorpions avoid the heat by being ___. What word fills the blank?', a:'nocturnal', opts:['nocturnal','biotic','reduced','latitude']},
-  // PERMAFROST
   {q:'Soil that stays completely frozen for at least two years in a row is called what?', a:'permafrost', opts:['permafrost','tundra','carbon','bedrock']},
-  {q:'In the Arctic tundra, the permanently frozen layer of ground beneath the surface is called what?', a:'permafrost', opts:['permafrost','biodiversity','plankton','biome']},
-  {q:'When ___ thaws due to climate change, it releases stored greenhouse gases. What is it?', a:'permafrost', opts:['permafrost','savanna','latitude','habitat']},
-  // CARBON
+  {q:'When ___ thaws due to climate change, it releases stored greenhouse gases.', a:'permafrost', opts:['permafrost','savanna','latitude','habitat']},
   {q:'Thawing permafrost releases stored ___ dioxide into the atmosphere as a greenhouse gas.', a:'carbon', opts:['carbon','plankton','plastic','nitrogen']},
-  {q:'The element ___ is stored in permafrost and released as a greenhouse gas when it melts.', a:'carbon', opts:['carbon','oxygen','nitrogen','hydrogen']},
   {q:'Which greenhouse gas element is trapped in frozen tundra soil and released when it warms?', a:'carbon', opts:['carbon','CAM','biotic','stewardship']},
-  // PLANKTON
   {q:'Tiny ocean organisms that form the base of most marine food webs are called what?', a:'plankton', opts:['plankton','algae','coral','krill']},
   {q:'Even huge whales depend on microscopic ___ as a key part of their diet.', a:'plankton', opts:['plankton','carbon','plastic','habitat']},
-  {q:'Which tiny organisms drift through the ocean and support nearly all marine food chains?', a:'plankton', opts:['plankton','abiotic','biome','latitude']},
-  // PLASTIC
   {q:'Marine animals are often harmed by ___ pollution through ingestion or entanglement.', a:'plastic', opts:['plastic','carbon','biotic','nocturnal']},
-  {q:'Sea turtles mistake bags for jellyfish — they are threatened by ___ pollution.', a:'plastic', opts:['plastic','carbon','plankton','decline']},
-  // SAVANNA
   {q:'A biome with vast grasslands and only a few scattered trees is called a what?', a:'savanna', opts:['savanna','tundra','rainforest','wetland']},
-  {q:'The African grassland biome where lions and elephants roam is called a what?', a:'savanna', opts:['savanna','biome','habitat','desert']},
   {q:'Which biome is characterized by a dry season, a wet season, and sparse trees?', a:'savanna', opts:['savanna','tundra','coral reef','boreal forest']},
-  // GRAZING
   {q:'In a savanna, large animals prevent thick forests by eating young trees. This behavior is called what?', a:'grazing', opts:['grazing','hunting','migrating','nesting']},
-  {q:'Elephants and wildebeest help maintain grasslands by constantly ___ on vegetation.', a:'grazing', opts:['grazing','planting','declining','reducing']},
-  // FRAGMENTATION
   {q:'Building a highway through a forest creates habitat ___ by splitting ecosystems apart.', a:'fragmentation', opts:['fragmentation','biodiversity','stewardship','decline']},
   {q:'The process of breaking large habitats into smaller isolated patches is called what?', a:'fragmentation', opts:['fragmentation','permafrost','latitude','carbon']},
-  {q:'When cities expand into wild areas, habitat ___ threatens animal migration routes.', a:'fragmentation', opts:['fragmentation','grazing','CAM','plankton']},
-  // STEWARDSHIP
   {q:'Taking responsible care of natural resources to protect ecosystems is called what?', a:'stewardship', opts:['stewardship','biodiversity','latitude','decline']},
-  {q:'Students who plant native trees and clean up rivers are practicing environmental ___.', a:'stewardship', opts:['stewardship','fragmentation','nocturnal','grazing']},
   {q:'Which word describes the human responsibility to protect and preserve the natural world?', a:'stewardship', opts:['stewardship','biome','plankton','carbon']},
+  // Additional variety questions
+  {q:'Saguaro cacti populations may face ___ growth if desert temperatures keep rising.', a:'reduced', opts:['reduced','increased','biotic','living']},
+  {q:'When resources run low in an ecosystem, populations often experience a ___.', a:'decline', opts:['decline','increase','growth','bloom']},
+  {q:'What do you call the frozen layer of ground found in the Arctic tundra?', a:'permafrost', opts:['permafrost','bedrock','glacier','tundra']},
+  {q:'Taking responsible care of natural resources to protect them for future generations is called what?', a:'stewardship', opts:['stewardship','conservation','latitude','biome']},
+  {q:'The ocean food chain begins with microscopic floating organisms called what?', a:'plankton', opts:['plankton','algae','krill','bacteria']},
+  {q:'Sea birds and sea turtles are often harmed by ___ that enters the ocean.', a:'plastic', opts:['plastic','plankton','carbon','abiotic']},
+  {q:'The ___ is the biome where wildebeest and zebras roam dry grasslands.', a:'savanna', opts:['savanna','rainforest','tundra','coral reef']},
+  {q:'What does a cow do in a field that helps prevent thick forests on savannas?', a:'grazing', opts:['grazing','migrating','burrowing','swimming']},
+  {q:'Roads and buildings break up forests, causing habitat ___.', a:'fragmentation', opts:['fragmentation','decline','biome','stewardship']},
+  {q:'A type of photosynthesis where stomata open at night to reduce water loss is called ___.', a:'CAM', opts:['CAM','C4','RuBP','ATP']},
+  {q:'Night-hunting animals like owls and bats are described as what?', a:'nocturnal', opts:['nocturnal','diurnal','migratory','dormant']},
+  {q:'Which element, stored in permafrost, acts as a greenhouse gas when released?', a:'carbon', opts:['carbon','nitrogen','oxygen','sulfur']},
+  {q:'What do we call ALL the living things in an ecosystem taken together?', a:'biotic', opts:['biotic','abiotic','biodiversity','plankton']},
+  {q:'Which factor includes both sunlight levels AND rainfall amounts in an ecosystem?', a:'abiotic', opts:['abiotic','biotic','latitude','stewardship']},
+  {q:'The Amazon rainforest has high ___ because it is home to millions of different species.', a:'biodiversity', opts:['biodiversity','latitude','precipitation','fragmentation']},
 ];
 
-// ---------- GAME STATE ----------
 let ffCritter = null;
-let ffSize = 2;              // logical size 0–4
-let ffDisplaySize = 2;       // smoothly lerps toward ffSize for visual scaling
-const FF_WIN  = 4;
-const FF_LOSE = 0;
-const FF_TOTAL_Q  = 15;
-const FF_STREAK_N = 3;
-let ffQCount = 0, ffScore = 0;
-let ffCorrectStreak = 0, ffWrongStreak = 0;
-let ffBubbles = [];
-let ffCanvas, ffCtx;
+let ffSize = 2, ffDisplaySize = 2;
+const FF_WIN = 4, FF_LOSE = 0, FF_TOTAL_Q = 15, FF_STREAK_N = 3;
+let ffQCount = 0, ffScore = 0, ffCorrectStreak = 0, ffWrongStreak = 0;
+let ffBubbles = [], ffCanvas, ffCtx;
 let ffAnimFrame = null;
-let ffCurrentQ  = null;
-let ffAnswering  = true;
-let ffWobble = 0;
-// Eating animation state
-let ffEatAnim    = 0;        // counts 40→0 after eating
-let ffEatCorrect = false;
-let ffEatBubble  = null;
-let ffEatBubbleT = 0;
-let ffMouthOpen  = 0;
-let ffScalePop   = 1;
+let ffCurrentQ = null, ffAnswering = true;
+let ffWobble = 0, ffEatAnim = 0, ffEatCorrect = false;
+let ffEatBubble = null, ffEatBubbleT = 0, ffMouthOpen = 0, ffScalePop = 1;
 let ffCritterX = 0, ffCritterY = 0;
-// Walking state
-let ffVx = 0, ffVy = 0;           // current velocity
-let ffKeys = {};                   // held keys
-let ffFacing = 1;                  // 1=right, -1=left (for flip)
-let ffWalkCycle = 0;               // leg-bob counter
-let ffSpeed = 3.2;                 // pixels per frame
-let ffKeyHandler = null;           // so we can remove it on goHome
-let ffKeyUpHandler = null;
-// D-pad button state (for on-screen controls)
+let ffVx = 0, ffVy = 0, ffKeys = {}, ffFacing = 1, ffWalkCycle = 0, ffSpeed = 3.2;
+let ffKeyHandler = null, ffKeyUpHandler = null;
 let ffDpad = {up:false,down:false,left:false,right:false};
+// BUG 3 FIX: flag to prevent double-ending the game
+let ffGameOver = false;
+// BUG 3 FIX: pending timeout reference so we can cancel it
+let ffNextQTimeout = null;
 
 function buildQuiz() {
   ffCritter = FF_CRITTERS[Math.floor(Math.random() * FF_CRITTERS.length)];
@@ -2408,11 +2385,12 @@ function buildQuiz() {
 
   ffSize = 2; ffDisplaySize = 2; ffQCount = 0; ffScore = 0;
   ffCorrectStreak = 0; ffWrongStreak = 0;
-  ffBubbles = []; ffAnswering = true;
+  ffBubbles = []; ffAnswering = true; ffGameOver = false;
   ffWobble = 0; ffEatAnim = 0; ffEatBubble = null;
   ffMouthOpen = 0; ffScalePop = 1;
   ffVx = 0; ffVy = 0; ffKeys = {}; ffFacing = 1; ffWalkCycle = 0;
   ffDpad = {up:false,down:false,left:false,right:false};
+  if (ffNextQTimeout) { clearTimeout(ffNextQTimeout); ffNextQTimeout = null; }
 
   document.getElementById('quiz-score').textContent = '0';
   document.getElementById('quiz-progress').style.width = '0%';
@@ -2434,20 +2412,17 @@ function buildQuiz() {
   const bodyEl = document.getElementById('quiz-body');
   const bodyW  = Math.min(bodyEl.offsetWidth, 860);
   canvas.width  = bodyW;
-  canvas.height = Math.max(240, Math.min(300, window.innerHeight - 340));
+  canvas.height = Math.max(240, Math.min(300, window.innerHeight - 360));
   ffCtx = canvas.getContext('2d');
-  ffCritterX = canvas.width  / 2;
+  ffCritterX = canvas.width / 2;
   ffCritterY = canvas.height - 55;
 
-  // Keyboard controls — remove old handler first
   if (ffKeyHandler)   document.removeEventListener('keydown', ffKeyHandler);
   if (ffKeyUpHandler) document.removeEventListener('keyup',   ffKeyUpHandler);
-  ffKeyHandler   = e => { ffKeys[e.key] = true;  e.preventDefault && ['ArrowUp','ArrowDown','ArrowLeft','ArrowRight',' '].includes(e.key) && e.preventDefault(); };
+  ffKeyHandler   = e => { ffKeys[e.key] = true;  if (['ArrowUp','ArrowDown','ArrowLeft','ArrowRight',' '].includes(e.key)) e.preventDefault(); };
   ffKeyUpHandler = e => { ffKeys[e.key] = false; };
   document.addEventListener('keydown', ffKeyHandler);
   document.addEventListener('keyup',   ffKeyUpHandler);
-
-  // Focus canvas so keyboard works immediately
   canvas.setAttribute('tabindex','0');
   canvas.focus();
 
@@ -2456,20 +2431,25 @@ function buildQuiz() {
   ffLoop();
 }
 
-function ffDpadPress(dir, down) {
-  ffDpad[dir] = down;
-}
+function ffDpadPress(dir, down) { ffDpad[dir] = down; }
 
-// ffCanvasClick no longer needed — collision is automatic in loop
 function ffEatBubbleAt(b, idx) {
-  if (!ffAnswering || !ffCurrentQ) return;
+  if (!ffAnswering || !ffCurrentQ || ffGameOver) return;
   ffAnswering = false;
   const isCorrect = b.word.toLowerCase() === ffCurrentQ.a.toLowerCase();
   ffEatCorrect = isCorrect;
   ffEatBubble  = { ...b };
   ffEatBubbleT = 0;
   ffMouthOpen  = 1;
-  ffBubbles.splice(idx, 1);
+  ffBubbles = [];  // clear ALL bubbles immediately after any answer
+  ffVx = 0; ffVy = 0; // stop critter movement
+  // Return critter to center after a brief delay (so eat animation plays)
+  setTimeout(() => {
+    if (!ffGameOver && ffCanvas) {
+      ffCritterX = ffCanvas.width / 2;
+      ffCritterY = ffCanvas.height - 55;
+    }
+  }, 500);
 
   ffQCount++;
   if (isCorrect) {
@@ -2477,6 +2457,7 @@ function ffEatBubbleAt(b, idx) {
     ffCorrectStreak++;
     ffWrongStreak = 0;
     document.getElementById('quiz-score').textContent = ffScore;
+    updateLiveBadge('quiz-score', ffScore, FF_TOTAL_Q);
     if (ffCorrectStreak >= FF_STREAK_N) {
       ffSize = Math.min(ffSize + 1, FF_WIN);
       ffCorrectStreak = 0;
@@ -2487,24 +2468,31 @@ function ffEatBubbleAt(b, idx) {
   } else {
     ffWrongStreak++;
     ffCorrectStreak = 0;
+    // BUG 3 FIX: show the correct answer in the toast
+    showToast(`❌ Wrong! Answer: ${ffCurrentQ.a.toUpperCase()} — ${FF_STREAK_N - Math.min(ffWrongStreak, FF_STREAK_N - 1)} more wrong = shrink!`, 'wrong');
     if (ffWrongStreak >= FF_STREAK_N) {
       ffSize = Math.max(ffSize - 1, FF_LOSE);
       ffWrongStreak = 0;
-      showToast(`😬 ${FF_STREAK_N} wrong! ${ffCritter.name} shrinks!`, 'wrong');
-    } else {
-      showToast(`❌ Wrong! ${FF_STREAK_N - ffWrongStreak} more wrong = shrink!`, 'wrong');
     }
   }
 
-  setTimeout(() => {
-    if (ffSize >= FF_WIN || ffSize <= FF_LOSE) setTimeout(ffEndGame, 600);
-    else setTimeout(ffNextQuestion, 700);
-  }, 750);
+  // BUG 3 FIX: single clean timeout with ffGameOver guard
+  if (ffNextQTimeout) clearTimeout(ffNextQTimeout);
+  ffNextQTimeout = setTimeout(() => {
+    ffNextQTimeout = null;
+    if (ffGameOver) return;  // guard: don't proceed if already ended
+    if (ffSize >= FF_WIN || ffSize <= FF_LOSE || ffQCount >= FF_TOTAL_Q) {
+      ffEndGame();
+    } else {
+      ffNextQuestion();
+    }
+  }, 1000);
 }
 
 function ffNextQuestion() {
+  if (ffGameOver) return;
   if (ffQCount >= FF_TOTAL_Q) { ffEndGame(); return; }
-  ffCurrentQ = FF_QUESTIONS[Math.floor(Math.random() * FF_QUESTIONS.length)];
+  ffCurrentQ  = FF_QUESTIONS[Math.floor(Math.random() * FF_QUESTIONS.length)];
   ffAnswering = true;
   ffEatBubble = null;
   ffVx = 0; ffVy = 0;
@@ -2512,23 +2500,19 @@ function ffNextQuestion() {
   const opts = shuffle([...ffCurrentQ.opts]);
   const W = ffCanvas.width, H = ffCanvas.height - 80;
   const positions = [
-    {x: W*0.18, y: H*0.22},
-    {x: W*0.78, y: H*0.22},
-    {x: W*0.28, y: H*0.65},
-    {x: W*0.68, y: H*0.65},
+    {x: W*0.18, y: H*0.22}, {x: W*0.78, y: H*0.22},
+    {x: W*0.28, y: H*0.65}, {x: W*0.68, y: H*0.65},
   ];
   ffBubbles = opts.slice(0,4).map((word, i) => ({
-    word,
-    x: positions[i].x, y: positions[i].y,
-    vx: (Math.random()-0.5)*0.5,
-    vy: (Math.random()-0.5)*0.5,
-    phase: Math.random()*Math.PI*2,
-    r: 40, alpha: 1,
+    word, x: positions[i].x, y: positions[i].y,
+    vx: (Math.random()-0.5)*0.5, vy: (Math.random()-0.5)*0.5,
+    phase: Math.random()*Math.PI*2, r: 40, alpha: 1,
   }));
 
   const streakBar = ffCorrectStreak > 0
     ? '🟢'.repeat(ffCorrectStreak) + '⬜'.repeat(FF_STREAK_N - ffCorrectStreak)
-    : '🔴'.repeat(ffWrongStreak)   + '⬜'.repeat(FF_STREAK_N - ffWrongStreak);
+    : ffWrongStreak > 0 ? '🔴'.repeat(ffWrongStreak) + '⬜'.repeat(FF_STREAK_N - ffWrongStreak)
+    : '⬜'.repeat(FF_STREAK_N);
 
   document.getElementById('ff-question').textContent = ffCurrentQ.q;
   document.getElementById('ff-status').textContent =
@@ -2540,13 +2524,12 @@ function ffNextQuestion() {
 }
 
 function ffLoop() {
-  if (!ffCanvas || !ffCtx) return;
+  if (!ffCanvas || !ffCtx || ffGameOver) return;
   ffAnimFrame = requestAnimationFrame(ffLoop);
 
   const c = ffCtx;
   const W = ffCanvas.width, H = ffCanvas.height;
 
-  // ---- Walking input ----
   if (ffAnswering) {
     const up    = ffKeys['ArrowUp']    || ffKeys['w'] || ffKeys['W'] || ffDpad.up;
     const down  = ffKeys['ArrowDown']  || ffKeys['s'] || ffKeys['S'] || ffDpad.down;
@@ -2567,88 +2550,69 @@ function ffLoop() {
     ffCritterX = Math.max(critterR, Math.min(W - critterR, ffCritterX + ffVx));
     ffCritterY = Math.max(critterR, Math.min(H - 44, ffCritterY + ffVy));
 
-    // Walk cycle advances when moving
     if (Math.abs(ffVx) > 0.1 || Math.abs(ffVy) > 0.1) ffWalkCycle += 0.25;
 
-    // Collision with bubbles
     for (let i = ffBubbles.length - 1; i >= 0; i--) {
       const b = ffBubbles[i];
       if (Math.hypot(ffCritterX - b.x, ffCritterY - b.y) < critterR + b.r - 6) {
-        ffEatBubbleAt(b, i);
-        break;
+        ffEatBubbleAt(b, i); break;
       }
     }
   }
 
   c.clearRect(0, 0, W, H);
-
-  // Background
   const bg = c.createLinearGradient(0, 0, 0, H);
-  bg.addColorStop(0, '#0a1a0e');
-  bg.addColorStop(1, '#0d2414');
+  bg.addColorStop(0, '#0a1a0e'); bg.addColorStop(1, '#0d2414');
   c.fillStyle = bg; c.fillRect(0, 0, W, H);
 
-  // Twinkling fireflies
   ffWobble += 0.04;
   for (let s = 0; s < 14; s++) {
-    const sx = (s * 137 + 40) % W;
-    const sy = (s * 97  + 20) % (H - 80);
+    const sx = (s * 137 + 40) % W, sy = (s * 97 + 20) % (H - 80);
     c.globalAlpha = 0.2 + 0.3 * Math.sin(ffWobble * 0.7 + s);
     c.fillStyle = s % 2 === 0 ? '#b8ff8a' : '#ffe070';
     c.beginPath(); c.arc(sx, sy, 1.8, 0, Math.PI * 2); c.fill();
   }
   c.globalAlpha = 1;
 
-  // Ground
   c.fillStyle = '#1a4a22'; c.fillRect(0, H - 40, W, 40);
   c.fillStyle = '#2d6e38'; c.fillRect(0, H - 42, W, 4);
   for (let g = 0; g < W; g += 28) {
     c.fillStyle = '#3d8f47';
-    c.fillRect(g,     H - 44, 3, 6);
-    c.fillRect(g + 8, H - 47, 3, 9);
-    c.fillRect(g + 16,H - 43, 3, 5);
+    c.fillRect(g, H-44, 3, 6); c.fillRect(g+8, H-47, 3, 9); c.fillRect(g+16, H-43, 3, 5);
   }
 
-  // ---- Smooth size lerp ----
   ffDisplaySize += (ffSize - ffDisplaySize) * 0.08;
-
-  // Base critter pixel size driven by ffDisplaySize
   const baseSize = 32 + ffDisplaySize * 12;
 
-  // ---- Floating bubbles ----
   for (const b of ffBubbles) {
     b.phase += 0.022;
     b.x += b.vx + Math.sin(b.phase * 0.7) * 0.28;
     b.y += b.vy + Math.cos(b.phase * 0.5) * 0.28;
-    if (b.x < b.r)      { b.x = b.r;      b.vx =  Math.abs(b.vx); }
-    if (b.x > W - b.r)  { b.x = W - b.r;  b.vx = -Math.abs(b.vx); }
-    if (b.y < b.r)       { b.y = b.r;      b.vy =  Math.abs(b.vy); }
-    if (b.y > H-80-b.r) { b.y = H-80-b.r; b.vy = -Math.abs(b.vy); }
+    if (b.x < b.r)       { b.x = b.r;       b.vx =  Math.abs(b.vx); }
+    if (b.x > W - b.r)   { b.x = W - b.r;   b.vx = -Math.abs(b.vx); }
+    if (b.y < b.r)        { b.y = b.r;       b.vy =  Math.abs(b.vy); }
+    if (b.y > H-80-b.r)  { b.y = H-80-b.r;  b.vy = -Math.abs(b.vy); }
 
-    const glow = c.createRadialGradient(b.x, b.y, b.r * 0.15, b.x, b.y, b.r);
-    glow.addColorStop(0, 'rgba(50,120,60,0.92)');
-    glow.addColorStop(1, 'rgba(12,36,16,0.78)');
-    c.beginPath(); c.arc(b.x, b.y, b.r, 0, Math.PI * 2);
+    const glow = c.createRadialGradient(b.x, b.y, b.r*0.15, b.x, b.y, b.r);
+    glow.addColorStop(0, 'rgba(50,120,60,0.92)'); glow.addColorStop(1, 'rgba(12,36,16,0.78)');
+    c.beginPath(); c.arc(b.x, b.y, b.r, 0, Math.PI*2);
     c.fillStyle = glow; c.fill();
     c.beginPath(); c.arc(b.x - b.r*0.28, b.y - b.r*0.3, b.r*0.22, 0, Math.PI*2);
     c.fillStyle = 'rgba(255,255,255,0.13)'; c.fill();
-    c.beginPath(); c.arc(b.x, b.y, b.r, 0, Math.PI * 2);
+    c.beginPath(); c.arc(b.x, b.y, b.r, 0, Math.PI*2);
     c.strokeStyle = '#4aaa55'; c.lineWidth = 1.8; c.stroke();
     c.font = 'bold 13px "Josefin Sans", sans-serif';
-    c.fillStyle = '#d4f0c0';
-    c.textAlign = 'center'; c.textBaseline = 'middle';
+    c.fillStyle = '#d4f0c0'; c.textAlign = 'center'; c.textBaseline = 'middle';
     c.fillText(b.word, b.x, b.y);
   }
 
-  // ---- Eating animation: bubble flies toward critter ----
   if (ffEatBubble) {
     ffEatBubbleT = Math.min(ffEatBubbleT + 0.055, 1);
-    const t  = ffEatBubbleT;
-    const et = t < 0.5 ? 2*t*t : -1+(4-2*t)*t; // ease in-out
+    const t = ffEatBubbleT;
+    const et = t < 0.5 ? 2*t*t : -1+(4-2*t)*t;
     const bx = ffEatBubble.x + (ffCritterX - ffEatBubble.x) * et;
     const by = ffEatBubble.y + (ffCritterY - ffEatBubble.y) * et;
-    const br = ffEatBubble.r * (1 - et * 0.7); // shrink as it travels
-
+    const br = ffEatBubble.r * (1 - et * 0.7);
     if (t < 1) {
       c.globalAlpha = 1 - et * 0.5;
       const ec = ffEatCorrect ? 'rgba(68,255,136,0.7)' : 'rgba(255,80,80,0.7)';
@@ -2657,108 +2621,81 @@ function ffLoop() {
       c.beginPath(); c.arc(bx, by, br, 0, Math.PI*2);
       c.fillStyle = eg; c.fill();
       c.font = `bold ${Math.max(10, 13*(1-et*0.5))}px "Josefin Sans", sans-serif`;
-      c.fillStyle = '#fff';
-      c.textAlign = 'center'; c.textBaseline = 'middle';
+      c.fillStyle = '#fff'; c.textAlign = 'center'; c.textBaseline = 'middle';
       c.fillText(ffEatBubble.word, bx, by);
-      c.globalAlpha = 1; // always reset after drawing flying bubble
     } else {
-      // Bubble arrived — pop flash + scale bounce
       ffScalePop = ffEatCorrect ? 1.35 : 0.75;
       ffEatAnim  = 22;
       ffEatBubble = null;
     }
+    c.globalAlpha = 1;
   }
 
-  // Scale pop decays back to 1
   ffScalePop += (1 - ffScalePop) * 0.18;
 
-  // ---- Critter drawing ----
-  // Use stable ffSize (not lerped ffDisplaySize) for emoji stage — prevents flickering between stages
-  const stageIdx = Math.min(ffSize, ffCritter.growStages.length - 1);
+  const stageIdx = Math.min(Math.round(ffSize), ffCritter.growStages.length - 1);
   const emoji    = ffCritter.growStages[stageIdx];
   const drawSize = baseSize * ffScalePop;
-  // Squish on mouth-open
   ffMouthOpen += (0 - ffMouthOpen) * 0.14;
   const scaleX = 1 + ffMouthOpen * 0.25;
   const scaleY = 1 - ffMouthOpen * 0.18;
 
-  // Pop ring
   if (ffEatAnim > 0) {
     ffEatAnim--;
     const ringR = drawSize * 0.7 + (22 - ffEatAnim) * 2.2;
     c.beginPath(); c.arc(ffCritterX, ffCritterY, ringR, 0, Math.PI*2);
     c.strokeStyle = ffEatCorrect ? '#44ff88' : '#ff4444';
-    c.lineWidth = 3;
-    c.globalAlpha = ffEatAnim / 22;
-    c.stroke();
-    // Particle sparks
+    c.lineWidth = 3; c.globalAlpha = ffEatAnim / 22; c.stroke();
     for (let p = 0; p < 6; p++) {
-      const angle = (p / 6) * Math.PI * 2 + ffEatAnim * 0.3;
+      const angle = (p/6)*Math.PI*2 + ffEatAnim*0.3;
       const pr = ringR + 8;
-      c.beginPath();
-      c.arc(ffCritterX + Math.cos(angle)*pr, ffCritterY + Math.sin(angle)*pr, 3, 0, Math.PI*2);
-      c.fillStyle = ffEatCorrect ? '#b8ff8a' : '#ff8888';
-      c.fill();
+      c.beginPath(); c.arc(ffCritterX + Math.cos(angle)*pr, ffCritterY + Math.sin(angle)*pr, 3, 0, Math.PI*2);
+      c.fillStyle = ffEatCorrect ? '#b8ff8a' : '#ff8888'; c.fill();
     }
   }
-  // ALWAYS reset alpha before drawing critter so it's never washed out
   c.globalAlpha = 1;
 
-  // Streak dots above critter
   const dotY = ffCritterY - drawSize * 0.62 - 14;
   for (let d = 0; d < FF_STREAK_N; d++) {
-    const dx = ffCritterX - (FF_STREAK_N - 1) * 9 + d * 18;
-    c.beginPath(); c.arc(dx, dotY, 5.5, 0, Math.PI * 2);
+    const dx = ffCritterX - (FF_STREAK_N-1)*9 + d*18;
+    c.beginPath(); c.arc(dx, dotY, 5.5, 0, Math.PI*2);
     c.fillStyle = ffCorrectStreak > 0
       ? (d < ffCorrectStreak ? '#44ff88' : 'rgba(255,255,255,0.1)')
       : (d < ffWrongStreak   ? '#ff4444' : 'rgba(255,255,255,0.1)');
     c.fill();
   }
 
-  // Draw critter with squish transform + glow so it pops on dark background
   c.save();
   c.translate(ffCritterX, ffCritterY);
-  // Flip horizontally based on facing direction
   c.scale(ffFacing * scaleX, scaleY);
-  // Walk bob: gentle vertical bounce while moving
   const isMoving = Math.abs(ffVx) > 0.2 || Math.abs(ffVy) > 0.2;
   const bobY = isMoving ? Math.sin(ffWalkCycle * 2) * 3 : 0;
-  // Glow halo behind critter
   const haloR = drawSize * 0.55;
-  const halo = c.createRadialGradient(0, bobY, haloR * 0.1, 0, bobY, haloR);
-  halo.addColorStop(0, `${ffCritter.color}55`);
-  halo.addColorStop(1, 'transparent');
-  c.beginPath(); c.arc(0, bobY, haloR, 0, Math.PI * 2);
-  c.fillStyle = halo; c.fill();
-  // Soft shadow copy for depth
+  const halo = c.createRadialGradient(0, bobY, haloR*0.1, 0, bobY, haloR);
+  halo.addColorStop(0, `${ffCritter.color}55`); halo.addColorStop(1, 'transparent');
+  c.beginPath(); c.arc(0, bobY, haloR, 0, Math.PI*2); c.fillStyle = halo; c.fill();
   c.globalAlpha = 0.22;
-  c.font = `${drawSize * 1.1}px serif`;
-  c.textAlign = 'center'; c.textBaseline = 'middle';
+  c.font = `${drawSize*1.1}px serif`; c.textAlign = 'center'; c.textBaseline = 'middle';
   c.fillText(emoji, 1, bobY + 2);
-  // Main critter
   c.globalAlpha = 1;
-  c.font = `${drawSize}px serif`;
-  c.fillText(emoji, 0, bobY);
+  c.font = `${drawSize}px serif`; c.fillText(emoji, 0, bobY);
   c.restore();
 
-  // Size label under critter — bright and clear
   c.globalAlpha = 1;
-  c.font = '700 12px "Josefin Sans", sans-serif';
-  c.fillStyle = ffCritter.color;
+  c.font = '700 12px "Josefin Sans", sans-serif'; c.fillStyle = ffCritter.color;
   c.textAlign = 'center'; c.textBaseline = 'top';
   c.fillText(`SIZE ${ffSize}/${FF_WIN}`, ffCritterX, ffCritterY + drawSize * 0.55);
 }
 
 function ffEndGame() {
+  if (ffGameOver) return;  // BUG 3 FIX: prevent calling twice
+  ffGameOver = true;
+  if (ffNextQTimeout) { clearTimeout(ffNextQTimeout); ffNextQTimeout = null; }
   if (ffAnimFrame) { cancelAnimationFrame(ffAnimFrame); ffAnimFrame = null; }
-  const won  = ffSize >= FF_WIN;
+  const won   = ffSize >= FF_WIN;
   const emoji = won ? ffCritter.growStages[ffCritter.growStages.length-1] : ffCritter.lose;
-  const msg   = won
-    ? `Your ${ffCritter.name} is fully grown! 🎉`
-    : `Your ${ffCritter.name} wandered off to find food elsewhere...`;
-
+  const msg   = won ? `Your ${ffCritter.name} is fully grown! 🎉` : `Your ${ffCritter.name} wandered off to find food elsewhere...`;
   storeScore('quiz', ffScore, FF_TOTAL_Q);
-
   document.getElementById('quiz-body').innerHTML = `
     <div class="complete-screen">
       <div class="big-star" style="font-size:72px;">${emoji}</div>
@@ -2775,10 +2712,11 @@ function ffEndGame() {
 // =============================================
 // SCRAMBLE
 // =============================================
-const SCR_ITEMS = shuffle([...V]).slice(0, 10);
+let SCR_ITEMS = [];
 let scrIdx = 0, scrScore = 0, scrAnswer = [], scrShuffled = [], scrWrong = 0;
 
 function buildScramble() {
+  SCR_ITEMS = shuffle([...V]).slice(0, 10);  // reshuffle each game
   scrIdx = 0; scrScore = 0;
   document.getElementById('scr-score').textContent = '0';
   document.getElementById('scr-progress').style.width = '0%';
@@ -2797,18 +2735,12 @@ function renderScramble() {
     storeScore('scramble', scrScore, SCR_ITEMS.length);
     return;
   }
-
   document.getElementById('scr-progress').style.width = (scrIdx/SCR_ITEMS.length*100)+'%';
-
   const item = SCR_ITEMS[scrIdx];
-  scrAnswer = [];
-  scrWrong = 0;
-  // shuffle letters ensuring different order
+  scrAnswer = []; scrWrong = 0;
   let shuffled;
-  do { shuffled = shuffle(item.word.split('')); }
-  while (shuffled.join('') === item.word && item.word.length > 1);
+  do { shuffled = shuffle(item.word.split('')); } while (shuffled.join('') === item.word && item.word.length > 1);
   scrShuffled = shuffled;
-
   document.getElementById('scr-content').innerHTML = `
     <div class="scramble-card">
       <div class="quiz-q-num">Word ${scrIdx+1} of ${SCR_ITEMS.length}</div>
@@ -2826,21 +2758,18 @@ function renderScramble() {
         <button class="btn btn-primary" onclick="scrCheck()">Check</button>
         <button class="btn" style="background:var(--panel2);border:1px solid var(--green2);color:var(--text2);" onclick="scrClear()">Clear</button>
       </div>
-    </div>
-  `;
+    </div>`;
 }
 
 function scrPickLetter(idx, letter) {
   const tile = document.getElementById('scr-tile-' + idx);
   if (!tile || tile.classList.contains('used')) return;
-  // find first empty slot
   const word = SCR_ITEMS[scrIdx].word;
   const slotIdx = scrAnswer.length;
   if (slotIdx >= word.length) return;
-  scrAnswer.push({idx, letter});
-  tile.classList.add('used');
+  scrAnswer.push({idx, letter}); tile.classList.add('used');
   const slot = document.getElementById('scr-slot-' + slotIdx);
-  if (slot) { slot.textContent = letter.toUpperCase(); }
+  if (slot) slot.textContent = letter.toUpperCase();
   if (scrAnswer.length === word.length) scrCheck();
 }
 
@@ -2849,7 +2778,6 @@ function scrRemoveLetter(slotIdx) {
   const removed = scrAnswer.splice(slotIdx, 1)[0];
   const tile = document.getElementById('scr-tile-' + removed.idx);
   if (tile) tile.classList.remove('used');
-  // re-render remaining
   for (let i = slotIdx; i < SCR_ITEMS[scrIdx].word.length; i++) {
     const slot = document.getElementById('scr-slot-' + i);
     if (slot) slot.textContent = i < scrAnswer.length ? scrAnswer[i].letter.toUpperCase() : '';
@@ -2868,13 +2796,11 @@ function scrClear() {
 function scrCheck() {
   const item = SCR_ITEMS[scrIdx];
   const attempt = scrAnswer.map(a=>a.letter).join('').toLowerCase();
-  if (attempt === item.word) {
-    item.word.split('').forEach((_,i) => {
-      const slot = document.getElementById('scr-slot-' + i);
-      if (slot) slot.classList.add('correct-slot');
-    });
+  if (attempt === item.word.toLowerCase()) {  // FIX: case-insensitive so CAM works
+    item.word.split('').forEach((_,i) => { const slot = document.getElementById('scr-slot-'+i); if (slot) slot.classList.add('correct-slot'); });
     scrScore++;
     document.getElementById('scr-score').textContent = scrScore;
+    updateLiveBadge('scr-score', scrScore, SCR_ITEMS.length);
     showToast('✅ ' + item.word.toUpperCase() + '!', 'correct');
     setTimeout(() => { scrIdx++; renderScramble(); }, 1200);
   } else {
@@ -2883,7 +2809,7 @@ function scrCheck() {
     scrClear();
     if (scrWrong >= 2) {
       const hint = document.getElementById('scr-hint');
-      if (hint) { hint.style.display = 'block'; hint.textContent = `🦎 Hint: Starts with "${item.word[0].toUpperCase()}" — ${item.word.length} letters`; }
+      if (hint) { hint.style.display='block'; hint.textContent = `🦎 Hint: Starts with "${item.word[0].toUpperCase()}" — ${item.word.length} letters`; }
     }
   }
 }
@@ -2891,42 +2817,29 @@ function scrCheck() {
 // =============================================
 // ODD ONE OUT
 // =============================================
-const OOO_ROUNDS = [
-  { category: "Which word is NOT a type of environmental factor?",
-    odd: "savanna", words: ["abiotic","biotic","savanna","latitude"],
-    explain: "Savanna is a biome, not an environmental factor type." },
-  { category: "Which word does NOT describe something living?",
-    odd: "abiotic", words: ["biotic","plankton","abiotic","grazing"],
-    explain: "Abiotic means non-living — the odd one out among living-related words." },
-  { category: "Which word is NOT related to climate?",
-    odd: "plankton", words: ["temperature","precipitation","latitude","plankton"],
-    explain: "Plankton are marine organisms, not a climate factor." },
-  { category: "Which word is NOT related to threats to ecosystems?",
-    odd: "biodiversity", words: ["fragmentation","decline","plastic","biodiversity"],
-    explain: "Biodiversity is a positive measure of ecosystem health, not a threat." },
-  { category: "Which word does NOT belong with desert adaptations?",
-    odd: "permafrost", words: ["CAM","nocturnal","reduced","permafrost"],
-    explain: "Permafrost is found in tundra biomes, not deserts." },
-  { category: "Which word is NOT related to ocean/marine ecosystems?",
-    odd: "savanna", words: ["plankton","plastic","carbon","savanna"],
-    explain: "Savanna is a grassland biome, not a marine ecosystem concept." },
-  { category: "Which word does NOT relate to biome characteristics?",
-    odd: "stewardship", words: ["biome","biodiversity","latitude","stewardship"],
-    explain: "Stewardship is a human responsibility concept, not a biome characteristic." },
-  { category: "Which word does NOT relate to the tundra biome?",
-    odd: "grazing", words: ["permafrost","carbon","reduced","grazing"],
-    explain: "Grazing is associated with savanna animals, not the tundra." },
-  { category: "Which word is NOT a vocabulary term for an ecosystem component?",
-    odd: "precipitation", words: ["biotic","abiotic","habitats","precipitation"],
-    explain: "Precipitation is a climate factor, not an ecosystem component label." },
-  { category: "Which word does NOT relate to human impact on biomes?",
-    odd: "nocturnal", words: ["fragmentation","decline","stewardship","nocturnal"],
-    explain: "Nocturnal describes animal behavior, not human impact on biomes." },
-];
-
 let oooIdx = 0, oooScore = 0, oooWrong = {};
 
+// Larger OOO pool - shuffled each play, pick 10
+const OOO_ALL = [
+  { category:"Which word is NOT a type of environmental factor?", odd:"savanna", words:["abiotic","biotic","savanna","latitude"], explain:"Savanna is a biome, not an environmental factor type." },
+  { category:"Which word does NOT describe something living?", odd:"abiotic", words:["biotic","plankton","abiotic","grazing"], explain:"Abiotic means non-living — the odd one out among living-related words." },
+  { category:"Which word is NOT related to climate?", odd:"plankton", words:["temperature","precipitation","latitude","plankton"], explain:"Plankton are marine organisms, not a climate factor." },
+  { category:"Which word is NOT related to threats to ecosystems?", odd:"biodiversity", words:["fragmentation","decline","plastic","biodiversity"], explain:"Biodiversity is a positive measure of ecosystem health, not a threat." },
+  { category:"Which word does NOT belong with desert adaptations?", odd:"permafrost", words:["CAM","nocturnal","reduced","permafrost"], explain:"Permafrost is found in tundra biomes, not deserts." },
+  { category:"Which word is NOT related to ocean/marine ecosystems?", odd:"savanna", words:["plankton","plastic","carbon","savanna"], explain:"Savanna is a grassland biome, not a marine ecosystem concept." },
+  { category:"Which word does NOT relate to biome characteristics?", odd:"stewardship", words:["biome","biodiversity","latitude","stewardship"], explain:"Stewardship is a human responsibility concept, not a biome characteristic." },
+  { category:"Which word does NOT relate to the tundra biome?", odd:"grazing", words:["permafrost","carbon","reduced","grazing"], explain:"Grazing is associated with savanna animals, not the tundra." },
+  { category:"Which word is NOT a vocabulary term for an ecosystem component?", odd:"precipitation", words:["biotic","abiotic","habitats","precipitation"], explain:"Precipitation is a climate factor, not an ecosystem component label." },
+  { category:"Which word does NOT relate to human impact on biomes?", odd:"nocturnal", words:["fragmentation","decline","stewardship","nocturnal"], explain:"Nocturnal describes animal behavior, not human impact on biomes." },
+  { category:"Which word does NOT describe a physical environment trait?", odd:"biotic", words:["abiotic","latitude","temperature","biotic"], explain:"Biotic refers to living things, not physical traits." },
+  { category:"Which word is NOT found in a coral reef discussion?", odd:"permafrost", words:["plankton","biodiversity","plastic","permafrost"], explain:"Permafrost is an Arctic feature, not coral reef related." },
+  { category:"Which word is NOT related to saving or protecting nature?", odd:"fragmentation", words:["stewardship","biodiversity","habitats","fragmentation"], explain:"Fragmentation is a threat TO nature, not a way of protecting it." },
+  { category:"Which word does NOT describe a grass-related biome feature?", odd:"carbon", words:["savanna","grazing","biodiversity","carbon"], explain:"Carbon is a chemical element/greenhouse gas, not a savanna feature." },
+  { category:"Which word is NOT a climate-related factor?", odd:"nocturnal", words:["temperature","precipitation","latitude","nocturnal"], explain:"Nocturnal is a behavior pattern, not a climate factor." },
+];
+let OOO_ROUNDS = [];
 function buildOddOneOut() {
+  OOO_ROUNDS = shuffle([...OOO_ALL]).slice(0, 10);
   oooIdx = 0; oooScore = 0; oooWrong = {};
   document.getElementById('ooo-score').textContent = '0';
   document.getElementById('ooo-progress').style.width = '0%';
@@ -2953,9 +2866,7 @@ function renderOOO() {
       <div class="ooo-category">Round ${oooIdx+1} of ${OOO_ROUNDS.length}</div>
       <div style="font-size:15px;color:var(--text);margin-bottom:16px;line-height:1.5;">${round.category}</div>
       <div class="ooo-options">
-        ${shuffle([...round.words]).map(w => `
-          <button class="ooo-btn" onclick="oooAnswer(this,'${w}','${round.odd}',${oooIdx})">${w.toUpperCase()}</button>
-        `).join('')}
+        ${shuffle([...round.words]).map(w => `<button class="ooo-btn" onclick="oooAnswer(this,'${w}','${round.odd}',${oooIdx})">${w.toUpperCase()}</button>`).join('')}
       </div>
       <div class="ooo-explain" id="ooo-explain-${oooIdx}">${round.explain}</div>
     </div>`;
@@ -2969,56 +2880,53 @@ function oooAnswer(btn, chosen, odd, roundIdx) {
     document.getElementById('ooo-explain-' + roundIdx).style.display = 'block';
     oooScore++;
     document.getElementById('ooo-score').textContent = oooScore;
+    updateLiveBadge('ooo-score', oooScore, OOO_ROUNDS.length);
     showToast('✅ Correct! ' + odd.toUpperCase() + ' is the odd one out!', 'correct');
     setTimeout(() => { oooIdx++; renderOOO(); }, 2000);
   } else {
-    btn.classList.add('wrong');
-    btn.style.pointerEvents = 'none';
+    btn.classList.add('wrong'); btn.style.pointerEvents = 'none';
     oooWrong[roundIdx] = (oooWrong[roundIdx]||0) + 1;
     if (oooWrong[roundIdx] >= 2) {
-      showToast(`🦎 Hint: Think about which word belongs to a different category`, 'hint');
+      // 2nd wrong attempt: reveal the correct answer and move on (no point awarded)
+      showToast('🦎 The odd one out was: ' + odd.toUpperCase(), 'hint');
+      document.querySelectorAll('.ooo-btn').forEach(b => {
+        b.classList.add('disabled');
+        if (b.textContent.toLowerCase() === odd.toLowerCase()) b.classList.add('correct');
+      });
+      document.getElementById('ooo-explain-' + roundIdx).style.display = 'block';
+      setTimeout(() => { oooIdx++; renderOOO(); }, 2500);
     } else {
-      showToast('❌ Not quite — try again!', 'wrong');
+      showToast('❌ Not quite — one more try!', 'wrong');
+      setTimeout(() => btn.classList.remove('wrong'), 600);
     }
-    setTimeout(() => btn.classList.remove('wrong'), 600);
   }
 }
 
 // =============================================
 // MEMORY MATCH
 // =============================================
-const MEM_SET = shuffle([...V]).slice(0, 8);
+let MEM_SET = [];
 let memFlipped = [], memMatched = 0, memLocked = false, memWrongPairs = {};
 
 function buildMemoryMatch() {
+  MEM_SET = shuffle([...V]).slice(0, 8);  // reshuffle each game
   memFlipped = []; memMatched = 0; memLocked = false; memWrongPairs = {};
   document.getElementById('mem-score').textContent = '0';
   document.getElementById('mem-progress').style.width = '0%';
   document.getElementById('mem-complete').style.display = 'none';
-
-  // Build pairs: each word + its def = 2 cards per pair (16 total)
   let cards = [];
   MEM_SET.forEach((v, i) => {
     cards.push({ id: i, type: 'word', content: v.word, pairIdx: i });
-    cards.push({ id: i + MEM_SET.length, type: 'def',  content: v.def,  pairIdx: i });
+    cards.push({ id: i + MEM_SET.length, type: 'def', content: v.def, pairIdx: i });
   });
   cards = shuffle(cards);
-
   const grid = document.getElementById('mem-grid');
   grid.innerHTML = '';
-
   cards.forEach((card, pos) => {
     const el = document.createElement('div');
-    el.className = 'mem-card';
-    el.dataset.pos = pos;
-    el.dataset.pairIdx = card.pairIdx;
-    el.dataset.type = card.type;
-    el.dataset.id = card.id;
-    el.innerHTML = `
-      <div class="mem-card-inner">
-        <div class="mem-card-front">🌿</div>
-        <div class="mem-card-back is-${card.type}">${card.content}</div>
-      </div>`;
+    el.className = 'mem-card'; el.dataset.pos = pos; el.dataset.pairIdx = card.pairIdx;
+    el.dataset.type = card.type; el.dataset.id = card.id;
+    el.innerHTML = `<div class="mem-card-inner"><div class="mem-card-front">🌿</div><div class="mem-card-back is-${card.type}">${card.content}</div></div>`;
     el.onclick = () => memFlip(el);
     grid.appendChild(el);
   });
@@ -3026,25 +2934,21 @@ function buildMemoryMatch() {
 
 function memFlip(el) {
   if (memLocked || el.classList.contains('flipped') || el.classList.contains('matched')) return;
-  el.classList.add('flipped');
-  memFlipped.push(el);
-
+  el.classList.add('flipped'); memFlipped.push(el);
   if (memFlipped.length === 2) {
     memLocked = true;
     const [a, b] = memFlipped;
     if (a.dataset.pairIdx === b.dataset.pairIdx && a.dataset.type !== b.dataset.type) {
-      // Match!
       setTimeout(() => {
         a.classList.add('matched'); b.classList.add('matched');
         memMatched++;
         document.getElementById('mem-score').textContent = memMatched;
+        updateLiveBadge('mem-score', memMatched, MEM_SET.length);
         document.getElementById('mem-progress').style.width = (memMatched/MEM_SET.length*100)+'%';
         storeScore('memorymatch', memMatched, MEM_SET.length);
         showToast('✅ Match!', 'correct');
         memFlipped = []; memLocked = false;
-        if (memMatched === MEM_SET.length) {
-          setTimeout(() => { document.getElementById('mem-complete').style.display = 'block'; }, 400);
-        }
+        if (memMatched === MEM_SET.length) setTimeout(() => { document.getElementById('mem-complete').style.display = 'block'; }, 400);
       }, 600);
     } else {
       const key = [a.dataset.pairIdx, b.dataset.pairIdx].sort().join('-');
@@ -3053,8 +2957,7 @@ function memFlip(el) {
       else showToast('❌ Not a match!', 'wrong');
       a.classList.add('wrong-flash'); b.classList.add('wrong-flash');
       setTimeout(() => {
-        a.classList.remove('flipped','wrong-flash');
-        b.classList.remove('flipped','wrong-flash');
+        a.classList.remove('flipped','wrong-flash'); b.classList.remove('flipped','wrong-flash');
         memFlipped = []; memLocked = false;
       }, 1000);
     }
@@ -3062,15 +2965,17 @@ function memFlip(el) {
 }
 
 // =============================================
-// SPEED ROUND
+// SPEED ROUND — BUG 1 source + fix applied
 // =============================================
-const SPD_ITEMS = shuffle([...V]).slice(0, 10);
-let spdIdx = 0, spdScore = 0, spdTimer = null, spdTimeLeft = 0, spdStreak = 0, spdWrong = 0;
-const SPD_TIME = 12; // seconds per word
+let SPD_ITEMS = [];
+let spdIdx = 0, spdScore = 0, spdTimer = null, spdTimeLeft = 0, spdStreak = 0;
+let spdTicks = 0;  // BUG 1 FIX: declared here so goHome can reset it
+const SPD_TIME = 12;
 
 function buildSpeedRound() {
+  SPD_ITEMS = shuffle([...V]).slice(0, 10);  // reshuffle each game
   spdIdx = 0; spdScore = 0; spdStreak = 0;
-  clearInterval(spdTimer);
+  clearInterval(spdTimer); spdTicks = 0;
   document.getElementById('spd-score').textContent = '0';
   document.getElementById('spd-progress').style.width = '0%';
   renderSpeed();
@@ -3078,7 +2983,7 @@ function buildSpeedRound() {
 
 function renderSpeed() {
   if (spdIdx >= SPD_ITEMS.length) {
-    clearInterval(spdTimer);
+    clearInterval(spdTimer); spdTicks = 0;
     document.getElementById('spd-body').innerHTML = `
       <div class="complete-screen">
         <div class="big-star">⚡</div>
@@ -3092,13 +2997,9 @@ function renderSpeed() {
   }
   document.getElementById('spd-progress').style.width = (spdIdx/SPD_ITEMS.length*100)+'%';
   const item = SPD_ITEMS[spdIdx];
-  spdTimeLeft = SPD_TIME;
-  spdWrong = 0;
-
+  spdTimeLeft = SPD_TIME; spdTicks = 0;
   document.getElementById('spd-body').innerHTML = `
-    <div style="text-align:center;margin-bottom:4px;">
-      <div class="speed-streak" id="spd-streak">${spdStreak > 1 ? '🔥 Streak: '+spdStreak : ''}</div>
-    </div>
+    <div style="text-align:center;margin-bottom:4px;"><div class="speed-streak" id="spd-streak">${spdStreak > 1 ? '🔥 Streak: '+spdStreak : ''}</div></div>
     <div class="speed-timer-ring">
       <svg viewBox="0 0 80 80" width="80" height="80">
         <circle class="ring-bg" cx="40" cy="40" r="35"/>
@@ -3109,36 +3010,30 @@ function renderSpeed() {
     <div class="speed-question">
       <div class="quiz-q-num">Word ${spdIdx+1} of ${SPD_ITEMS.length}</div>
       <div class="speed-def-text">${item.def}</div>
-      <input class="speed-input" id="spd-input" placeholder="type the word..." autocomplete="off" spellcheck="false"
-        oninput="spdCheckInput(this,'${item.word}')">
+      <input class="speed-input" id="spd-input" placeholder="type the word here..." autocomplete="off" spellcheck="false" oninput="spdCheckInput(this,'${item.word}')">
     </div>
     <div id="spd-hint" class="quiz-hint" style="display:none"></div>
     <div style="text-align:center;margin-top:12px;">
-      <button class="btn" style="background:var(--panel2);border:1px solid var(--green2);color:var(--text3);font-size:12px;"
-        onclick="spdSkip()">Skip →</button>
-    </div>
-  `;
-
+      <button class="btn" style="background:var(--panel2);border:1px solid var(--green2);color:var(--text3);font-size:12px;" onclick="spdSkip()">Skip →</button>
+    </div>`;
   document.getElementById('spd-input').focus();
   clearInterval(spdTimer);
   spdTimer = setInterval(spdTick, 100);
 }
 
-let spdTicks = 0;
 function spdTick() {
   spdTicks++;
   if (spdTicks % 10 !== 0) { updateSpdRing(); return; }
   spdTimeLeft--;
   const el = document.getElementById('spd-time');
   const ring = document.getElementById('spd-ring');
-  if (!el || !ring) { clearInterval(spdTimer); return; }
+  if (!el || !ring) { clearInterval(spdTimer); spdTicks = 0; return; }
   el.textContent = spdTimeLeft;
   updateSpdRing();
   if (spdTimeLeft <= 3) { ring.style.stroke = 'var(--wrong)'; el.style.color = 'var(--wrong)'; }
   else if (spdTimeLeft <= 6) { ring.style.stroke = 'var(--hint)'; el.style.color = 'var(--hint)'; }
   if (spdTimeLeft <= 0) {
-    clearInterval(spdTimer);
-    spdStreak = 0;
+    clearInterval(spdTimer); spdTicks = 0; spdStreak = 0;
     const item = SPD_ITEMS[spdIdx];
     showToast(`⏱ Time! Answer: ${item.word.toUpperCase()}`, 'wrong');
     const inp = document.getElementById('spd-input');
@@ -3150,29 +3045,25 @@ function spdTick() {
 function updateSpdRing() {
   const ring = document.getElementById('spd-ring');
   if (!ring) return;
-  const pct = spdTimeLeft / SPD_TIME;
   const circ = 2 * Math.PI * 35;
-  ring.style.strokeDashoffset = circ * (1 - pct);
+  ring.style.strokeDashoffset = circ * (1 - spdTimeLeft / SPD_TIME);
 }
 
 function spdCheckInput(inp, answer) {
   const val = inp.value.trim().toLowerCase();
   if (val === answer.toLowerCase()) {
-    clearInterval(spdTimer);
-    inp.classList.add('correct-flash');
-    inp.disabled = true;
-    spdScore++;
-    spdStreak++;
+    clearInterval(spdTimer); spdTicks = 0;
+    inp.classList.add('correct-flash'); inp.disabled = true;
+    spdScore++; spdStreak++;
     document.getElementById('spd-score').textContent = spdScore;
-    const bonus = spdTimeLeft >= 8 ? ' ⚡ Fast!' : '';
-    showToast('✅ ' + answer.toUpperCase() + '!' + bonus, 'correct');
+    updateLiveBadge('spd-score', spdScore, SPD_ITEMS.length);
+    showToast('✅ ' + answer.toUpperCase() + (spdTimeLeft >= 8 ? ' ⚡ Fast!' : '!'), 'correct');
     setTimeout(() => { spdIdx++; renderSpeed(); }, 1200);
   }
 }
 
 function spdSkip() {
-  clearInterval(spdTimer);
-  spdStreak = 0;
+  clearInterval(spdTimer); spdTicks = 0; spdStreak = 0;
   const item = SPD_ITEMS[spdIdx];
   showToast(`Skipped — answer was: ${item.word.toUpperCase()}`, 'hint');
   spdIdx++;
@@ -3183,19 +3074,37 @@ function spdSkip() {
 // SENTENCE BUILDER
 // =============================================
 const SB_SENTENCES = [
-  { word: 'biome', sentence: 'A biome is a large area defined by its climate plants and animals', keyWord: 'biome' },
-  { word: 'abiotic', sentence: 'Sunlight and water are abiotic factors in any ecosystem', keyWord: 'abiotic' },
-  { word: 'biodiversity', sentence: 'High biodiversity helps an ecosystem recover from disturbances', keyWord: 'biodiversity' },
-  { word: 'latitude', sentence: 'Latitude determines the temperature zones found across Earth', keyWord: 'latitude' },
-  { word: 'permafrost', sentence: 'Permafrost is soil that stays frozen for at least two years', keyWord: 'permafrost' },
-  { word: 'plankton', sentence: 'Tiny plankton form the base of most marine food webs', keyWord: 'plankton' },
-  { word: 'fragmentation', sentence: 'Habitat fragmentation breaks large ecosystems into isolated patches', keyWord: 'fragmentation' },
-  { word: 'nocturnal', sentence: 'Many desert animals are nocturnal to avoid the extreme daytime heat', keyWord: 'nocturnal' },
+  { word: 'biome',         sentence: 'Biomes are large regions defined by their climate plants and animals' },
+  { word: 'biome',         sentence: 'Scientists study each biome by looking at its climate and species' },
+  { word: 'abiotic',       sentence: 'Sunlight and water are abiotic factors in any ecosystem' },
+  { word: 'abiotic',       sentence: 'Temperature and wind speed are examples of abiotic factors' },
+  { word: 'biodiversity',  sentence: 'High biodiversity helps an ecosystem recover from disturbances' },
+  { word: 'biodiversity',  sentence: 'Rainforests have greater biodiversity than almost any other biome' },
+  { word: 'latitude',      sentence: 'Latitude determines the temperature zones found across Earth' },
+  { word: 'latitude',      sentence: 'Higher latitude regions receive less direct sunlight from the sun' },
+  { word: 'permafrost',    sentence: 'Permafrost is soil that stays frozen for at least two years' },
+  { word: 'permafrost',    sentence: 'Melting permafrost releases carbon into the atmosphere each year' },
+  { word: 'plankton',      sentence: 'Tiny plankton form the base of most marine food webs' },
+  { word: 'plankton',      sentence: 'Ocean plankton produce much of the oxygen we breathe each day' },
+  { word: 'fragmentation', sentence: 'Habitat fragmentation breaks large ecosystems into isolated patches' },
+  { word: 'fragmentation', sentence: 'Roads and buildings cause fragmentation of wildlife habitats' },
+  { word: 'nocturnal',     sentence: 'Many desert animals are nocturnal to avoid the extreme daytime heat' },
+  { word: 'nocturnal',     sentence: 'Owls are nocturnal hunters that sleep during daylight hours' },
+  { word: 'savanna',       sentence: 'The savanna biome has tall grasses and very few scattered trees' },
+  { word: 'carbon',        sentence: 'Frozen tundra stores large amounts of carbon below the surface' },
+  { word: 'stewardship',   sentence: 'Environmental stewardship means protecting natural resources for future generations' },
+  { word: 'biotic',        sentence: 'Plants and animals in an ecosystem are called biotic factors' },
 ];
-const SB_SET = shuffle([...SB_SENTENCES]).slice(0, 8);
+let SB_SET = [];
 let sbIdx = 0, sbScore = 0, sbPlaced = [], sbWrong = 0;
 
 function buildSentenceBuilder() {
+  // Pick 8 sentences ensuring each vocab word appears at most once
+  const seen = new Set();
+  SB_SET = shuffle([...SB_SENTENCES]).filter(s => {
+    if (seen.has(s.word)) return false;
+    seen.add(s.word); return true;
+  }).slice(0, 8);
   sbIdx = 0; sbScore = 0;
   document.getElementById('sb-score').textContent = '0';
   document.getElementById('sb-progress').style.width = '0%';
@@ -3217,9 +3126,7 @@ function renderSB() {
   document.getElementById('sb-progress').style.width = (sbIdx/SB_SET.length*100)+'%';
   const item = SB_SET[sbIdx];
   const words = shuffle(item.sentence.split(' '));
-  sbPlaced = [];
-  sbWrong = 0;
-
+  sbPlaced = []; sbWrong = 0;
   document.getElementById('sb-body').innerHTML = `
     <div class="sb-card">
       <div class="quiz-q-num">Sentence ${sbIdx+1} of ${SB_SET.length}</div>
@@ -3229,7 +3136,7 @@ function renderSB() {
       <div class="sb-drop-area" id="sb-droparea"></div>
       <div class="sb-section-label">Word bank:</div>
       <div class="sb-bank" id="sb-bank">
-        ${words.map((w,i) => `<div class="sb-tile" id="sb-tile-${i}" data-idx="${i}" data-word="${w}" onclick="sbPick(${i},'${w.replace(/'/g,"\\'")}' )">${w}</div>`).join('')}
+        ${words.map((w,i) => '<div class="sb-tile" id="sb-tile-'+i+'" data-word="'+w+'" onclick="sbPick('+i+')">'+w+'</div>').join('')}
       </div>
       <div id="sb-hint" class="quiz-hint" style="display:none"></div>
       <div style="display:flex;gap:10px;flex-wrap:wrap;">
@@ -3239,25 +3146,23 @@ function renderSB() {
     </div>`;
 }
 
-function sbPick(idx, word) {
+function sbPick(idx) {
   const tile = document.getElementById('sb-tile-' + idx);
   if (!tile || tile.classList.contains('disabled')) return;
-  tile.classList.add('disabled');
-  sbPlaced.push({ idx, word });
+  const word = tile.dataset.word;  // read from data attribute - avoids all escaping issues
+  tile.classList.add('disabled'); sbPlaced.push({ idx, word });
   const dropArea = document.getElementById('sb-droparea');
   const placed = document.createElement('div');
-  placed.className = 'sb-tile placed';
-  placed.textContent = word;
+  placed.className = 'sb-tile placed'; placed.textContent = word;
   placed.dataset.placeIdx = sbPlaced.length - 1;
-  placed.onclick = () => sbRemove(placed, idx, sbPlaced.length-1);
+  placed.onclick = () => sbRemove(placed, idx, sbPlaced.length - 1);
   dropArea.appendChild(placed);
 }
 
 function sbRemove(placedEl, tileIdx, placeIdx) {
   placedEl.remove();
   sbPlaced = sbPlaced.filter((_,i) => i !== placeIdx);
-  // Refresh place indices on remaining
-  document.querySelectorAll('#sb-droparea .sb-tile').forEach((el, i) => el.dataset.placeIdx = i);
+  document.querySelectorAll('#sb-droparea .sb-tile').forEach((el,i) => el.dataset.placeIdx = i);
   const tile = document.getElementById('sb-tile-' + tileIdx);
   if (tile) tile.classList.remove('disabled');
 }
@@ -3270,12 +3175,12 @@ function sbClear() {
 
 function sbCheck() {
   const item = SB_SET[sbIdx];
-  const attempt = sbPlaced.map(p => p.word).join(' ').toLowerCase().replace(/[.,!?]/g,'');
+  const attempt = sbPlaced.map(p=>p.word).join(' ').toLowerCase().replace(/[.,!?]/g,'');
   const correct  = item.sentence.toLowerCase().replace(/[.,!?]/g,'');
   if (attempt === correct) {
     document.querySelectorAll('#sb-droparea .sb-tile').forEach(t => t.classList.add('correct-tile'));
-    sbScore++;
-    document.getElementById('sb-score').textContent = sbScore;
+    sbScore++; document.getElementById('sb-score').textContent = sbScore;
+    updateLiveBadge('sb-score', sbScore, SB_SET.length);
     showToast('✅ Perfect sentence!', 'correct');
     setTimeout(() => { sbIdx++; renderSB(); }, 1500);
   } else {
@@ -3291,104 +3196,71 @@ function sbCheck() {
 }
 
 // =============================================
-// MISSION MAP (Original Worksheets)
+// MISSION MAP
 // =============================================
 const MM_PAGE1 = {
   questions: [
-    { num: 1,  text: 'A(n) ___ is a large geographical area characterized by its specific climate, plants, and animals, rather than just a single type of organism.', answer: 'biome' },
-    { num: 2,  text: 'Non-living parts of an environment, such as sunlight and water, are called ___ factors, and they determine which organisms can survive in a specific biome.', answer: 'abiotic' },
-    { num: 3,  text: 'The term used to describe the living components of an environment, like plants and bacteria, is ___.', answer: 'biotic' },
-    { num: 4,  text: 'The two main climate factors that interact to determine what kind of biome will develop in a specific region are ___ and ___.', answer: 'temperature', answer2: 'precipitation', dual: true },
-    { num: 5,  text: 'All the ___ organisms in an ecosystem, including microorganisms and animals, are considered biotic factors.', answer: 'living' },
-    { num: 6,  text: 'The variety of life in a particular habitat or ecosystem is known as ___, which is essential for helping an ecosystem recover from disturbances.', answer: 'biodiversity' },
-    { num: 7,  text: 'The primary factor that determines the different temperature zones on Earth is ___, or the distance north or south of the equator.', answer: 'latitude' },
-    { num: 8,  text: 'Climate change can cause a population ___ in species like leaf-cutter ants because the vegetation they rely on begins to change.', answer: 'decline' },
-    { num: 9,  text: 'When wildfires destroy large areas of rainforest, the ecosystem usually declines because many unique ___ are lost.', answer: 'habitats' },
-    { num: 10, text: 'If temperatures continue to rise in the desert, the Saguaro cacti population may face ___ growth and a decrease in numbers.', answer: 'reduced' },
+    { num:1,  text:'A(n) ___ is a large geographical area characterized by its specific climate, plants, and animals, rather than just a single type of organism.', answer:'biome' },
+    { num:2,  text:'Non-living parts of an environment, such as sunlight and water, are called ___ factors, and they determine which organisms can survive in a specific biome.', answer:'abiotic' },
+    { num:3,  text:'The term used to describe the living components of an environment, like plants and bacteria, is ___.', answer:'biotic' },
+    { num:4,  text:'The two main climate factors that interact to determine what kind of biome will develop in a specific region are ___ and ___.', answer:'temperature', answer2:'precipitation', dual:true },
+    { num:5,  text:'All the ___ organisms in an ecosystem, including microorganisms and animals, are considered biotic factors.', answer:'living' },
+    { num:6,  text:'The variety of life in a particular habitat or ecosystem is known as ___, which is essential for helping an ecosystem recover from disturbances.', answer:'biodiversity' },
+    { num:7,  text:'The primary factor that determines the different temperature zones on Earth is ___, or the distance north or south of the equator.', answer:'latitude' },
+    { num:8,  text:'Climate change can cause a population ___ in species like leaf-cutter ants because the vegetation they rely on begins to change.', answer:'decline' },
+    { num:9,  text:'When wildfires destroy large areas of rainforest, the ecosystem usually declines because many unique ___ are lost.', answer:'habitats' },
+    { num:10, text:'If temperatures continue to rise in the desert, the Saguaro cacti population may face ___ growth and a decrease in numbers.', answer:'reduced' },
   ],
   bank: ['biodiversity','decline','reduced','living','biotic','biome','abiotic','latitude','habitats','temperature','precipitation'],
 };
-
 const MM_PAGE2 = {
   questions: [
-    { num: 11, text: 'Some desert plants use a special type of photosynthesis called ___ where they only open their stomata at night to save water.', answer: 'CAM' },
-    { num: 12, text: 'To avoid the extreme heat of the day and conserve water, many desert animals have a(n) ___ lifestyle, meaning they are active at night.', answer: 'nocturnal' },
-    { num: 13, text: 'Soil that stays completely frozen for at least two years in a row is called ___.', answer: 'permafrost' },
-    { num: 14, text: 'When permafrost thaws, it contributes to climate change by releasing stored ___ into the atmosphere as greenhouse gases.', answer: 'Carbon' },
-    { num: 15, text: 'Tiny organisms called ___ form the base of most marine food webs and provide energy for larger ocean animals.', answer: 'plankton' },
-    { num: 16, text: 'Marine animals are often harmed by ___ pollution through accidental ingestion or becoming entangled in debris.', answer: 'plastic' },
-    { num: 17, text: 'A(n) ___ is a biome characterized by vast grasslands with only a few scattered trees.', answer: 'Savanna' },
-    { num: 18, text: 'In a savanna, ___ animals help maintain the ecosystem by eating young trees, which prevents the area from turning into a thick forest.', answer: 'grazing' },
-    { num: 19, text: 'The process of breaking up large, continuous habitats into smaller, isolated patches is known as habitat ___.', answer: 'fragmentation' },
-    { num: 20, text: 'Practicing environmental ___ means taking responsible care of our natural resources to ensure biomes continue to provide clean air and water.', answer: 'stewardship' },
+    { num:11, text:'Some desert plants use a special type of photosynthesis called ___ where they only open their stomata at night to save water.', answer:'CAM' },
+    { num:12, text:'To avoid the extreme heat of the day and conserve water, many desert animals have a(n) ___ lifestyle, meaning they are active at night.', answer:'nocturnal' },
+    { num:13, text:'Soil that stays completely frozen for at least two years in a row is called ___.', answer:'permafrost' },
+    { num:14, text:'When permafrost thaws, it contributes to climate change by releasing stored ___ into the atmosphere as greenhouse gases.', answer:'Carbon' },
+    { num:15, text:'Tiny organisms called ___ form the base of most marine food webs and provide energy for larger ocean animals.', answer:'plankton' },
+    { num:16, text:'Marine animals are often harmed by ___ pollution through accidental ingestion or becoming entangled in debris.', answer:'plastic' },
+    { num:17, text:'A(n) ___ is a biome characterized by vast grasslands with only a few scattered trees.', answer:'Savanna' },
+    { num:18, text:'In a savanna, ___ animals help maintain the ecosystem by eating young trees, which prevents the area from turning into a thick forest.', answer:'grazing' },
+    { num:19, text:'The process of breaking up large, continuous habitats into smaller, isolated patches is known as habitat ___.', answer:'fragmentation' },
+    { num:20, text:'Practicing environmental ___ means taking responsible care of our natural resources to ensure biomes continue to provide clean air and water.', answer:'stewardship' },
   ],
   bank: ['stewardship','plankton','CAM','nocturnal','plastic','fragmentation','grazing','Savanna','permafrost','Carbon'],
 };
 
-let mmDragWord = [null, null]; // per page
-let mmSelected = [null, null]; // for click-to-place
-let mmAnswers  = [{}, {}];     // placed answers per page
+let mmDragWord = [null, null], mmSelected = [null, null], mmAnswers = [{}, {}];
 
 function buildMissionMap(page) {
   const p = page - 1;
-  mmAnswers[p] = {};
-  mmDragWord[p] = null;
-  mmSelected[p] = null;
-
+  mmAnswers[p] = {}; mmDragWord[p] = null; mmSelected[p] = null;
   const data = page === 1 ? MM_PAGE1 : MM_PAGE2;
   const prefix = `mm${page}`;
-
   document.getElementById(`${prefix}-score`).textContent = '0';
   document.getElementById(`${prefix}-progress`).style.width = '0%';
 
-  // Render questions
   const qEl = document.getElementById(`${prefix}-questions`);
   qEl.innerHTML = '';
   data.questions.forEach((q, qi) => {
     const div = document.createElement('div');
-    div.className = 'dnd-question';
-    div.style.marginBottom = '12px';
-
+    div.className = 'dnd-question'; div.style.marginBottom = '12px';
     let html = `<span style="color:var(--text3);font-size:12px;font-weight:700;letter-spacing:1px;">${q.num}.</span> `;
-
     if (q.dual) {
-      // Replace the two blanks
       html += q.text
-        .replace('___', `<span class="drop-zone" id="${prefix}-dz-${qi}a" data-qi="${qi}" data-slot="a"
-          ondragover="event.preventDefault();this.classList.add('drag-over')"
-          ondragleave="this.classList.remove('drag-over')"
-          ondrop="mmDrop(event,${page},${qi},'a')"
-          onclick="mmClickDrop(${page},${qi},'a')"
-          >drop here</span>`)
-        .replace('___', `<span class="drop-zone" id="${prefix}-dz-${qi}b" data-qi="${qi}" data-slot="b"
-          ondragover="event.preventDefault();this.classList.add('drag-over')"
-          ondragleave="this.classList.remove('drag-over')"
-          ondrop="mmDrop(event,${page},${qi},'b')"
-          onclick="mmClickDrop(${page},${qi},'b')"
-          >drop here</span>`);
+        .replace('___', `<span class="drop-zone" id="${prefix}-dz-${qi}a" ondragover="event.preventDefault();this.classList.add('drag-over')" ondragleave="this.classList.remove('drag-over')" ondrop="mmDrop(event,${page},${qi},'a')" onclick="mmClickDrop(${page},${qi},'a')">drop here</span>`)
+        .replace('___', `<span class="drop-zone" id="${prefix}-dz-${qi}b" ondragover="event.preventDefault();this.classList.add('drag-over')" ondragleave="this.classList.remove('drag-over')" ondrop="mmDrop(event,${page},${qi},'b')" onclick="mmClickDrop(${page},${qi},'b')">drop here</span>`);
     } else {
-      html += q.text.replace('___', `<span class="drop-zone" id="${prefix}-dz-${qi}a" data-qi="${qi}" data-slot="a"
-        ondragover="event.preventDefault();this.classList.add('drag-over')"
-        ondragleave="this.classList.remove('drag-over')"
-        ondrop="mmDrop(event,${page},${qi},'a')"
-        onclick="mmClickDrop(${page},${qi},'a')"
-        >drop here</span>`);
+      html += q.text.replace('___', `<span class="drop-zone" id="${prefix}-dz-${qi}a" ondragover="event.preventDefault();this.classList.add('drag-over')" ondragleave="this.classList.remove('drag-over')" ondrop="mmDrop(event,${page},${qi},'a')" onclick="mmClickDrop(${page},${qi},'a')">drop here</span>`);
     }
-
-    div.innerHTML = html;
-    qEl.appendChild(div);
+    div.innerHTML = html; qEl.appendChild(div);
   });
 
-  // Render word bank
   const bankEl = document.getElementById(`${prefix}-bank`);
   bankEl.innerHTML = '';
   data.bank.forEach(word => {
     const chip = document.createElement('div');
-    chip.className = 'drag-word';
-    chip.textContent = word;
-    chip.dataset.word = word;
-    chip.id = `${prefix}-bw-${word}`;
-    chip.draggable = true;
+    chip.className = 'drag-word'; chip.textContent = word; chip.dataset.word = word;
+    chip.id = `${prefix}-bw-${word}`; chip.draggable = true;
     chip.ondragstart = () => { mmDragWord[p] = word; chip.classList.add('dragging'); };
     chip.ondragend   = () => chip.classList.remove('dragging');
     chip.onclick = () => mmSelectWord(page, word);
@@ -3397,8 +3269,7 @@ function buildMissionMap(page) {
 }
 
 function mmSelectWord(page, word) {
-  const p = page - 1;
-  const prefix = `mm${page}`;
+  const p = page - 1, prefix = `mm${page}`;
   mmSelected[p] = word;
   document.querySelectorAll(`#${prefix}-bank .drag-word`).forEach(el => el.style.outline = '');
   const el = document.getElementById(`${prefix}-bw-${word}`);
@@ -3407,54 +3278,36 @@ function mmSelectWord(page, word) {
 }
 
 function mmClickDrop(page, qi, slot) {
-  const p = page - 1;
+  const p = page - 1, prefix = `mm${page}`;
   if (!mmSelected[p]) return;
   mmPlace(page, qi, slot, mmSelected[p]);
-  const prefix = `mm${page}`;
   document.querySelectorAll(`#${prefix}-bank .drag-word`).forEach(el => el.style.outline = '');
   mmSelected[p] = null;
 }
 
 function mmDrop(e, page, qi, slot) {
   e.preventDefault();
-  const p = page - 1;
-  const prefix = `mm${page}`;
-  const dzId = `${prefix}-dz-${qi}${slot}`;
-  document.getElementById(dzId)?.classList.remove('drag-over');
+  const p = page - 1, prefix = `mm${page}`;
+  document.getElementById(`${prefix}-dz-${qi}${slot}`)?.classList.remove('drag-over');
   mmPlace(page, qi, slot, mmDragWord[p]);
 }
 
 function mmPlace(page, qi, slot, word) {
   if (!word) return;
-  const p = page - 1;
-  const prefix = `mm${page}`;
-  const dzId = `${prefix}-dz-${qi}${slot}`;
-  const dz = document.getElementById(dzId);
+  const p = page - 1, prefix = `mm${page}`;
+  const dz = document.getElementById(`${prefix}-dz-${qi}${slot}`);
   if (!dz || dz.classList.contains('correct-fill')) return;
-
-  // If there was a previous word in this slot, return it to bank
   const prevWord = mmAnswers[p][`${qi}-${slot}`];
-  if (prevWord) {
-    const prevChip = document.getElementById(`${prefix}-bw-${prevWord}`);
-    if (prevChip) prevChip.classList.remove('used');
-  }
-
-  dz.textContent = word;
-  dz.classList.add('filled');
-  dz.classList.remove('wrong-fill');
+  if (prevWord) { const prev = document.getElementById(`${prefix}-bw-${prevWord}`); if (prev) prev.classList.remove('used'); }
+  dz.textContent = word; dz.classList.add('filled'); dz.classList.remove('wrong-fill');
   mmAnswers[p][`${qi}-${slot}`] = word;
-
   const chip = document.getElementById(`${prefix}-bw-${word}`);
   if (chip) chip.classList.add('used');
 }
 
 function checkMissionMap(page) {
-  const p = page - 1;
-  const data = page === 1 ? MM_PAGE1 : MM_PAGE2;
-  const prefix = `mm${page}`;
-  let correct = 0;
-  let total = 0;
-
+  const p = page - 1, data = page === 1 ? MM_PAGE1 : MM_PAGE2, prefix = `mm${page}`;
+  let correct = 0, total = 0;
   data.questions.forEach((q, qi) => {
     const slots = q.dual ? ['a','b'] : ['a'];
     slots.forEach(slot => {
@@ -3462,67 +3315,36 @@ function checkMissionMap(page) {
       const dz = document.getElementById(`${prefix}-dz-${qi}${slot}`);
       if (!dz) return;
       if (dz.classList.contains('correct-fill')) { correct++; return; }
-
       const ans = mmAnswers[p][`${qi}-${slot}`] || '';
       const expected = slot === 'b' ? (q.answer2 || '') : q.answer;
-
       if (ans.toLowerCase() === expected.toLowerCase()) {
-        // Correct!
-        dz.classList.add('correct-fill');
-        dz.classList.remove('wrong-fill','filled');
-        // Remove any existing hint for this slot
+        dz.classList.add('correct-fill'); dz.classList.remove('wrong-fill','filled');
         const oldHint = document.getElementById(`${prefix}-hint-${qi}-${slot}`);
-        if (oldHint) oldHint.remove();
-        correct++;
+        if (oldHint) oldHint.remove(); correct++;
       } else {
-        // Wrong — show/update hint below the question
-        dz.classList.add('wrong-fill');
-        dz.style.animation = 'shake 0.4s ease';
-        setTimeout(() => { dz.style.animation = ''; }, 400);
-
-        // Return wrong word to bank
+        dz.style.animation = 'shake 0.4s ease'; setTimeout(() => { dz.style.animation = ''; }, 400);
         const wrongWord = mmAnswers[p][`${qi}-${slot}`];
-        if (wrongWord) {
-          const chip = document.getElementById(`${prefix}-bw-${wrongWord}`);
-          if (chip) chip.classList.remove('used');
-        }
+        if (wrongWord) { const chip = document.getElementById(`${prefix}-bw-${wrongWord}`); if (chip) chip.classList.remove('used'); }
         delete mmAnswers[p][`${qi}-${slot}`];
-        dz.textContent = 'drop here';
-        dz.classList.remove('wrong-fill','filled');
-
-        // Show or update hint
+        dz.textContent = 'drop here'; dz.classList.remove('wrong-fill','filled');
         const hintId = `${prefix}-hint-${qi}-${slot}`;
         let hintEl = document.getElementById(hintId);
-        if (!hintEl) {
-          hintEl = document.createElement('div');
-          hintEl.id = hintId;
-          hintEl.className = 'quiz-hint';
-          hintEl.style.marginTop = '8px';
-          dz.closest('.dnd-question').appendChild(hintEl);
-        }
-        const firstLetter = expected[0].toUpperCase();
-        const letterCount = expected.length;
-        hintEl.innerHTML = `🦎 <strong>Hint:</strong> The answer starts with <strong style="color:var(--gold)">"${firstLetter}"</strong> and has ${letterCount} letters. Think: <em>${data.questions[qi].text.replace('___','______').substring(0,60)}...</em>`;
+        if (!hintEl) { hintEl = document.createElement('div'); hintEl.id = hintId; hintEl.className = 'quiz-hint'; hintEl.style.marginTop = '8px'; dz.closest('.dnd-question').appendChild(hintEl); }
+        hintEl.innerHTML = `🦎 <strong>Hint:</strong> Starts with <strong style="color:var(--gold)">"${expected[0].toUpperCase()}"</strong> — ${expected.length} letters.`;
       }
     });
   });
-
   document.getElementById(`${prefix}-score`).textContent = correct;
   document.getElementById(`${prefix}-progress`).style.width = (correct/total*100)+'%';
   storeScore(`missionmap${page}`, correct, total);
-
   if (correct === total) {
-    // All correct — show completion banner with Classkick instructions
     const banner = document.getElementById(`${prefix}-complete-banner`);
     banner.style.display = 'block';
     banner.innerHTML = `
-      <div style="background:linear-gradient(135deg,#1a3a10,#0f2a10);border:2px solid var(--gold);border-radius:16px;padding:24px;text-align:center;animation:unlockPulse 0.6s ease;">
+      <div style="background:linear-gradient(135deg,#1a3a10,#0f2a10);border:2px solid var(--gold);border-radius:16px;padding:24px;text-align:center;">
         <div style="font-size:52px;margin-bottom:10px;">🏆</div>
-        <div style="font-family:'Cinzel Decorative',cursive;font-size:20px;color:var(--gold);margin-bottom:10px;text-shadow:0 0 20px rgba(240,192,64,0.4);">Mission Map Complete!</div>
-        <div style="font-size:14px;color:var(--text2);line-height:1.7;margin-bottom:20px;">
-          Every answer is correct — great work, Explorer! 🌿<br>
-          Now it's time to transfer your answers to <strong style="color:var(--accent2);">Classkick</strong>.
-        </div>
+        <div style="font-family:'Cinzel Decorative',cursive;font-size:20px;color:var(--gold);margin-bottom:10px;">Mission Map Complete!</div>
+        <div style="font-size:14px;color:var(--text2);line-height:1.7;margin-bottom:20px;">Every answer is correct — great work, Explorer! 🌿<br>Now transfer your answers to <strong style="color:var(--accent2);">Classkick</strong>.</div>
         <div style="background:rgba(0,0,0,0.3);border:1px solid var(--green3);border-radius:12px;padding:16px;text-align:left;margin-bottom:16px;">
           <div style="font-family:'Special Elite',serif;color:var(--gold);font-size:12px;letter-spacing:2px;text-transform:uppercase;margin-bottom:10px;">📋 How to copy to Classkick:</div>
           <ol style="font-size:13px;color:var(--text2);line-height:2;padding-left:18px;">
@@ -3532,24 +3354,19 @@ function checkMissionMap(page) {
             <li>Double-check each answer matches before submitting! ✅</li>
           </ol>
         </div>
-        <div style="font-size:12px;color:var(--text3);font-style:italic;">
-          💡 Remember: These vocabulary words will appear closely on your unit test — knowing them here means being ready on test day!
-        </div>
+        <div style="font-size:12px;color:var(--text3);font-style:italic;">💡 These vocabulary words will appear closely on your unit test!</div>
       </div>`;
-    showToast('🏆 Perfect Score! Check the instructions below!', 'correct');
-    // Scroll banner into view
+    showToast('🏆 Perfect Score!', 'correct');
     setTimeout(() => banner.scrollIntoView({behavior:'smooth', block:'nearest'}), 300);
   } else {
     const left = total - correct;
-    showToast(`${correct}/${total} correct — ${left} hint${left !== 1 ? 's' : ''} added below ↓`, correct >= total/2 ? 'hint' : 'wrong');
+    showToast(`${correct}/${total} correct — ${left} hint${left!==1?'s':''} added below ↓`, correct >= total/2 ? 'hint' : 'wrong');
   }
 }
 
 function resetMissionMap(page) {
   const p = page - 1;
-  mmAnswers[p] = {};
-  mmSelected[p] = null;
-  mmDragWord[p] = null;
+  mmAnswers[p] = {}; mmSelected[p] = null; mmDragWord[p] = null;
   const banner = document.getElementById(`mm${page}-complete-banner`);
   if (banner) { banner.style.display = 'none'; banner.innerHTML = ''; }
   buildMissionMap(page);
