@@ -1044,7 +1044,7 @@ body {
     </div>
 
     <div class="speech-bubble" id="gecko-speech">
-      "Welcome, Explorer! I'm Professor Gecko 🦎 — play any game to practice Unit 6 vocabulary! Get <strong style="color:var(--gold)">★★☆ or better on 3 games</strong> to unlock Mission Map Page 1, then <strong style="color:var(--gold)">3 more games</strong> to unlock Page 2. <strong style="color:var(--accent2)">Your progress saves automatically</strong> — even if you close the browser! 🌿"
+      "Welcome, Explorer! I'm Professor Gecko 🦎 — play any game to practice Unit 6 vocabulary! Get <strong style="color:var(--gold)">★★☆ or better on 3 games</strong> to unlock Mission Map Page 1, then <strong style="color:var(--gold)">6 games total</strong> to unlock Page 2. <strong style="color:var(--accent2)">Your progress saves automatically</strong> — even if you close the browser! 🌿"
     </div>
 
     <div id="joke-panel" style="background:var(--panel2);border:1px solid var(--green3);border-radius:12px;padding:12px 18px;margin-bottom:16px;display:flex;gap:12px;align-items:center;cursor:pointer;" onclick="nextJoke()" title="Click for another joke!">
@@ -1140,7 +1140,7 @@ body {
         <span class="mission-stars" id="stars-missionmap2">☆☆☆</span>
         <span class="mission-icon" id="mm2-icon">🔒</span>
         <div class="mission-title" style="color:var(--gold2);">Mission Map — Page 2</div>
-        <div class="mission-desc" id="mm2-desc">Complete <strong style="color:var(--gold);">any 3 more games with ★★☆ or better</strong> to unlock the second worksheet!</div>
+        <div class="mission-desc" id="mm2-desc">Complete <strong style="color:var(--gold);">any 6 games total with ★★☆ or better</strong> to unlock the second worksheet!</div>
         <div class="unlock-progress" id="mm2-unlock-bar">
           <div class="unlock-fill" id="mm2-unlock-fill" style="width:0%"></div>
         </div>
@@ -1484,7 +1484,7 @@ const V = VOCAB_ALL.slice(0, 20);
 // =============================================
 const UNLOCK_GAMES = ['wordsearch','crossword','matching','dragdrop','quiz','scramble','oddoneout','memorymatch','speedround','sentencebuilder'];
 const MM1_THRESHOLD = 3;
-const MM2_THRESHOLD = 3;
+const MM2_THRESHOLD = 6;
 let mm1Unlocked = false, mm2Unlocked = false;
 
 // =============================================
